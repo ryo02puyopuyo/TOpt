@@ -15,17 +15,85 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+// ステップ1: M4RI を他の全て（C++標準ライブラリやプロジェクトヘッダ）よりも先にインクルードする
+extern "C" {
+    #include <m4ri/m4ri.h>
+}
 
-#include "GateSynthesisMatrix.h"
-
+// ステップ2: C++標準ライブラリ
 #include <iostream>
-using namespace std;
-
 #include <cmath>
+// (他にもあればここに追加)
+
+// ステップ3: プロジェクト固有のヘッダ
+#include "GateSynthesisMatrix.h"
 #include "LCL/LCL_Mat_GF2.h"
 #include "LCL/Core/LCL_ConsoleOut.h"
 #include "LCL/LCL_Int.h"
+
+// ステップ4: using namespace は全ての #include の「後」に置く
+using namespace std;
 using namespace LCL_ConsoleOut;
+
+// ★★★ 以下を追加 (M4RIラッパー関数の「定義」) ★★★
+/**
+ * LCL_Mat_GF2::nullspace と互換性のある M4RI ラッパー
+ * * 入力: A (bool**, n x m)
+ * 出力: out (bool**, m x d) - 零空間の基底ベクトル（列）
+ * out_d (int&) - 零空間の次元 d
+ */
+bool** M4RI_wrapper_for_nullspace(bool const** A, int n, int m, int& out_d) {
+    cout << "in m4ri" <<endl;
+    
+    // --- ステップ1: bool** (低速) から mzd_t* (M4RI高速) へデータ変換 ---
+    mzd_t* A_m4ri = mzd_init(n, m); 
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (A[i][j]) {
+                mzd_write_bit(A_m4ri, i, j, 1);
+            }
+        }
+    }
+
+    // --- ステップ2: M4RIによる nullspace 計算 ---
+    // Ax = 0 (右零空間) を計算したい。
+    // M4RIの mzd_kernel_left は xA = 0 (左零空間) を計算する。
+    // よって、(A^T) の「左零空間」を計算すれば、それが A の「右零空間」になる。
+
+    // 2a. A を転置 (A^T を作成)
+    mzd_t* AT_m4ri = mzd_transpose(NULL, A_m4ri);
+    mzd_free(A_m4ri); // A_m4ri はもう不要
+
+    // 2b. M4RIの高速な nullspace (kernel) 関数を呼び出す
+    mzd_t* NS_left_of_AT = mzd_kernel_left_pluq(AT_m4ri, 0);
+    mzd_free(AT_m4ri); // 転置行列も不要
+
+    // --- ステップ3: mzd_t* (M4RI高速) から bool** (低速) へデータ変換 ---
+    int d = NS_left_of_AT->nrows;
+    out_d = d; // 出力パラメータに次元 d を設定
+
+    if (d == 0) {
+        mzd_free(NS_left_of_AT);
+        return NULL; // 零空間は自明
+    }
+
+    // 元の LCL_Mat_GF2 は (m x d) 行列 (基底ベクトルが列) を期待しているため、
+    // 転置しながら bool** にコピーする
+    bool** out = LCL_Mat_GF2::construct(m, d); // (LCLの関数でメモリ確保)
+
+    for (int i_d = 0; i_d < d; ++i_d) {       // M4RIの各「行」i_d (基底ベクトル)
+        for (int j_m = 0; j_m < m; ++j_m) { // そのベクトルの各要素 j_m
+            
+            if (mzd_read_bit(NS_left_of_AT, i_d, j_m)) {
+                out[j_m][i_d] = 1; // 転置して (j, i) に書き込む
+            }
+        }
+    }
+    
+    mzd_free(NS_left_of_AT); // M4RIオブジェクトを解放
+    return out;
+}
+// ★★★ 追加ここまで ★★★
 
 bool** GateSynthesisMatrix::from_signature(bool*** S, int n, int& mp) {
     int N = (int)pow(2,n);
@@ -197,7 +265,8 @@ void GateSynthesisMatrix::LempelX(bool** A, int n, int m, int& omp) {
                 }
                 int d=-1;
                 int m_NS = this_m;
-                bool** NS = LCL_Mat_GF2::nullspace((const bool**)A_ext,n_ext,m_NS,d);
+                //bool** NS = LCL_Mat_GF2::nullspace((const bool**)A_ext,n_ext,m_NS,d);
+                bool** NS = ::M4RI_wrapper_for_nullspace((const bool**)A_ext,n_ext,m_NS,d);
                 found = 0;
                 int nsv = -1;
                 for(int h = 0; (!found)&&(h < d); h++) {

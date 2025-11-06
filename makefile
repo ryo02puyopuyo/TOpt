@@ -1,8 +1,8 @@
 CC      = g++
 LFLAGS  = -L. 
-LIBS    = -lm
+LIBS    = -lm -lm4ri
 CFLAGS  = -O3 -std=c++11
-INCS    = -I ./include
+INCS    = -I ./include -I/usr/include/m4ri
 EXEC    = bin/TOpt
 
 SRCS =  BMSparse.cpp BoolMat.cpp Bool_Signature.cpp Complex.cpp CTX_Circuit.cpp GateSigInterface.cpp GateStringSparse.cpp \
