@@ -31,6 +31,10 @@ namespace GateSynthesisMatrix {
     void LempelX2(bool** A, int n, int m, int& mp);
     
     bool** M4RI_wrapper_for_nullspace(bool const** A, int n, int m, int& out_d);
+    static void LempelX2_M4RI(bool** A, int n, int m, int& omp);
+    //static void Chi_M4RI(bool** A, bool** x, int n, int m, mzd_t* Aext); // これが必要
+    static void Chi_M4RI(mzd_t* A, bool** x, int n, int m, mzd_t* Aext);
+    static void LempelX2_M4RI_Hamming(bool** A, int n, int m, int& omp);
 }
 
 #endif // HEADER_GATESYNTHESISMATRIX
