@@ -28,6 +28,8 @@ extern "C" {
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <random>    // random_device, mt19937 用
+#include <algorithm> // shuffle 用
 // (他にもあればここに追加)
 
 // ステップ3: プロジェクト固有のヘッダ
@@ -520,7 +522,7 @@ void GateSynthesisMatrix::LempelX2(bool** A, int n, int m, int& omp) {
         int omp_m4ri = m;
         //時間計測
         start_total = std::chrono::high_resolution_clock::now();
-        LempelX2_M4RI(A_copy, n, m, omp_m4ri);
+        LempelX2_M4RI_DetailedStats(A_copy, n, m, omp_m4ri);
         end_total = std::chrono::high_resolution_clock::now();
         duration_total = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
         std::cout << "Total LempelX2_M4RI time: " << duration_total.count() << " ms" << endl;
@@ -548,9 +550,56 @@ void GateSynthesisMatrix::LempelX2(bool** A, int n, int m, int& omp) {
 
         // メモリ解放
         LCL_Mat_GF2::destruct(A_copy, n, m + 1);
+        //return;
+    }
+    //ランダム＋ビームサーチ版
+    if(true){
+        std::cout << "\n--- Testing randaom Beam Search Version (K=5, N=50) ---" << endl;
+        bool** A_copy = LCL_Mat_GF2::construct(n, m + 1);
+        LCL_Mat_GF2::copy((const bool**)A, n, m, A_copy);
+        
+        int omp_beam = m;
+        // ビーム幅などのパラメータ（必要に応じて引数化してください）
+        int beam_width = 5; 
+
+        start_total = std::chrono::high_resolution_clock::now();
+        
+        // ビームサーチ版の関数を呼び出し
+        GateSynthesisMatrix::LempelX2_M4RI_RandomBeamSearch(A_copy, n, m, omp_beam);
+        
+        end_total = std::chrono::high_resolution_clock::now();
+        duration_total = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+        
+        std::cout << "Total LempelX2_M4RI_randam_BeamSearch time: " << duration_total.count() << " ms" << endl;
+        std::cout << "random_Beam Search result size: " << omp_beam << " columns" << endl;
+
+        LCL_Mat_GF2::destruct(A_copy, n, m + 1);
+    }
+
+    //ハミング距離＋ビームサーチ版
+    if(true){
+        std::cout << "\n--- Testing hammingBeamSearch Version (K=5, N=50) ---" << endl;
+        bool** A_copy = LCL_Mat_GF2::construct(n, m + 1);
+        LCL_Mat_GF2::copy((const bool**)A, n, m, A_copy);
+        
+        int omp_beam = m;
+        // ビーム幅などのパラメータ（必要に応じて引数化してください）
+        int beam_width = 5; 
+
+        start_total = std::chrono::high_resolution_clock::now();
+        
+        // ビームサーチ版の関数を呼び出し
+        GateSynthesisMatrix::LempelX2_M4RI_BeamSearch(A_copy, n, m, omp_beam);
+        
+        end_total = std::chrono::high_resolution_clock::now();
+        duration_total = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+        
+        std::cout << "Total LempelX2_M4RI_hammingBeamSearch time: " << duration_total.count() << " ms" << endl;
+        std::cout << "hamming Beam Search result size: " << omp_beam << " columns" << endl;
+
+        LCL_Mat_GF2::destruct(A_copy, n, m + 1);
         return;
     }
-    
     
     
     //オリジナル版
@@ -861,6 +910,147 @@ void GateSynthesisMatrix::LempelX2_M4RI(bool** A, int n, int m, int& omp) {
     cout << "END OF LEMPELX2" << endl;
 }
 
+void GateSynthesisMatrix::LempelX2_M4RI_DetailedStats(bool** A, int n, int m, int& omp) {
+    std::cout << "--- Starting LempelX2_M4RI_DetailedStats ---" << std::endl;
+    int this_m = m;
+    int initial_total_m = m; 
+
+    // テンポラリ行列の構築
+    bool** x = LCL_Mat_GF2::construct(n, 1);
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    // M4RI構造の初期化
+    int n_chi_A = n * n * n;
+    mzd_t* chi_A = mzd_init(n_chi_A, m + 1);
+    mzd_t* A_m4ri = convert_to_mzd((bool const**)A, n, m + 1);
+
+    // 統計・時間計測用
+    std::chrono::microseconds total_ns_duration(0);
+    std::chrono::microseconds total_chi_duration(0);
+    long long total_attempts = 0;
+    long long total_successful_finds = 0;
+
+    int* r_j1 = new int[m];
+    int* r_j2 = new int[m];
+
+    bool improved_in_round = true;
+    int round = 0;
+
+    while (improved_in_round && (round < m)) {
+        improved_in_round = false;
+        int m_at_round_start = this_m;
+        long long round_attempts = 0;
+
+        std::cout << "Round " << round << " (Current m: " << this_m << ")" << std::endl;
+        
+        LCL_Int::randperm(r_j1, this_m - 1);
+        for (int i_idx = 0; (!improved_in_round) && (i_idx < (this_m - 1)); i_idx++) {
+            int c1 = r_j1[i_idx];
+            LCL_Int::randperm(r_j2, this_m - 1 - i_idx, i_idx + 1);
+            
+            for (int j_idx = 0; (!improved_in_round) && (j_idx < (this_m - 1 - i_idx)); j_idx++) {
+                int c2 = r_j2[j_idx];
+
+                // 1. xベクトル作成 & ハミング距離計算
+                int dist = 0;
+                for (int k = 0; k < n; k++) {
+                    x[k][0] = (A[k][c1] + A[k][c2]) % 2;
+                    if (x[k][0]) dist++;
+                }
+
+                // 2. Chi行列構築 (M4RI)
+                for (int r = 0; r < chi_A->nrows; r++) {
+                    mzd_row_clear_offset(chi_A, r, 0); // 高速な行クリア
+                }
+                
+                auto t1 = std::chrono::high_resolution_clock::now();
+                GateSynthesisMatrix::Chi_M4RI(A_m4ri, x, n, this_m, chi_A);
+                auto t2 = std::chrono::high_resolution_clock::now();
+                total_chi_duration += std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
+
+                // 3. 零空間計算
+                int d = 0;
+                auto t3 = std::chrono::high_resolution_clock::now();
+                bool** NS = M4RI_direct_nullspace(chi_A, d);
+                auto t4 = std::chrono::high_resolution_clock::now();
+                total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(t4 - t3);
+
+                round_attempts++;
+                total_attempts++;
+
+                // 4. 有効な削減ベクトルの探索
+                int nsv = -1;
+                bool found_vec = false;
+                for (int h = 0; h < d; h++) {
+                    if ((NS[c1][h] + NS[c2][h]) % 2 == 1) {
+                        nsv = h;
+                        found_vec = true;
+                        break;
+                    }
+                }
+
+                if (found_vec) {
+                    // 行列更新
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < this_m; j++) {
+                            Anew[i][j] = (A[i][j] + x[i][0] * NS[j][nsv]) % 2;
+                        }
+                    }
+
+                    int mp;
+                    GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+
+                    if (mp < m_best) {
+                        // ★ 削減成功時の表示
+                        std::cout << "  [HIT!] Dist=" << dist 
+                                  << " | Reduced: " << (m_best - mp) << " cols (" 
+                                  << m_best << " -> " << mp << ")" << std::endl;
+
+                        LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                        m_best = mp;
+                        improved_in_round = true;
+                        total_successful_finds++;
+                    }
+                }
+                if (NS) LCL_Mat_GF2::destruct(NS, this_m, d);
+            }
+        }
+
+        if (improved_in_round) {
+            // A と A_m4ri を最新の状態に同期
+            LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+            for (int r = 0; r < n; r++) {
+                for (int c = 0; c < m_best; c++) mzd_write_bit(A_m4ri, r, c, A[r][c]);
+                for (int c = m_best; c < m + 1; c++) mzd_write_bit(A_m4ri, r, c, 0);
+            }
+            this_m = m_best;
+        }
+        round++;
+    }
+
+    // --- 最終レポート ---
+    std::cout << "\n====================================" << std::endl;
+    std::cout << "Final Results for " << __func__ << std::endl;
+    std::cout << "  Initial T-count : " << initial_total_m << std::endl;
+    std::cout << "  Final T-count   : " << this_m << std::endl;
+    std::cout << "  Total Reduction : " << (initial_total_m - this_m) << " gates" << std::endl;
+    std::cout << "  Total Attempts  : " << total_attempts << std::endl;
+    std::cout << "  Chi Time        : " << std::chrono::duration_cast<std::chrono::milliseconds>(total_chi_duration).count() << " ms" << std::endl;
+    std::cout << "  Nullspace Time  : " << std::chrono::duration_cast<std::chrono::milliseconds>(total_ns_duration).count() << " ms" << std::endl;
+    std::cout << "====================================\n" << std::endl;
+
+    // 後片付け
+    delete[] r_j1; delete[] r_j2;
+    LCL_Mat_GF2::destruct(x, n, 1);
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
+    mzd_free(chi_A);
+    mzd_free(A_m4ri);
+    omp = this_m;
+}
 
 // ペアと距離を管理する構造体
 struct ColPair {
@@ -1062,4 +1252,242 @@ void GateSynthesisMatrix::LempelX2_M4RI_Hamming(bool** A, int n, int m, int& omp
     LCL_Mat_GF2::destruct(Abest, n, m + 1);
     omp = this_m;
     cout << "END OF LEMPELX2" << endl;
+}
+
+struct TODDState {
+    bool** A;
+    int m;
+
+    // C++11用のコンストラクタ
+    TODDState(bool** matrix, int cols) : A(matrix), m(cols) {}
+
+    // ソート用（列数が少ない順）
+    bool operator<(const TODDState& other) const {
+        return m < other.m;
+    }
+};
+
+// 行列のディープコピー用
+static bool** copy_matrix_local(bool** src, int n, int m, int max_m) {
+    bool** dst = LCL_Mat_GF2::construct(n, max_m);
+    LCL_Mat_GF2::copy((const bool**)src, n, m, dst);
+    return dst;
+}
+
+void GateSynthesisMatrix::LempelX2_M4RI_BeamSearch(bool** A_init, int n, int m_init, int& omp) {
+    int K = 5;  
+    int N = 50; 
+    int max_m = m_init + 1;
+
+    std::vector<TODDState> current_beam;
+    current_beam.push_back(TODDState(copy_matrix_local(A_init, n, m_init, max_m), m_init));
+
+    bool improved = true;
+    int round = 0;
+    bool** Anew = LCL_Mat_GF2::construct(n, max_m);
+    bool** x_vec = LCL_Mat_GF2::construct(n, 1);
+
+    while (improved && round < m_init) {
+        improved = false;
+        std::vector<TODDState> next_candidates;
+        std::cout << "--- Round " << round << " | Beam Size: " << current_beam.size() << " ---" << std::endl;
+
+        bool limit_reached = false;
+
+        for (size_t b = 0; b < current_beam.size() && !limit_reached; ++b) {
+            TODDState& state = current_beam[b];
+            
+            std::vector<ColPair> candidates;
+            for (int j1 = 0; j1 < state.m; ++j1) {
+                for (int j2 = j1 + 1; j2 < state.m; ++j2) {
+                    int dist = 0;
+                    for (int k = 0; k < n; ++k) {
+                        if (state.A[k][j1] != state.A[k][j2]) dist++;
+                    }
+                    candidates.push_back({j1, j2, dist});
+                }
+            }
+            std::sort(candidates.begin(), candidates.end());
+
+            mzd_t* A_m4ri = convert_to_mzd((bool const**)state.A, n, max_m);
+            mzd_t* chi_A = mzd_init(n * n * n, max_m);
+
+            for (size_t p = 0; p < candidates.size(); ++p) {
+                int c1 = candidates[p].c1;
+                int c2 = candidates[p].c2;
+                int current_dist = candidates[p].dist; // 距離を保持
+
+                for(int i = 0; i < n; i++) x_vec[i][0] = (state.A[i][c1] + state.A[i][c2]) % 2;
+
+                for(int r=0; r<chi_A->nrows; r++) {
+                    for(int c=0; c<chi_A->width; c++) chi_A->rows[r][c] = 0;
+                }
+                GateSynthesisMatrix::Chi_M4RI(A_m4ri, x_vec, n, state.m, chi_A);
+
+                int d = 0;
+                bool** NS = M4RI_direct_nullspace(chi_A, d);
+                int nsv = -1;
+                bool found_reduction_vector = false;
+                for(int h = 0; (!found_reduction_vector) && (h < d); h++) {
+                    if ((NS[c1][h] + NS[c2][h]) % 2 == 1) {
+                        nsv = h;
+                        found_reduction_vector = true;
+                    }
+                }
+
+                if (found_reduction_vector) {
+                    for(int i = 0; i < n; i++) {
+                        for(int j = 0; j < state.m; j++) {
+                            Anew[i][j] = (state.A[i][j] + x_vec[i][0] * NS[j][nsv]) % 2;
+                        }
+                    }
+                    int mp;
+                    GateSynthesisMatrix::cleanup(Anew, n, state.m, mp);
+
+                    if (mp < state.m) {
+                        // ★ ハミング距離と削減数を表示
+                        std::cout << "  [HIT!] Dist=" << current_dist 
+                                  << " | Deleted: " << (state.m - mp) << " cols" << std::endl;
+
+                        next_candidates.push_back(TODDState(copy_matrix_local(Anew, n, mp, max_m), mp));
+                        improved = true;
+                        if (next_candidates.size() >= (size_t)N) limit_reached = true;
+                    }
+                }
+                if (NS) LCL_Mat_GF2::destruct(NS, state.m, d);
+                if (limit_reached) break;
+            }
+            mzd_free(chi_A);
+            mzd_free(A_m4ri);
+        }
+
+        if (!next_candidates.empty()) {
+            std::sort(next_candidates.begin(), next_candidates.end());
+            for (size_t i = 0; i < current_beam.size(); ++i) LCL_Mat_GF2::destruct(current_beam[i].A, n, max_m);
+            current_beam.clear();
+            for (size_t i = 0; i < next_candidates.size(); ++i) {
+                if (i < (size_t)K) current_beam.push_back(next_candidates[i]);
+                else LCL_Mat_GF2::destruct(next_candidates[i].A, n, max_m);
+            }
+            std::cout << "   Round " << round << " Finished. Best m: " << current_beam[0].m << std::endl;
+        }
+        round++;
+    }
+
+    LCL_Mat_GF2::copy((const bool**)current_beam[0].A, n, current_beam[0].m, A_init);
+    omp = current_beam[0].m;
+    for (size_t i = 0; i < current_beam.size(); ++i) LCL_Mat_GF2::destruct(current_beam[i].A, n, max_m);
+    LCL_Mat_GF2::destruct(Anew, n, max_m);
+    LCL_Mat_GF2::destruct(x_vec, n, 1);
+}
+void GateSynthesisMatrix::LempelX2_M4RI_RandomBeamSearch(bool** A_init, int n, int m_init, int& omp) {
+    int K = 5;  
+    int N = 50; 
+    int max_m = m_init + 1;
+
+    std::vector<TODDState> current_beam;
+    current_beam.push_back(TODDState(copy_matrix_local(A_init, n, m_init, max_m), m_init));
+
+    std::random_device rd;
+    std::mt19937 g(rd());
+
+    bool improved = true;
+    int round = 0;
+    bool** Anew = LCL_Mat_GF2::construct(n, max_m);
+    bool** x_vec = LCL_Mat_GF2::construct(n, 1);
+
+    while (improved && round < m_init) {
+        improved = false;
+        std::vector<TODDState> next_candidates;
+        std::cout << "--- Round " << round << " | Beam Size: " << current_beam.size() << " (Random Mode) ---" << std::endl;
+
+        bool limit_reached = false;
+
+        for (size_t b = 0; b < current_beam.size() && !limit_reached; ++b) {
+            TODDState& state = current_beam[b];
+            
+            std::vector<ColPair> candidates;
+            for (int j1 = 0; j1 < state.m; ++j1) {
+                for (int j2 = j1 + 1; j2 < state.m; ++j2) {
+                    candidates.push_back({j1, j2, 0}); 
+                }
+            }
+            std::shuffle(candidates.begin(), candidates.end(), g);
+
+            mzd_t* A_m4ri = convert_to_mzd((bool const**)state.A, n, max_m);
+            mzd_t* chi_A = mzd_init(n * n * n, max_m);
+
+            for (size_t p = 0; p < candidates.size(); ++p) {
+                int c1 = candidates[p].c1;
+                int c2 = candidates[p].c2;
+
+                // ★ xベクトル作成と同時にハミング距離をカウント
+                int dist = 0;
+                for(int i = 0; i < n; i++) {
+                    x_vec[i][0] = (state.A[i][c1] + state.A[i][c2]) % 2;
+                    if (x_vec[i][0]) dist++;
+                }
+
+                for(int r=0; r<chi_A->nrows; r++) mzd_row_clear_offset(chi_A, r, 0);
+                GateSynthesisMatrix::Chi_M4RI(A_m4ri, x_vec, n, state.m, chi_A);
+
+                int d = 0;
+                bool** NS = M4RI_direct_nullspace(chi_A, d);
+                int nsv = -1;
+                bool found_reduction_vector = false;
+                for(int h = 0; (!found_reduction_vector) && (h < d); h++) {
+                    if ((NS[c1][h] + NS[c2][h]) % 2 == 1) {
+                        nsv = h;
+                        found_reduction_vector = true;
+                    }
+                }
+
+                if (found_reduction_vector) {
+                    for(int i = 0; i < n; i++) {
+                        for(int j = 0; j < state.m; j++) {
+                            Anew[i][j] = (state.A[i][j] + x_vec[i][0] * NS[j][nsv]) % 2;
+                        }
+                    }
+                    int mp;
+                    GateSynthesisMatrix::cleanup(Anew, n, state.m, mp);
+
+                    if (mp < state.m) {
+                        // ★ ランダム版でもハミング距離と削減数を表示
+                        std::cout << "  [HIT!] (Random) Dist=" << dist 
+                                  << " | Deleted: " << (state.m - mp) << " cols" << std::endl;
+
+                        next_candidates.push_back(TODDState(copy_matrix_local(Anew, n, mp, max_m), mp));
+                        improved = true;
+                        if (next_candidates.size() >= (size_t)N) limit_reached = true;
+                    }
+                }
+                if (NS) LCL_Mat_GF2::destruct(NS, state.m, d);
+                if (limit_reached) break; 
+            }
+            mzd_free(chi_A);
+            mzd_free(A_m4ri);
+        }
+
+        if (!next_candidates.empty()) {
+            std::sort(next_candidates.begin(), next_candidates.end());
+            for (size_t i = 0; i < current_beam.size(); ++i) LCL_Mat_GF2::destruct(current_beam[i].A, n, max_m);
+            current_beam.clear();
+            for (size_t i = 0; i < next_candidates.size(); ++i) {
+                if (i < (size_t)K) current_beam.push_back(next_candidates[i]);
+                else LCL_Mat_GF2::destruct(next_candidates[i].A, n, max_m);
+            }
+            std::cout << "   Round " << round << " Finished. Best m: " << current_beam[0].m << std::endl;
+        }
+        round++;
+    }
+
+    // 書き戻し
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < current_beam[0].m; ++j) A_init[i][j] = current_beam[0].A[i][j];
+    }
+    omp = current_beam[0].m;
+
+    for (size_t i = 0; i < current_beam.size(); ++i) LCL_Mat_GF2::destruct(current_beam[i].A, n, max_m);
+    LCL_Mat_GF2::destruct(Anew, n, max_m);
+    LCL_Mat_GF2::destruct(x_vec, n, 1);
 }
