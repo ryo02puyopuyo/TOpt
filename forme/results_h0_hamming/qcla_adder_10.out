@@ -1,0 +1,1837 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/rest/forpyzx/TOpt/forme/tpar_benchmark/qcla_adder_10.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/rest/forpyzx/TOpt/forme/tpar_benchmark/qcla_adder_10.tfc
+
+n 36
+n_x 36
+n_y 0
+n_z 0
+m 201
+[0] = H 3
+[1] = H 6
+[2] = H 9
+[3] = H 10
+[4] = H 13
+[5] = H 16
+[6] = H 17
+[7] = H 20
+[8] = H 21
+[9] = H 24
+[10] = H 25
+[11] = H 28
+[12] = H 31
+[13] = H 32
+[14] = H 35
+[15] = CCZ 1 2 3
+[16] = CCZ 4 5 6
+[17] = CCZ 7 8 10
+[18] = CCZ 11 12 13
+[19] = CCZ 14 15 17
+[20] = CCZ 18 19 21
+[21] = CCZ 22 23 25
+[22] = CCZ 26 27 28
+[23] = CCZ 29 30 32
+[24] = CCZ 33 34 35
+[25] = CNOT 5 4
+[26] = CNOT 8 7
+[27] = CNOT 12 11
+[28] = CNOT 15 14
+[29] = CNOT 19 18
+[30] = CNOT 23 22
+[31] = CNOT 27 26
+[32] = CNOT 30 29
+[33] = CNOT 34 33
+[34] = CCZ 8 12 9
+[35] = CCZ 15 19 16
+[36] = CCZ 23 27 24
+[37] = CCZ 30 34 31
+[38] = H 3
+[39] = H 9
+[40] = H 10
+[41] = H 16
+[42] = H 17
+[43] = H 24
+[44] = H 25
+[45] = H 31
+[46] = H 32
+[47] = CCZ 3 5 6
+[48] = CCZ 10 12 13
+[49] = CCZ 17 19 21
+[50] = CCZ 25 27 28
+[51] = CCZ 32 34 35
+[52] = CCZ 16 24 20
+[53] = H 6
+[54] = H 20
+[55] = H 21
+[56] = CCZ 6 9 13
+[57] = CCZ 21 24 28
+[58] = H 13
+[59] = H 21
+[60] = CCZ 13 20 28
+[61] = CCZ 13 16 21
+[62] = H 28
+[63] = H 21
+[64] = H 10
+[65] = H 17
+[66] = H 25
+[67] = H 32
+[68] = H 20
+[69] = CCZ 6 8 10
+[70] = CCZ 13 15 17
+[71] = CCZ 21 23 25
+[72] = CCZ 28 30 32
+[73] = CCZ 28 31 35
+[74] = CCZ 16 24 20
+[75] = H 10
+[76] = H 17
+[77] = H 25
+[78] = H 32
+[79] = H 35
+[80] = H 20
+[81] = H 9
+[82] = H 16
+[83] = H 24
+[84] = H 31
+[85] = CCZ 8 12 9
+[86] = CCZ 15 19 16
+[87] = CCZ 23 27 24
+[88] = CCZ 30 34 31
+[89] = CNOT 36 2
+[90] = CNOT 3 5
+[91] = CNOT 6 8
+[92] = CNOT 10 12
+[93] = CNOT 13 15
+[94] = CNOT 17 19
+[95] = CNOT 21 23
+[96] = CNOT 25 27
+[97] = CNOT 28 30
+[98] = CNOT 31 34
+[99] = CNOT 36 1
+[100] = CNOT 5 4
+[101] = CNOT 8 7
+[102] = CNOT 12 11
+[103] = CNOT 15 14
+[104] = CNOT 19 18
+[105] = CNOT 23 22
+[106] = CNOT 27 26
+[107] = CNOT 30 29
+[108] = CNOT 34 33
+[109] = H 9
+[110] = H 16
+[111] = H 24
+[112] = H 31
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 85)
+--- Hamming Distance Stats ---
+ Dist 1: 89 pairs
+ Dist 2: 536 pairs
+ Dist 3: 878 pairs
+ Dist 4: 917 pairs
+ Dist 5: 589 pairs
+ Dist 6: 333 pairs
+ Dist 7: 148 pairs
+ Dist 8: 62 pairs
+ Dist 9: 12 pairs
+ Dist 10: 6 pairs
+-------------------------------
+  [HIT!] Dist=1 | Deleted: 2 cols
+>> Round 0 Result: Hit Rate = 14.2857% (1/7)
+		Round = 1 (Start m: 83)
+--- Hamming Distance Stats ---
+ Dist 1: 91 pairs
+ Dist 2: 389 pairs
+ Dist 3: 734 pairs
+ Dist 4: 868 pairs
+ Dist 5: 655 pairs
+ Dist 6: 386 pairs
+ Dist 7: 182 pairs
+ Dist 8: 74 pairs
+ Dist 9: 18 pairs
+ Dist 10: 6 pairs
+-------------------------------
+  [HIT!] Dist=1 | Deleted: 2 cols
+>> Round 1 Result: Hit Rate = 33.3333% (1/3)
+		Round = 2 (Start m: 81)
+--- Hamming Distance Stats ---
+ Dist 1: 86 pairs
+ Dist 2: 290 pairs
+ Dist 3: 615 pairs
+ Dist 4: 815 pairs
+ Dist 5: 708 pairs
+ Dist 6: 432 pairs
+ Dist 7: 201 pairs
+ Dist 8: 72 pairs
+ Dist 9: 18 pairs
+ Dist 10: 3 pairs
+-------------------------------
+  [HIT!] Dist=1 | Deleted: 3 cols
+>> Round 2 Result: Hit Rate = 9.09091% (1/11)
+		Round = 3 (Start m: 78)
+--- Hamming Distance Stats ---
+ Dist 1: 75 pairs
+ Dist 2: 248 pairs
+ Dist 3: 547 pairs
+ Dist 4: 719 pairs
+ Dist 5: 641 pairs
+ Dist 6: 408 pairs
+ Dist 7: 217 pairs
+ Dist 8: 98 pairs
+ Dist 9: 38 pairs
+ Dist 10: 10 pairs
+ Dist 11: 2 pairs
+-------------------------------
+  [HIT!] Dist=1 | Deleted: 2 cols
+>> Round 3 Result: Hit Rate = 4.54545% (1/22)
+		Round = 4 (Start m: 76)
+--- Hamming Distance Stats ---
+ Dist 1: 69 pairs
+ Dist 2: 221 pairs
+ Dist 3: 451 pairs
+ Dist 4: 609 pairs
+ Dist 5: 609 pairs
+ Dist 6: 445 pairs
+ Dist 7: 260 pairs
+ Dist 8: 121 pairs
+ Dist 9: 48 pairs
+ Dist 10: 14 pairs
+ Dist 11: 3 pairs
+-------------------------------
+  [HIT!] Dist=1 | Deleted: 2 cols
+>> Round 4 Result: Hit Rate = 14.2857% (1/7)
+		Round = 5 (Start m: 74)
+--- Hamming Distance Stats ---
+ Dist 1: 62 pairs
+ Dist 2: 191 pairs
+ Dist 3: 362 pairs
+ Dist 4: 525 pairs
+ Dist 5: 580 pairs
+ Dist 6: 460 pairs
+ Dist 7: 290 pairs
+ Dist 8: 146 pairs
+ Dist 9: 62 pairs
+ Dist 10: 19 pairs
+ Dist 11: 4 pairs
+-------------------------------
+  [HIT!] Dist=2 | Deleted: 2 cols
+>> Round 5 Result: Hit Rate = 1.17647% (1/85)
+		Round = 6 (Start m: 72)
+--- Hamming Distance Stats ---
+ Dist 1: 58 pairs
+ Dist 2: 158 pairs
+ Dist 3: 314 pairs
+ Dist 4: 472 pairs
+ Dist 5: 549 pairs
+ Dist 6: 457 pairs
+ Dist 7: 301 pairs
+ Dist 8: 157 pairs
+ Dist 9: 66 pairs
+ Dist 10: 20 pairs
+ Dist 11: 4 pairs
+-------------------------------
+  [HIT!] Dist=3 | Deleted: 2 cols
+>> Round 6 Result: Hit Rate = 0.440529% (1/227)
+		Round = 7 (Start m: 70)
+--- Hamming Distance Stats ---
+ Dist 1: 53 pairs
+ Dist 2: 129 pairs
+ Dist 3: 269 pairs
+ Dist 4: 396 pairs
+ Dist 5: 478 pairs
+ Dist 6: 432 pairs
+ Dist 7: 319 pairs
+ Dist 8: 196 pairs
+ Dist 9: 97 pairs
+ Dist 10: 36 pairs
+ Dist 11: 9 pairs
+ Dist 12: 1 pairs
+-------------------------------
+>> Round 7 Result: Hit Rate = 0% (0/2415)
+
+=== Final Performance Statistics ===
+Hamming time:   1 ms
+Chi time:       428 ms
+Nullspace time: 18440 ms
+Total attempts: 2777 (Success: 7)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 19037 ms
+Hamming result size: 70 columns
+		TODD executed in 19.0367 seconds.
+		Total time: 19.0368s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 38)
+--- Hamming Distance Stats ---
+ Dist 1: 42 pairs
+ Dist 2: 121 pairs
+ Dist 3: 228 pairs
+ Dist 4: 207 pairs
+ Dist 5: 90 pairs
+ Dist 6: 15 pairs
+-------------------------------
+  [HIT!] Dist=2 | Deleted: 2 cols
+>> Round 0 Result: Hit Rate = 2.32558% (1/43)
+		Round = 1 (Start m: 36)
+--- Hamming Distance Stats ---
+ Dist 1: 38 pairs
+ Dist 2: 63 pairs
+ Dist 3: 122 pairs
+ Dist 4: 167 pairs
+ Dist 5: 142 pairs
+ Dist 6: 73 pairs
+ Dist 7: 22 pairs
+ Dist 8: 3 pairs
+-------------------------------
+  [HIT!] Dist=2 | Deleted: 2 cols
+>> Round 1 Result: Hit Rate = 2.5641% (1/39)
+		Round = 2 (Start m: 34)
+--- Hamming Distance Stats ---
+ Dist 1: 34 pairs
+ Dist 2: 48 pairs
+ Dist 3: 81 pairs
+ Dist 4: 127 pairs
+ Dist 5: 135 pairs
+ Dist 6: 89 pairs
+ Dist 7: 37 pairs
+ Dist 8: 9 pairs
+ Dist 9: 1 pairs
+-------------------------------
+>> Round 2 Result: Hit Rate = 0% (0/561)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       66 ms
+Nullspace time: 1079 ms
+Total attempts: 643 (Success: 2)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 1180 ms
+Hamming result size: 34 columns
+		TODD executed in 1.18094 seconds.
+		Total time: 1.18101s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 22)
+--- Hamming Distance Stats ---
+ Dist 1: 20 pairs
+ Dist 2: 56 pairs
+ Dist 3: 84 pairs
+ Dist 4: 53 pairs
+ Dist 5: 16 pairs
+ Dist 6: 2 pairs
+-------------------------------
+  [HIT!] Dist=2 | Deleted: 2 cols
+>> Round 0 Result: Hit Rate = 4.54545% (1/22)
+		Round = 1 (Start m: 20)
+--- Hamming Distance Stats ---
+ Dist 1: 15 pairs
+ Dist 2: 35 pairs
+ Dist 3: 61 pairs
+ Dist 4: 48 pairs
+ Dist 5: 23 pairs
+ Dist 6: 7 pairs
+ Dist 7: 1 pairs
+-------------------------------
+>> Round 1 Result: Hit Rate = 0% (0/190)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       21 ms
+Nullspace time: 230 ms
+Total attempts: 212 (Success: 1)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 263 ms
+Hamming result size: 20 columns
+		TODD executed in 0.263321 seconds.
+		Total time: 0.263366s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 22)
+--- Hamming Distance Stats ---
+ Dist 1: 27 pairs
+ Dist 2: 43 pairs
+ Dist 3: 63 pairs
+ Dist 4: 68 pairs
+ Dist 5: 27 pairs
+ Dist 6: 3 pairs
+-------------------------------
+  [HIT!] Dist=1 | Deleted: 2 cols
+>> Round 0 Result: Hit Rate = 50% (1/2)
+		Round = 1 (Start m: 20)
+--- Hamming Distance Stats ---
+ Dist 1: 20 pairs
+ Dist 2: 26 pairs
+ Dist 3: 34 pairs
+ Dist 4: 56 pairs
+ Dist 5: 41 pairs
+ Dist 6: 12 pairs
+ Dist 7: 1 pairs
+-------------------------------
+>> Round 1 Result: Hit Rate = 0% (0/190)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       19 ms
+Nullspace time: 220 ms
+Total attempts: 192 (Success: 1)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 251 ms
+Hamming result size: 20 columns
+		TODD executed in 0.251249 seconds.
+		Total time: 0.251297s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 21)
+--- Hamming Distance Stats ---
+ Dist 1: 21 pairs
+ Dist 2: 28 pairs
+ Dist 3: 48 pairs
+ Dist 4: 73 pairs
+ Dist 5: 35 pairs
+ Dist 6: 5 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/210)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       20 ms
+Nullspace time: 233 ms
+Total attempts: 210 (Success: 0)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 265 ms
+Hamming result size: 21 columns
+		TODD executed in 0.26514 seconds.
+		Total time: 0.265185s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 12)
+--- Hamming Distance Stats ---
+ Dist 1: 12 pairs
+ Dist 2: 9 pairs
+ Dist 3: 12 pairs
+ Dist 4: 18 pairs
+ Dist 5: 12 pairs
+ Dist 6: 3 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/66)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       6 ms
+Nullspace time: 50 ms
+Total attempts: 66 (Success: 0)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 60 ms
+Hamming result size: 12 columns
+		TODD executed in 0.060403 seconds.
+		Total time: 0.060433s
+	Gate synthesis end.
+	Total time: 27.145s
+UniversalOptimize end.
+Output circuit:
+n 36
+n_x 36
+n_y 0
+n_z 0
+m 1401
+[0] = H 3
+[1] = H 6
+[2] = H 9
+[3] = H 10
+[4] = H 13
+[5] = H 16
+[6] = H 17
+[7] = H 20
+[8] = H 21
+[9] = H 24
+[10] = H 25
+[11] = H 28
+[12] = H 31
+[13] = H 32
+[14] = H 35
+[15] = CNOT 1 14
+[16] = CNOT 1 16
+[17] = CNOT 1 19
+[18] = T 1
+[19] = CNOT 2 14
+[20] = CNOT 2 16
+[21] = CNOT 2 19
+[22] = T 2
+[23] = CNOT 2 19
+[24] = CNOT 2 16
+[25] = CNOT 2 14
+[26] = CNOT 3 14
+[27] = CNOT 3 16
+[28] = CNOT 3 19
+[29] = T 3
+[30] = CNOT 3 19
+[31] = CNOT 3 16
+[32] = CNOT 3 14
+[33] = CNOT 1 2
+[34] = T 1
+[35] = CNOT 1 3
+[36] = T 1
+[37] = CNOT 1 2
+[38] = CNOT 2 3
+[39] = CNOT 2 14
+[40] = CNOT 2 16
+[41] = CNOT 2 19
+[42] = T 2
+[43] = CNOT 2 19
+[44] = CNOT 2 16
+[45] = CNOT 2 14
+[46] = CNOT 2 3
+[47] = T 1
+[48] = CNOT 1 19
+[49] = CNOT 1 16
+[50] = CNOT 1 14
+[51] = CNOT 1 3
+[52] = T 4
+[53] = Z 4
+[54] = T 5
+[55] = Z 5
+[56] = CNOT 4 5
+[57] = CNOT 4 6
+[58] = T 4
+[59] = CNOT 4 5
+[60] = CNOT 5 6
+[61] = T 5
+[62] = S 5
+[63] = CNOT 5 6
+[64] = T 4
+[65] = S 4
+[66] = CNOT 4 6
+[67] = CNOT 7 26
+[68] = CNOT 7 28
+[69] = T 7
+[70] = Z 7
+[71] = CNOT 8 26
+[72] = CNOT 8 28
+[73] = T 8
+[74] = Z 8
+[75] = CNOT 8 28
+[76] = CNOT 8 26
+[77] = CNOT 10 26
+[78] = CNOT 10 28
+[79] = T 10
+[80] = Z 10
+[81] = CNOT 10 28
+[82] = CNOT 10 26
+[83] = CNOT 7 8
+[84] = T 7
+[85] = CNOT 7 10
+[86] = T 7
+[87] = CNOT 7 8
+[88] = CNOT 8 10
+[89] = CNOT 8 26
+[90] = CNOT 8 28
+[91] = T 8
+[92] = CNOT 8 28
+[93] = CNOT 8 26
+[94] = CNOT 8 10
+[95] = T 7
+[96] = CNOT 7 28
+[97] = CNOT 7 26
+[98] = CNOT 7 10
+[99] = CNOT 9 11
+[100] = CNOT 9 13
+[101] = T 9
+[102] = S 9
+[103] = Z 9
+[104] = CNOT 9 11
+[105] = CNOT 9 12
+[106] = T 9
+[107] = S 9
+[108] = Z 9
+[109] = CNOT 9 11
+[110] = T 9
+[111] = CNOT 9 13
+[112] = CNOT 9 11
+[113] = CNOT 29 30
+[114] = CNOT 29 31
+[115] = CNOT 29 32
+[116] = T 29
+[117] = CNOT 29 31
+[118] = T 9
+[119] = CNOT 9 12
+[120] = CNOT 9 11
+[121] = T 9
+[122] = CNOT 9 11
+[123] = CNOT 15 16
+[124] = CNOT 15 19
+[125] = T 15
+[126] = S 15
+[127] = Z 15
+[128] = CNOT 15 19
+[129] = CNOT 15 16
+[130] = CNOT 22 23
+[131] = CNOT 22 27
+[132] = T 22
+[133] = S 22
+[134] = Z 22
+[135] = CNOT 22 27
+[136] = CNOT 22 23
+[137] = CNOT 14 15
+[138] = CNOT 14 16
+[139] = CNOT 14 17
+[140] = CNOT 14 19
+[141] = T 14
+[142] = CNOT 14 16
+[143] = CNOT 14 15
+[144] = T 20
+[145] = CNOT 16 17
+[146] = CNOT 16 19
+[147] = T 16
+[148] = Z 16
+[149] = CNOT 16 19
+[150] = CNOT 16 17
+[151] = CNOT 14 16
+[152] = T 14
+[153] = CNOT 14 19
+[154] = CNOT 14 17
+[155] = CNOT 14 16
+[156] = CNOT 15 16
+[157] = CNOT 15 17
+[158] = CNOT 15 19
+[159] = T 15
+[160] = CNOT 15 19
+[161] = CNOT 15 17
+[162] = CNOT 15 16
+[163] = CNOT 16 18
+[164] = T 16
+[165] = S 16
+[166] = CNOT 16 18
+[167] = CNOT 14 15
+[168] = T 14
+[169] = CNOT 14 18
+[170] = T 14
+[171] = S 14
+[172] = Z 14
+[173] = CNOT 14 18
+[174] = CNOT 18 19
+[175] = CNOT 18 21
+[176] = T 18
+[177] = CNOT 18 19
+[178] = CNOT 19 21
+[179] = T 19
+[180] = S 19
+[181] = CNOT 19 21
+[182] = T 18
+[183] = S 18
+[184] = CNOT 18 21
+[185] = T 22
+[186] = T 23
+[187] = T 25
+[188] = CNOT 22 23
+[189] = CNOT 22 26
+[190] = T 22
+[191] = S 22
+[192] = Z 22
+[193] = CNOT 22 26
+[194] = CNOT 22 25
+[195] = T 22
+[196] = CNOT 22 23
+[197] = CNOT 23 25
+[198] = T 23
+[199] = S 23
+[200] = CNOT 23 25
+[201] = T 22
+[202] = S 22
+[203] = CNOT 22 25
+[204] = CNOT 24 27
+[205] = T 24
+[206] = S 24
+[207] = CNOT 24 27
+[208] = CNOT 31 32
+[209] = CNOT 31 33
+[210] = CNOT 31 34
+[211] = T 31
+[212] = CNOT 31 34
+[213] = CNOT 31 33
+[214] = CNOT 31 32
+[215] = CNOT 29 31
+[216] = CNOT 29 33
+[217] = CNOT 29 34
+[218] = T 29
+[219] = CNOT 29 34
+[220] = CNOT 29 33
+[221] = CNOT 29 32
+[222] = CNOT 29 31
+[223] = CNOT 29 30
+[224] = CNOT 26 27
+[225] = CNOT 26 28
+[226] = T 26
+[227] = CNOT 26 28
+[228] = CNOT 26 27
+[229] = CNOT 27 28
+[230] = T 27
+[231] = S 27
+[232] = CNOT 27 28
+[233] = CNOT 22 23
+[234] = CNOT 22 24
+[235] = CNOT 22 27
+[236] = T 22
+[237] = CNOT 22 27
+[238] = T 29
+[239] = T 30
+[240] = CNOT 29 30
+[241] = CNOT 29 32
+[242] = CNOT 29 33
+[243] = CNOT 29 34
+[244] = T 29
+[245] = CNOT 29 34
+[246] = CNOT 29 33
+[247] = CNOT 29 30
+[248] = CNOT 31 32
+[249] = T 31
+[250] = Z 31
+[251] = CNOT 31 32
+[252] = CNOT 22 26
+[253] = T 22
+[254] = CNOT 22 26
+[255] = CNOT 22 24
+[256] = CNOT 30 32
+[257] = T 30
+[258] = Z 30
+[259] = CNOT 30 32
+[260] = T 29
+[261] = Z 29
+[262] = CNOT 29 32
+[263] = T 33
+[264] = T 34
+[265] = CNOT 32 33
+[266] = CNOT 32 34
+[267] = T 32
+[268] = Z 32
+[269] = CNOT 32 34
+[270] = CNOT 32 33
+[271] = CNOT 33 34
+[272] = CNOT 33 35
+[273] = T 33
+[274] = CNOT 33 34
+[275] = CNOT 34 35
+[276] = T 34
+[277] = S 34
+[278] = CNOT 34 35
+[279] = T 33
+[280] = S 33
+[281] = CNOT 33 35
+[282] = T 13
+[283] = S 13
+[284] = CNOT 7 8
+[285] = CNOT 7 11
+[286] = CNOT 7 12
+[287] = T 7
+[288] = CNOT 7 9
+[289] = T 7
+[290] = CNOT 7 12
+[291] = CNOT 7 11
+[292] = CNOT 14 16
+[293] = CNOT 14 18
+[294] = T 14
+[295] = CNOT 14 18
+[296] = CNOT 14 15
+[297] = T 7
+[298] = S 7
+[299] = Z 7
+[300] = CNOT 7 9
+[301] = CNOT 7 8
+[302] = CNOT 24 26
+[303] = T 24
+[304] = S 24
+[305] = CNOT 24 26
+[306] = Z 1
+[307] = Z 2
+[308] = Z 3
+[309] = S 6
+[310] = S 7
+[311] = S 8
+[312] = S 9
+[313] = Z 10
+[314] = S 11
+[315] = Z 11
+[316] = S 12
+[317] = Z 12
+[318] = S 15
+[319] = Z 16
+[320] = Z 17
+[321] = S 18
+[322] = S 21
+[323] = S 24
+[324] = S 27
+[325] = Z 31
+[326] = S 32
+[327] = Z 32
+[328] = S 35
+[329] = CNOT 7 8
+[330] = S 7
+[331] = Z 7
+[332] = CNOT 7 8
+[333] = CNOT 7 9
+[334] = Z 7
+[335] = CNOT 7 9
+[336] = CNOT 7 10
+[337] = S 7
+[338] = Z 7
+[339] = CNOT 7 10
+[340] = CNOT 7 11
+[341] = S 7
+[342] = Z 7
+[343] = CNOT 7 11
+[344] = CNOT 7 12
+[345] = S 7
+[346] = Z 7
+[347] = CNOT 7 12
+[348] = CNOT 7 26
+[349] = Z 7
+[350] = CNOT 7 26
+[351] = CNOT 7 28
+[352] = Z 7
+[353] = CNOT 7 28
+[354] = CNOT 8 9
+[355] = Z 8
+[356] = CNOT 8 9
+[357] = CNOT 8 10
+[358] = S 8
+[359] = Z 8
+[360] = CNOT 8 10
+[361] = CNOT 8 11
+[362] = S 8
+[363] = Z 8
+[364] = CNOT 8 11
+[365] = CNOT 8 12
+[366] = S 8
+[367] = Z 8
+[368] = CNOT 8 12
+[369] = CNOT 8 26
+[370] = Z 8
+[371] = CNOT 8 26
+[372] = CNOT 8 28
+[373] = Z 8
+[374] = CNOT 8 28
+[375] = CNOT 9 13
+[376] = T 9
+[377] = S 9
+[378] = Z 9
+[379] = CNOT 9 13
+[380] = CNOT 10 26
+[381] = Z 10
+[382] = CNOT 10 26
+[383] = CNOT 10 28
+[384] = Z 10
+[385] = CNOT 10 28
+[386] = CNOT 11 13
+[387] = Z 11
+[388] = CNOT 11 13
+[389] = CNOT 12 13
+[390] = Z 12
+[391] = CNOT 12 13
+[392] = S 14
+[393] = CNOT 14 16
+[394] = CNOT 14 17
+[395] = S 14
+[396] = Z 14
+[397] = CNOT 14 17
+[398] = CNOT 14 18
+[399] = Z 14
+[400] = CNOT 14 18
+[401] = CNOT 15 16
+[402] = S 15
+[403] = CNOT 15 16
+[404] = CNOT 15 17
+[405] = S 15
+[406] = Z 15
+[407] = CNOT 15 17
+[408] = CNOT 15 18
+[409] = Z 15
+[410] = CNOT 15 18
+[411] = CNOT 16 17
+[412] = Z 16
+[413] = CNOT 16 17
+[414] = CNOT 16 19
+[415] = S 16
+[416] = Z 16
+[417] = CNOT 16 19
+[418] = CNOT 17 19
+[419] = Z 17
+[420] = CNOT 17 19
+[421] = S 22
+[422] = CNOT 22 23
+[423] = CNOT 22 24
+[424] = Z 22
+[425] = CNOT 22 24
+[426] = CNOT 22 26
+[427] = Z 22
+[428] = CNOT 22 26
+[429] = CNOT 22 27
+[430] = Z 22
+[431] = CNOT 22 27
+[432] = CNOT 23 24
+[433] = Z 23
+[434] = CNOT 23 24
+[435] = CNOT 23 26
+[436] = Z 23
+[437] = CNOT 23 26
+[438] = CNOT 23 27
+[439] = Z 23
+[440] = CNOT 23 27
+[441] = CNOT 26 28
+[442] = Z 26
+[443] = CNOT 26 28
+[444] = CNOT 29 30
+[445] = S 29
+[446] = CNOT 29 30
+[447] = CNOT 29 31
+[448] = S 29
+[449] = Z 29
+[450] = CNOT 29 31
+[451] = CNOT 30 31
+[452] = S 30
+[453] = Z 30
+[454] = CNOT 30 31
+[455] = CNOT 31 33
+[456] = S 31
+[457] = Z 31
+[458] = CNOT 31 33
+[459] = CNOT 31 34
+[460] = S 31
+[461] = Z 31
+[462] = CNOT 31 34
+[463] = CNOT 32 33
+[464] = S 32
+[465] = Z 32
+[466] = CNOT 32 33
+[467] = CNOT 32 34
+[468] = S 32
+[469] = Z 32
+[470] = CNOT 32 34
+[471] = CNOT 33 34
+[472] = S 33
+[473] = Z 33
+[474] = CNOT 33 34
+[475] = CNOT 1 2
+[476] = CNOT 1 14
+[477] = S 1
+[478] = Z 1
+[479] = CNOT 1 14
+[480] = CNOT 1 16
+[481] = S 1
+[482] = Z 1
+[483] = CNOT 1 16
+[484] = CNOT 1 19
+[485] = S 1
+[486] = Z 1
+[487] = CNOT 1 19
+[488] = CNOT 1 2
+[489] = CNOT 1 3
+[490] = CNOT 1 14
+[491] = S 1
+[492] = Z 1
+[493] = CNOT 1 14
+[494] = CNOT 1 16
+[495] = S 1
+[496] = Z 1
+[497] = CNOT 1 16
+[498] = CNOT 1 19
+[499] = S 1
+[500] = Z 1
+[501] = CNOT 1 19
+[502] = CNOT 1 3
+[503] = CNOT 1 14
+[504] = CNOT 1 16
+[505] = Z 1
+[506] = CNOT 1 16
+[507] = CNOT 1 19
+[508] = Z 1
+[509] = CNOT 1 14
+[510] = CNOT 1 16
+[511] = Z 1
+[512] = CNOT 1 19
+[513] = CNOT 1 16
+[514] = CNOT 2 3
+[515] = CNOT 2 14
+[516] = S 2
+[517] = Z 2
+[518] = CNOT 2 14
+[519] = CNOT 2 16
+[520] = S 2
+[521] = Z 2
+[522] = CNOT 2 16
+[523] = CNOT 2 19
+[524] = S 2
+[525] = Z 2
+[526] = CNOT 2 19
+[527] = CNOT 2 3
+[528] = CNOT 2 14
+[529] = CNOT 2 16
+[530] = Z 2
+[531] = CNOT 2 16
+[532] = CNOT 2 19
+[533] = Z 2
+[534] = CNOT 2 14
+[535] = CNOT 2 16
+[536] = Z 2
+[537] = CNOT 2 19
+[538] = CNOT 2 16
+[539] = CNOT 3 14
+[540] = CNOT 3 16
+[541] = Z 3
+[542] = CNOT 3 16
+[543] = CNOT 3 19
+[544] = Z 3
+[545] = CNOT 3 14
+[546] = CNOT 3 16
+[547] = Z 3
+[548] = CNOT 3 19
+[549] = CNOT 3 16
+[550] = CNOT 7 8
+[551] = CNOT 7 11
+[552] = S 7
+[553] = Z 7
+[554] = CNOT 7 11
+[555] = CNOT 7 12
+[556] = S 7
+[557] = Z 7
+[558] = CNOT 7 12
+[559] = CNOT 7 26
+[560] = S 7
+[561] = Z 7
+[562] = CNOT 7 26
+[563] = CNOT 7 28
+[564] = S 7
+[565] = Z 7
+[566] = CNOT 7 28
+[567] = CNOT 7 8
+[568] = CNOT 7 10
+[569] = CNOT 7 26
+[570] = S 7
+[571] = Z 7
+[572] = CNOT 7 26
+[573] = CNOT 7 28
+[574] = S 7
+[575] = Z 7
+[576] = CNOT 7 28
+[577] = CNOT 7 10
+[578] = CNOT 7 11
+[579] = CNOT 7 12
+[580] = S 7
+[581] = Z 7
+[582] = CNOT 7 12
+[583] = CNOT 7 11
+[584] = CNOT 8 10
+[585] = CNOT 8 26
+[586] = S 8
+[587] = Z 8
+[588] = CNOT 8 26
+[589] = CNOT 8 28
+[590] = S 8
+[591] = Z 8
+[592] = CNOT 8 28
+[593] = CNOT 8 10
+[594] = CNOT 8 11
+[595] = CNOT 8 12
+[596] = S 8
+[597] = Z 8
+[598] = CNOT 8 12
+[599] = CNOT 8 11
+[600] = CNOT 9 11
+[601] = CNOT 9 12
+[602] = S 9
+[603] = Z 9
+[604] = CNOT 9 12
+[605] = CNOT 9 11
+[606] = CNOT 14 15
+[607] = CNOT 14 16
+[608] = S 14
+[609] = Z 14
+[610] = CNOT 14 16
+[611] = CNOT 14 19
+[612] = T 14
+[613] = S 14
+[614] = Z 14
+[615] = CNOT 14 19
+[616] = CNOT 14 15
+[617] = CNOT 14 16
+[618] = CNOT 14 17
+[619] = S 14
+[620] = Z 14
+[621] = CNOT 14 16
+[622] = CNOT 14 19
+[623] = S 14
+[624] = Z 14
+[625] = CNOT 14 19
+[626] = CNOT 14 17
+[627] = CNOT 15 16
+[628] = CNOT 15 17
+[629] = S 15
+[630] = Z 15
+[631] = CNOT 15 16
+[632] = CNOT 15 19
+[633] = S 15
+[634] = Z 15
+[635] = CNOT 15 19
+[636] = CNOT 15 17
+[637] = CNOT 22 23
+[638] = CNOT 22 24
+[639] = S 22
+[640] = Z 22
+[641] = CNOT 22 24
+[642] = CNOT 22 23
+[643] = CNOT 29 30
+[644] = CNOT 29 31
+[645] = S 29
+[646] = Z 29
+[647] = CNOT 29 31
+[648] = CNOT 29 32
+[649] = S 29
+[650] = Z 29
+[651] = CNOT 29 32
+[652] = CNOT 29 33
+[653] = S 29
+[654] = Z 29
+[655] = CNOT 29 33
+[656] = CNOT 29 34
+[657] = S 29
+[658] = Z 29
+[659] = CNOT 29 34
+[660] = CNOT 29 30
+[661] = CNOT 29 31
+[662] = CNOT 29 32
+[663] = S 29
+[664] = Z 29
+[665] = CNOT 29 31
+[666] = CNOT 29 33
+[667] = S 29
+[668] = Z 29
+[669] = CNOT 29 33
+[670] = CNOT 29 34
+[671] = S 29
+[672] = Z 29
+[673] = CNOT 29 32
+[674] = CNOT 29 33
+[675] = S 29
+[676] = Z 29
+[677] = CNOT 29 34
+[678] = CNOT 29 33
+[679] = CNOT 30 31
+[680] = CNOT 30 32
+[681] = S 30
+[682] = Z 30
+[683] = CNOT 30 31
+[684] = CNOT 30 33
+[685] = S 30
+[686] = Z 30
+[687] = CNOT 30 33
+[688] = CNOT 30 34
+[689] = S 30
+[690] = Z 30
+[691] = CNOT 30 32
+[692] = CNOT 30 33
+[693] = S 30
+[694] = Z 30
+[695] = CNOT 30 34
+[696] = CNOT 30 33
+[697] = CNOT 31 32
+[698] = CNOT 31 33
+[699] = S 31
+[700] = Z 31
+[701] = CNOT 31 33
+[702] = CNOT 31 34
+[703] = S 31
+[704] = Z 31
+[705] = CNOT 31 32
+[706] = CNOT 31 33
+[707] = S 31
+[708] = Z 31
+[709] = CNOT 31 34
+[710] = CNOT 31 33
+[711] = CNOT 34 33
+[712] = CNOT 30 29
+[713] = CNOT 27 26
+[714] = CNOT 23 22
+[715] = CNOT 19 18
+[716] = CNOT 15 14
+[717] = CNOT 12 11
+[718] = CNOT 8 7
+[719] = CNOT 5 4
+[720] = CNOT 36 2
+[721] = CNOT 36 1
+[722] = H 3
+[723] = H 9
+[724] = H 10
+[725] = H 16
+[726] = H 17
+[727] = H 24
+[728] = H 25
+[729] = H 31
+[730] = H 32
+[731] = T 3
+[732] = CNOT 3 5
+[733] = T 3
+[734] = S 3
+[735] = CNOT 3 6
+[736] = T 3
+[737] = CNOT 3 5
+[738] = CNOT 5 6
+[739] = T 5
+[740] = S 5
+[741] = CNOT 5 6
+[742] = T 3
+[743] = S 3
+[744] = CNOT 3 6
+[745] = CNOT 10 17
+[746] = CNOT 10 27
+[747] = T 10
+[748] = Z 10
+[749] = CNOT 10 12
+[750] = T 10
+[751] = CNOT 10 13
+[752] = T 10
+[753] = CNOT 10 12
+[754] = CNOT 12 13
+[755] = CNOT 12 17
+[756] = CNOT 12 27
+[757] = T 12
+[758] = CNOT 12 13
+[759] = T 10
+[760] = CNOT 10 27
+[761] = CNOT 10 17
+[762] = CNOT 10 13
+[763] = T 12
+[764] = Z 12
+[765] = CNOT 12 27
+[766] = CNOT 12 17
+[767] = CNOT 17 19
+[768] = T 17
+[769] = S 17
+[770] = CNOT 17 21
+[771] = T 17
+[772] = CNOT 17 19
+[773] = CNOT 19 21
+[774] = T 19
+[775] = S 19
+[776] = CNOT 19 21
+[777] = T 17
+[778] = S 17
+[779] = CNOT 17 21
+[780] = CNOT 17 25
+[781] = CNOT 17 27
+[782] = T 17
+[783] = S 17
+[784] = Z 17
+[785] = CNOT 17 27
+[786] = T 17
+[787] = CNOT 17 28
+[788] = T 17
+[789] = S 17
+[790] = Z 17
+[791] = CNOT 17 25
+[792] = T 17
+[793] = CNOT 17 25
+[794] = CNOT 17 27
+[795] = T 17
+[796] = CNOT 17 28
+[797] = CNOT 17 27
+[798] = CNOT 17 25
+[799] = CNOT 19 32
+[800] = CNOT 19 34
+[801] = T 19
+[802] = S 19
+[803] = Z 19
+[804] = CNOT 19 34
+[805] = T 19
+[806] = CNOT 19 35
+[807] = T 19
+[808] = S 19
+[809] = Z 19
+[810] = CNOT 19 32
+[811] = T 19
+[812] = CNOT 19 32
+[813] = CNOT 19 34
+[814] = T 19
+[815] = CNOT 19 32
+[816] = CNOT 16 24
+[817] = T 16
+[818] = S 16
+[819] = CNOT 16 20
+[820] = T 16
+[821] = CNOT 16 24
+[822] = CNOT 16 20
+[823] = CNOT 20 24
+[824] = T 20
+[825] = S 20
+[826] = CNOT 20 24
+[827] = CNOT 16 20
+[828] = T 16
+[829] = S 16
+[830] = CNOT 16 20
+[831] = T 9
+[832] = CNOT 13 17
+[833] = CNOT 13 27
+[834] = T 13
+[835] = Z 13
+[836] = CNOT 13 27
+[837] = CNOT 13 17
+[838] = CNOT 17 27
+[839] = CNOT 17 28
+[840] = T 17
+[841] = S 17
+[842] = Z 17
+[843] = CNOT 17 28
+[844] = CNOT 17 27
+[845] = T 31
+[846] = T 19
+[847] = S 19
+[848] = Z 19
+[849] = CNOT 19 35
+[850] = CNOT 19 34
+[851] = Z 10
+[852] = Z 12
+[853] = Z 13
+[854] = S 16
+[855] = S 17
+[856] = Z 17
+[857] = S 19
+[858] = S 24
+[859] = S 27
+[860] = Z 27
+[861] = S 34
+[862] = CNOT 10 12
+[863] = S 10
+[864] = Z 10
+[865] = CNOT 10 12
+[866] = CNOT 10 13
+[867] = S 10
+[868] = Z 10
+[869] = CNOT 10 13
+[870] = CNOT 10 17
+[871] = Z 10
+[872] = CNOT 10 17
+[873] = CNOT 10 27
+[874] = Z 10
+[875] = CNOT 10 27
+[876] = CNOT 12 13
+[877] = S 12
+[878] = Z 12
+[879] = CNOT 12 13
+[880] = CNOT 12 17
+[881] = Z 12
+[882] = CNOT 12 17
+[883] = CNOT 12 27
+[884] = Z 12
+[885] = CNOT 12 27
+[886] = CNOT 13 17
+[887] = Z 13
+[888] = CNOT 13 17
+[889] = CNOT 13 27
+[890] = Z 13
+[891] = CNOT 13 27
+[892] = CNOT 17 27
+[893] = S 17
+[894] = CNOT 17 27
+[895] = CNOT 19 34
+[896] = T 19
+[897] = S 19
+[898] = Z 19
+[899] = CNOT 19 34
+[900] = CNOT 25 27
+[901] = Z 25
+[902] = CNOT 25 27
+[903] = CNOT 25 28
+[904] = Z 25
+[905] = CNOT 25 28
+[906] = CNOT 27 28
+[907] = Z 27
+[908] = CNOT 27 28
+[909] = CNOT 32 34
+[910] = Z 32
+[911] = CNOT 32 34
+[912] = CNOT 32 35
+[913] = Z 32
+[914] = CNOT 32 35
+[915] = CNOT 34 35
+[916] = Z 34
+[917] = CNOT 34 35
+[918] = CNOT 10 12
+[919] = CNOT 10 17
+[920] = S 10
+[921] = Z 10
+[922] = CNOT 10 17
+[923] = CNOT 10 27
+[924] = S 10
+[925] = Z 10
+[926] = CNOT 10 27
+[927] = CNOT 10 12
+[928] = CNOT 10 13
+[929] = CNOT 10 17
+[930] = S 10
+[931] = Z 10
+[932] = CNOT 10 17
+[933] = CNOT 10 27
+[934] = S 10
+[935] = Z 10
+[936] = CNOT 10 27
+[937] = CNOT 10 13
+[938] = CNOT 12 13
+[939] = CNOT 12 17
+[940] = S 12
+[941] = Z 12
+[942] = CNOT 12 17
+[943] = CNOT 12 27
+[944] = S 12
+[945] = Z 12
+[946] = CNOT 12 27
+[947] = CNOT 12 13
+[948] = CNOT 3 5
+[949] = CNOT 5 4
+[950] = H 6
+[951] = H 20
+[952] = H 21
+[953] = H 10
+[954] = H 17
+[955] = H 25
+[956] = H 32
+[957] = CNOT 6 9
+[958] = T 6
+[959] = S 6
+[960] = CNOT 6 13
+[961] = T 6
+[962] = CNOT 6 9
+[963] = CNOT 9 13
+[964] = T 9
+[965] = S 9
+[966] = CNOT 9 13
+[967] = T 6
+[968] = S 6
+[969] = CNOT 6 13
+[970] = CNOT 8 12
+[971] = T 8
+[972] = S 8
+[973] = CNOT 8 12
+[974] = CNOT 8 24
+[975] = T 8
+[976] = CNOT 8 28
+[977] = T 8
+[978] = S 8
+[979] = Z 8
+[980] = CNOT 8 21
+[981] = T 8
+[982] = CNOT 8 24
+[983] = CNOT 8 21
+[984] = T 8
+[985] = T 20
+[986] = CNOT 8 21
+[987] = T 8
+[988] = S 8
+[989] = Z 8
+[990] = CNOT 8 28
+[991] = CNOT 8 21
+[992] = T 10
+[993] = CNOT 6 8
+[994] = T 6
+[995] = S 6
+[996] = CNOT 6 10
+[997] = T 6
+[998] = CNOT 6 8
+[999] = CNOT 8 10
+[1000] = T 8
+[1001] = S 8
+[1002] = CNOT 8 10
+[1003] = T 6
+[1004] = S 6
+[1005] = CNOT 6 10
+[1006] = T 17
+[1007] = T 25
+[1008] = T 32
+[1009] = CNOT 8 21
+[1010] = CNOT 8 24
+[1011] = T 8
+[1012] = S 8
+[1013] = Z 8
+[1014] = CNOT 8 24
+[1015] = CNOT 8 21
+[1016] = S 6
+[1017] = S 8
+[1018] = Z 8
+[1019] = Z 12
+[1020] = S 21
+[1021] = CNOT 8 21
+[1022] = T 8
+[1023] = S 8
+[1024] = Z 8
+[1025] = CNOT 8 21
+[1026] = CNOT 21 24
+[1027] = Z 21
+[1028] = CNOT 21 24
+[1029] = CNOT 21 28
+[1030] = Z 21
+[1031] = CNOT 21 28
+[1032] = CNOT 24 28
+[1033] = Z 24
+[1034] = CNOT 24 28
+[1035] = CNOT 12 8
+[1036] = CNOT 6 8
+[1037] = H 13
+[1038] = H 21
+[1039] = H 10
+[1040] = H 9
+[1041] = CNOT 13 24
+[1042] = T 13
+[1043] = CNOT 13 24
+[1044] = CNOT 13 20
+[1045] = T 13
+[1046] = S 13
+[1047] = CNOT 13 28
+[1048] = T 13
+[1049] = CNOT 13 20
+[1050] = CNOT 20 28
+[1051] = T 20
+[1052] = S 20
+[1053] = CNOT 20 28
+[1054] = T 13
+[1055] = S 13
+[1056] = CNOT 13 28
+[1057] = CNOT 21 24
+[1058] = T 21
+[1059] = CNOT 21 24
+[1060] = CNOT 13 16
+[1061] = CNOT 13 24
+[1062] = T 13
+[1063] = S 13
+[1064] = Z 13
+[1065] = CNOT 13 21
+[1066] = T 13
+[1067] = CNOT 13 16
+[1068] = CNOT 16 21
+[1069] = CNOT 16 24
+[1070] = T 16
+[1071] = S 16
+[1072] = Z 16
+[1073] = CNOT 16 24
+[1074] = CNOT 16 21
+[1075] = T 13
+[1076] = S 13
+[1077] = Z 13
+[1078] = CNOT 13 24
+[1079] = CNOT 13 21
+[1080] = CNOT 13 15
+[1081] = T 13
+[1082] = S 13
+[1083] = CNOT 13 17
+[1084] = T 13
+[1085] = CNOT 13 15
+[1086] = CNOT 15 17
+[1087] = T 15
+[1088] = S 15
+[1089] = CNOT 15 17
+[1090] = T 13
+[1091] = S 13
+[1092] = CNOT 13 17
+[1093] = CNOT 15 19
+[1094] = T 15
+[1095] = S 15
+[1096] = CNOT 15 19
+[1097] = T 15
+[1098] = Z 15
+[1099] = T 9
+[1100] = Z 9
+[1101] = CNOT 9 12
+[1102] = T 9
+[1103] = Z 9
+[1104] = CNOT 9 12
+[1105] = CNOT 8 9
+[1106] = CNOT 8 12
+[1107] = T 8
+[1108] = S 8
+[1109] = Z 8
+[1110] = CNOT 8 12
+[1111] = T 8
+[1112] = S 8
+[1113] = Z 8
+[1114] = CNOT 8 9
+[1115] = Z 8
+[1116] = S 13
+[1117] = Z 19
+[1118] = T 24
+[1119] = S 24
+[1120] = Z 24
+[1121] = CNOT 8 12
+[1122] = Z 8
+[1123] = CNOT 8 12
+[1124] = CNOT 13 16
+[1125] = Z 13
+[1126] = CNOT 13 16
+[1127] = CNOT 13 21
+[1128] = Z 13
+[1129] = CNOT 13 21
+[1130] = CNOT 16 21
+[1131] = Z 16
+[1132] = CNOT 16 21
+[1133] = CNOT 24 16
+[1134] = CNOT 19 15
+[1135] = CNOT 13 15
+[1136] = CNOT 10 12
+[1137] = CNOT 12 11
+[1138] = CNOT 12 8
+[1139] = CNOT 10 8
+[1140] = CNOT 8 7
+[1141] = H 28
+[1142] = H 21
+[1143] = H 20
+[1144] = H 17
+[1145] = H 9
+[1146] = T 21
+[1147] = CNOT 21 23
+[1148] = T 21
+[1149] = S 21
+[1150] = CNOT 21 25
+[1151] = T 21
+[1152] = CNOT 21 23
+[1153] = CNOT 23 25
+[1154] = T 23
+[1155] = S 23
+[1156] = CNOT 23 25
+[1157] = T 21
+[1158] = S 21
+[1159] = CNOT 21 25
+[1160] = CNOT 28 30
+[1161] = T 28
+[1162] = S 28
+[1163] = CNOT 28 32
+[1164] = T 28
+[1165] = CNOT 28 30
+[1166] = CNOT 30 32
+[1167] = T 30
+[1168] = S 30
+[1169] = CNOT 30 32
+[1170] = T 28
+[1171] = S 28
+[1172] = CNOT 28 32
+[1173] = CNOT 28 31
+[1174] = T 28
+[1175] = S 28
+[1176] = CNOT 28 35
+[1177] = T 28
+[1178] = CNOT 28 31
+[1179] = CNOT 31 35
+[1180] = T 31
+[1181] = S 31
+[1182] = CNOT 31 35
+[1183] = T 28
+[1184] = S 28
+[1185] = CNOT 28 35
+[1186] = T 20
+[1187] = Z 20
+[1188] = CNOT 20 24
+[1189] = T 20
+[1190] = Z 20
+[1191] = CNOT 20 24
+[1192] = CNOT 16 20
+[1193] = CNOT 16 24
+[1194] = T 16
+[1195] = S 16
+[1196] = Z 16
+[1197] = CNOT 16 24
+[1198] = T 16
+[1199] = S 16
+[1200] = Z 16
+[1201] = CNOT 16 20
+[1202] = T 23
+[1203] = Z 23
+[1204] = CNOT 23 27
+[1205] = T 23
+[1206] = S 23
+[1207] = CNOT 23 27
+[1208] = T 30
+[1209] = Z 30
+[1210] = CNOT 30 34
+[1211] = T 30
+[1212] = S 30
+[1213] = CNOT 30 34
+[1214] = Z 16
+[1215] = Z 27
+[1216] = S 28
+[1217] = Z 34
+[1218] = CNOT 16 24
+[1219] = Z 16
+[1220] = CNOT 16 24
+[1221] = CNOT 34 30
+[1222] = CNOT 28 30
+[1223] = CNOT 27 23
+[1224] = CNOT 21 23
+[1225] = CNOT 24 16
+[1226] = H 25
+[1227] = H 32
+[1228] = H 35
+[1229] = H 20
+[1230] = H 16
+[1231] = H 24
+[1232] = H 31
+[1233] = T 16
+[1234] = Z 16
+[1235] = CNOT 16 19
+[1236] = T 16
+[1237] = Z 16
+[1238] = CNOT 16 19
+[1239] = CNOT 15 16
+[1240] = CNOT 15 19
+[1241] = T 15
+[1242] = S 15
+[1243] = Z 15
+[1244] = CNOT 15 19
+[1245] = T 15
+[1246] = S 15
+[1247] = Z 15
+[1248] = CNOT 15 16
+[1249] = T 24
+[1250] = Z 24
+[1251] = CNOT 24 27
+[1252] = T 24
+[1253] = Z 24
+[1254] = CNOT 24 27
+[1255] = CNOT 23 24
+[1256] = CNOT 23 27
+[1257] = T 23
+[1258] = S 23
+[1259] = Z 23
+[1260] = CNOT 23 27
+[1261] = T 23
+[1262] = S 23
+[1263] = Z 23
+[1264] = CNOT 23 24
+[1265] = T 31
+[1266] = Z 31
+[1267] = CNOT 31 34
+[1268] = T 31
+[1269] = Z 31
+[1270] = CNOT 31 34
+[1271] = CNOT 30 31
+[1272] = CNOT 30 34
+[1273] = T 30
+[1274] = S 30
+[1275] = Z 30
+[1276] = CNOT 30 34
+[1277] = T 30
+[1278] = S 30
+[1279] = Z 30
+[1280] = CNOT 30 31
+[1281] = Z 15
+[1282] = Z 23
+[1283] = Z 30
+[1284] = CNOT 15 19
+[1285] = Z 15
+[1286] = CNOT 15 19
+[1287] = CNOT 23 27
+[1288] = Z 23
+[1289] = CNOT 23 27
+[1290] = CNOT 30 34
+[1291] = Z 30
+[1292] = CNOT 30 34
+[1293] = CNOT 31 34
+[1294] = CNOT 34 33
+[1295] = CNOT 34 30
+[1296] = CNOT 31 30
+[1297] = CNOT 30 29
+[1298] = CNOT 25 27
+[1299] = CNOT 27 26
+[1300] = CNOT 27 23
+[1301] = CNOT 25 23
+[1302] = CNOT 23 22
+[1303] = CNOT 17 19
+[1304] = CNOT 19 18
+[1305] = CNOT 19 15
+[1306] = CNOT 17 15
+[1307] = CNOT 15 14
+[1308] = H 16
+[1309] = H 24
+[1310] = H 31
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 36
+Number of `data' qubits = 36
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 6
+T count = 238
+Cost estimation = 119079
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	50
+	4	29
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	34
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 36
+Number of `data' qubits = 36
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 6
+T count = 182
+Cost estimation = 92129
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	50
+	4	697
+	5	182
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	177
+	12	0
+	13	205
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output T Count (SQC_Circuit) = 182
+Output T Count (PhasePolynomial) = 182
+Fail count = 4
+
+Execution time: 27.1451s
+Number of LCL errors: 0
+Number of LCL warnings: 0

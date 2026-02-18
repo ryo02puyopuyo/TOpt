@@ -42,6 +42,11 @@ using namespace std;
 #include <sstream>
 #include <fstream>
 
+// ★GateSynthesisMatrix.h よりも「前」にこれがあることを確認
+extern "C" {
+    #include <m4ri/m4ri.h>
+}
+
 typedef GateStringSparse (*TO_Decoder)(const Signature& in_S);
 typedef int (*LempelSelector) (const Signature& inS);
 namespace LEMPEL_SELECTOR_NAME {

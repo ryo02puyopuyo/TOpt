@@ -1,0 +1,268 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/rest/forpyzx/TOpt/forme/tpar_benchmark/barenco_tof_3.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/rest/forpyzx/TOpt/forme/tpar_benchmark/barenco_tof_3.tfc
+
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+[0] = H 5
+[1] = CCZ 3 4 5
+[2] = H 5
+[3] = H 4
+[4] = CCZ 1 2 4
+[5] = H 4
+[6] = H 5
+[7] = CCZ 3 4 5
+[8] = H 5
+[9] = H 4
+[10] = CCZ 1 2 4
+[11] = H 4
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 16
+		Round = 1
+Round 1 | Current Columns (m): 14
+nullspace time: 2 ms, chi time: 1 ms
+Total LempelX2 time: 3 ms
+		TODD executed in 0.003619 seconds.
+		Total time: 0.003645s
+	Gate synthesis end.
+	Total time: 0.004219s
+UniversalOptimize end.
+Output circuit:
+n 8
+n_x 5
+n_y 0
+n_z 3
+m 201
+[0] = H 5
+[1] = H 6
+[2] = H 7
+[3] = H 8
+[4] = CNOT 3 5
+[5] = CNOT 3 8
+[6] = T 3
+[7] = S 3
+[8] = Z 3
+[9] = CNOT 3 5
+[10] = CNOT 5 8
+[11] = T 5
+[12] = S 5
+[13] = CNOT 5 8
+[14] = CNOT 1 8
+[15] = T 1
+[16] = S 1
+[17] = CNOT 1 8
+[18] = T 3
+[19] = S 3
+[20] = T 6
+[21] = Z 6
+[22] = CNOT 1 2
+[23] = CNOT 1 6
+[24] = T 1
+[25] = CNOT 1 2
+[26] = CNOT 2 6
+[27] = T 2
+[28] = S 2
+[29] = CNOT 2 6
+[30] = T 1
+[31] = S 1
+[32] = CNOT 1 6
+[33] = CNOT 3 4
+[34] = CNOT 3 5
+[35] = CNOT 3 7
+[36] = T 3
+[37] = CNOT 3 5
+[38] = CNOT 3 4
+[39] = CNOT 4 5
+[40] = CNOT 4 7
+[41] = CNOT 4 8
+[42] = T 4
+[43] = CNOT 4 5
+[44] = T 4
+[45] = Z 4
+[46] = CNOT 4 8
+[47] = CNOT 4 7
+[48] = CNOT 3 4
+[49] = T 3
+[50] = CNOT 3 8
+[51] = CNOT 3 7
+[52] = CNOT 3 4
+[53] = CNOT 2 8
+[54] = T 2
+[55] = S 2
+[56] = CNOT 2 8
+[57] = CNOT 1 2
+[58] = CNOT 1 8
+[59] = T 1
+[60] = CNOT 1 8
+[61] = CNOT 1 2
+[62] = S 1
+[63] = Z 1
+[64] = S 2
+[65] = Z 2
+[66] = S 3
+[67] = S 4
+[68] = S 5
+[69] = S 8
+[70] = CNOT 1 2
+[71] = S 1
+[72] = CNOT 1 2
+[73] = CNOT 3 4
+[74] = S 3
+[75] = Z 3
+[76] = CNOT 3 4
+[77] = CNOT 3 5
+[78] = Z 3
+[79] = CNOT 3 5
+[80] = CNOT 3 7
+[81] = S 3
+[82] = Z 3
+[83] = CNOT 3 7
+[84] = CNOT 4 5
+[85] = S 4
+[86] = Z 4
+[87] = CNOT 4 5
+[88] = CNOT 4 6
+[89] = S 4
+[90] = CNOT 4 6
+[91] = CNOT 4 7
+[92] = Z 4
+[93] = CNOT 4 7
+[94] = CNOT 4 8
+[95] = Z 4
+[96] = CNOT 4 8
+[97] = CNOT 5 7
+[98] = S 5
+[99] = Z 5
+[100] = CNOT 5 7
+[101] = CNOT 6 7
+[102] = S 6
+[103] = CNOT 6 7
+[104] = CNOT 7 8
+[105] = S 7
+[106] = Z 7
+[107] = CNOT 7 8
+[108] = CNOT 3 4
+[109] = CNOT 3 7
+[110] = S 3
+[111] = Z 3
+[112] = CNOT 3 7
+[113] = CNOT 3 8
+[114] = S 3
+[115] = Z 3
+[116] = CNOT 3 4
+[117] = CNOT 3 7
+[118] = S 3
+[119] = Z 3
+[120] = CNOT 3 8
+[121] = CNOT 3 7
+[122] = CNOT 4 5
+[123] = CNOT 4 7
+[124] = S 4
+[125] = Z 4
+[126] = CNOT 4 7
+[127] = CNOT 4 8
+[128] = S 4
+[129] = Z 4
+[130] = CNOT 4 5
+[131] = CNOT 5 7
+[132] = CNOT 5 8
+[133] = S 5
+[134] = Z 5
+[135] = CNOT 5 8
+[136] = CNOT 5 7
+[137] = CNOT 7 8
+[138] = CNOT 6 8
+[139] = CNOT 8 7
+[140] = CNOT 7 8
+[141] = CNOT 7 6
+[142] = CNOT 6 7
+[143] = CNOT 6 4
+[144] = CNOT 4 6
+[145] = H 6
+[146] = M 6
+[147] = H 7
+[148] = M 7
+[149] = H 8
+[150] = M 8
+[151] = H 4
+[152] = H 5
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 28
+Cost estimation = 14008
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	8
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	4
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 8
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 3
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 14
+Cost estimation = 7140.5
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	9
+	4	81
+	5	14
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	27
+	12	0
+	13	19
+	14	0
+	15	0
+	16	0
+	17	0
+	18	3
+Output T Count (SQC_Circuit) = 14
+Output T Count (PhasePolynomial) = 14
+Fail count = 0
+
+Execution time: 0.004237s
+Number of LCL errors: 0
+Number of LCL warnings: 0

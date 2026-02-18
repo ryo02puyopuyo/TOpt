@@ -1,0 +1,19 @@
+.v b,c,d,e,a
+.i b,c,d,e,a
+.o b,c,d,e,a
+BEGIN
+H a
+Z b,e,a
+Z d,e,a
+H a
+CNOT e,a
+H a
+Z c,d,a
+H a
+CNOT d,a
+H a
+Z b,c,a
+H a
+CNOT c,a
+CNOT b,a
+END

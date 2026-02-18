@@ -1,0 +1,945 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/rest/forpyzx/TOpt/forme/tpar_benchmark/gf2^4_mult.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/rest/forpyzx/TOpt/forme/tpar_benchmark/gf2^4_mult.tfc
+
+n 12
+n_x 12
+n_y 0
+n_z 0
+m 101
+[0] = H 9
+[1] = H 10
+[2] = H 11
+[3] = CCZ 4 6 9
+[4] = CCZ 3 7 9
+[5] = CCZ 2 8 9
+[6] = CCZ 4 7 10
+[7] = CCZ 3 8 10
+[8] = CCZ 4 8 11
+[9] = H 9
+[10] = H 10
+[11] = H 11
+[12] = CNOT 12 11
+[13] = CNOT 11 10
+[14] = CNOT 10 9
+[15] = H 9
+[16] = H 10
+[17] = H 11
+[18] = H 12
+[19] = CCZ 4 5 12
+[20] = CCZ 3 6 12
+[21] = CCZ 2 7 12
+[22] = CCZ 1 8 12
+[23] = CCZ 3 5 11
+[24] = CCZ 2 6 11
+[25] = CCZ 1 7 11
+[26] = CCZ 2 5 10
+[27] = CCZ 1 6 10
+[28] = CCZ 1 5 9
+[29] = H 9
+[30] = H 10
+[31] = H 11
+[32] = H 12
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 32
+		Round = 1
+Round 1 | Current Columns (m): 30
+		Round = 2
+Round 2 | Current Columns (m): 28
+		Round = 3
+Round 3 | Current Columns (m): 26
+nullspace time: 61 ms, chi time: 36 ms
+Total LempelX2 time: 99 ms
+		TODD executed in 0.099674 seconds.
+		Total time: 0.099741s
+	Gate synthesis end.
+	Input has T-Count zero. Outputting the input.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 40
+		Round = 1
+Round 1 | Current Columns (m): 36
+		Round = 2
+Round 2 | Current Columns (m): 32
+nullspace time: 104 ms, chi time: 53 ms
+Total LempelX2 time: 158 ms
+		TODD executed in 0.158864 seconds.
+		Total time: 0.158921s
+	Gate synthesis end.
+	Total time: 0.266168s
+UniversalOptimize end.
+Output circuit:
+n 12
+n_x 12
+n_y 0
+n_z 0
+m 801
+[0] = H 9
+[1] = H 10
+[2] = H 11
+[3] = CNOT 2 3
+[4] = CNOT 2 4
+[5] = CNOT 2 8
+[6] = CNOT 2 10
+[7] = T 2
+[8] = CNOT 2 10
+[9] = CNOT 2 8
+[10] = CNOT 2 4
+[11] = CNOT 2 3
+[12] = CNOT 4 6
+[13] = T 4
+[14] = S 4
+[15] = CNOT 4 9
+[16] = T 4
+[17] = CNOT 4 6
+[18] = CNOT 6 9
+[19] = T 6
+[20] = S 6
+[21] = CNOT 6 9
+[22] = T 4
+[23] = Z 4
+[24] = CNOT 4 9
+[25] = T 7
+[26] = S 7
+[27] = Z 7
+[28] = CNOT 2 4
+[29] = T 2
+[30] = T 5
+[31] = Z 5
+[32] = CNOT 2 3
+[33] = CNOT 2 7
+[34] = CNOT 2 8
+[35] = CNOT 2 10
+[36] = T 2
+[37] = CNOT 2 10
+[38] = CNOT 2 8
+[39] = CNOT 2 4
+[40] = CNOT 2 9
+[41] = T 2
+[42] = CNOT 2 4
+[43] = CNOT 2 10
+[44] = T 2
+[45] = CNOT 2 9
+[46] = CNOT 2 4
+[47] = CNOT 2 3
+[48] = T 2
+[49] = Z 2
+[50] = CNOT 8 9
+[51] = T 8
+[52] = S 8
+[53] = Z 8
+[54] = CNOT 8 9
+[55] = CNOT 1 8
+[56] = T 1
+[57] = S 1
+[58] = CNOT 1 8
+[59] = CNOT 2 4
+[60] = CNOT 2 8
+[61] = CNOT 2 9
+[62] = T 2
+[63] = CNOT 2 10
+[64] = CNOT 2 4
+[65] = CNOT 2 3
+[66] = T 2
+[67] = CNOT 2 9
+[68] = CNOT 2 8
+[69] = CNOT 2 7
+[70] = CNOT 2 3
+[71] = CNOT 2 10
+[72] = T 2
+[73] = S 2
+[74] = Z 2
+[75] = CNOT 2 10
+[76] = CNOT 3 6
+[77] = T 3
+[78] = S 3
+[79] = CNOT 3 6
+[80] = CNOT 2 4
+[81] = CNOT 2 7
+[82] = CNOT 2 8
+[83] = T 2
+[84] = CNOT 2 8
+[85] = CNOT 2 4
+[86] = CNOT 2 3
+[87] = CNOT 2 11
+[88] = T 2
+[89] = CNOT 2 11
+[90] = CNOT 2 7
+[91] = CNOT 2 4
+[92] = CNOT 2 8
+[93] = CNOT 2 9
+[94] = CNOT 2 10
+[95] = T 2
+[96] = CNOT 2 10
+[97] = CNOT 2 9
+[98] = CNOT 2 8
+[99] = CNOT 2 4
+[100] = CNOT 4 5
+[101] = T 4
+[102] = S 4
+[103] = CNOT 4 5
+[104] = CNOT 2 4
+[105] = CNOT 2 7
+[106] = CNOT 2 11
+[107] = T 2
+[108] = CNOT 2 11
+[109] = CNOT 2 7
+[110] = CNOT 2 3
+[111] = CNOT 2 9
+[112] = CNOT 2 10
+[113] = T 2
+[114] = CNOT 2 10
+[115] = CNOT 2 9
+[116] = CNOT 2 4
+[117] = CNOT 2 3
+[118] = CNOT 2 7
+[119] = CNOT 2 8
+[120] = CNOT 2 11
+[121] = T 2
+[122] = CNOT 2 4
+[123] = T 2
+[124] = CNOT 2 11
+[125] = CNOT 2 8
+[126] = CNOT 2 7
+[127] = CNOT 2 4
+[128] = CNOT 2 3
+[129] = S 2
+[130] = S 3
+[131] = Z 3
+[132] = S 4
+[133] = S 6
+[134] = Z 6
+[135] = S 8
+[136] = Z 8
+[137] = S 10
+[138] = Z 11
+[139] = CNOT 2 3
+[140] = S 2
+[141] = CNOT 2 3
+[142] = CNOT 2 7
+[143] = Z 2
+[144] = CNOT 2 7
+[145] = CNOT 2 8
+[146] = S 2
+[147] = CNOT 2 8
+[148] = CNOT 3 4
+[149] = Z 3
+[150] = CNOT 3 4
+[151] = CNOT 3 8
+[152] = S 3
+[153] = CNOT 3 8
+[154] = CNOT 3 10
+[155] = S 3
+[156] = CNOT 3 10
+[157] = CNOT 4 7
+[158] = S 4
+[159] = CNOT 4 7
+[160] = CNOT 4 8
+[161] = S 4
+[162] = CNOT 4 8
+[163] = CNOT 4 10
+[164] = S 4
+[165] = CNOT 4 10
+[166] = CNOT 7 8
+[167] = S 7
+[168] = CNOT 7 8
+[169] = CNOT 8 10
+[170] = S 8
+[171] = CNOT 8 10
+[172] = CNOT 9 10
+[173] = S 9
+[174] = CNOT 9 10
+[175] = CNOT 2 3
+[176] = CNOT 2 4
+[177] = S 2
+[178] = CNOT 2 4
+[179] = CNOT 2 8
+[180] = S 2
+[181] = CNOT 2 8
+[182] = CNOT 2 9
+[183] = Z 2
+[184] = CNOT 2 9
+[185] = CNOT 2 10
+[186] = Z 2
+[187] = CNOT 2 10
+[188] = CNOT 2 11
+[189] = Z 2
+[190] = CNOT 2 11
+[191] = CNOT 2 3
+[192] = CNOT 2 4
+[193] = CNOT 2 7
+[194] = S 2
+[195] = CNOT 2 7
+[196] = CNOT 2 8
+[197] = S 2
+[198] = CNOT 2 8
+[199] = CNOT 2 9
+[200] = Z 2
+[201] = CNOT 2 9
+[202] = CNOT 2 10
+[203] = S 2
+[204] = CNOT 2 10
+[205] = CNOT 2 11
+[206] = S 2
+[207] = Z 2
+[208] = CNOT 2 11
+[209] = CNOT 2 4
+[210] = CNOT 2 7
+[211] = CNOT 2 8
+[212] = S 2
+[213] = CNOT 2 8
+[214] = CNOT 2 9
+[215] = Z 2
+[216] = CNOT 2 9
+[217] = CNOT 2 11
+[218] = Z 2
+[219] = CNOT 2 11
+[220] = CNOT 2 7
+[221] = CNOT 2 8
+[222] = CNOT 2 9
+[223] = S 2
+[224] = Z 2
+[225] = CNOT 2 9
+[226] = CNOT 2 10
+[227] = Z 2
+[228] = CNOT 2 10
+[229] = CNOT 2 11
+[230] = S 2
+[231] = Z 2
+[232] = CNOT 2 11
+[233] = CNOT 2 8
+[234] = CNOT 2 9
+[235] = CNOT 2 10
+[236] = Z 2
+[237] = CNOT 2 10
+[238] = CNOT 2 9
+[239] = CNOT 3 4
+[240] = CNOT 3 7
+[241] = Z 3
+[242] = CNOT 3 7
+[243] = CNOT 3 8
+[244] = Z 3
+[245] = CNOT 3 8
+[246] = CNOT 3 9
+[247] = S 3
+[248] = Z 3
+[249] = CNOT 3 9
+[250] = CNOT 3 10
+[251] = Z 3
+[252] = CNOT 3 10
+[253] = CNOT 3 11
+[254] = S 3
+[255] = Z 3
+[256] = CNOT 3 11
+[257] = CNOT 3 4
+[258] = CNOT 3 7
+[259] = CNOT 3 8
+[260] = Z 3
+[261] = CNOT 3 8
+[262] = CNOT 3 9
+[263] = S 3
+[264] = Z 3
+[265] = CNOT 3 9
+[266] = CNOT 3 10
+[267] = S 3
+[268] = Z 3
+[269] = CNOT 3 10
+[270] = CNOT 3 11
+[271] = Z 3
+[272] = CNOT 3 11
+[273] = CNOT 3 7
+[274] = CNOT 3 8
+[275] = CNOT 3 9
+[276] = S 3
+[277] = Z 3
+[278] = CNOT 3 9
+[279] = CNOT 3 10
+[280] = S 3
+[281] = Z 3
+[282] = CNOT 3 10
+[283] = CNOT 3 11
+[284] = S 3
+[285] = Z 3
+[286] = CNOT 3 11
+[287] = CNOT 3 8
+[288] = CNOT 3 9
+[289] = CNOT 3 10
+[290] = S 3
+[291] = Z 3
+[292] = CNOT 3 10
+[293] = CNOT 3 9
+[294] = CNOT 4 7
+[295] = CNOT 4 8
+[296] = Z 4
+[297] = CNOT 4 8
+[298] = CNOT 4 9
+[299] = S 4
+[300] = Z 4
+[301] = CNOT 4 9
+[302] = CNOT 4 10
+[303] = S 4
+[304] = Z 4
+[305] = CNOT 4 10
+[306] = CNOT 4 11
+[307] = S 4
+[308] = Z 4
+[309] = CNOT 4 11
+[310] = CNOT 4 7
+[311] = CNOT 4 8
+[312] = CNOT 4 9
+[313] = S 4
+[314] = Z 4
+[315] = CNOT 4 9
+[316] = CNOT 4 10
+[317] = Z 4
+[318] = CNOT 4 8
+[319] = CNOT 4 9
+[320] = Z 4
+[321] = CNOT 4 10
+[322] = CNOT 4 9
+[323] = CNOT 7 8
+[324] = CNOT 7 9
+[325] = S 7
+[326] = Z 7
+[327] = CNOT 7 9
+[328] = CNOT 7 10
+[329] = S 7
+[330] = Z 7
+[331] = CNOT 7 10
+[332] = CNOT 7 11
+[333] = S 7
+[334] = Z 7
+[335] = CNOT 7 11
+[336] = CNOT 7 8
+[337] = CNOT 7 9
+[338] = CNOT 7 10
+[339] = S 7
+[340] = Z 7
+[341] = CNOT 7 10
+[342] = CNOT 7 9
+[343] = CNOT 8 9
+[344] = CNOT 8 10
+[345] = S 8
+[346] = Z 8
+[347] = CNOT 8 10
+[348] = CNOT 8 9
+[349] = CNOT 5 4
+[350] = CNOT 6 3
+[351] = CNOT 7 2
+[352] = CNOT 8 1
+[353] = H 9
+[354] = H 10
+[355] = H 11
+[356] = CNOT 12 11
+[357] = CNOT 11 10
+[358] = CNOT 10 9
+[359] = H 9
+[360] = H 10
+[361] = H 11
+[362] = H 12
+[363] = CNOT 5 12
+[364] = T 5
+[365] = Z 5
+[366] = CNOT 5 12
+[367] = T 9
+[368] = Z 9
+[369] = CNOT 4 12
+[370] = T 4
+[371] = S 4
+[372] = Z 4
+[373] = CNOT 4 12
+[374] = CNOT 6 12
+[375] = T 6
+[376] = S 6
+[377] = Z 6
+[378] = CNOT 6 12
+[379] = CNOT 1 4
+[380] = CNOT 1 5
+[381] = T 1
+[382] = S 1
+[383] = Z 1
+[384] = CNOT 1 5
+[385] = CNOT 1 4
+[386] = CNOT 3 12
+[387] = T 3
+[388] = CNOT 3 12
+[389] = CNOT 7 12
+[390] = T 7
+[391] = Z 7
+[392] = CNOT 7 12
+[393] = CNOT 2 7
+[394] = CNOT 2 12
+[395] = T 2
+[396] = S 2
+[397] = CNOT 2 7
+[398] = CNOT 4 5
+[399] = CNOT 4 9
+[400] = T 4
+[401] = S 4
+[402] = Z 4
+[403] = CNOT 4 9
+[404] = CNOT 4 5
+[405] = CNOT 8 12
+[406] = T 8
+[407] = Z 8
+[408] = CNOT 8 12
+[409] = CNOT 1 8
+[410] = CNOT 1 12
+[411] = T 1
+[412] = S 1
+[413] = Z 1
+[414] = CNOT 1 12
+[415] = CNOT 1 8
+[416] = CNOT 1 4
+[417] = CNOT 1 5
+[418] = CNOT 1 9
+[419] = T 1
+[420] = CNOT 1 9
+[421] = CNOT 1 5
+[422] = CNOT 1 4
+[423] = CNOT 4 5
+[424] = CNOT 4 10
+[425] = CNOT 4 12
+[426] = T 4
+[427] = CNOT 4 12
+[428] = CNOT 4 10
+[429] = CNOT 4 5
+[430] = T 11
+[431] = Z 11
+[432] = CNOT 3 4
+[433] = CNOT 3 5
+[434] = T 3
+[435] = S 3
+[436] = Z 3
+[437] = CNOT 3 11
+[438] = T 3
+[439] = CNOT 3 5
+[440] = CNOT 3 4
+[441] = CNOT 4 5
+[442] = CNOT 4 11
+[443] = T 4
+[444] = S 4
+[445] = Z 4
+[446] = CNOT 4 11
+[447] = CNOT 4 5
+[448] = T 3
+[449] = S 3
+[450] = CNOT 3 11
+[451] = CNOT 2 3
+[452] = CNOT 2 6
+[453] = CNOT 2 10
+[454] = T 2
+[455] = CNOT 2 11
+[456] = T 2
+[457] = CNOT 2 6
+[458] = CNOT 2 3
+[459] = CNOT 3 6
+[460] = CNOT 3 10
+[461] = CNOT 3 11
+[462] = CNOT 3 12
+[463] = T 3
+[464] = CNOT 3 12
+[465] = CNOT 3 11
+[466] = CNOT 3 10
+[467] = CNOT 3 6
+[468] = T 2
+[469] = CNOT 2 11
+[470] = CNOT 2 7
+[471] = T 2
+[472] = CNOT 2 12
+[473] = CNOT 2 10
+[474] = CNOT 2 7
+[475] = CNOT 1 2
+[476] = CNOT 1 7
+[477] = CNOT 1 10
+[478] = CNOT 1 12
+[479] = T 1
+[480] = CNOT 1 11
+[481] = T 1
+[482] = CNOT 1 7
+[483] = CNOT 1 2
+[484] = CNOT 2 7
+[485] = CNOT 2 10
+[486] = CNOT 2 11
+[487] = CNOT 2 12
+[488] = T 2
+[489] = CNOT 2 11
+[490] = CNOT 2 7
+[491] = T 1
+[492] = CNOT 1 12
+[493] = CNOT 1 11
+[494] = CNOT 1 10
+[495] = CNOT 2 4
+[496] = CNOT 2 5
+[497] = T 2
+[498] = CNOT 2 10
+[499] = T 2
+[500] = CNOT 2 12
+[501] = CNOT 2 5
+[502] = CNOT 1 9
+[503] = T 1
+[504] = S 1
+[505] = CNOT 1 9
+[506] = CNOT 1 3
+[507] = CNOT 1 6
+[508] = CNOT 1 12
+[509] = T 1
+[510] = CNOT 1 10
+[511] = T 1
+[512] = CNOT 1 12
+[513] = CNOT 1 10
+[514] = CNOT 1 6
+[515] = S 3
+[516] = Z 3
+[517] = Z 4
+[518] = S 6
+[519] = Z 6
+[520] = Z 7
+[521] = S 10
+[522] = Z 10
+[523] = Z 12
+[524] = S 1
+[525] = Z 1
+[526] = CNOT 1 3
+[527] = CNOT 1 4
+[528] = Z 1
+[529] = CNOT 1 4
+[530] = CNOT 1 5
+[531] = Z 1
+[532] = CNOT 1 5
+[533] = CNOT 1 6
+[534] = S 1
+[535] = Z 1
+[536] = CNOT 1 6
+[537] = CNOT 1 8
+[538] = Z 1
+[539] = CNOT 1 8
+[540] = CNOT 1 10
+[541] = S 1
+[542] = Z 1
+[543] = CNOT 1 10
+[544] = CNOT 1 11
+[545] = S 1
+[546] = Z 1
+[547] = CNOT 1 11
+[548] = S 2
+[549] = Z 2
+[550] = CNOT 2 4
+[551] = CNOT 2 5
+[552] = S 2
+[553] = Z 2
+[554] = CNOT 2 5
+[555] = CNOT 2 7
+[556] = Z 2
+[557] = CNOT 2 7
+[558] = CNOT 2 10
+[559] = S 2
+[560] = Z 2
+[561] = CNOT 2 10
+[562] = CNOT 2 11
+[563] = S 2
+[564] = Z 2
+[565] = CNOT 2 11
+[566] = CNOT 3 4
+[567] = Z 3
+[568] = CNOT 3 4
+[569] = CNOT 3 5
+[570] = Z 3
+[571] = CNOT 3 5
+[572] = CNOT 3 6
+[573] = S 3
+[574] = Z 3
+[575] = CNOT 3 6
+[576] = CNOT 4 5
+[577] = S 4
+[578] = CNOT 4 5
+[579] = CNOT 4 9
+[580] = Z 4
+[581] = CNOT 4 9
+[582] = CNOT 4 10
+[583] = S 4
+[584] = Z 4
+[585] = CNOT 4 10
+[586] = CNOT 4 11
+[587] = Z 4
+[588] = CNOT 4 11
+[589] = CNOT 5 9
+[590] = Z 5
+[591] = CNOT 5 9
+[592] = CNOT 5 10
+[593] = S 5
+[594] = Z 5
+[595] = CNOT 5 10
+[596] = CNOT 5 11
+[597] = Z 5
+[598] = CNOT 5 11
+[599] = CNOT 10 12
+[600] = S 10
+[601] = Z 10
+[602] = CNOT 10 12
+[603] = CNOT 1 2
+[604] = CNOT 1 7
+[605] = S 1
+[606] = Z 1
+[607] = CNOT 1 7
+[608] = CNOT 1 10
+[609] = S 1
+[610] = Z 1
+[611] = CNOT 1 10
+[612] = CNOT 1 12
+[613] = S 1
+[614] = Z 1
+[615] = CNOT 1 12
+[616] = CNOT 1 2
+[617] = CNOT 1 3
+[618] = CNOT 1 6
+[619] = S 1
+[620] = Z 1
+[621] = CNOT 1 6
+[622] = CNOT 1 12
+[623] = S 1
+[624] = Z 1
+[625] = CNOT 1 3
+[626] = CNOT 1 6
+[627] = S 1
+[628] = Z 1
+[629] = CNOT 1 12
+[630] = CNOT 1 6
+[631] = CNOT 1 7
+[632] = CNOT 1 10
+[633] = S 1
+[634] = Z 1
+[635] = CNOT 1 10
+[636] = CNOT 1 12
+[637] = S 1
+[638] = Z 1
+[639] = CNOT 1 12
+[640] = CNOT 1 7
+[641] = CNOT 1 10
+[642] = CNOT 1 11
+[643] = S 1
+[644] = Z 1
+[645] = CNOT 1 11
+[646] = CNOT 1 12
+[647] = Z 1
+[648] = CNOT 1 10
+[649] = CNOT 1 11
+[650] = S 1
+[651] = Z 1
+[652] = CNOT 1 12
+[653] = CNOT 1 11
+[654] = CNOT 2 3
+[655] = CNOT 2 6
+[656] = S 2
+[657] = Z 2
+[658] = CNOT 2 6
+[659] = CNOT 2 10
+[660] = S 2
+[661] = Z 2
+[662] = CNOT 2 10
+[663] = CNOT 2 12
+[664] = S 2
+[665] = Z 2
+[666] = CNOT 2 12
+[667] = CNOT 2 3
+[668] = CNOT 2 4
+[669] = CNOT 2 5
+[670] = S 2
+[671] = Z 2
+[672] = CNOT 2 5
+[673] = CNOT 2 12
+[674] = S 2
+[675] = Z 2
+[676] = CNOT 2 4
+[677] = CNOT 2 5
+[678] = S 2
+[679] = Z 2
+[680] = CNOT 2 12
+[681] = CNOT 2 5
+[682] = CNOT 2 6
+[683] = CNOT 2 10
+[684] = S 2
+[685] = Z 2
+[686] = CNOT 2 10
+[687] = CNOT 2 12
+[688] = S 2
+[689] = Z 2
+[690] = CNOT 2 12
+[691] = CNOT 2 6
+[692] = CNOT 2 7
+[693] = CNOT 2 10
+[694] = Z 2
+[695] = CNOT 2 10
+[696] = CNOT 2 11
+[697] = S 2
+[698] = Z 2
+[699] = CNOT 2 7
+[700] = CNOT 2 10
+[701] = Z 2
+[702] = CNOT 2 10
+[703] = CNOT 2 12
+[704] = Z 2
+[705] = CNOT 2 12
+[706] = CNOT 2 11
+[707] = CNOT 3 6
+[708] = CNOT 3 10
+[709] = Z 3
+[710] = CNOT 3 10
+[711] = CNOT 3 11
+[712] = S 3
+[713] = Z 3
+[714] = CNOT 3 11
+[715] = CNOT 3 12
+[716] = S 3
+[717] = CNOT 3 12
+[718] = CNOT 3 6
+[719] = CNOT 3 10
+[720] = CNOT 3 11
+[721] = S 3
+[722] = Z 3
+[723] = CNOT 3 11
+[724] = CNOT 3 12
+[725] = Z 3
+[726] = CNOT 3 10
+[727] = CNOT 3 11
+[728] = S 3
+[729] = Z 3
+[730] = CNOT 3 12
+[731] = CNOT 3 11
+[732] = CNOT 4 5
+[733] = CNOT 4 10
+[734] = S 4
+[735] = Z 4
+[736] = CNOT 4 10
+[737] = CNOT 4 12
+[738] = Z 4
+[739] = CNOT 4 5
+[740] = CNOT 4 10
+[741] = S 4
+[742] = Z 4
+[743] = CNOT 4 12
+[744] = CNOT 4 10
+[745] = CNOT 5 10
+[746] = CNOT 5 12
+[747] = S 5
+[748] = Z 5
+[749] = CNOT 5 12
+[750] = CNOT 5 10
+[751] = CNOT 6 10
+[752] = CNOT 6 11
+[753] = S 6
+[754] = Z 6
+[755] = CNOT 6 11
+[756] = CNOT 6 12
+[757] = Z 6
+[758] = CNOT 6 10
+[759] = CNOT 6 11
+[760] = S 6
+[761] = Z 6
+[762] = CNOT 6 12
+[763] = CNOT 6 11
+[764] = CNOT 7 10
+[765] = CNOT 7 11
+[766] = S 7
+[767] = Z 7
+[768] = CNOT 7 11
+[769] = CNOT 7 12
+[770] = Z 7
+[771] = CNOT 7 10
+[772] = CNOT 7 11
+[773] = S 7
+[774] = Z 7
+[775] = CNOT 7 12
+[776] = CNOT 7 11
+[777] = CNOT 10 11
+[778] = CNOT 10 12
+[779] = S 10
+[780] = CNOT 10 12
+[781] = CNOT 10 11
+[782] = CNOT 5 4
+[783] = CNOT 6 3
+[784] = CNOT 7 2
+[785] = CNOT 8 1
+[786] = H 9
+[787] = H 10
+[788] = H 11
+[789] = H 12
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 12
+Number of `data' qubits = 12
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 3
+T count = 112
+Cost estimation = 56017
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	14
+	4	3
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	16
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 12
+Number of `data' qubits = 12
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 3
+T count = 58
+Cost estimation = 29732
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	14
+	4	485
+	5	58
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	107
+	12	0
+	13	126
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output T Count (SQC_Circuit) = 58
+Output T Count (PhasePolynomial) = 58
+Fail count = 0
+
+Execution time: 0.266249s
+Number of LCL errors: 0
+Number of LCL warnings: 0

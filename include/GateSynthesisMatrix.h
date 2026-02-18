@@ -29,6 +29,7 @@ namespace GateSynthesisMatrix {
     void Chi(bool** A, bool** x, int n, int m, bool** Aext); // Constructs the chi matrix from GSM, A. Aext must be n^3 x m in dimension.
     void ChiPrime(bool** A, bool** x, int n, int m, bool** Aext); // Constructs the chi matrix from GSM, A. Aext must be n^3 x m in dimension.
     void LempelX2(bool** A, int n, int m, int& mp);
+    void LempelX3(bool** A, int n, int m, int& mp);
     
     bool** M4RI_wrapper_for_nullspace(bool const** A, int n, int m, int& out_d);
     static void LempelX2_M4RI(bool** A, int n, int m, int& omp);
@@ -39,6 +40,7 @@ namespace GateSynthesisMatrix {
 
     static void LempelX2_M4RI_BeamSearch(bool** A, int n, int m, int& omp);
     static void LempelX2_M4RI_RandomBeamSearch(bool** A_init, int n, int m_init, int& omp);
+    static void LempelX2_M4RI_SequentialBeamSearch(bool** A_init, int n, int m_init, int& omp);
 }
 
 #endif // HEADER_GATESYNTHESISMATRIX

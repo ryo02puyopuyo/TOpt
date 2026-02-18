@@ -1,3 +1,6 @@
 TOPT　高速化用に使うデータ集
 
 TOPT gsm ファイル名
+
+
+./TOpt circuit /home/rest/forpyzx/TOpt/gf27.tfc -a todd > b

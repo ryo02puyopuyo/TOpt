@@ -1,0 +1,193 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/rest/forpyzx/TOpt/forme/tpar_benchmark/tof_3.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/rest/forpyzx/TOpt/forme/tpar_benchmark/tof_3.tfc
+
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+[0] = H 5
+[1] = CCZ 1 2 5
+[2] = H 5
+[3] = H 4
+[4] = CCZ 3 5 4
+[5] = H 4
+[6] = H 5
+[7] = CCZ 1 2 5
+[8] = H 5
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 6
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 9e-05 seconds.
+		Total time: 0.000103s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 5
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 5.5e-05 seconds.
+		Total time: 6e-05s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 4
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 2.8e-05 seconds.
+		Total time: 3.2e-05s
+	Gate synthesis end.
+	Total time: 0.000478s
+UniversalOptimize end.
+Output circuit:
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+[0] = H 5
+[1] = H 4
+[2] = T 5
+[3] = CNOT 1 2
+[4] = CNOT 1 5
+[5] = T 1
+[6] = CNOT 1 2
+[7] = CNOT 2 5
+[8] = T 2
+[9] = S 2
+[10] = CNOT 2 5
+[11] = T 1
+[12] = S 1
+[13] = CNOT 1 5
+[14] = T 3
+[15] = T 4
+[16] = S 1
+[17] = S 2
+[18] = CNOT 1 2
+[19] = S 1
+[20] = CNOT 1 2
+[21] = CNOT 2 1
+[22] = H 5
+[23] = T 5
+[24] = CNOT 3 5
+[25] = T 3
+[26] = S 3
+[27] = CNOT 3 4
+[28] = T 3
+[29] = CNOT 3 5
+[30] = CNOT 3 4
+[31] = CNOT 4 5
+[32] = T 4
+[33] = S 4
+[34] = CNOT 4 5
+[35] = CNOT 3 4
+[36] = T 3
+[37] = S 3
+[38] = CNOT 3 4
+[39] = H 4
+[40] = H 5
+[41] = T 5
+[42] = Z 5
+[43] = CNOT 2 5
+[44] = T 2
+[45] = Z 2
+[46] = CNOT 2 5
+[47] = CNOT 1 2
+[48] = CNOT 1 5
+[49] = T 1
+[50] = S 1
+[51] = Z 1
+[52] = CNOT 1 2
+[53] = T 1
+[54] = S 1
+[55] = Z 1
+[56] = CNOT 1 5
+[57] = Z 1
+[58] = CNOT 1 2
+[59] = Z 1
+[60] = CNOT 1 2
+[61] = CNOT 2 1
+[62] = H 5
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 3
+T count = 21
+Cost estimation = 10506
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	6
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	3
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 3
+T count = 15
+Cost estimation = 7548
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	6
+	4	26
+	5	15
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	10
+	12	0
+	13	6
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output T Count (SQC_Circuit) = 15
+Output T Count (PhasePolynomial) = 15
+Fail count = 0
+
+Execution time: 0.000495s
+Number of LCL errors: 0
+Number of LCL warnings: 0

@@ -1,0 +1,700 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/rest/forpyzx/TOpt/forme/tpar_benchmark/mod_red_21.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/rest/forpyzx/TOpt/forme/tpar_benchmark/mod_red_21.tfc
+
+n 11
+n_x 11
+n_y 0
+n_z 0
+m 101
+[0] = H 5
+[1] = CCZ 2 4 5
+[2] = H 5
+[3] = H 7
+[4] = CCZ 5 6 7
+[5] = H 7
+[6] = H 10
+[7] = CCZ 7 8 10
+[8] = H 10
+[9] = H 7
+[10] = H 9
+[11] = CCZ 5 6 7
+[12] = CCZ 11 10 9
+[13] = H 9
+[14] = H 5
+[15] = H 3
+[16] = CCZ 2 4 5
+[17] = CNOT 1 9
+[18] = CNOT 2 9
+[19] = CNOT 6 9
+[20] = CCZ 1 2 3
+[21] = H 3
+[22] = CCZ 3 4 5
+[23] = H 5
+[24] = CCZ 5 6 7
+[25] = H 7
+[26] = H 8
+[27] = CCZ 7 9 8
+[28] = H 8
+[29] = H 7
+[30] = CCZ 5 6 7
+[31] = H 7
+[32] = H 6
+[33] = CCZ 5 9 6
+[34] = H 6
+[35] = H 5
+[36] = CCZ 3 4 5
+[37] = H 5
+[38] = H 4
+[39] = CCZ 3 9 4
+[40] = H 4
+[41] = H 3
+[42] = CCZ 1 2 3
+[43] = H 3
+[44] = H 2
+[45] = CCZ 1 9 2
+[46] = H 2
+[47] = H 9
+[48] = CCZ 11 10 9
+[49] = H 9
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 10
+nullspace time: 1 ms, chi time: 0 ms
+Total LempelX2 time: 3 ms
+		TODD executed in 0.003008 seconds.
+		Total time: 0.003037s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 4
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000272 seconds.
+		Total time: 0.000279s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 5
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000484 seconds.
+		Total time: 0.000494s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 7
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 1 ms
+		TODD executed in 0.001138 seconds.
+		Total time: 0.001154s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 10
+nullspace time: 1 ms, chi time: 1 ms
+Total LempelX2 time: 3 ms
+		TODD executed in 0.003218 seconds.
+		Total time: 0.003236s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 5
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000451 seconds.
+		Total time: 0.000462s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 5
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000443 seconds.
+		Total time: 0.000453s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 7
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 1 ms
+		TODD executed in 0.001191 seconds.
+		Total time: 0.001206s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 4
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000269 seconds.
+		Total time: 0.00028s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 6
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000913 seconds.
+		Total time: 0.000927s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 4
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000272 seconds.
+		Total time: 0.000279s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 6
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000713 seconds.
+		Total time: 0.000724s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 4
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000297 seconds.
+		Total time: 0.000308s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 4
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000263 seconds.
+		Total time: 0.000282s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 4
+nullspace time: 0 ms, chi time: 0 ms
+Total LempelX2 time: 0 ms
+		TODD executed in 0.000269 seconds.
+		Total time: 0.000276s
+	Gate synthesis end.
+	Total time: 0.029569s
+UniversalOptimize end.
+Output circuit:
+n 11
+n_x 11
+n_y 0
+n_z 0
+m 501
+[0] = H 5
+[1] = H 7
+[2] = H 10
+[3] = H 9
+[4] = H 3
+[5] = T 5
+[6] = CNOT 2 4
+[7] = CNOT 2 5
+[8] = T 2
+[9] = CNOT 2 4
+[10] = CNOT 4 5
+[11] = T 4
+[12] = S 4
+[13] = CNOT 4 5
+[14] = T 2
+[15] = S 2
+[16] = CNOT 2 5
+[17] = T 6
+[18] = T 7
+[19] = T 8
+[20] = T 10
+[21] = T 9
+[22] = T 3
+[23] = S 2
+[24] = S 4
+[25] = S 11
+[26] = CNOT 2 4
+[27] = S 2
+[28] = CNOT 2 4
+[29] = CNOT 4 2
+[30] = H 5
+[31] = CNOT 5 6
+[32] = CNOT 5 7
+[33] = T 5
+[34] = CNOT 5 6
+[35] = CNOT 6 7
+[36] = T 6
+[37] = S 6
+[38] = CNOT 6 7
+[39] = T 5
+[40] = S 5
+[41] = CNOT 5 7
+[42] = T 6
+[43] = S 5
+[44] = CNOT 5 6
+[45] = S 5
+[46] = CNOT 5 6
+[47] = CNOT 6 5
+[48] = H 7
+[49] = T 7
+[50] = CNOT 7 8
+[51] = T 7
+[52] = S 7
+[53] = CNOT 7 10
+[54] = T 7
+[55] = CNOT 7 8
+[56] = CNOT 8 10
+[57] = T 8
+[58] = S 8
+[59] = CNOT 8 10
+[60] = T 7
+[61] = S 7
+[62] = CNOT 7 10
+[63] = H 10
+[64] = H 7
+[65] = H 8
+[66] = CNOT 6 7
+[67] = T 6
+[68] = Z 6
+[69] = CNOT 6 7
+[70] = CNOT 5 6
+[71] = CNOT 5 7
+[72] = T 5
+[73] = S 5
+[74] = Z 5
+[75] = CNOT 5 6
+[76] = T 5
+[77] = S 5
+[78] = Z 5
+[79] = CNOT 5 7
+[80] = CNOT 9 10
+[81] = CNOT 9 11
+[82] = T 9
+[83] = CNOT 9 11
+[84] = T 9
+[85] = S 9
+[86] = CNOT 9 10
+[87] = CNOT 9 11
+[88] = T 9
+[89] = S 9
+[90] = CNOT 9 11
+[91] = T 8
+[92] = Z 5
+[93] = S 7
+[94] = Z 7
+[95] = S 10
+[96] = CNOT 5 6
+[97] = Z 5
+[98] = CNOT 5 6
+[99] = CNOT 10 11
+[100] = S 10
+[101] = CNOT 6 5
+[102] = H 9
+[103] = H 5
+[104] = CNOT 4 5
+[105] = T 4
+[106] = Z 4
+[107] = CNOT 4 5
+[108] = CNOT 2 4
+[109] = CNOT 2 5
+[110] = T 2
+[111] = S 2
+[112] = Z 2
+[113] = CNOT 2 4
+[114] = T 2
+[115] = S 2
+[116] = Z 2
+[117] = CNOT 2 5
+[118] = CNOT 1 9
+[119] = T 1
+[120] = S 1
+[121] = CNOT 1 9
+[122] = CNOT 1 2
+[123] = CNOT 1 3
+[124] = T 1
+[125] = CNOT 1 2
+[126] = CNOT 2 3
+[127] = CNOT 2 9
+[128] = T 2
+[129] = S 2
+[130] = Z 2
+[131] = CNOT 2 9
+[132] = CNOT 2 3
+[133] = CNOT 1 9
+[134] = T 1
+[135] = S 1
+[136] = Z 1
+[137] = CNOT 1 9
+[138] = CNOT 1 3
+[139] = CNOT 2 4
+[140] = T 2
+[141] = Z 2
+[142] = CNOT 2 4
+[143] = CNOT 6 9
+[144] = T 6
+[145] = T 9
+[146] = Z 2
+[147] = S 5
+[148] = Z 5
+[149] = CNOT 1 2
+[150] = S 1
+[151] = CNOT 1 2
+[152] = CNOT 1 3
+[153] = Z 1
+[154] = CNOT 1 3
+[155] = CNOT 2 3
+[156] = Z 2
+[157] = CNOT 2 3
+[158] = CNOT 2 9
+[159] = S 2
+[160] = CNOT 4 9
+[161] = CNOT 1 9
+[162] = CNOT 4 2
+[163] = CNOT 2 1
+[164] = H 3
+[165] = T 3
+[166] = S 3
+[167] = CNOT 3 4
+[168] = CNOT 3 5
+[169] = T 3
+[170] = CNOT 3 4
+[171] = CNOT 4 5
+[172] = T 4
+[173] = S 4
+[174] = CNOT 4 5
+[175] = T 3
+[176] = S 3
+[177] = CNOT 3 5
+[178] = T 4
+[179] = CNOT 3 4
+[180] = S 3
+[181] = CNOT 3 4
+[182] = CNOT 4 3
+[183] = H 5
+[184] = T 5
+[185] = S 5
+[186] = CNOT 5 6
+[187] = CNOT 5 7
+[188] = T 5
+[189] = CNOT 5 6
+[190] = CNOT 6 7
+[191] = T 6
+[192] = S 6
+[193] = CNOT 6 7
+[194] = T 5
+[195] = S 5
+[196] = CNOT 5 7
+[197] = T 6
+[198] = CNOT 5 6
+[199] = S 5
+[200] = CNOT 5 6
+[201] = CNOT 6 5
+[202] = H 7
+[203] = T 7
+[204] = CNOT 7 9
+[205] = T 7
+[206] = S 7
+[207] = CNOT 7 8
+[208] = T 7
+[209] = CNOT 7 9
+[210] = CNOT 7 8
+[211] = CNOT 8 9
+[212] = T 8
+[213] = S 8
+[214] = CNOT 8 9
+[215] = CNOT 7 8
+[216] = T 7
+[217] = S 7
+[218] = CNOT 7 8
+[219] = T 9
+[220] = Z 9
+[221] = CNOT 5 9
+[222] = T 5
+[223] = S 5
+[224] = CNOT 5 9
+[225] = Z 5
+[226] = CNOT 9 5
+[227] = H 8
+[228] = H 7
+[229] = T 7
+[230] = Z 7
+[231] = CNOT 6 7
+[232] = T 6
+[233] = Z 6
+[234] = CNOT 6 7
+[235] = CNOT 5 6
+[236] = CNOT 5 7
+[237] = T 5
+[238] = S 5
+[239] = Z 5
+[240] = CNOT 5 6
+[241] = T 5
+[242] = S 5
+[243] = Z 5
+[244] = CNOT 5 7
+[245] = Z 5
+[246] = CNOT 5 6
+[247] = Z 5
+[248] = CNOT 5 6
+[249] = CNOT 6 5
+[250] = H 7
+[251] = H 6
+[252] = T 6
+[253] = Z 6
+[254] = CNOT 6 9
+[255] = T 6
+[256] = Z 6
+[257] = CNOT 6 9
+[258] = CNOT 5 6
+[259] = CNOT 5 9
+[260] = T 5
+[261] = S 5
+[262] = Z 5
+[263] = CNOT 5 9
+[264] = T 5
+[265] = S 5
+[266] = Z 5
+[267] = CNOT 5 6
+[268] = CNOT 5 9
+[269] = T 5
+[270] = CNOT 5 9
+[271] = CNOT 3 5
+[272] = CNOT 3 9
+[273] = T 3
+[274] = S 3
+[275] = Z 3
+[276] = CNOT 3 9
+[277] = Z 5
+[278] = Z 3
+[279] = CNOT 3 5
+[280] = CNOT 3 9
+[281] = Z 3
+[282] = CNOT 3 9
+[283] = CNOT 9 5
+[284] = CNOT 9 3
+[285] = H 6
+[286] = H 5
+[287] = T 5
+[288] = Z 5
+[289] = CNOT 4 5
+[290] = T 4
+[291] = Z 4
+[292] = CNOT 4 5
+[293] = CNOT 3 4
+[294] = CNOT 3 5
+[295] = T 3
+[296] = S 3
+[297] = Z 3
+[298] = CNOT 3 4
+[299] = T 3
+[300] = S 3
+[301] = Z 3
+[302] = CNOT 3 5
+[303] = Z 3
+[304] = CNOT 3 4
+[305] = Z 3
+[306] = CNOT 3 4
+[307] = CNOT 4 3
+[308] = H 5
+[309] = H 4
+[310] = T 4
+[311] = Z 4
+[312] = CNOT 4 9
+[313] = T 4
+[314] = Z 4
+[315] = CNOT 4 9
+[316] = CNOT 3 4
+[317] = CNOT 3 9
+[318] = T 3
+[319] = S 3
+[320] = Z 3
+[321] = CNOT 3 9
+[322] = T 3
+[323] = S 3
+[324] = Z 3
+[325] = CNOT 3 4
+[326] = CNOT 3 9
+[327] = T 3
+[328] = CNOT 3 9
+[329] = CNOT 1 3
+[330] = CNOT 1 9
+[331] = T 1
+[332] = S 1
+[333] = Z 1
+[334] = CNOT 1 9
+[335] = Z 3
+[336] = Z 1
+[337] = CNOT 1 3
+[338] = CNOT 1 9
+[339] = Z 1
+[340] = CNOT 1 9
+[341] = CNOT 9 3
+[342] = CNOT 9 1
+[343] = H 4
+[344] = H 3
+[345] = T 3
+[346] = Z 3
+[347] = CNOT 2 3
+[348] = T 2
+[349] = Z 2
+[350] = CNOT 2 3
+[351] = CNOT 1 2
+[352] = CNOT 1 3
+[353] = T 1
+[354] = S 1
+[355] = Z 1
+[356] = CNOT 1 2
+[357] = T 1
+[358] = S 1
+[359] = Z 1
+[360] = CNOT 1 3
+[361] = Z 1
+[362] = CNOT 1 2
+[363] = Z 1
+[364] = CNOT 1 2
+[365] = CNOT 2 1
+[366] = H 3
+[367] = H 2
+[368] = T 2
+[369] = Z 2
+[370] = CNOT 2 9
+[371] = T 2
+[372] = Z 2
+[373] = CNOT 2 9
+[374] = CNOT 1 2
+[375] = CNOT 1 9
+[376] = T 1
+[377] = S 1
+[378] = Z 1
+[379] = CNOT 1 9
+[380] = T 1
+[381] = S 1
+[382] = Z 1
+[383] = CNOT 1 2
+[384] = Z 1
+[385] = CNOT 1 9
+[386] = Z 1
+[387] = CNOT 1 9
+[388] = CNOT 9 1
+[389] = H 2
+[390] = H 9
+[391] = T 9
+[392] = Z 9
+[393] = CNOT 9 10
+[394] = T 9
+[395] = Z 9
+[396] = CNOT 9 11
+[397] = T 9
+[398] = S 9
+[399] = Z 9
+[400] = CNOT 9 10
+[401] = T 9
+[402] = S 9
+[403] = Z 9
+[404] = CNOT 9 11
+[405] = Z 11
+[406] = CNOT 10 11
+[407] = Z 10
+[408] = H 9
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 11
+Number of `data' qubits = 11
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 15
+T count = 119
+Cost estimation = 59533
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	30
+	4	3
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	17
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 11
+Number of `data' qubits = 11
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 15
+T count = 85
+Cost estimation = 42824
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	30
+	4	174
+	5	85
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	56
+	12	0
+	13	64
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output T Count (SQC_Circuit) = 85
+Output T Count (PhasePolynomial) = 85
+Fail count = 0
+
+Execution time: 0.029612s
+Number of LCL errors: 0
+Number of LCL warnings: 0

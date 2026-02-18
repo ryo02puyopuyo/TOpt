@@ -1,0 +1,372 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/rest/forpyzx/TOpt/forme/tpar_benchmark/ham15-med.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/rest/forpyzx/TOpt/forme/tpar_benchmark/ham15-med.tfc
+
+n 17
+n_x 17
+n_y 0
+n_z 0
+m 301
+[0] = CNOT 10 15
+[1] = CNOT 15 14
+[2] = H 17
+[3] = CCZ 12 13 17
+[4] = H 17
+[5] = H 16
+[6] = CCZ 17 14 16
+[7] = H 16
+[8] = H 5
+[9] = CCZ 16 15 5
+[10] = H 5
+[11] = H 16
+[12] = CCZ 17 14 16
+[13] = H 16
+[14] = H 17
+[15] = CCZ 12 13 17
+[16] = H 17
+[17] = CNOT 12 15
+[18] = H 15
+[19] = CCZ 13 14 15
+[20] = H 15
+[21] = H 14
+[22] = CCZ 12 15 14
+[23] = H 14
+[24] = H 17
+[25] = CCZ 12 13 17
+[26] = H 17
+[27] = H 16
+[28] = CCZ 17 14 16
+[29] = H 16
+[30] = H 2
+[31] = CCZ 16 15 2
+[32] = H 2
+[33] = H 16
+[34] = CCZ 17 14 16
+[35] = H 16
+[36] = H 17
+[37] = CCZ 12 13 17
+[38] = H 17
+[39] = CNOT 11 15
+[40] = H 16
+[41] = CCZ 12 13 16
+[42] = H 16
+[43] = H 15
+[44] = CCZ 16 14 15
+[45] = H 15
+[46] = H 16
+[47] = CCZ 12 13 16
+[48] = H 16
+[49] = H 10
+[50] = CCZ 12 15 10
+[51] = H 10
+[52] = H 17
+[53] = CCZ 12 13 17
+[54] = H 17
+[55] = H 16
+[56] = CCZ 17 14 16
+[57] = H 16
+[58] = H 6
+[59] = CCZ 16 15 6
+[60] = H 6
+[61] = H 16
+[62] = CCZ 17 14 16
+[63] = H 16
+[64] = H 17
+[65] = CCZ 12 13 17
+[66] = H 17
+[67] = H 1
+[68] = CCZ 13 15 1
+[69] = H 1
+[70] = H 1
+[71] = CCZ 14 15 1
+[72] = H 1
+[73] = H 17
+[74] = CCZ 12 13 17
+[75] = H 17
+[76] = H 16
+[77] = CCZ 17 14 16
+[78] = H 16
+[79] = H 1
+[80] = CCZ 16 15 1
+[81] = H 1
+[82] = H 16
+[83] = CCZ 17 14 16
+[84] = H 16
+[85] = H 17
+[86] = CCZ 12 13 17
+[87] = H 17
+[88] = CNOT 13 15
+[89] = H 17
+[90] = CCZ 12 13 17
+[91] = H 17
+[92] = H 16
+[93] = CCZ 17 14 16
+[94] = H 16
+[95] = H 4
+[96] = CCZ 16 15 4
+[97] = H 4
+[98] = H 16
+[99] = CCZ 17 14 16
+[100] = H 16
+[101] = H 17
+[102] = CCZ 12 13 17
+[103] = H 17
+[104] = H 10
+[105] = CCZ 13 15 10
+[106] = H 10
+[107] = H 3
+[108] = CCZ 13 15 3
+[109] = H 3
+[110] = H 17
+[111] = CCZ 12 13 17
+[112] = H 17
+[113] = H 16
+[114] = CCZ 17 14 16
+[115] = H 16
+[116] = H 3
+[117] = CCZ 16 15 3
+[118] = H 3
+[119] = H 16
+[120] = CCZ 17 14 16
+[121] = H 16
+[122] = H 17
+[123] = CCZ 12 13 17
+[124] = H 17
+[125] = H 16
+[126] = CCZ 12 13 16
+[127] = H 16
+[128] = H 14
+[129] = CCZ 16 15 14
+[130] = H 14
+[131] = H 16
+[132] = CCZ 12 13 16
+[133] = H 16
+[134] = H 16
+[135] = CCZ 13 14 16
+[136] = H 16
+[137] = H 3
+[138] = CCZ 16 15 3
+[139] = H 3
+[140] = H 16
+[141] = CCZ 13 14 16
+[142] = H 16
+[143] = H 16
+[144] = CCZ 13 14 16
+[145] = H 16
+[146] = H 12
+[147] = CCZ 16 15 12
+[148] = H 12
+[149] = H 16
+[150] = CCZ 13 14 16
+[151] = H 16
+[152] = H 1
+[153] = CCZ 12 15 1
+[154] = H 1
+[155] = H 17
+[156] = CCZ 12 13 17
+[157] = H 17
+[158] = H 16
+[159] = CCZ 17 14 16
+[160] = H 16
+[161] = H 7
+[162] = CCZ 16 15 7
+[163] = H 7
+[164] = H 16
+[165] = CCZ 17 14 16
+[166] = H 16
+[167] = H 17
+[168] = CCZ 12 13 17
+[169] = H 17
+[170] = H 14
+[171] = CCZ 12 15 14
+[172] = H 14
+[173] = H 12
+[174] = CCZ 14 15 12
+[175] = H 12
+[176] = H 17
+[177] = CCZ 12 13 17
+[178] = H 17
+[179] = H 16
+[180] = CCZ 17 14 16
+[181] = H 16
+[182] = H 8
+[183] = CCZ 16 15 8
+[184] = H 8
+[185] = H 16
+[186] = CCZ 17 14 16
+[187] = H 16
+[188] = H 17
+[189] = CCZ 12 13 17
+[190] = H 17
+[191] = H 16
+[192] = CCZ 12 14 16
+[193] = H 16
+[194] = H 13
+[195] = CCZ 16 15 13
+[196] = H 13
+[197] = H 16
+[198] = CCZ 12 14 16
+[199] = H 16
+[200] = H 17
+[201] = CCZ 12 13 17
+[202] = H 17
+[203] = H 16
+[204] = CCZ 17 14 16
+[205] = H 16
+[206] = H 10
+[207] = CCZ 16 15 10
+[208] = H 10
+[209] = H 16
+[210] = CCZ 17 14 16
+[211] = H 16
+[212] = H 17
+[213] = CCZ 12 13 17
+[214] = H 17
+[215] = H 17
+[216] = CCZ 12 13 17
+[217] = H 17
+[218] = H 16
+[219] = CCZ 17 14 16
+[220] = H 16
+[221] = H 11
+[222] = CCZ 16 15 11
+[223] = H 11
+[224] = H 16
+[225] = CCZ 17 14 16
+[226] = H 16
+[227] = H 17
+[228] = CCZ 12 13 17
+[229] = H 17
+[230] = H 15
+[231] = CCZ 12 13 15
+[232] = H 15
+[233] = H 11
+[234] = CCZ 12 14 11
+[235] = H 11
+[236] = CNOT 14 15
+[237] = H 17
+[238] = CCZ 12 13 17
+[239] = H 17
+[240] = H 16
+[241] = CCZ 17 14 16
+[242] = H 16
+[243] = H 9
+[244] = CCZ 16 15 9
+[245] = H 9
+[246] = H 16
+[247] = CCZ 17 14 16
+[248] = H 16
+[249] = H 17
+[250] = CCZ 12 13 17
+[251] = H 17
+[252] = CNOT 14 13
+[253] = CNOT 10 11
+[254] = CNOT 14 10
+[255] = CNOT 13 14
+[256] = CNOT 9 13
+[257] = CNOT 13 9
+[258] = CNOT 15 12
+[259] = CNOT 12 13
+[260] = CNOT 12 15
+[261] = CNOT 15 11
+[262] = CNOT 12 10
+[263] = CNOT 8 12
+[264] = CNOT 12 8
+[265] = CNOT 14 11
+[266] = CNOT 11 8
+[267] = CNOT 7 11
+[268] = CNOT 11 7
+[269] = CNOT 10 7
+[270] = CNOT 6 10
+[271] = CNOT 9 6
+[272] = CNOT 5 9
+[273] = CNOT 8 5
+[274] = CNOT 4 8
+[275] = CNOT 7 4
+[276] = CNOT 3 7
+[277] = CNOT 7 3
+[278] = CNOT 10 6
+[279] = CNOT 6 3
+[280] = CNOT 2 6
+[281] = CNOT 9 5
+[282] = CNOT 5 2
+[283] = CNOT 6 2
+[284] = CNOT 1 5
+[285] = CNOT 8 4
+[286] = CNOT 4 1
+[287] = CNOT 5 1
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+in LempelX2
+		Round = 0
+Round 0 | Current Columns (m): 242
+		Round = 1
+Round 1 | Current Columns (m): 240
+		Round = 2
+Round 2 | Current Columns (m): 238
+		Round = 3
+Round 3 | Current Columns (m): 236
+		Round = 4
+Round 4 | Current Columns (m): 234
+		Round = 5
+Round 5 | Current Columns (m): 232
+		Round = 6
+Round 6 | Current Columns (m): 230
+		Round = 7
+Round 7 | Current Columns (m): 228
+		Round = 8
+Round 8 | Current Columns (m): 226
+		Round = 9
+Round 9 | Current Columns (m): 224
+		Round = 10
+Round 10 | Current Columns (m): 222
+		Round = 11
+Round 11 | Current Columns (m): 218
+		Round = 12
+Round 12 | Current Columns (m): 216
+		Round = 13
+Round 13 | Current Columns (m): 214
+		Round = 14
+Round 14 | Current Columns (m): 212
+		Round = 15
+Round 15 | Current Columns (m): 208
+		Round = 16
+Round 16 | Current Columns (m): 206
+		Round = 17
+Round 17 | Current Columns (m): 204
+		Round = 18
+Round 18 | Current Columns (m): 202
+		Round = 19
+Round 19 | Current Columns (m): 198
+		Round = 20
+Round 20 | Current Columns (m): 196
+		Round = 21
+Round 21 | Current Columns (m): 194
+		Round = 22
+Round 22 | Current Columns (m): 192
+		Round = 23
+Round 23 | Current Columns (m): 190
+		Round = 24
+Round 24 | Current Columns (m): 188
+		Round = 25
+Round 25 | Current Columns (m): 186
+		Round = 26
+Round 26 | Current Columns (m): 184
+		Round = 27
+Round 27 | Current Columns (m): 182
+		Round = 28
+Round 28 | Current Columns (m): 180
+		Round = 29
+Round 29 | Current Columns (m): 178
+		Round = 30
+Round 30 | Current Columns (m): 176
+		Round = 31
+Round 31 | Current Columns (m): 174
+		Round = 32
+Round 32 | Current Columns (m): 172

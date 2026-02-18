@@ -1,0 +1,286 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/rest/forpyzx/TOpt/forme/tpar_benchmark/barenco_tof_3.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/rest/forpyzx/TOpt/forme/tpar_benchmark/barenco_tof_3.tfc
+
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+[0] = H 5
+[1] = CCZ 3 4 5
+[2] = H 5
+[3] = H 4
+[4] = CCZ 1 2 4
+[5] = H 4
+[6] = H 5
+[7] = CCZ 3 4 5
+[8] = H 5
+[9] = H 4
+[10] = CCZ 1 2 4
+[11] = H 4
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 7)
+--- Hamming Distance Stats ---
+ Dist 1: 6 pairs
+ Dist 2: 5 pairs
+ Dist 3: 5 pairs
+ Dist 4: 4 pairs
+ Dist 5: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/21)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 21 (Success: 0)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 7 columns
+		TODD executed in 0.000271 seconds.
+		Total time: 0.000279s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 6)
+--- Hamming Distance Stats ---
+ Dist 1: 7 pairs
+ Dist 2: 6 pairs
+ Dist 3: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/15)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 15 (Success: 0)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 6 columns
+		TODD executed in 0.000137 seconds.
+		Total time: 0.000143s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 5)
+--- Hamming Distance Stats ---
+ Dist 1: 5 pairs
+ Dist 2: 4 pairs
+ Dist 3: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/10)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 10 (Success: 0)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 5 columns
+		TODD executed in 0.000123 seconds.
+		Total time: 0.000127s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000112 seconds.
+		Total time: 0.000119s
+	Gate synthesis end.
+	Total time: 0.001102s
+UniversalOptimize end.
+Output circuit:
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+[0] = H 5
+[1] = T 4
+[2] = CNOT 3 4
+[3] = T 3
+[4] = S 3
+[5] = CNOT 3 5
+[6] = T 3
+[7] = CNOT 3 4
+[8] = CNOT 4 5
+[9] = T 4
+[10] = S 4
+[11] = CNOT 4 5
+[12] = T 3
+[13] = S 3
+[14] = CNOT 3 5
+[15] = T 2
+[16] = Z 2
+[17] = CNOT 1 2
+[18] = T 1
+[19] = S 1
+[20] = CNOT 1 2
+[21] = S 1
+[22] = Z 1
+[23] = S 3
+[24] = S 5
+[25] = CNOT 2 1
+[26] = H 4
+[27] = T 4
+[28] = Z 4
+[29] = CNOT 2 4
+[30] = T 2
+[31] = Z 2
+[32] = CNOT 2 4
+[33] = CNOT 1 2
+[34] = CNOT 1 4
+[35] = T 1
+[36] = S 1
+[37] = Z 1
+[38] = CNOT 1 2
+[39] = T 1
+[40] = S 1
+[41] = Z 1
+[42] = CNOT 1 4
+[43] = CNOT 1 2
+[44] = T 1
+[45] = Z 1
+[46] = CNOT 1 2
+[47] = T 2
+[48] = S 2
+[49] = Z 2
+[50] = Z 1
+[51] = H 4
+[52] = T 4
+[53] = CNOT 3 4
+[54] = T 3
+[55] = S 3
+[56] = CNOT 3 5
+[57] = T 3
+[58] = CNOT 3 4
+[59] = CNOT 4 5
+[60] = T 4
+[61] = S 4
+[62] = CNOT 4 5
+[63] = T 3
+[64] = S 3
+[65] = CNOT 3 5
+[66] = H 5
+[67] = H 4
+[68] = T 4
+[69] = Z 4
+[70] = CNOT 2 4
+[71] = T 2
+[72] = Z 2
+[73] = CNOT 2 4
+[74] = CNOT 1 2
+[75] = CNOT 1 4
+[76] = T 1
+[77] = S 1
+[78] = Z 1
+[79] = CNOT 1 2
+[80] = T 1
+[81] = S 1
+[82] = Z 1
+[83] = CNOT 1 4
+[84] = Z 1
+[85] = CNOT 1 2
+[86] = Z 1
+[87] = CNOT 1 2
+[88] = CNOT 2 1
+[89] = H 4
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 4
+T count = 28
+Cost estimation = 14008
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	8
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	4
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 4
+T count = 22
+Cost estimation = 11068
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	6
+	4	32
+	5	22
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	15
+	12	0
+	13	15
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output T Count (SQC_Circuit) = 22
+Output T Count (PhasePolynomial) = 22
+Fail count = 0
+
+Execution time: 0.001144s
+Number of LCL errors: 0
+Number of LCL warnings: 0

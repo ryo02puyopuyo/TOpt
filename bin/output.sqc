@@ -1,0 +1,566 @@
+Circuit filename: /home/rest/forpyzx/TOpt/aaaa.tfc
+
+Input circuit:
+n 12
+n_x 12
+n_y 0
+n_z 0
+m 101
+t 9 6 4
+t 9 7 3
+t 9 8 2
+t 10 7 4
+t 10 8 3
+t 11 8 4
+t 12 11
+t 11 10
+t 10 9
+t 12 5 4
+t 12 6 3
+t 12 7 2
+t 12 8 1
+t 11 5 3
+t 11 6 2
+t 11 7 1
+t 10 5 2
+t 10 6 1
+t 9 5 1
+
+
+Output circuit:
+n 19
+n_x 12
+n_y 0
+n_z 7
+m 501
+H 9
+H 10
+H 11
+H 13
+H 14
+H 15
+H 16
+H 17
+H 18
+H 19
+Z 1
+Z 2
+Z 3
+Z 4
+Z 5
+Z 6
+Z 7
+Z 8
+T 9
+T 11
+S 11
+Z 11
+Z 12
+S 14
+Z 14
+S 15
+Z 15
+S 16
+Z 16
+T 17
+Z 17
+Z 18
+T 19
+S 19
+Z 19
+CNOT 1 5
+T 1
+S 1
+Z 1
+CNOT 1 5
+CNOT 1 6
+T 1
+S 1
+Z 1
+CNOT 1 6
+CNOT 1 7
+T 1
+S 1
+Z 1
+CNOT 1 7
+CNOT 1 8
+T 1
+S 1
+Z 1
+CNOT 1 8
+CNOT 1 16
+T 1
+S 1
+Z 1
+CNOT 1 16
+CNOT 1 17
+T 1
+S 1
+Z 1
+CNOT 1 17
+CNOT 1 18
+T 1
+S 1
+Z 1
+CNOT 1 18
+CNOT 1 19
+T 1
+S 1
+Z 1
+CNOT 2 5
+T 2
+S 2
+Z 2
+CNOT 2 5
+CNOT 2 6
+T 2
+S 2
+Z 2
+CNOT 2 6
+CNOT 2 7
+T 2
+S 2
+Z 2
+CNOT 2 7
+CNOT 2 8
+T 2
+S 2
+Z 2
+CNOT 2 8
+CNOT 2 9
+T 2
+S 2
+Z 2
+CNOT 2 9
+CNOT 2 16
+T 2
+S 2
+Z 2
+CNOT 2 16
+CNOT 2 17
+T 2
+S 2
+Z 2
+CNOT 2 17
+CNOT 2 18
+T 2
+S 2
+Z 2
+CNOT 3 5
+T 3
+S 3
+Z 3
+CNOT 3 5
+CNOT 3 6
+T 3
+S 3
+Z 3
+CNOT 3 6
+CNOT 3 7
+T 3
+S 3
+Z 3
+CNOT 3 7
+CNOT 3 8
+T 3
+S 3
+Z 3
+CNOT 3 8
+CNOT 3 9
+T 3
+S 3
+Z 3
+CNOT 3 9
+CNOT 3 10
+T 3
+S 3
+Z 3
+CNOT 3 10
+CNOT 3 16
+T 3
+S 3
+Z 3
+CNOT 3 16
+CNOT 3 17
+T 3
+S 3
+Z 3
+CNOT 4 5
+T 4
+S 4
+Z 4
+CNOT 4 5
+CNOT 4 6
+T 4
+S 4
+Z 4
+CNOT 4 6
+CNOT 4 7
+T 4
+S 4
+Z 4
+CNOT 4 7
+CNOT 4 8
+T 4
+S 4
+Z 4
+CNOT 4 8
+CNOT 4 9
+T 4
+S 4
+Z 4
+CNOT 4 9
+CNOT 4 10
+T 4
+S 4
+Z 4
+CNOT 4 10
+CNOT 4 11
+T 4
+S 4
+Z 4
+CNOT 4 11
+CNOT 4 16
+T 4
+S 4
+Z 4
+CNOT 5 16
+T 5
+S 5
+Z 5
+CNOT 5 16
+CNOT 5 17
+T 5
+S 5
+Z 5
+CNOT 5 17
+CNOT 5 18
+T 5
+S 5
+Z 5
+CNOT 5 18
+CNOT 5 19
+T 5
+S 5
+Z 5
+CNOT 5 19
+CNOT 6 9
+T 6
+S 6
+Z 6
+CNOT 6 9
+CNOT 6 16
+T 6
+S 6
+Z 6
+CNOT 6 16
+CNOT 6 17
+T 6
+S 6
+Z 6
+CNOT 6 17
+CNOT 6 18
+T 6
+S 6
+Z 6
+CNOT 6 18
+CNOT 7 9
+T 7
+S 7
+Z 7
+CNOT 7 9
+CNOT 7 10
+T 7
+S 7
+Z 7
+CNOT 7 10
+CNOT 7 16
+T 7
+S 7
+Z 7
+CNOT 7 16
+CNOT 7 17
+T 7
+S 7
+Z 7
+CNOT 7 17
+CNOT 8 9
+T 8
+S 8
+Z 8
+CNOT 8 9
+CNOT 8 10
+T 8
+S 8
+Z 8
+CNOT 8 10
+CNOT 8 11
+T 8
+S 8
+Z 8
+CNOT 8 11
+CNOT 8 16
+T 8
+S 8
+Z 8
+CNOT 8 16
+CNOT 9 13
+S 9
+CNOT 9 13
+CNOT 10 14
+S 10
+CNOT 10 14
+CNOT 11 15
+S 11
+CNOT 11 15
+CNOT 12 15
+S 12
+CNOT 12 15
+CNOT 12 16
+Z 12
+CNOT 13 14
+S 13
+CNOT 13 14
+CNOT 13 18
+Z 13
+CNOT 13 18
+CNOT 13 19
+S 13
+CNOT 13 19
+CNOT 14 15
+S 14
+CNOT 14 15
+CNOT 14 17
+Z 14
+CNOT 14 17
+CNOT 14 18
+Z 14
+CNOT 14 18
+CNOT 15 16
+Z 15
+CNOT 15 16
+CNOT 15 17
+Z 15
+CNOT 15 17
+CNOT 1 5
+T 1
+CNOT 1 19
+CNOT 1 5
+CNOT 1 6
+CNOT 1 18
+T 1
+CNOT 1 18
+CNOT 1 6
+CNOT 1 7
+CNOT 1 17
+T 1
+CNOT 1 17
+CNOT 1 7
+CNOT 1 8
+CNOT 1 16
+T 1
+CNOT 1 16
+CNOT 1 8
+CNOT 2 5
+T 2
+CNOT 2 18
+CNOT 2 5
+CNOT 2 6
+CNOT 2 17
+T 2
+CNOT 2 17
+CNOT 2 6
+CNOT 2 7
+CNOT 2 16
+T 2
+CNOT 2 16
+CNOT 2 7
+CNOT 2 8
+CNOT 2 9
+T 2
+CNOT 2 9
+CNOT 2 8
+CNOT 3 5
+T 3
+CNOT 3 17
+CNOT 3 5
+CNOT 3 6
+CNOT 3 16
+T 3
+CNOT 3 16
+CNOT 3 6
+CNOT 3 7
+CNOT 3 9
+T 3
+CNOT 3 9
+CNOT 3 7
+CNOT 3 8
+CNOT 3 10
+T 3
+CNOT 3 10
+CNOT 3 8
+CNOT 4 5
+T 4
+CNOT 4 16
+CNOT 4 5
+CNOT 4 6
+CNOT 4 9
+T 4
+CNOT 4 9
+CNOT 4 6
+CNOT 4 7
+CNOT 4 10
+T 4
+CNOT 4 10
+CNOT 4 7
+CNOT 4 8
+CNOT 4 11
+T 4
+CNOT 4 11
+CNOT 4 8
+CNOT 12 15
+S 12
+Z 12
+CNOT 12 15
+CNOT 13 14
+CNOT 13 18
+S 13
+Z 13
+CNOT 13 18
+CNOT 13 14
+CNOT 14 15
+CNOT 14 17
+S 14
+Z 14
+CNOT 14 17
+CNOT 14 15
+CNOT 18 19
+CNOT 17 19
+CNOT 15 19
+CNOT 13 19
+CNOT 12 19
+CNOT 11 19
+CNOT 10 19
+CNOT 9 19
+CNOT 19 18
+CNOT 17 18
+CNOT 14 18
+CNOT 13 18
+CNOT 11 18
+CNOT 10 18
+CNOT 18 19
+CNOT 19 17
+CNOT 15 17
+CNOT 14 17
+CNOT 13 17
+CNOT 12 17
+CNOT 11 17
+CNOT 17 19
+CNOT 19 15
+CNOT 14 15
+CNOT 13 15
+CNOT 12 15
+CNOT 15 19
+CNOT 19 14
+CNOT 17 14
+CNOT 13 14
+CNOT 14 17
+CNOT 19 13
+CNOT 18 13
+CNOT 13 18
+CNOT 16 12
+CNOT 12 16
+CNOT 15 11
+CNOT 11 15
+CNOT 14 10
+CNOT 10 14
+CNOT 13 9
+CNOT 9 13
+H 13
+M 13
+H 14
+M 14
+H 15
+M 15
+H 16
+M 16
+H 17
+M 17
+H 18
+M 18
+H 19
+M 19
+H 9
+H 10
+H 11
+H 12
+
+Input operator distribution:
+Operator distribution:
+Total number of qubits = 12
+Number of `data' qubits = 12
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 112
+Cost estimation = 56067
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	0
+	4	3
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	0
+	12	0
+	13	0
+	14	16
+	15	0
+	16	0
+	17	0
+	18	0
+Number of unknown gates = 68
+Number of unknown qubit labels = 0
+
+Algorithm used: todd
+Output operator distribution:
+Operator distribution:
+Total number of qubits = 19
+Number of `data' qubits = 12
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 7
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 68
+Cost estimation = 34396.5
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	21
+	4	229
+	5	68
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	63
+	12	0
+	13	73
+	14	0
+	15	0
+	16	0
+	17	0
+	18	7
+
+Output T Count (SQC_Circuit) = 68
+Output T Count (PhasePolynomial) = 68
+Fail count = 1
+Execution time: 7.84082s
