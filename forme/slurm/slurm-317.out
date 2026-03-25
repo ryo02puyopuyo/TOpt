@@ -1,0 +1,12 @@
+Starting optimization...
+Mode:             INCLUDE (Only specified files)
+Input Directory:  /home/ryo-mtmt/TOpt/forme/tpar_benchmark
+Output Directory: ./results_h_hamiming
+---------------------------------------
+Running: gf2^8_mult.tfc -> gf2^8_mult.out
+Running: qcla_adder_10.tfc -> qcla_adder_10.out
+Running: qcla_mod_7.tfc -> qcla_mod_7.out
+---------------------------------------
+Done!
+Optimized: 3 files
+Skipped:   41 files

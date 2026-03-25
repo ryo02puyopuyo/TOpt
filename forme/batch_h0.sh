@@ -1,13 +1,14 @@
 #!/bin/bash
 
+#回路分割手法
+
 # --- 設定項目 ---
-INPUT_DIR="/home/rest/forpyzx/TOpt/forme/tpar_benchmark"      # .tfcファイルが入っているディレクトリ
+INPUT_DIR="/home/ryo-mtmt/TOpt/forme/tpar_benchmark"      # .tfcファイルが入っているディレクトリ
 OUTPUT_DIR="./results"        # 結果を保存するディレクトリ
 
 # ★ ここに実行したくないファイル名をスペース区切りで入力してください
 EXCLUDE_LIST=(
-    "adder_8.tfc"
-    "gf2^10_mult.tfc"
+
     "gf2^16_mult.tfc"
     "gf2^32_mult.tfc"
     "gf2^64_mult.tfc"
@@ -62,7 +63,7 @@ for tfc_path in "$INPUT_DIR"/*.tfc; do
     echo "Running: $filename -> $(basename "$output_file")"
     
     # 実行コマンド
-    /home/rest/forpyzx/TOpt/bin/TOpt circuit "$tfc_path" -a todd > "$output_file"
+    /home/ryo-mtmt/TOpt/bin/TOpt circuit "$tfc_path" -a todd -h 0 > "$output_file"
 
     if [ $? -eq 0 ]; then
         ((count++))

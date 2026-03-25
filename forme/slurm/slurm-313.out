@@ -1,0 +1,13 @@
+Starting optimization...
+Input Directory:  /home/ryo-mtmt/TOpt/forme/tpar_benchmark
+Output Directory: ./results_h_exist
+Exclude List:     adder_8.tfc gf2^8_mult.tfc gf2^9_mult.tfc gf2^10_mult.tfc gf2^16_mult.tfc gf2^32_mult.tfc gf2^64_mult.tfc gf2^128_mult.tfc gf2^256_mult.tfc cycle_17_3.tfc hwb8.tfc hwb10.tfc hwb11.tfc hwb12.tfc mod_adder_1048576.tfc mod_adder_1024.tfc ham15-high.tfc ham15-med.tfc qcla_adder_10.tfc barenco_tof_3.tfc barenco_tof_4.tfc barenco_tof_5.tfc barenco_tof_10.tfc csla_mux_3.tfc csla_mux_9.tfc gf2^4_mult.tfc gf2^5_mult.tfc gf2^6_mult.tfc gf2^7_mult.tfc
+---------------------------------------
+Skipping: adder_8.tfc (Found in exclude list)
+Skipping: barenco_tof_10.tfc (Found in exclude list)
+Skipping: barenco_tof_3.tfc (Found in exclude list)
+Skipping: barenco_tof_4.tfc (Found in exclude list)
+Skipping: barenco_tof_5.tfc (Found in exclude list)
+Skipping: csla_mux_3.tfc (Found in exclude list)
+Running: csum_mux_9.tfc -> csum_mux_9.out
+slurmstepd: error: *** JOB 313 ON flogger CANCELLED AT 2026-02-19T14:22:49 ***

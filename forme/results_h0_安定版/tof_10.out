@@ -1,0 +1,881 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/ryo-mtmt/TOpt/forme/tpar_benchmark/tof_10.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/ryo-mtmt/TOpt/forme/tpar_benchmark/tof_10.tfc
+
+n 19
+n_x 19
+n_y 0
+n_z 0
+m 101
+[0] = H 11
+[1] = CCZ 1 2 11
+[2] = H 11
+[3] = H 12
+[4] = CCZ 3 11 12
+[5] = H 12
+[6] = H 13
+[7] = CCZ 4 12 13
+[8] = H 13
+[9] = H 14
+[10] = CCZ 5 13 14
+[11] = H 14
+[12] = H 15
+[13] = CCZ 6 14 15
+[14] = H 15
+[15] = H 16
+[16] = CCZ 7 15 16
+[17] = H 16
+[18] = H 17
+[19] = CCZ 8 16 17
+[20] = H 17
+[21] = H 18
+[22] = CCZ 9 17 18
+[23] = H 18
+[24] = H 19
+[25] = CCZ 10 18 19
+[26] = H 19
+[27] = H 18
+[28] = CCZ 9 17 18
+[29] = H 18
+[30] = H 17
+[31] = CCZ 8 16 17
+[32] = H 17
+[33] = H 16
+[34] = CCZ 7 15 16
+[35] = H 16
+[36] = H 15
+[37] = CCZ 6 14 15
+[38] = H 15
+[39] = H 14
+[40] = CCZ 5 13 14
+[41] = H 14
+[42] = H 13
+[43] = CCZ 4 12 13
+[44] = H 13
+[45] = H 12
+[46] = CCZ 3 11 12
+[47] = H 12
+[48] = H 11
+[49] = CCZ 1 2 11
+[50] = H 11
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 13)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 47 pairs
+ Dist 3: 18 pairs
+ Dist 4: 9 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/78)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       2 ms
+Nullspace time: 15 ms
+Total attempts: 78 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 18 ms
+Hamming result size: 13 columns
+		TODD executed in 0.018119 seconds.
+		Total time: 0.018152s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 3)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/3)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 3 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 3 columns
+		TODD executed in 0.000306 seconds.
+		Total time: 0.000317s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 3)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/3)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 3 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 3 columns
+		TODD executed in 0.000306 seconds.
+		Total time: 0.000313s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 3)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/3)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 3 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 3 columns
+		TODD executed in 0.000304 seconds.
+		Total time: 0.000312s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 3)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/3)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 3 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 3 columns
+		TODD executed in 0.000292 seconds.
+		Total time: 0.000302s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 3)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/3)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 3 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 3 columns
+		TODD executed in 0.00029 seconds.
+		Total time: 0.000299s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 3)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/3)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 3 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 3 columns
+		TODD executed in 0.000286 seconds.
+		Total time: 0.000293s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 3)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/3)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 3 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 3 columns
+		TODD executed in 0.000299 seconds.
+		Total time: 0.000308s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 5)
+--- Hamming Distance Stats ---
+ Dist 1: 5 pairs
+ Dist 2: 4 pairs
+ Dist 3: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/10)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 10 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 5 columns
+		TODD executed in 0.000966 seconds.
+		Total time: 0.000977s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000573 seconds.
+		Total time: 0.000583s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000575 seconds.
+		Total time: 0.000586s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000593 seconds.
+		Total time: 0.000606s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000588 seconds.
+		Total time: 0.000598s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000587 seconds.
+		Total time: 0.000598s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.00059 seconds.
+		Total time: 0.000601s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000586 seconds.
+		Total time: 0.000595s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 4 pairs
+ Dist 2: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000578 seconds.
+		Total time: 0.000589s
+	Gate synthesis end.
+	Total time: 0.47085s
+UniversalOptimize end.
+Output circuit:
+n 19
+n_x 19
+n_y 0
+n_z 0
+m 401
+[0] = H 11
+[1] = H 12
+[2] = H 13
+[3] = H 14
+[4] = H 15
+[5] = H 16
+[6] = H 17
+[7] = H 18
+[8] = H 19
+[9] = T 11
+[10] = CNOT 1 2
+[11] = CNOT 1 11
+[12] = T 1
+[13] = CNOT 1 2
+[14] = CNOT 2 11
+[15] = T 2
+[16] = S 2
+[17] = CNOT 2 11
+[18] = T 1
+[19] = S 1
+[20] = CNOT 1 11
+[21] = T 12
+[22] = T 13
+[23] = T 14
+[24] = T 15
+[25] = T 16
+[26] = T 17
+[27] = T 18
+[28] = T 10
+[29] = T 19
+[30] = S 1
+[31] = S 2
+[32] = S 3
+[33] = S 4
+[34] = S 5
+[35] = S 6
+[36] = S 7
+[37] = S 8
+[38] = S 9
+[39] = CNOT 1 2
+[40] = S 1
+[41] = CNOT 1 2
+[42] = CNOT 2 1
+[43] = H 11
+[44] = CNOT 3 11
+[45] = CNOT 3 12
+[46] = T 3
+[47] = CNOT 3 11
+[48] = CNOT 11 12
+[49] = T 11
+[50] = S 11
+[51] = CNOT 11 12
+[52] = T 3
+[53] = S 3
+[54] = CNOT 3 12
+[55] = S 11
+[56] = CNOT 3 11
+[57] = S 3
+[58] = CNOT 3 11
+[59] = CNOT 11 3
+[60] = H 12
+[61] = CNOT 4 12
+[62] = CNOT 4 13
+[63] = T 4
+[64] = CNOT 4 12
+[65] = CNOT 12 13
+[66] = T 12
+[67] = S 12
+[68] = CNOT 12 13
+[69] = T 4
+[70] = S 4
+[71] = CNOT 4 13
+[72] = S 12
+[73] = CNOT 4 12
+[74] = S 4
+[75] = CNOT 4 12
+[76] = CNOT 12 4
+[77] = H 13
+[78] = CNOT 5 13
+[79] = CNOT 5 14
+[80] = T 5
+[81] = CNOT 5 13
+[82] = CNOT 13 14
+[83] = T 13
+[84] = S 13
+[85] = CNOT 13 14
+[86] = T 5
+[87] = S 5
+[88] = CNOT 5 14
+[89] = S 13
+[90] = CNOT 5 13
+[91] = S 5
+[92] = CNOT 5 13
+[93] = CNOT 13 5
+[94] = H 14
+[95] = CNOT 6 14
+[96] = CNOT 6 15
+[97] = T 6
+[98] = CNOT 6 14
+[99] = CNOT 14 15
+[100] = T 14
+[101] = S 14
+[102] = CNOT 14 15
+[103] = T 6
+[104] = S 6
+[105] = CNOT 6 15
+[106] = S 14
+[107] = CNOT 6 14
+[108] = S 6
+[109] = CNOT 6 14
+[110] = CNOT 14 6
+[111] = H 15
+[112] = CNOT 7 15
+[113] = CNOT 7 16
+[114] = T 7
+[115] = CNOT 7 15
+[116] = CNOT 15 16
+[117] = T 15
+[118] = S 15
+[119] = CNOT 15 16
+[120] = T 7
+[121] = S 7
+[122] = CNOT 7 16
+[123] = S 15
+[124] = CNOT 7 15
+[125] = S 7
+[126] = CNOT 7 15
+[127] = CNOT 15 7
+[128] = H 16
+[129] = CNOT 8 16
+[130] = CNOT 8 17
+[131] = T 8
+[132] = CNOT 8 16
+[133] = CNOT 16 17
+[134] = T 16
+[135] = S 16
+[136] = CNOT 16 17
+[137] = T 8
+[138] = S 8
+[139] = CNOT 8 17
+[140] = S 16
+[141] = CNOT 8 16
+[142] = S 8
+[143] = CNOT 8 16
+[144] = CNOT 16 8
+[145] = H 17
+[146] = CNOT 9 17
+[147] = CNOT 9 18
+[148] = T 9
+[149] = CNOT 9 17
+[150] = CNOT 17 18
+[151] = T 17
+[152] = S 17
+[153] = CNOT 17 18
+[154] = T 9
+[155] = S 9
+[156] = CNOT 9 18
+[157] = S 17
+[158] = CNOT 9 17
+[159] = S 9
+[160] = CNOT 9 17
+[161] = CNOT 17 9
+[162] = H 18
+[163] = T 18
+[164] = CNOT 10 18
+[165] = T 10
+[166] = S 10
+[167] = CNOT 10 19
+[168] = T 10
+[169] = CNOT 10 18
+[170] = CNOT 18 19
+[171] = T 18
+[172] = S 18
+[173] = CNOT 18 19
+[174] = T 10
+[175] = S 10
+[176] = CNOT 10 19
+[177] = H 19
+[178] = H 18
+[179] = T 18
+[180] = Z 18
+[181] = CNOT 17 18
+[182] = T 17
+[183] = Z 17
+[184] = CNOT 17 18
+[185] = CNOT 9 17
+[186] = CNOT 9 18
+[187] = T 9
+[188] = S 9
+[189] = Z 9
+[190] = CNOT 9 17
+[191] = T 9
+[192] = S 9
+[193] = Z 9
+[194] = CNOT 9 18
+[195] = Z 9
+[196] = CNOT 9 17
+[197] = Z 9
+[198] = CNOT 9 17
+[199] = CNOT 17 9
+[200] = H 18
+[201] = H 17
+[202] = T 17
+[203] = Z 17
+[204] = CNOT 16 17
+[205] = T 16
+[206] = Z 16
+[207] = CNOT 16 17
+[208] = CNOT 8 16
+[209] = CNOT 8 17
+[210] = T 8
+[211] = S 8
+[212] = Z 8
+[213] = CNOT 8 16
+[214] = T 8
+[215] = S 8
+[216] = Z 8
+[217] = CNOT 8 17
+[218] = Z 8
+[219] = CNOT 8 16
+[220] = Z 8
+[221] = CNOT 8 16
+[222] = CNOT 16 8
+[223] = H 17
+[224] = H 16
+[225] = T 16
+[226] = Z 16
+[227] = CNOT 15 16
+[228] = T 15
+[229] = Z 15
+[230] = CNOT 15 16
+[231] = CNOT 7 15
+[232] = CNOT 7 16
+[233] = T 7
+[234] = S 7
+[235] = Z 7
+[236] = CNOT 7 15
+[237] = T 7
+[238] = S 7
+[239] = Z 7
+[240] = CNOT 7 16
+[241] = Z 7
+[242] = CNOT 7 15
+[243] = Z 7
+[244] = CNOT 7 15
+[245] = CNOT 15 7
+[246] = H 16
+[247] = H 15
+[248] = T 15
+[249] = Z 15
+[250] = CNOT 14 15
+[251] = T 14
+[252] = Z 14
+[253] = CNOT 14 15
+[254] = CNOT 6 14
+[255] = CNOT 6 15
+[256] = T 6
+[257] = S 6
+[258] = Z 6
+[259] = CNOT 6 14
+[260] = T 6
+[261] = S 6
+[262] = Z 6
+[263] = CNOT 6 15
+[264] = Z 6
+[265] = CNOT 6 14
+[266] = Z 6
+[267] = CNOT 6 14
+[268] = CNOT 14 6
+[269] = H 15
+[270] = H 14
+[271] = T 14
+[272] = Z 14
+[273] = CNOT 13 14
+[274] = T 13
+[275] = Z 13
+[276] = CNOT 13 14
+[277] = CNOT 5 13
+[278] = CNOT 5 14
+[279] = T 5
+[280] = S 5
+[281] = Z 5
+[282] = CNOT 5 13
+[283] = T 5
+[284] = S 5
+[285] = Z 5
+[286] = CNOT 5 14
+[287] = Z 5
+[288] = CNOT 5 13
+[289] = Z 5
+[290] = CNOT 5 13
+[291] = CNOT 13 5
+[292] = H 14
+[293] = H 13
+[294] = T 13
+[295] = Z 13
+[296] = CNOT 12 13
+[297] = T 12
+[298] = Z 12
+[299] = CNOT 12 13
+[300] = CNOT 4 12
+[301] = CNOT 4 13
+[302] = T 4
+[303] = S 4
+[304] = Z 4
+[305] = CNOT 4 12
+[306] = T 4
+[307] = S 4
+[308] = Z 4
+[309] = CNOT 4 13
+[310] = Z 4
+[311] = CNOT 4 12
+[312] = Z 4
+[313] = CNOT 4 12
+[314] = CNOT 12 4
+[315] = H 13
+[316] = H 12
+[317] = T 12
+[318] = Z 12
+[319] = CNOT 11 12
+[320] = T 11
+[321] = Z 11
+[322] = CNOT 11 12
+[323] = CNOT 3 11
+[324] = CNOT 3 12
+[325] = T 3
+[326] = S 3
+[327] = Z 3
+[328] = CNOT 3 11
+[329] = T 3
+[330] = S 3
+[331] = Z 3
+[332] = CNOT 3 12
+[333] = Z 3
+[334] = CNOT 3 11
+[335] = Z 3
+[336] = CNOT 3 11
+[337] = CNOT 11 3
+[338] = H 12
+[339] = H 11
+[340] = T 11
+[341] = Z 11
+[342] = CNOT 2 11
+[343] = T 2
+[344] = Z 2
+[345] = CNOT 2 11
+[346] = CNOT 1 2
+[347] = CNOT 1 11
+[348] = T 1
+[349] = S 1
+[350] = Z 1
+[351] = CNOT 1 2
+[352] = T 1
+[353] = S 1
+[354] = Z 1
+[355] = CNOT 1 11
+[356] = Z 1
+[357] = CNOT 1 2
+[358] = Z 1
+[359] = CNOT 1 2
+[360] = CNOT 2 1
+[361] = H 11
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 19
+Number of `data' qubits = 19
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 17
+T count = 119
+Cost estimation = 59534
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	34
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	17
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 19
+Number of `data' qubits = 19
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 17
+T count = 71
+Cost estimation = 35791
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	34
+	4	150
+	5	71
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	59
+	12	0
+	13	48
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output T Count (SQC_Circuit) = 71
+Output T Count (PhasePolynomial) = 71
+Fail count = 0
+
+Execution time: 0.470906s
+Number of LCL errors: 0
+Number of LCL warnings: 0

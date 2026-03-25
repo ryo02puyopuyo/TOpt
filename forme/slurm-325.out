@@ -1,0 +1,10 @@
+Starting optimization...
+Mode:             INCLUDE (Only specified files)
+Input Directory:  /home/ryo-mtmt/TOpt/forme/tpar_benchmark
+Output Directory: ./results_h_既存手法
+---------------------------------------
+Running: adder_8.tfc -> adder_8.out
+Running: gf2^8_mult.tfc -> gf2^8_mult.out
+Running: gf2^9_mult.tfc -> gf2^9_mult.out
+Running: ham15-med.tfc -> ham15-med.out
+slurmstepd: error: *** JOB 325 ON flogger CANCELLED AT 2026-03-06T12:19:27 ***

@@ -208,18 +208,18 @@ void GateSynthesisMatrix::Chi_M4RI(mzd_t* A, bool** x, int n, int m, mzd_t* Aext
                     if(term_const) res = ~res; // 全ビット反転(111...111)
 
                     // 2. 線形項 (x_a*x_b * A[gamma] など)
-                    if(x_a && x_b) res ^= A->rows[gamma][w];
-                    if(x_b && x_c) res ^= A->rows[alpha][w];
-                    if(x_c && x_a) res ^= A->rows[beta][w];
+                    if(x_a && x_b) res ^= mzd_row(A, gamma)[w];
+                    if(x_b && x_c) res ^= mzd_row(A, alpha)[w];
+                    if(x_c && x_a) res ^= mzd_row(A, beta)[w];
 
                     // 3. 2次項 (x_a * A[beta] * A[gamma] など)
                     // ワード同士の AND をとってから XOR
-                    if(x_a) res ^= (A->rows[beta][w] & A->rows[gamma][w]);
-                    if(x_b) res ^= (A->rows[gamma][w] & A->rows[alpha][w]);
-                    if(x_c) res ^= (A->rows[alpha][w] & A->rows[beta][w]);
+                    if(x_a) res ^= (mzd_row(A, beta)[w] & mzd_row(A, gamma)[w]);
+                    if(x_b) res ^= (mzd_row(A, gamma)[w] & mzd_row(A, alpha)[w]);
+                    if(x_c) res ^= (mzd_row(A, alpha)[w] & mzd_row(A, beta)[w]);
 
                     // 結果を書き込み
-                    Aext->rows[row_idx][w] = res;
+                    mzd_row(Aext, row_idx)[w] = res;
                 }
                 
                 row_idx++;
@@ -953,7 +953,7 @@ void GateSynthesisMatrix::LempelX2_M4RI(bool** A, int n, int m, int& omp) {
 
                 // mzd_t は再利用時にゼロクリアが必要 (簡易実装)
                 for(int r=0; r<chi_A->nrows; r++) {
-                      for(int c=0; c<chi_A->width; c++) chi_A->rows[r][c] = 0;
+                      for(int c=0; c<chi_A->width; c++) mzd_row(chi_A, r)[c] = 0;
                 }
 
                 // Chi行列の作成 (M4RI版)
@@ -1226,6 +1226,7 @@ struct ColPair {
     }
 };
 
+/*
 void GateSynthesisMatrix::LempelX2_M4RI_Hamming(bool** A, int n, int m, int& omp) {
     std::cout << "in LempelX2_M4RI_Hamming" << endl;
     int this_m = m;
@@ -1327,7 +1328,7 @@ void GateSynthesisMatrix::LempelX2_M4RI_Hamming(bool** A, int n, int m, int& omp
             }
 
             for(int r=0; r<chi_A->nrows; r++) {
-                    for(int c=0; c<chi_A->width; c++) chi_A->rows[r][c] = 0;
+                    for(int c=0; c<chi_A->width; c++) mzd_row(chi_A, r)[c] = 0;
             }
 
             auto start_chi = std::chrono::high_resolution_clock::now();
@@ -1416,6 +1417,176 @@ void GateSynthesisMatrix::LempelX2_M4RI_Hamming(bool** A, int n, int m, int& omp
     omp = this_m;
     cout << "END OF LEMPELX2" << endl;
 }
+    */
+
+void GateSynthesisMatrix::LempelX2_M4RI_Hamming(bool** A, int n, int m, int& omp) {
+    std::cout << "in LempelX2_M4RI_Hamming　安定版　m4ri" << endl;
+    int this_m = m;
+    int initial_total_m = m;
+
+    bool** x = LCL_Mat_GF2::construct(n, 1);
+    
+    int n_chi_A = n * n * n;
+    // 最大サイズ (m + 1) でメモリを確保
+    mzd_t* chi_A_full = mzd_init(n_chi_A, m + 1);
+    mzd_t* A_m4ri_full = convert_to_mzd((bool const**)A, n, m + 1);
+
+    std::chrono::microseconds g_total_nullspace_duration(0);
+    std::chrono::microseconds total_chi_duration(0);
+    std::chrono::microseconds total_hamming_duration(0);
+
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Anew);
+
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    bool found = 1;
+    int round = 0;
+    long long total_attempts = 0;
+    long long successful_attempts = 0;
+
+    std::vector<ColPair> candidates;
+
+    while(found && (round < m)) {
+        found = 0;
+        long long round_attempts = 0;
+        long long round_successful_attempts = 0;
+
+        LOut() << "Round = " << round << " (Start m: " << this_m << ")" << endl;
+
+        // --- ハミング距離の計算とソート ---
+        auto start_hamming = std::chrono::high_resolution_clock::now();
+        candidates.clear();
+        candidates.reserve(this_m * (this_m - 1) / 2);
+        std::map<int, int> dist_stats;
+
+        for (int j1 = 0; j1 < this_m; ++j1) {
+            for (int j2 = j1 + 1; j2 < this_m; ++j2) {
+                int dist = 0;
+                for (int k = 0; k < n; ++k) {
+                    if (A[k][j1] != A[k][j2]) dist++;
+                }
+                candidates.push_back({j1, j2, dist});
+                dist_stats[dist]++;
+            }
+        }
+        std::sort(candidates.begin(), candidates.end());
+        auto end_hamming = std::chrono::high_resolution_clock::now();
+        total_hamming_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_hamming - start_hamming);
+
+        std::cout << "--- Hamming Distance Stats ---" << std::endl;
+    for (std::map<int, int>::const_iterator it = dist_stats.begin(); it != dist_stats.end(); ++it) {
+        std::cout << " Dist " << it->first << ": " << it->second << " pairs" << std::endl;
+    }
+        std::cout << "-------------------------------" << std::endl;
+
+        // ★ mzd_init_window による次元管理
+        // 0列目から this_m 列目まで（exclusive）のウィンドウを作成
+        mzd_t* A_m4ri = mzd_init_window(A_m4ri_full, 0, 0, n, this_m);
+        mzd_t* chi_A = mzd_init_window(chi_A_full, 0, 0, n_chi_A, this_m);
+
+        for (const auto& pair : candidates) {
+            if (found) break;
+
+            int this_col_1 = pair.c1;
+            int this_col_2 = pair.c2;
+
+            for(int i = 0; i < n; i++) {
+                x[i][0] = (A[i][this_col_1] + A[i][this_col_2]) % 2;
+            }
+
+            // ウィンドウに対してゼロクリア（内部のデータ chi_A_full もクリアされる）
+            mzd_set_ui(chi_A, 0);
+
+            auto start_chi = std::chrono::high_resolution_clock::now();
+            GateSynthesisMatrix::Chi_M4RI(A_m4ri, x, n, this_m, chi_A);
+            auto end_chi = std::chrono::high_resolution_clock::now();
+            total_chi_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_chi - start_chi);
+
+            int d = 0;
+            auto start_ns = std::chrono::high_resolution_clock::now();
+            // ウィンドウを渡すことで、内部の M4RI 関数は this_m 次元として処理する
+            bool** NS = M4RI_direct_nullspace(chi_A, d);
+            auto end_ns = std::chrono::high_resolution_clock::now();
+            g_total_nullspace_duration += std::chrono::duration_cast<std::chrono::microseconds>(end_ns - start_ns);
+
+            round_attempts++;
+            total_attempts++;
+
+            int nsv = -1;
+            for(int h = 0; (!found) && (h < d); h++) {
+                found = (NS[this_col_1][h] + NS[this_col_2][h]) % 2;
+                if(found) {
+                    nsv = h;
+                    successful_attempts++;
+                    round_successful_attempts++;
+                }
+            }
+            
+            if(found) {
+                for(int i = 0; i < n; i++) {
+                    for(int j = 0; j < this_m; j++) {
+                        Anew[i][j] = (A[i][j] + x[i][0] * NS[j][nsv]) % 2;
+                    }
+                }
+                int mp;
+                int before_cleanup_m = this_m;
+                GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+                
+                if(mp < m_best) {
+                    std::cout << "  [HIT!] Dist=" << pair.dist << " | Deleted: " << (before_cleanup_m - mp) << " cols" << std::endl;
+                    LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                    m_best = mp;
+                } else {
+                    std::cout << "No improvement: " << mp << " >= " << m_best << std::endl;
+                }
+            }
+            if(NS) LCL_Mat_GF2::destruct(NS, this_m, d);
+        }
+
+        // ラウンド終了後にウィンドウを解放（実データは破棄されない）
+        mzd_free_window(A_m4ri);
+        mzd_free_window(chi_A);
+
+        if (round_attempts > 0) {
+            double hit_rate = (double)round_successful_attempts / round_attempts * 100.0;
+            std::cout << ">> Round " << round << " Result: Hit Rate = " << hit_rate << "% "
+                      << "(" << round_successful_attempts << "/" << round_attempts << ")" << std::endl;
+        }
+
+        // A (bool**) と A_m4ri_full (mzd_t) の同期
+        LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+        for(int r=0; r<n; r++) {
+            for(int c=0; c<m_best; c++) {
+                mzd_write_bit(A_m4ri_full, r, c, A[r][c]);
+            }
+            // 余剰次元のクリア（任意ですが整合性のため）
+            for(int c=m_best; c<m+1; c++) {
+                mzd_write_bit(A_m4ri_full, r, c, 0);
+            }
+        }
+        this_m = m_best;
+        round++;
+    }
+
+    std::cout << "\n=== Final Performance Statistics ===" << std::endl;
+    std::cout << "Hamming time:   " << std::chrono::duration_cast<std::chrono::milliseconds>(total_hamming_duration).count() << " ms" << std::endl;
+    std::cout << "Chi time:       " << std::chrono::duration_cast<std::chrono::milliseconds>(total_chi_duration).count() << " ms" << std::endl;
+    std::cout << "Nullspace time: " << std::chrono::duration_cast<std::chrono::milliseconds>(g_total_nullspace_duration).count() << " ms" << std::endl;
+    std::cout << "Total attempts: " << total_attempts << " (Success: " << successful_attempts << ")" << std::endl;
+
+    LCL_Mat_GF2::destruct(x, n, 1);
+    mzd_free(chi_A_full);
+    mzd_free(A_m4ri_full);
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
+    omp = this_m;
+    cout << "END OF LEMPELX2 安定版" << endl;
+}
+
+
 
 // --- 履歴・状態管理用の構造体 ---
 struct NodeHistory {

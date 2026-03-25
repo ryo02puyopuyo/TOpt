@@ -1,0 +1,467 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/ryo-mtmt/TOpt/forme/tpar_benchmark/vbe_adder_3.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/ryo-mtmt/TOpt/forme/tpar_benchmark/vbe_adder_3.tfc
+
+n 10
+n_x 10
+n_y 0
+n_z 0
+m 101
+[0] = H 4
+[1] = H 7
+[2] = H 10
+[3] = CCZ 2 3 4
+[4] = CNOT 3 2
+[5] = CCZ 1 3 4
+[6] = H 4
+[7] = CCZ 5 6 7
+[8] = CNOT 6 5
+[9] = CCZ 4 6 7
+[10] = H 7
+[11] = CCZ 8 9 10
+[12] = CNOT 9 8
+[13] = CCZ 7 9 10
+[14] = CNOT 9 7
+[15] = H 10
+[16] = H 7
+[17] = CCZ 4 6 7
+[18] = CNOT 6 5
+[19] = CCZ 5 6 7
+[20] = CNOT 6 4
+[21] = CNOT 6 5
+[22] = H 7
+[23] = H 4
+[24] = CCZ 1 3 4
+[25] = CNOT 3 2
+[26] = CCZ 2 3 4
+[27] = CNOT 3 1
+[28] = CNOT 3 2
+[29] = H 4
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 15)
+--- Hamming Distance Stats ---
+ Dist 1: 9 pairs
+ Dist 2: 20 pairs
+ Dist 3: 28 pairs
+ Dist 4: 26 pairs
+ Dist 5: 15 pairs
+ Dist 6: 5 pairs
+ Dist 7: 2 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/105)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 4 ms
+Total attempts: 105 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 5 ms
+Hamming result size: 15 columns
+		TODD executed in 0.005033 seconds.
+		Total time: 0.005054s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 4)
+--- Hamming Distance Stats ---
+ Dist 1: 3 pairs
+ Dist 2: 2 pairs
+ Dist 3: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/6)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 6 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 4 columns
+		TODD executed in 0.000141 seconds.
+		Total time: 0.000147s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 5)
+--- Hamming Distance Stats ---
+ Dist 1: 5 pairs
+ Dist 2: 4 pairs
+ Dist 3: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/10)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 10 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 5 columns
+		TODD executed in 0.000241 seconds.
+		Total time: 0.000249s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 6)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 9 pairs
+ Dist 3: 3 pairs
+ Dist 4: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/15)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 15 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 6 columns
+		TODD executed in 0.000365 seconds.
+		Total time: 0.000374s
+	Gate synthesis end.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 6)
+--- Hamming Distance Stats ---
+ Dist 1: 2 pairs
+ Dist 2: 9 pairs
+ Dist 3: 3 pairs
+ Dist 4: 1 pairs
+-------------------------------
+>> Round 0 Result: Hit Rate = 0% (0/15)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 0 ms
+Total attempts: 15 (Success: 0)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 0 ms
+Hamming result size: 6 columns
+		TODD executed in 0.000379 seconds.
+		Total time: 0.000388s
+	Gate synthesis end.
+	Total time: 0.010742s
+UniversalOptimize end.
+Output circuit:
+n 10
+n_x 10
+n_y 0
+n_z 0
+m 301
+[0] = H 4
+[1] = H 7
+[2] = H 10
+[3] = T 3
+[4] = Z 3
+[5] = CNOT 2 3
+[6] = T 2
+[7] = Z 2
+[8] = CNOT 2 3
+[9] = CNOT 3 4
+[10] = T 3
+[11] = S 3
+[12] = CNOT 3 4
+[13] = CNOT 2 4
+[14] = T 2
+[15] = S 2
+[16] = CNOT 2 4
+[17] = CNOT 1 2
+[18] = CNOT 1 3
+[19] = CNOT 1 4
+[20] = T 1
+[21] = CNOT 1 3
+[22] = CNOT 1 2
+[23] = T 1
+[24] = S 1
+[25] = CNOT 1 4
+[26] = T 6
+[27] = Z 6
+[28] = CNOT 5 6
+[29] = CNOT 5 7
+[30] = T 5
+[31] = CNOT 5 6
+[32] = CNOT 6 7
+[33] = T 6
+[34] = S 6
+[35] = CNOT 6 7
+[36] = T 5
+[37] = S 5
+[38] = CNOT 5 7
+[39] = T 8
+[40] = Z 8
+[41] = T 9
+[42] = Z 9
+[43] = CNOT 8 9
+[44] = CNOT 8 10
+[45] = T 8
+[46] = CNOT 8 9
+[47] = CNOT 9 10
+[48] = T 9
+[49] = S 9
+[50] = CNOT 9 10
+[51] = T 8
+[52] = S 8
+[53] = CNOT 8 10
+[54] = S 1
+[55] = Z 1
+[56] = S 2
+[57] = Z 2
+[58] = S 4
+[59] = Z 4
+[60] = S 5
+[61] = Z 5
+[62] = S 7
+[63] = S 10
+[64] = CNOT 1 2
+[65] = Z 1
+[66] = CNOT 1 2
+[67] = CNOT 1 3
+[68] = Z 1
+[69] = CNOT 1 2
+[70] = S 1
+[71] = Z 1
+[72] = CNOT 1 3
+[73] = CNOT 1 2
+[74] = CNOT 9 8
+[75] = CNOT 6 5
+[76] = CNOT 3 2
+[77] = CNOT 3 1
+[78] = H 4
+[79] = CNOT 4 6
+[80] = CNOT 4 7
+[81] = T 4
+[82] = CNOT 4 6
+[83] = CNOT 6 7
+[84] = T 6
+[85] = S 6
+[86] = CNOT 6 7
+[87] = T 4
+[88] = S 4
+[89] = CNOT 4 7
+[90] = T 6
+[91] = S 4
+[92] = CNOT 4 6
+[93] = S 4
+[94] = CNOT 4 6
+[95] = CNOT 6 4
+[96] = H 7
+[97] = T 7
+[98] = CNOT 7 9
+[99] = T 7
+[100] = S 7
+[101] = CNOT 7 10
+[102] = T 7
+[103] = CNOT 7 9
+[104] = CNOT 9 10
+[105] = T 9
+[106] = S 9
+[107] = CNOT 9 10
+[108] = T 7
+[109] = S 7
+[110] = CNOT 7 10
+[111] = CNOT 9 7
+[112] = H 10
+[113] = H 7
+[114] = CNOT 6 7
+[115] = T 6
+[116] = S 6
+[117] = Z 6
+[118] = CNOT 6 7
+[119] = CNOT 4 7
+[120] = T 4
+[121] = CNOT 4 7
+[122] = CNOT 4 5
+[123] = CNOT 4 6
+[124] = T 4
+[125] = S 4
+[126] = Z 4
+[127] = CNOT 4 5
+[128] = T 4
+[129] = CNOT 4 5
+[130] = CNOT 4 7
+[131] = T 4
+[132] = CNOT 4 7
+[133] = CNOT 4 6
+[134] = CNOT 4 5
+[135] = CNOT 5 7
+[136] = T 5
+[137] = CNOT 5 7
+[138] = S 4
+[139] = S 5
+[140] = Z 5
+[141] = S 6
+[142] = Z 6
+[143] = Z 7
+[144] = CNOT 4 5
+[145] = S 4
+[146] = Z 4
+[147] = CNOT 4 5
+[148] = CNOT 5 6
+[149] = S 5
+[150] = Z 5
+[151] = CNOT 5 6
+[152] = CNOT 4 5
+[153] = CNOT 4 7
+[154] = S 4
+[155] = Z 4
+[156] = CNOT 4 5
+[157] = CNOT 4 6
+[158] = S 4
+[159] = Z 4
+[160] = CNOT 4 7
+[161] = CNOT 4 6
+[162] = CNOT 5 6
+[163] = CNOT 5 7
+[164] = S 5
+[165] = Z 5
+[166] = CNOT 5 7
+[167] = CNOT 5 6
+[168] = H 7
+[169] = H 4
+[170] = CNOT 3 4
+[171] = T 3
+[172] = S 3
+[173] = Z 3
+[174] = CNOT 3 4
+[175] = CNOT 1 4
+[176] = T 1
+[177] = CNOT 1 4
+[178] = CNOT 1 2
+[179] = CNOT 1 3
+[180] = T 1
+[181] = S 1
+[182] = Z 1
+[183] = CNOT 1 2
+[184] = T 1
+[185] = CNOT 1 2
+[186] = CNOT 1 4
+[187] = T 1
+[188] = CNOT 1 4
+[189] = CNOT 1 3
+[190] = CNOT 1 2
+[191] = CNOT 2 4
+[192] = T 2
+[193] = CNOT 2 4
+[194] = S 1
+[195] = S 2
+[196] = Z 2
+[197] = S 3
+[198] = Z 3
+[199] = Z 4
+[200] = CNOT 1 2
+[201] = S 1
+[202] = Z 1
+[203] = CNOT 1 2
+[204] = CNOT 2 3
+[205] = S 2
+[206] = Z 2
+[207] = CNOT 2 3
+[208] = CNOT 1 2
+[209] = CNOT 1 4
+[210] = S 1
+[211] = Z 1
+[212] = CNOT 1 2
+[213] = CNOT 1 3
+[214] = S 1
+[215] = Z 1
+[216] = CNOT 1 4
+[217] = CNOT 1 3
+[218] = CNOT 2 3
+[219] = CNOT 2 4
+[220] = S 2
+[221] = Z 2
+[222] = CNOT 2 4
+[223] = CNOT 2 3
+[224] = H 4
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 10
+Number of `data' qubits = 10
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 5
+T count = 70
+Cost estimation = 35020
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	10
+	4	10
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	10
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 10
+Number of `data' qubits = 10
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 5
+T count = 36
+Cost estimation = 18189
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	10
+	4	106
+	5	36
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	41
+	12	0
+	13	32
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output T Count (SQC_Circuit) = 36
+Output T Count (PhasePolynomial) = 36
+Fail count = 0
+
+Execution time: 0.010766s
+Number of LCL errors: 0
+Number of LCL warnings: 0

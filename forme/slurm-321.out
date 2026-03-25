@@ -1,0 +1,28 @@
+Starting optimization...
+Input Directory:  /home/ryo-mtmt/TOpt/forme/tpar_benchmark
+Output Directory: ./results
+Exclude List:     gf2^16_mult.tfc gf2^32_mult.tfc gf2^64_mult.tfc gf2^128_mult.tfc gf2^256_mult.tfc cycle_17_3.tfc hwb11.tfc hwb12.tfc mod_adder_1048576.tfc
+---------------------------------------
+Running: adder_8.tfc -> adder_8.out
+Running: barenco_tof_10.tfc -> barenco_tof_10.out
+Running: barenco_tof_3.tfc -> barenco_tof_3.out
+Running: barenco_tof_4.tfc -> barenco_tof_4.out
+Running: barenco_tof_5.tfc -> barenco_tof_5.out
+Running: csla_mux_3.tfc -> csla_mux_3.out
+Running: csum_mux_9.tfc -> csum_mux_9.out
+Skipping: cycle_17_3.tfc (Found in exclude list)
+Running: gf2^10_mult.tfc -> gf2^10_mult.out
+Skipping: gf2^128_mult.tfc (Found in exclude list)
+Skipping: gf2^16_mult.tfc (Found in exclude list)
+Skipping: gf2^256_mult.tfc (Found in exclude list)
+Skipping: gf2^32_mult.tfc (Found in exclude list)
+Running: gf2^4_mult.tfc -> gf2^4_mult.out
+Running: gf2^5_mult.tfc -> gf2^5_mult.out
+Skipping: gf2^64_mult.tfc (Found in exclude list)
+Running: gf2^6_mult.tfc -> gf2^6_mult.out
+Running: gf2^7_mult.tfc -> gf2^7_mult.out
+Running: gf2^8_mult.tfc -> gf2^8_mult.out
+Running: gf2^9_mult.tfc -> gf2^9_mult.out
+Running: grover_5.tfc -> grover_5.out
+Running: ham15-high.tfc -> ham15-high.out
+slurmstepd: error: *** JOB 321 ON flogger CANCELLED AT 2026-03-04T00:56:58 ***

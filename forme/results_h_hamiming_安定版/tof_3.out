@@ -1,0 +1,273 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/ryo-mtmt/TOpt/forme/tpar_benchmark/tof_3.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/ryo-mtmt/TOpt/forme/tpar_benchmark/tof_3.tfc
+
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+[0] = H 5
+[1] = CCZ 1 2 5
+[2] = H 5
+[3] = H 4
+[4] = CCZ 3 5 4
+[5] = H 4
+[6] = H 5
+[7] = CCZ 1 2 5
+[8] = H 5
+
+Algorithm used: todd
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+
+--- Testing Hamming Distance Version ---
+in LempelX2_M4RI_Hamming　安定版　m4ri
+		Round = 0 (Start m: 15)
+--- Hamming Distance Stats ---
+ Dist 1: 17 pairs
+ Dist 2: 23 pairs
+ Dist 3: 29 pairs
+ Dist 4: 24 pairs
+ Dist 5: 10 pairs
+ Dist 6: 2 pairs
+-------------------------------
+  [HIT!] Dist=2 | Deleted: 2 cols
+>> Round 0 Result: Hit Rate = 5.55556% (1/18)
+		Round = 1 (Start m: 13)
+--- Hamming Distance Stats ---
+ Dist 1: 13 pairs
+ Dist 2: 16 pairs
+ Dist 3: 18 pairs
+ Dist 4: 15 pairs
+ Dist 5: 10 pairs
+ Dist 6: 5 pairs
+ Dist 7: 1 pairs
+-------------------------------
+>> Round 1 Result: Hit Rate = 0% (0/78)
+
+=== Final Performance Statistics ===
+Hamming time:   0 ms
+Chi time:       0 ms
+Nullspace time: 3 ms
+Total attempts: 96 (Success: 1)
+END OF LEMPELX2 安定版
+Total LempelX2_M4RI_Hamming time: 3 ms
+Hamming result size: 13 columns
+		TODD executed in 0.003595 seconds.
+		Total time: 0.003625s
+	Gate synthesis end.
+	Total time: 0.00451s
+UniversalOptimize end.
+Output circuit:
+n 7
+n_x 5
+n_y 0
+n_z 2
+m 201
+[0] = H 5
+[1] = H 4
+[2] = H 6
+[3] = H 7
+[4] = CNOT 4 5
+[5] = CNOT 4 7
+[6] = T 4
+[7] = Z 4
+[8] = CNOT 4 7
+[9] = CNOT 4 5
+[10] = CNOT 1 2
+[11] = CNOT 1 4
+[12] = CNOT 1 5
+[13] = CNOT 1 7
+[14] = T 1
+[15] = CNOT 1 2
+[16] = CNOT 2 4
+[17] = CNOT 2 5
+[18] = CNOT 2 7
+[19] = T 2
+[20] = CNOT 2 7
+[21] = CNOT 2 5
+[22] = CNOT 2 4
+[23] = T 1
+[24] = CNOT 1 7
+[25] = CNOT 1 5
+[26] = T 6
+[27] = Z 6
+[28] = T 3
+[29] = T 1
+[30] = S 1
+[31] = CNOT 1 4
+[32] = CNOT 3 6
+[33] = T 3
+[34] = S 3
+[35] = CNOT 3 4
+[36] = T 3
+[37] = CNOT 3 6
+[38] = CNOT 3 4
+[39] = CNOT 4 6
+[40] = T 4
+[41] = S 4
+[42] = CNOT 4 6
+[43] = CNOT 3 4
+[44] = T 3
+[45] = S 3
+[46] = CNOT 3 4
+[47] = CNOT 2 4
+[48] = T 2
+[49] = S 2
+[50] = CNOT 2 4
+[51] = CNOT 1 2
+[52] = CNOT 1 4
+[53] = T 1
+[54] = S 1
+[55] = Z 1
+[56] = CNOT 1 4
+[57] = CNOT 1 2
+[58] = S 1
+[59] = S 2
+[60] = Z 4
+[61] = S 5
+[62] = S 7
+[63] = CNOT 1 2
+[64] = Z 1
+[65] = CNOT 1 2
+[66] = CNOT 1 5
+[67] = S 1
+[68] = Z 1
+[69] = CNOT 1 5
+[70] = CNOT 1 7
+[71] = S 1
+[72] = Z 1
+[73] = CNOT 1 7
+[74] = CNOT 2 5
+[75] = S 2
+[76] = Z 2
+[77] = CNOT 2 5
+[78] = CNOT 2 7
+[79] = S 2
+[80] = Z 2
+[81] = CNOT 2 7
+[82] = CNOT 4 5
+[83] = Z 4
+[84] = CNOT 4 5
+[85] = CNOT 4 7
+[86] = Z 4
+[87] = CNOT 4 7
+[88] = CNOT 5 6
+[89] = S 5
+[90] = CNOT 5 6
+[91] = CNOT 5 7
+[92] = Z 5
+[93] = CNOT 5 7
+[94] = CNOT 6 7
+[95] = S 6
+[96] = CNOT 1 4
+[97] = CNOT 1 5
+[98] = S 1
+[99] = Z 1
+[100] = CNOT 1 5
+[101] = CNOT 1 7
+[102] = S 1
+[103] = Z 1
+[104] = CNOT 1 4
+[105] = CNOT 1 5
+[106] = S 1
+[107] = Z 1
+[108] = CNOT 1 7
+[109] = CNOT 1 5
+[110] = CNOT 2 4
+[111] = CNOT 2 5
+[112] = S 2
+[113] = Z 2
+[114] = CNOT 2 5
+[115] = CNOT 2 7
+[116] = S 2
+[117] = Z 2
+[118] = CNOT 2 4
+[119] = CNOT 2 5
+[120] = S 2
+[121] = Z 2
+[122] = CNOT 2 7
+[123] = CNOT 2 5
+[124] = CNOT 5 7
+[125] = CNOT 7 6
+[126] = CNOT 6 7
+[127] = CNOT 6 5
+[128] = CNOT 5 6
+[129] = H 6
+[130] = M 6
+[131] = H 7
+[132] = M 7
+[133] = H 5
+[134] = H 4
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 21
+Cost estimation = 10506
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	6
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	3
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 7
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 2
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 13
+Cost estimation = 6623
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	8
+	4	72
+	5	13
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	22
+	12	0
+	13	18
+	14	0
+	15	0
+	16	0
+	17	0
+	18	2
+Output T Count (SQC_Circuit) = 13
+Output T Count (PhasePolynomial) = 13
+Fail count = 0
+
+Execution time: 0.004539s
+Number of LCL errors: 0
+Number of LCL warnings: 0

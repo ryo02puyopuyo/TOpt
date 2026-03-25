@@ -1,0 +1,23 @@
+Starting optimization...
+Mode:             INCLUDE (Only specified files)
+Input Directory:  /home/ryo-mtmt/TOpt/forme/tpar_benchmark
+Output Directory: ./results_h_hamiming
+---------------------------------------
+Running: ham15-low.tfc -> ham15-low.out
+Running: ham15-med.tfc -> ham15-med.out
+Running: hwb6.tfc -> hwb6.out
+Running: mod5_4.tfc -> mod5_4.out
+Running: mod_mult_55.tfc -> mod_mult_55.out
+Running: mod_red_21.tfc -> mod_red_21.out
+Running: qcla_com_7.tfc -> qcla_com_7.out
+Running: qcla_mod_7.tfc -> qcla_mod_7.out
+Running: qft_4.tfc -> qft_4.out
+Running: rc_adder_6.tfc -> rc_adder_6.out
+Running: tof_3.tfc -> tof_3.out
+Running: tof_4.tfc -> tof_4.out
+Running: tof_5.tfc -> tof_5.out
+Running: vbe_adder_3.tfc -> vbe_adder_3.out
+---------------------------------------
+Done!
+Optimized: 14 files
+Skipped:   30 files
