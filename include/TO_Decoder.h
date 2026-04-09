@@ -90,6 +90,15 @@ namespace SYNTHESIS_ALGORITHM_TAG {
     const string LEMPEL_GREEDY = "tool_lg";
     const string LEMPEL_RANDOM = "tool_r";
     const string TODD = "todd";
+    const string TODD_PREPROCESS = "todd_preprocess";
+    const string TODD_GREEDY_PREPROCESS = "todd_greedy_preprocess";
+    const string TODD_GREEDY_PREPROCESS_FAST = "todd_greedy_preprocess_fast";
+    const string TODD_M4RI = "todd_m4ri";
+    const string TODD_M4RI_STATS = "todd_m4ri_stats";
+    const string TODD_M4RI_HAMMING = "todd_m4ri_hamming";
+    const string TODD_M4RI_BEAM = "todd_m4ri_beam";
+    const string TODD_M4RI_R_BEAM = "todd_m4ri_r_beam";
+    const string TODD_M4RI_S_BEAM = "todd_m4ri_s_beam";
     const string TOOL = "tool";
     const string TOOL_F_G = "tool_f_g";
     const string TOOL_F_LG = "tool_f_lg";

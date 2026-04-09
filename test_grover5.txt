@@ -1,0 +1,2643 @@
+Optimize a Clifford + T circuit.
+Input filename = t-par/Benchmarks/grover_5.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: t-par/Benchmarks/grover_5.tfc
+
+n 9
+n_x 9
+n_y 0
+n_z 0
+m 201
+[0] = H 1
+[1] = H 2
+[2] = H 3
+[3] = H 4
+[4] = H 5
+[5] = H 6
+[6] = H 7
+[7] = CCZ 1 2 7
+[8] = H 7
+[9] = H 8
+[10] = CCZ 3 7 8
+[11] = H 8
+[12] = H 9
+[13] = CCZ 4 8 9
+[14] = H 9
+[15] = H 6
+[16] = CCZ 5 9 6
+[17] = H 6
+[18] = H 9
+[19] = CCZ 4 8 9
+[20] = H 9
+[21] = H 8
+[22] = CCZ 3 7 8
+[23] = H 8
+[24] = H 7
+[25] = CCZ 1 2 7
+[26] = H 7
+[27] = H 1
+[28] = H 2
+[29] = H 3
+[30] = H 4
+[31] = H 5
+[32] = H 7
+[33] = CCZ 1 2 7
+[34] = H 7
+[35] = H 8
+[36] = CCZ 3 7 8
+[37] = H 8
+[38] = H 5
+[39] = CCZ 4 8 5
+[40] = H 5
+[41] = H 8
+[42] = CCZ 3 7 8
+[43] = H 8
+[44] = H 7
+[45] = CCZ 1 2 7
+[46] = H 7
+[47] = H 1
+[48] = H 2
+[49] = H 3
+[50] = H 4
+[51] = H 5
+[52] = H 7
+[53] = CCZ 1 2 7
+[54] = H 7
+[55] = H 8
+[56] = CCZ 3 7 8
+[57] = H 8
+[58] = H 9
+[59] = CCZ 4 8 9
+[60] = H 9
+[61] = H 6
+[62] = CCZ 5 9 6
+[63] = H 6
+[64] = H 9
+[65] = CCZ 4 8 9
+[66] = H 9
+[67] = H 8
+[68] = CCZ 3 7 8
+[69] = H 8
+[70] = H 7
+[71] = CCZ 1 2 7
+[72] = H 7
+[73] = H 1
+[74] = H 2
+[75] = H 3
+[76] = H 4
+[77] = H 5
+[78] = H 7
+[79] = CCZ 1 2 7
+[80] = H 7
+[81] = H 8
+[82] = CCZ 3 7 8
+[83] = H 8
+[84] = H 5
+[85] = CCZ 4 8 5
+[86] = H 5
+[87] = H 8
+[88] = CCZ 3 7 8
+[89] = H 8
+[90] = H 7
+[91] = CCZ 1 2 7
+[92] = H 7
+[93] = H 1
+[94] = H 2
+[95] = H 3
+[96] = H 4
+[97] = H 5
+[98] = H 7
+[99] = CCZ 1 2 7
+[100] = H 7
+[101] = H 8
+[102] = CCZ 3 7 8
+[103] = H 8
+[104] = H 9
+[105] = CCZ 4 8 9
+[106] = H 9
+[107] = H 6
+[108] = CCZ 5 9 6
+[109] = H 6
+[110] = H 9
+[111] = CCZ 4 8 9
+[112] = H 9
+[113] = H 8
+[114] = CCZ 3 7 8
+[115] = H 8
+[116] = H 7
+[117] = CCZ 1 2 7
+[118] = H 7
+[119] = H 1
+[120] = H 2
+[121] = H 3
+[122] = H 4
+[123] = H 5
+[124] = H 7
+[125] = CCZ 1 2 7
+[126] = H 7
+[127] = H 8
+[128] = CCZ 3 7 8
+[129] = H 8
+[130] = H 5
+[131] = CCZ 4 8 5
+[132] = H 5
+[133] = H 8
+[134] = CCZ 3 7 8
+[135] = H 8
+[136] = H 7
+[137] = CCZ 1 2 7
+[138] = H 7
+[139] = H 1
+[140] = H 2
+[141] = H 3
+[142] = H 4
+[143] = H 5
+[144] = H 7
+[145] = CCZ 1 2 7
+[146] = H 7
+[147] = H 8
+[148] = CCZ 3 7 8
+[149] = H 8
+[150] = H 9
+[151] = CCZ 4 8 9
+[152] = H 9
+[153] = H 6
+[154] = CCZ 5 9 6
+[155] = H 6
+[156] = H 9
+[157] = CCZ 4 8 9
+[158] = H 9
+[159] = H 8
+[160] = CCZ 3 7 8
+[161] = H 8
+[162] = H 7
+[163] = CCZ 1 2 7
+[164] = H 7
+[165] = H 1
+[166] = H 2
+[167] = H 3
+[168] = H 4
+[169] = H 5
+[170] = H 7
+[171] = CCZ 1 2 7
+[172] = H 7
+[173] = H 8
+[174] = CCZ 3 7 8
+[175] = H 8
+[176] = H 5
+[177] = CCZ 4 8 5
+[178] = H 5
+[179] = H 8
+[180] = CCZ 3 7 8
+[181] = H 8
+[182] = H 7
+[183] = CCZ 1 2 7
+[184] = H 7
+[185] = H 1
+[186] = H 2
+[187] = H 3
+[188] = H 4
+[189] = H 5
+
+Algorithm used: todd_greedy_preprocess
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x7
+48 47 5 46 45 10 3 11 37 50 56 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x7
+[Initial] Density: 11 ones (17.46%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+[Greedy TODD] Preprocessing complete. Total weight: 11 -> 9 (2 ones removed)
+[Post-Greedy] Density: 9 ones (14.28%).
+--- Round 0 | Current Columns: 7 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 7
+Final T-count   : 7
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.048 ms
+Nullspace calc  : 0.324 ms
+Preprocessing CNOTs: 1
+============================
+		TODD executed in 0.000485 seconds.
+		Total time: 0.000513s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.033 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.6e-05 seconds.
+		Total time: 0.000112s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+26 25 11 24 21 22 9 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.033 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.4e-05 seconds.
+		Total time: 9.7e-05s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x6
+34 53 27 32 31 51 25 48 30 50 24 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x6
+[Initial] Density: 11 ones (20.37%).
+  [Multi-step Greedy] XORing row 5 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 11 -> 9 (2 ones removed)
+[Post-Greedy] Density: 9 ones (16.66%).
+--- Round 0 | Current Columns: 6 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 6
+Final T-count   : 6
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.033 ms
+Nullspace calc  : 0.197 ms
+Preprocessing CNOTs: 2
+============================
+		TODD executed in 0.000303 seconds.
+		Total time: 0.00032s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+26 25 11 24 21 22 9 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.031 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.6e-05 seconds.
+		Total time: 0.0001s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x4
+31 11 30 26 29 9 25 12 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x4
+[Initial] Density: 8 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 8 -> 4 (4 ones removed)
+[Post-Greedy] Density: 4 ones (11.11%).
+--- Round 0 | Current Columns: 4 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 4
+Final T-count   : 4
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.012 ms
+Nullspace calc  : 0.064 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000137 seconds.
+		Total time: 0.000155s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.037 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.6e-05 seconds.
+		Total time: 0.000111s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.047 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000109 seconds.
+		Total time: 0.000123s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.031 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.7e-05 seconds.
+		Total time: 0.000102s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x5
+39 38 18 37 21 16 22 35 20 15 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x5
+[Initial] Density: 10 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 2 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 10 -> 7 (3 ones removed)
+[Post-Greedy] Density: 7 ones (15.55%).
+--- Round 0 | Current Columns: 5 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 5
+Final T-count   : 5
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.02 ms
+Nullspace calc  : 0.112 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.00019 seconds.
+		Total time: 0.000205s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.04 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000147 seconds.
+		Total time: 0.000167s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.031 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.5e-05 seconds.
+		Total time: 9.8e-05s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.045 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.00011 seconds.
+		Total time: 0.000124s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.033 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9e-05 seconds.
+		Total time: 0.000105s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+26 25 11 24 21 22 9 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.042 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000148 seconds.
+		Total time: 0.000167s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x6
+34 53 27 32 31 51 25 48 30 50 24 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x6
+[Initial] Density: 11 ones (20.37%).
+  [Multi-step Greedy] XORing row 5 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 11 -> 9 (2 ones removed)
+[Post-Greedy] Density: 9 ones (16.66%).
+--- Round 0 | Current Columns: 6 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 6
+Final T-count   : 6
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.031 ms
+Nullspace calc  : 0.196 ms
+Preprocessing CNOTs: 2
+============================
+		TODD executed in 0.000298 seconds.
+		Total time: 0.000313s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+26 25 11 24 21 22 9 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.029 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.5e-05 seconds.
+		Total time: 9.9e-05s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x4
+31 11 30 26 29 9 25 12 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x4
+[Initial] Density: 8 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 8 -> 4 (4 ones removed)
+[Post-Greedy] Density: 4 ones (11.11%).
+--- Round 0 | Current Columns: 4 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 4
+Final T-count   : 4
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.012 ms
+Nullspace calc  : 0.067 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000129 seconds.
+		Total time: 0.000155s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.03 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.5e-05 seconds.
+		Total time: 9.9e-05s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.03 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000123 seconds.
+		Total time: 0.000139s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.008 ms
+Nullspace calc  : 0.038 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.8e-05 seconds.
+		Total time: 0.000114s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x5
+39 38 18 37 21 16 22 35 20 15 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x5
+[Initial] Density: 10 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 2 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 10 -> 7 (3 ones removed)
+[Post-Greedy] Density: 7 ones (15.55%).
+--- Round 0 | Current Columns: 5 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 5
+Final T-count   : 5
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.046 ms
+Nullspace calc  : 0.224 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000378 seconds.
+		Total time: 0.000394s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.034 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.5e-05 seconds.
+		Total time: 0.000111s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.03 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9e-05 seconds.
+		Total time: 0.000103s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.034 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.9e-05 seconds.
+		Total time: 0.000137s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.008 ms
+Nullspace calc  : 0.03 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.7e-05 seconds.
+		Total time: 0.000101s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+26 25 11 24 21 22 9 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.041 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.6e-05 seconds.
+		Total time: 0.000109s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x6
+34 53 27 32 31 51 25 48 30 50 24 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x6
+[Initial] Density: 11 ones (20.37%).
+  [Multi-step Greedy] XORing row 5 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 11 -> 9 (2 ones removed)
+[Post-Greedy] Density: 9 ones (16.66%).
+--- Round 0 | Current Columns: 6 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 6
+Final T-count   : 6
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.031 ms
+Nullspace calc  : 0.288 ms
+Preprocessing CNOTs: 2
+============================
+		TODD executed in 0.000396 seconds.
+		Total time: 0.000412s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+26 25 11 24 21 22 9 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.035 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000102 seconds.
+		Total time: 0.000117s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x4
+31 11 30 26 29 9 25 12 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x4
+[Initial] Density: 8 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 8 -> 4 (4 ones removed)
+[Post-Greedy] Density: 4 ones (11.11%).
+--- Round 0 | Current Columns: 4 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 4
+Final T-count   : 4
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.012 ms
+Nullspace calc  : 0.062 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000128 seconds.
+		Total time: 0.000143s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.029 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.2e-05 seconds.
+		Total time: 9.3e-05s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.031 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.2e-05 seconds.
+		Total time: 0.000111s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.035 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.0001 seconds.
+		Total time: 0.000116s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x5
+39 38 18 37 21 16 22 35 20 15 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x5
+[Initial] Density: 10 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 2 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 10 -> 7 (3 ones removed)
+[Post-Greedy] Density: 7 ones (15.55%).
+--- Round 0 | Current Columns: 5 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 5
+Final T-count   : 5
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.02 ms
+Nullspace calc  : 0.109 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000202 seconds.
+		Total time: 0.000215s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.031 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.6e-05 seconds.
+		Total time: 9.9e-05s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.026 ms
+Nullspace calc  : 0.033 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000124 seconds.
+		Total time: 0.000146s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.076 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000169 seconds.
+		Total time: 0.000206s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.036 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.1e-05 seconds.
+		Total time: 0.000111s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+26 25 11 24 21 22 9 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.043 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.00012 seconds.
+		Total time: 0.000135s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x5
+44 43 23 42 26 21 27 40 25 20 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x5
+[Initial] Density: 10 ones (22.22%).
+  [Multi-step Greedy] XORing row 8 with 2 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 4 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 10 -> 7 (3 ones removed)
+[Post-Greedy] Density: 7 ones (15.55%).
+--- Round 0 | Current Columns: 5 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 5
+Final T-count   : 5
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.02 ms
+Nullspace calc  : 0.111 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000191 seconds.
+		Total time: 0.000206s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x4
+35 34 14 33 29 32 28 12 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x4
+[Initial] Density: 8 ones (22.22%).
+  [Multi-step Greedy] XORing row 8 with 1 rows. Reduction: 2
+[Greedy TODD] Preprocessing complete. Total weight: 8 -> 6 (2 ones removed)
+[Post-Greedy] Density: 6 ones (16.66%).
+--- Round 0 | Current Columns: 4 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 4
+Final T-count   : 4
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.013 ms
+Nullspace calc  : 0.059 ms
+Preprocessing CNOTs: 1
+============================
+		TODD executed in 0.000119 seconds.
+		Total time: 0.000132s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x4
+31 11 30 26 29 9 25 12 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x4
+[Initial] Density: 8 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 8 -> 4 (4 ones removed)
+[Post-Greedy] Density: 4 ones (11.11%).
+--- Round 0 | Current Columns: 4 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 4
+Final T-count   : 4
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.012 ms
+Nullspace calc  : 0.066 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000138 seconds.
+		Total time: 0.000155s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.033 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 8.7e-05 seconds.
+		Total time: 0.0001s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+20 2 19 4 18 3 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 1 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 0 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.006 ms
+Nullspace calc  : 0.033 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.2e-05 seconds.
+		Total time: 0.000122s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x3
+23 22 8 21 18 19 6 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x3
+[Initial] Density: 7 ones (25.92%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 1
+  [Multi-step Greedy] XORing row 2 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 7 -> 3 (4 ones removed)
+[Post-Greedy] Density: 3 ones (11.11%).
+--- Round 0 | Current Columns: 3 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 3
+Final T-count   : 3
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.007 ms
+Nullspace calc  : 0.034 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 9.3e-05 seconds.
+		Total time: 0.000108s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x5
+39 38 18 37 21 16 22 35 20 15 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x5
+[Initial] Density: 10 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 2 rows. Reduction: 2
+  [Multi-step Greedy] XORing row 3 with 1 rows. Reduction: 1
+[Greedy TODD] Preprocessing complete. Total weight: 10 -> 7 (3 ones removed)
+[Post-Greedy] Density: 7 ones (15.55%).
+--- Round 0 | Current Columns: 5 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 5
+Final T-count   : 5
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.023 ms
+Nullspace calc  : 0.119 ms
+Preprocessing CNOTs: 3
+============================
+		TODD executed in 0.000196 seconds.
+		Total time: 0.000209s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x4
+31 30 10 29 25 28 24 8 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x4
+[Initial] Density: 8 ones (22.22%).
+  [Multi-step Greedy] XORing row 7 with 1 rows. Reduction: 2
+[Greedy TODD] Preprocessing complete. Total weight: 8 -> 6 (2 ones removed)
+[Post-Greedy] Density: 6 ones (16.66%).
+--- Round 0 | Current Columns: 4 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 4
+Final T-count   : 4
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.012 ms
+Nullspace calc  : 0.063 ms
+Preprocessing CNOTs: 1
+============================
+		TODD executed in 0.000121 seconds.
+		Total time: 0.000133s
+	Gate synthesis end.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 9x4
+27 2 25 5 24 4 26 0 
+
+[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
+[Initial] Matrix size: 9x4
+[Initial] Density: 8 ones (22.22%).
+  [Multi-step Greedy] XORing row 6 with 1 rows. Reduction: 2
+[Greedy TODD] Preprocessing complete. Total weight: 8 -> 6 (2 ones removed)
+[Post-Greedy] Density: 6 ones (16.66%).
+--- Round 0 | Current Columns: 4 ---
+Round 0 Finished in 0 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_GreedyPreprocess
+Initial T-count : 4
+Final T-count   : 4
+Total Reduced   : 0 gates
+Execution Time  : 0 ms
+Chi calculation : 0.012 ms
+Nullspace calc  : 0.062 ms
+Preprocessing CNOTs: 1
+============================
+		TODD executed in 0.000125 seconds.
+		Total time: 0.000139s
+	Gate synthesis end.
+	Total time: 0.031436s
+UniversalOptimize end.
+Output circuit:
+n 9
+n_x 9
+n_y 0
+n_z 0
+m 1001
+[0] = H 1
+[1] = H 2
+[2] = H 3
+[3] = H 4
+[4] = H 5
+[5] = H 7
+[6] = H 8
+[7] = H 9
+[8] = T 9
+[9] = T 8
+[10] = T 6
+[11] = CNOT 1 2
+[12] = S 1
+[13] = CNOT 1 2
+[14] = CNOT 2 7
+[15] = T 2
+[16] = CNOT 2 7
+[17] = S 1
+[18] = Z 1
+[19] = T 7
+[20] = S 7
+[21] = Z 7
+[22] = Z 2
+[23] = S 3
+[24] = S 4
+[25] = S 5
+[26] = CNOT 1 7
+[27] = T 1
+[28] = S 1
+[29] = Z 1
+[30] = CNOT 1 2
+[31] = T 1
+[32] = CNOT 1 7
+[33] = CNOT 1 2
+[34] = CNOT 2 1
+[35] = H 7
+[36] = S 3
+[37] = Z 3
+[38] = CNOT 3 8
+[39] = T 3
+[40] = S 3
+[41] = Z 3
+[42] = CNOT 7 8
+[43] = T 7
+[44] = S 7
+[45] = Z 7
+[46] = CNOT 7 8
+[47] = CNOT 3 7
+[48] = T 3
+[49] = CNOT 3 8
+[50] = CNOT 3 7
+[51] = CNOT 7 3
+[52] = H 8
+[53] = S 4
+[54] = Z 4
+[55] = CNOT 4 9
+[56] = T 4
+[57] = S 4
+[58] = Z 4
+[59] = CNOT 8 9
+[60] = T 8
+[61] = S 8
+[62] = Z 8
+[63] = CNOT 8 9
+[64] = CNOT 4 8
+[65] = T 4
+[66] = CNOT 4 9
+[67] = CNOT 4 8
+[68] = CNOT 8 4
+[69] = H 9
+[70] = Z 5
+[71] = CNOT 5 9
+[72] = T 5
+[73] = CNOT 5 9
+[74] = CNOT 6 9
+[75] = T 6
+[76] = CNOT 6 9
+[77] = CNOT 5 6
+[78] = T 5
+[79] = T 6
+[80] = Z 6
+[81] = T 9
+[82] = Z 9
+[83] = CNOT 5 9
+[84] = T 5
+[85] = CNOT 5 9
+[86] = CNOT 5 6
+[87] = H 9
+[88] = S 8
+[89] = Z 8
+[90] = S 9
+[91] = Z 9
+[92] = S 4
+[93] = CNOT 4 8
+[94] = S 4
+[95] = CNOT 4 8
+[96] = CNOT 4 9
+[97] = T 4
+[98] = S 4
+[99] = CNOT 8 9
+[100] = T 8
+[101] = CNOT 8 9
+[102] = CNOT 4 8
+[103] = T 4
+[104] = S 4
+[105] = Z 4
+[106] = CNOT 4 9
+[107] = CNOT 4 8
+[108] = CNOT 8 4
+[109] = H 8
+[110] = H 4
+[111] = T 4
+[112] = S 7
+[113] = Z 7
+[114] = S 8
+[115] = Z 8
+[116] = S 3
+[117] = CNOT 3 7
+[118] = S 3
+[119] = CNOT 3 7
+[120] = CNOT 3 8
+[121] = T 3
+[122] = S 3
+[123] = CNOT 7 8
+[124] = T 7
+[125] = CNOT 7 8
+[126] = CNOT 3 7
+[127] = T 3
+[128] = S 3
+[129] = Z 3
+[130] = CNOT 3 8
+[131] = CNOT 3 7
+[132] = CNOT 7 3
+[133] = H 7
+[134] = H 3
+[135] = S 2
+[136] = Z 2
+[137] = S 7
+[138] = Z 7
+[139] = S 1
+[140] = S 3
+[141] = CNOT 1 2
+[142] = S 1
+[143] = CNOT 1 2
+[144] = CNOT 1 7
+[145] = T 1
+[146] = S 1
+[147] = CNOT 2 7
+[148] = T 2
+[149] = CNOT 2 7
+[150] = CNOT 1 2
+[151] = T 1
+[152] = S 1
+[153] = Z 1
+[154] = CNOT 1 7
+[155] = CNOT 1 2
+[156] = CNOT 2 1
+[157] = H 1
+[158] = H 2
+[159] = CNOT 1 7
+[160] = T 1
+[161] = S 1
+[162] = Z 1
+[163] = CNOT 2 7
+[164] = T 2
+[165] = S 2
+[166] = Z 2
+[167] = CNOT 2 7
+[168] = CNOT 1 2
+[169] = T 1
+[170] = CNOT 1 7
+[171] = CNOT 1 2
+[172] = CNOT 2 1
+[173] = H 7
+[174] = S 3
+[175] = Z 3
+[176] = CNOT 3 8
+[177] = T 3
+[178] = S 3
+[179] = Z 3
+[180] = CNOT 7 8
+[181] = T 7
+[182] = S 7
+[183] = Z 7
+[184] = CNOT 7 8
+[185] = CNOT 3 7
+[186] = T 3
+[187] = CNOT 3 8
+[188] = CNOT 3 7
+[189] = CNOT 7 3
+[190] = H 8
+[191] = CNOT 5 8
+[192] = T 5
+[193] = CNOT 5 8
+[194] = S 5
+[195] = Z 5
+[196] = CNOT 4 5
+[197] = T 4
+[198] = CNOT 4 5
+[199] = S 4
+[200] = Z 4
+[201] = T 8
+[202] = S 8
+[203] = Z 8
+[204] = CNOT 4 8
+[205] = T 4
+[206] = S 4
+[207] = Z 4
+[208] = CNOT 4 5
+[209] = T 4
+[210] = CNOT 4 8
+[211] = CNOT 4 5
+[212] = H 8
+[213] = H 4
+[214] = S 7
+[215] = Z 7
+[216] = S 8
+[217] = Z 8
+[218] = S 3
+[219] = S 4
+[220] = CNOT 3 7
+[221] = S 3
+[222] = CNOT 3 7
+[223] = CNOT 3 8
+[224] = T 3
+[225] = S 3
+[226] = CNOT 7 8
+[227] = T 7
+[228] = CNOT 7 8
+[229] = CNOT 3 7
+[230] = T 3
+[231] = S 3
+[232] = Z 3
+[233] = CNOT 3 8
+[234] = CNOT 3 7
+[235] = CNOT 7 3
+[236] = H 7
+[237] = H 3
+[238] = S 2
+[239] = Z 2
+[240] = S 7
+[241] = Z 7
+[242] = S 1
+[243] = S 3
+[244] = CNOT 1 2
+[245] = S 1
+[246] = CNOT 1 2
+[247] = CNOT 1 7
+[248] = T 1
+[249] = S 1
+[250] = CNOT 2 7
+[251] = T 2
+[252] = CNOT 2 7
+[253] = CNOT 1 2
+[254] = T 1
+[255] = S 1
+[256] = Z 1
+[257] = CNOT 1 7
+[258] = CNOT 1 2
+[259] = CNOT 2 1
+[260] = H 1
+[261] = H 2
+[262] = CNOT 1 7
+[263] = T 1
+[264] = S 1
+[265] = Z 1
+[266] = CNOT 2 7
+[267] = T 2
+[268] = S 2
+[269] = Z 2
+[270] = CNOT 2 7
+[271] = CNOT 1 2
+[272] = T 1
+[273] = CNOT 1 7
+[274] = CNOT 1 2
+[275] = CNOT 2 1
+[276] = H 7
+[277] = S 3
+[278] = Z 3
+[279] = CNOT 3 8
+[280] = T 3
+[281] = S 3
+[282] = Z 3
+[283] = CNOT 7 8
+[284] = T 7
+[285] = S 7
+[286] = Z 7
+[287] = CNOT 7 8
+[288] = CNOT 3 7
+[289] = T 3
+[290] = CNOT 3 8
+[291] = CNOT 3 7
+[292] = CNOT 7 3
+[293] = H 8
+[294] = S 4
+[295] = Z 4
+[296] = CNOT 4 9
+[297] = T 4
+[298] = S 4
+[299] = Z 4
+[300] = CNOT 8 9
+[301] = T 8
+[302] = S 8
+[303] = Z 8
+[304] = CNOT 8 9
+[305] = CNOT 4 8
+[306] = T 4
+[307] = CNOT 4 9
+[308] = CNOT 4 8
+[309] = CNOT 8 4
+[310] = H 9
+[311] = Z 5
+[312] = CNOT 5 9
+[313] = T 5
+[314] = CNOT 5 9
+[315] = CNOT 6 9
+[316] = T 6
+[317] = CNOT 6 9
+[318] = CNOT 5 6
+[319] = T 5
+[320] = T 6
+[321] = Z 6
+[322] = T 9
+[323] = Z 9
+[324] = CNOT 5 9
+[325] = T 5
+[326] = CNOT 5 9
+[327] = CNOT 5 6
+[328] = H 9
+[329] = S 8
+[330] = Z 8
+[331] = S 9
+[332] = Z 9
+[333] = S 4
+[334] = CNOT 4 8
+[335] = S 4
+[336] = CNOT 4 8
+[337] = CNOT 4 9
+[338] = T 4
+[339] = S 4
+[340] = CNOT 8 9
+[341] = T 8
+[342] = CNOT 8 9
+[343] = CNOT 4 8
+[344] = T 4
+[345] = S 4
+[346] = Z 4
+[347] = CNOT 4 9
+[348] = CNOT 4 8
+[349] = CNOT 8 4
+[350] = H 8
+[351] = H 4
+[352] = T 4
+[353] = S 7
+[354] = Z 7
+[355] = S 8
+[356] = Z 8
+[357] = S 3
+[358] = CNOT 3 7
+[359] = S 3
+[360] = CNOT 3 7
+[361] = CNOT 3 8
+[362] = T 3
+[363] = S 3
+[364] = CNOT 7 8
+[365] = T 7
+[366] = CNOT 7 8
+[367] = CNOT 3 7
+[368] = T 3
+[369] = S 3
+[370] = Z 3
+[371] = CNOT 3 8
+[372] = CNOT 3 7
+[373] = CNOT 7 3
+[374] = H 7
+[375] = H 3
+[376] = S 2
+[377] = Z 2
+[378] = S 7
+[379] = Z 7
+[380] = S 1
+[381] = S 3
+[382] = CNOT 1 2
+[383] = S 1
+[384] = CNOT 1 2
+[385] = CNOT 1 7
+[386] = T 1
+[387] = S 1
+[388] = CNOT 2 7
+[389] = T 2
+[390] = CNOT 2 7
+[391] = CNOT 1 2
+[392] = T 1
+[393] = S 1
+[394] = Z 1
+[395] = CNOT 1 7
+[396] = CNOT 1 2
+[397] = CNOT 2 1
+[398] = H 1
+[399] = H 2
+[400] = CNOT 1 7
+[401] = T 1
+[402] = S 1
+[403] = Z 1
+[404] = CNOT 2 7
+[405] = T 2
+[406] = S 2
+[407] = Z 2
+[408] = CNOT 2 7
+[409] = CNOT 1 2
+[410] = T 1
+[411] = CNOT 1 7
+[412] = CNOT 1 2
+[413] = CNOT 2 1
+[414] = H 7
+[415] = S 3
+[416] = Z 3
+[417] = CNOT 3 8
+[418] = T 3
+[419] = S 3
+[420] = Z 3
+[421] = CNOT 7 8
+[422] = T 7
+[423] = S 7
+[424] = Z 7
+[425] = CNOT 7 8
+[426] = CNOT 3 7
+[427] = T 3
+[428] = CNOT 3 8
+[429] = CNOT 3 7
+[430] = CNOT 7 3
+[431] = H 8
+[432] = CNOT 5 8
+[433] = T 5
+[434] = CNOT 5 8
+[435] = S 5
+[436] = Z 5
+[437] = CNOT 4 5
+[438] = T 4
+[439] = CNOT 4 5
+[440] = S 4
+[441] = Z 4
+[442] = T 8
+[443] = S 8
+[444] = Z 8
+[445] = CNOT 4 8
+[446] = T 4
+[447] = S 4
+[448] = Z 4
+[449] = CNOT 4 5
+[450] = T 4
+[451] = CNOT 4 8
+[452] = CNOT 4 5
+[453] = H 8
+[454] = H 4
+[455] = S 7
+[456] = Z 7
+[457] = S 8
+[458] = Z 8
+[459] = S 3
+[460] = S 4
+[461] = CNOT 3 7
+[462] = S 3
+[463] = CNOT 3 7
+[464] = CNOT 3 8
+[465] = T 3
+[466] = S 3
+[467] = CNOT 7 8
+[468] = T 7
+[469] = CNOT 7 8
+[470] = CNOT 3 7
+[471] = T 3
+[472] = S 3
+[473] = Z 3
+[474] = CNOT 3 8
+[475] = CNOT 3 7
+[476] = CNOT 7 3
+[477] = H 7
+[478] = H 3
+[479] = S 2
+[480] = Z 2
+[481] = S 7
+[482] = Z 7
+[483] = S 1
+[484] = S 3
+[485] = CNOT 1 2
+[486] = S 1
+[487] = CNOT 1 2
+[488] = CNOT 1 7
+[489] = T 1
+[490] = S 1
+[491] = CNOT 2 7
+[492] = T 2
+[493] = CNOT 2 7
+[494] = CNOT 1 2
+[495] = T 1
+[496] = S 1
+[497] = Z 1
+[498] = CNOT 1 7
+[499] = CNOT 1 2
+[500] = CNOT 2 1
+[501] = H 1
+[502] = H 2
+[503] = CNOT 1 7
+[504] = T 1
+[505] = S 1
+[506] = Z 1
+[507] = CNOT 2 7
+[508] = T 2
+[509] = S 2
+[510] = Z 2
+[511] = CNOT 2 7
+[512] = CNOT 1 2
+[513] = T 1
+[514] = CNOT 1 7
+[515] = CNOT 1 2
+[516] = CNOT 2 1
+[517] = H 7
+[518] = S 3
+[519] = Z 3
+[520] = CNOT 3 8
+[521] = T 3
+[522] = S 3
+[523] = Z 3
+[524] = CNOT 7 8
+[525] = T 7
+[526] = S 7
+[527] = Z 7
+[528] = CNOT 7 8
+[529] = CNOT 3 7
+[530] = T 3
+[531] = CNOT 3 8
+[532] = CNOT 3 7
+[533] = CNOT 7 3
+[534] = H 8
+[535] = S 4
+[536] = Z 4
+[537] = CNOT 4 9
+[538] = T 4
+[539] = S 4
+[540] = Z 4
+[541] = CNOT 8 9
+[542] = T 8
+[543] = S 8
+[544] = Z 8
+[545] = CNOT 8 9
+[546] = CNOT 4 8
+[547] = T 4
+[548] = CNOT 4 9
+[549] = CNOT 4 8
+[550] = CNOT 8 4
+[551] = H 9
+[552] = Z 5
+[553] = CNOT 5 9
+[554] = T 5
+[555] = CNOT 5 9
+[556] = CNOT 6 9
+[557] = T 6
+[558] = CNOT 6 9
+[559] = CNOT 5 6
+[560] = T 5
+[561] = T 6
+[562] = Z 6
+[563] = T 9
+[564] = Z 9
+[565] = CNOT 5 9
+[566] = T 5
+[567] = CNOT 5 9
+[568] = CNOT 5 6
+[569] = H 9
+[570] = S 8
+[571] = Z 8
+[572] = S 9
+[573] = Z 9
+[574] = S 4
+[575] = CNOT 4 8
+[576] = S 4
+[577] = CNOT 4 8
+[578] = CNOT 4 9
+[579] = T 4
+[580] = S 4
+[581] = CNOT 8 9
+[582] = T 8
+[583] = CNOT 8 9
+[584] = CNOT 4 8
+[585] = T 4
+[586] = S 4
+[587] = Z 4
+[588] = CNOT 4 9
+[589] = CNOT 4 8
+[590] = CNOT 8 4
+[591] = H 8
+[592] = H 4
+[593] = T 4
+[594] = S 7
+[595] = Z 7
+[596] = S 8
+[597] = Z 8
+[598] = S 3
+[599] = CNOT 3 7
+[600] = S 3
+[601] = CNOT 3 7
+[602] = CNOT 3 8
+[603] = T 3
+[604] = S 3
+[605] = CNOT 7 8
+[606] = T 7
+[607] = CNOT 7 8
+[608] = CNOT 3 7
+[609] = T 3
+[610] = S 3
+[611] = Z 3
+[612] = CNOT 3 8
+[613] = CNOT 3 7
+[614] = CNOT 7 3
+[615] = H 7
+[616] = H 3
+[617] = S 2
+[618] = Z 2
+[619] = S 7
+[620] = Z 7
+[621] = S 1
+[622] = S 3
+[623] = CNOT 1 2
+[624] = S 1
+[625] = CNOT 1 2
+[626] = CNOT 1 7
+[627] = T 1
+[628] = S 1
+[629] = CNOT 2 7
+[630] = T 2
+[631] = CNOT 2 7
+[632] = CNOT 1 2
+[633] = T 1
+[634] = S 1
+[635] = Z 1
+[636] = CNOT 1 7
+[637] = CNOT 1 2
+[638] = CNOT 2 1
+[639] = H 1
+[640] = H 2
+[641] = CNOT 1 7
+[642] = T 1
+[643] = S 1
+[644] = Z 1
+[645] = CNOT 2 7
+[646] = T 2
+[647] = S 2
+[648] = Z 2
+[649] = CNOT 2 7
+[650] = CNOT 1 2
+[651] = T 1
+[652] = CNOT 1 7
+[653] = CNOT 1 2
+[654] = CNOT 2 1
+[655] = H 7
+[656] = S 3
+[657] = Z 3
+[658] = CNOT 3 8
+[659] = T 3
+[660] = S 3
+[661] = Z 3
+[662] = CNOT 7 8
+[663] = T 7
+[664] = S 7
+[665] = Z 7
+[666] = CNOT 7 8
+[667] = CNOT 3 7
+[668] = T 3
+[669] = CNOT 3 8
+[670] = CNOT 3 7
+[671] = CNOT 7 3
+[672] = H 8
+[673] = CNOT 5 8
+[674] = T 5
+[675] = CNOT 5 8
+[676] = S 5
+[677] = Z 5
+[678] = CNOT 4 5
+[679] = T 4
+[680] = CNOT 4 5
+[681] = S 4
+[682] = Z 4
+[683] = T 8
+[684] = S 8
+[685] = Z 8
+[686] = CNOT 4 8
+[687] = T 4
+[688] = S 4
+[689] = Z 4
+[690] = CNOT 4 5
+[691] = T 4
+[692] = CNOT 4 8
+[693] = CNOT 4 5
+[694] = H 8
+[695] = H 4
+[696] = S 7
+[697] = Z 7
+[698] = S 8
+[699] = Z 8
+[700] = S 3
+[701] = S 4
+[702] = CNOT 3 7
+[703] = S 3
+[704] = CNOT 3 7
+[705] = CNOT 3 8
+[706] = T 3
+[707] = S 3
+[708] = CNOT 7 8
+[709] = T 7
+[710] = CNOT 7 8
+[711] = CNOT 3 7
+[712] = T 3
+[713] = S 3
+[714] = Z 3
+[715] = CNOT 3 8
+[716] = CNOT 3 7
+[717] = CNOT 7 3
+[718] = H 7
+[719] = H 3
+[720] = S 2
+[721] = Z 2
+[722] = S 7
+[723] = Z 7
+[724] = S 1
+[725] = S 3
+[726] = CNOT 1 2
+[727] = S 1
+[728] = CNOT 1 2
+[729] = CNOT 1 7
+[730] = T 1
+[731] = S 1
+[732] = CNOT 2 7
+[733] = T 2
+[734] = CNOT 2 7
+[735] = CNOT 1 2
+[736] = T 1
+[737] = S 1
+[738] = Z 1
+[739] = CNOT 1 7
+[740] = CNOT 1 2
+[741] = CNOT 2 1
+[742] = H 1
+[743] = H 2
+[744] = CNOT 1 7
+[745] = T 1
+[746] = S 1
+[747] = Z 1
+[748] = CNOT 2 7
+[749] = T 2
+[750] = S 2
+[751] = Z 2
+[752] = CNOT 2 7
+[753] = CNOT 1 2
+[754] = T 1
+[755] = CNOT 1 7
+[756] = CNOT 1 2
+[757] = CNOT 2 1
+[758] = H 7
+[759] = S 3
+[760] = Z 3
+[761] = CNOT 3 8
+[762] = T 3
+[763] = S 3
+[764] = Z 3
+[765] = CNOT 7 8
+[766] = T 7
+[767] = S 7
+[768] = Z 7
+[769] = CNOT 7 8
+[770] = CNOT 3 7
+[771] = T 3
+[772] = CNOT 3 8
+[773] = CNOT 3 7
+[774] = CNOT 7 3
+[775] = H 8
+[776] = S 4
+[777] = Z 4
+[778] = CNOT 4 9
+[779] = T 4
+[780] = S 4
+[781] = Z 4
+[782] = CNOT 8 9
+[783] = T 8
+[784] = S 8
+[785] = Z 8
+[786] = CNOT 8 9
+[787] = CNOT 4 8
+[788] = T 4
+[789] = CNOT 4 9
+[790] = CNOT 4 8
+[791] = CNOT 8 4
+[792] = H 9
+[793] = CNOT 6 9
+[794] = T 6
+[795] = CNOT 6 9
+[796] = Z 6
+[797] = CNOT 5 6
+[798] = T 5
+[799] = CNOT 5 6
+[800] = S 5
+[801] = Z 5
+[802] = T 9
+[803] = S 9
+[804] = Z 9
+[805] = CNOT 5 9
+[806] = T 5
+[807] = S 5
+[808] = Z 5
+[809] = CNOT 5 6
+[810] = T 5
+[811] = CNOT 5 9
+[812] = CNOT 5 6
+[813] = H 6
+[814] = H 9
+[815] = CNOT 4 8
+[816] = Z 4
+[817] = CNOT 4 8
+[818] = CNOT 8 9
+[819] = T 8
+[820] = S 8
+[821] = CNOT 8 9
+[822] = T 9
+[823] = S 9
+[824] = S 8
+[825] = CNOT 4 9
+[826] = T 4
+[827] = S 4
+[828] = CNOT 4 8
+[829] = T 4
+[830] = S 4
+[831] = Z 4
+[832] = CNOT 4 9
+[833] = CNOT 4 8
+[834] = CNOT 8 4
+[835] = H 9
+[836] = H 8
+[837] = H 4
+[838] = T 4
+[839] = S 7
+[840] = Z 7
+[841] = S 8
+[842] = Z 8
+[843] = S 3
+[844] = CNOT 3 7
+[845] = S 3
+[846] = CNOT 3 7
+[847] = CNOT 3 8
+[848] = T 3
+[849] = S 3
+[850] = CNOT 7 8
+[851] = T 7
+[852] = CNOT 7 8
+[853] = CNOT 3 7
+[854] = T 3
+[855] = S 3
+[856] = Z 3
+[857] = CNOT 3 8
+[858] = CNOT 3 7
+[859] = CNOT 7 3
+[860] = H 7
+[861] = H 3
+[862] = S 2
+[863] = Z 2
+[864] = S 7
+[865] = Z 7
+[866] = S 1
+[867] = S 3
+[868] = CNOT 1 2
+[869] = S 1
+[870] = CNOT 1 2
+[871] = CNOT 1 7
+[872] = T 1
+[873] = S 1
+[874] = CNOT 2 7
+[875] = T 2
+[876] = CNOT 2 7
+[877] = CNOT 1 2
+[878] = T 1
+[879] = S 1
+[880] = Z 1
+[881] = CNOT 1 7
+[882] = CNOT 1 2
+[883] = CNOT 2 1
+[884] = H 1
+[885] = H 2
+[886] = CNOT 1 7
+[887] = T 1
+[888] = S 1
+[889] = Z 1
+[890] = CNOT 2 7
+[891] = T 2
+[892] = S 2
+[893] = Z 2
+[894] = CNOT 2 7
+[895] = CNOT 1 2
+[896] = T 1
+[897] = CNOT 1 7
+[898] = CNOT 1 2
+[899] = CNOT 2 1
+[900] = H 7
+[901] = S 3
+[902] = Z 3
+[903] = CNOT 3 8
+[904] = T 3
+[905] = S 3
+[906] = Z 3
+[907] = CNOT 7 8
+[908] = T 7
+[909] = S 7
+[910] = Z 7
+[911] = CNOT 7 8
+[912] = CNOT 3 7
+[913] = T 3
+[914] = CNOT 3 8
+[915] = CNOT 3 7
+[916] = CNOT 7 3
+[917] = H 8
+[918] = CNOT 5 8
+[919] = T 5
+[920] = CNOT 5 8
+[921] = Z 5
+[922] = CNOT 4 5
+[923] = T 4
+[924] = CNOT 4 5
+[925] = S 4
+[926] = Z 4
+[927] = T 8
+[928] = S 8
+[929] = Z 8
+[930] = CNOT 4 8
+[931] = T 4
+[932] = S 4
+[933] = Z 4
+[934] = CNOT 4 5
+[935] = T 4
+[936] = CNOT 4 8
+[937] = CNOT 4 5
+[938] = H 8
+[939] = H 4
+[940] = CNOT 3 7
+[941] = Z 3
+[942] = CNOT 3 7
+[943] = CNOT 7 8
+[944] = T 7
+[945] = S 7
+[946] = CNOT 7 8
+[947] = T 8
+[948] = S 8
+[949] = S 7
+[950] = CNOT 3 8
+[951] = T 3
+[952] = S 3
+[953] = CNOT 3 7
+[954] = T 3
+[955] = S 3
+[956] = Z 3
+[957] = CNOT 3 8
+[958] = CNOT 3 7
+[959] = CNOT 7 3
+[960] = H 8
+[961] = H 7
+[962] = H 3
+[963] = CNOT 1 2
+[964] = Z 1
+[965] = CNOT 1 2
+[966] = CNOT 2 7
+[967] = T 2
+[968] = S 2
+[969] = CNOT 2 7
+[970] = T 7
+[971] = S 7
+[972] = S 2
+[973] = CNOT 1 7
+[974] = T 1
+[975] = S 1
+[976] = CNOT 1 2
+[977] = T 1
+[978] = S 1
+[979] = Z 1
+[980] = CNOT 1 7
+[981] = CNOT 1 2
+[982] = CNOT 2 1
+[983] = H 7
+[984] = H 1
+[985] = H 2
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 9
+Number of `data' qubits = 9
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 48
+T count = 336
+Cost estimation = 168142
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	142
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	48
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 9
+Number of `data' qubits = 9
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = 0
+Number of {CNOT,T} partitions = 48
+T count = 174
+Cost estimation = 87812
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	84
+	4	386
+	5	174
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	202
+	12	0
+	13	140
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output T Count (SQC_Circuit) = 174
+Output T Count (PhasePolynomial) = 174
+Fail count = 48
+
+Execution time: 0.03159s
+Number of LCL errors: 0
+Number of LCL warnings: 0

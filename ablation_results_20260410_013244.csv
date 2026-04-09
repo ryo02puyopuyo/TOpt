@@ -1,0 +1,10 @@
+Circuit,Algorithm,Init_T,Fin_T,Reduced_T,Total_Time_ms,Chi_Time_ms,AA_Time_ms,NS_Time_ms,Status
+tof_4.tfc,Baseline (Hamming+M4RI),23,19,4,0,1.0,0.0,14.0,Success
+tof_4.tfc,Exp 000 (No Opts),23,19,4,18,1.94,0.0,15.898,Success
+tof_4.tfc,Exp 100 (Packed Chi),23,19,4,13,1.45,0.0,11.414,Success
+tof_4.tfc,Exp 010 (AA Table),23,19,4,17,2.135,0.0,14.105,Success
+tof_4.tfc,Exp 001 (Memoization),23,19,4,12,1.312,0.0,9.991,Success
+tof_4.tfc,Exp 110 (Packed + AA),23,19,4,14,2.101,0.0,11.217,Success
+tof_4.tfc,Exp 101 (Packed + Memo),23,19,4,12,1.294,0.0,10.501,Success
+tof_4.tfc,Exp 011 (AA + Memo),23,19,4,13,1.741,0.0,10.728,Success
+tof_4.tfc,Exp 111 (All Opts),23,19,4,10,1.537,0.0,8.514,Success

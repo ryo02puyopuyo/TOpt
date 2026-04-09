@@ -1,0 +1,13 @@
+g++ -O3 -std=c++11 -I ./include -I/home/ryo-mtmt/.local/include -c source/GateSynthesisMatrix.cpp -o bin/GateSynthesisMatrix.o
+source/GateSynthesisMatrix.cpp: In function ‘void GateSynthesisMatrix::LempelX2_M4RI_Hamming_Preprocess(bool**, int, int, int&)’:
+source/GateSynthesisMatrix.cpp:2086:46: error: ‘Abevoid’ was not declared in this scope; did you mean ‘void’?
+ 2086 |     LCL_Mat_GF2::copy((const bool**)A, n, m, Abevoid GateSynthesisMatrix::GreedyWeightReduction_Bool(bool** A, int n, int m) {
+      |                                              ^~~~~~~
+      |                                              void
+source/GateSynthesisMatrix.cpp:2385:2: error: expected ‘}’ at end of input
+ 2385 | }
+      |  ^
+source/GateSynthesisMatrix.cpp:2062:94: note: to match this ‘{’
+ 2062 | void GateSynthesisMatrix::LempelX2_M4RI_Hamming_Preprocess(bool** A, int n, int m, int& omp) {
+      |                                                                                              ^
+make: *** [makefile:24: bin/GateSynthesisMatrix.o] Error 1

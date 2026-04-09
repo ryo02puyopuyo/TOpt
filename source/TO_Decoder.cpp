@@ -317,6 +317,37 @@ GateStringSparse TODD(const Signature& inS) {
         GateSynthesisMatrix::LempelX(A_bool,n,m,t);
     else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2))
         GateSynthesisMatrix::LempelX2(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_PREPROCESS))
+        GateSynthesisMatrix::LempelX2_M4RI_Hamming_Preprocess(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_GREEDY_PREPROCESS))
+        GateSynthesisMatrix::LempelX2_M4RI_GreedyPreprocess(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_GREEDY_PREPROCESS_FAST))
+        GateSynthesisMatrix::LempelX2_M4RI_GreedyPreprocess_Fast(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI))
+        GateSynthesisMatrix::LempelX2_M4RI(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_STATS))
+        GateSynthesisMatrix::LempelX2_M4RI_DetailedStats(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_HAMMING))
+        GateSynthesisMatrix::LempelX2_M4RI_Hamming(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_BEAM))
+        GateSynthesisMatrix::LempelX2_M4RI_BeamSearch(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_R_BEAM))
+        GateSynthesisMatrix::LempelX2_M4RI_RandomBeamSearch(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_S_BEAM))
+        GateSynthesisMatrix::LempelX2_M4RI_SequentialBeamSearch(A_bool,n,m,t);
+    else if(g_algorithm.length() >= 13 && g_algorithm.substr(0, 9) == "todd_exp_") {
+        bool use_packed = (g_algorithm[9] == '1');
+        bool use_aa = (g_algorithm[10] == '1');
+        bool use_memo = (g_algorithm[11] == '1');
+        bool use_sketch = (g_algorithm[12] == '1');
+        int sketch_margin = 20;
+        
+        if (g_algorithm.length() > 14 && g_algorithm[13] == '_') {
+            sketch_margin = std::stoi(g_algorithm.substr(14));
+        }
+
+        GateSynthesisMatrix::LempelX2_M4RI_Experimental(A_bool,n,m,t, use_packed, use_aa, use_memo, use_sketch, sketch_margin);
+    }
     else {
         //cout << "IN TODD" << endl;
         GateSynthesisMatrix::LempelX(A_bool,n,m,t);
@@ -373,8 +404,40 @@ GateStringSparse TODD(const GateStringSparse& inGSM) {
             GateSynthesisMatrix::LempelX(A_bool,n,m,t);
         else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2))
             GateSynthesisMatrix::LempelX2(A_bool,n,m,t);
-        else
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_PREPROCESS))
+            GateSynthesisMatrix::LempelX2_M4RI_Hamming_Preprocess(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_GREEDY_PREPROCESS))
+            GateSynthesisMatrix::LempelX2_M4RI_GreedyPreprocess(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_GREEDY_PREPROCESS_FAST))
+            GateSynthesisMatrix::LempelX2_M4RI_GreedyPreprocess_Fast(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI))
+            GateSynthesisMatrix::LempelX2_M4RI(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_STATS))
+            GateSynthesisMatrix::LempelX2_M4RI_DetailedStats(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_HAMMING))
+            GateSynthesisMatrix::LempelX2_M4RI_Hamming(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_BEAM))
+            GateSynthesisMatrix::LempelX2_M4RI_BeamSearch(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_R_BEAM))
+            GateSynthesisMatrix::LempelX2_M4RI_RandomBeamSearch(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_S_BEAM))
+            GateSynthesisMatrix::LempelX2_M4RI_SequentialBeamSearch(A_bool,n,m,t);
+        else if(g_algorithm.length() >= 13 && g_algorithm.substr(0, 9) == "todd_exp_") {
+            bool use_packed = (g_algorithm[9] == '1');
+            bool use_aa = (g_algorithm[10] == '1');
+            bool use_memo = (g_algorithm[11] == '1');
+            bool use_sketch = (g_algorithm[12] == '1');
+            int sketch_margin = 20; // Default mathematically sound margin
+            
+            if (g_algorithm.length() > 14 && g_algorithm[13] == '_') {
+                sketch_margin = std::stoi(g_algorithm.substr(14));
+            }
+            
+            GateSynthesisMatrix::LempelX2_M4RI_Experimental(A_bool,n,m,t, use_packed, use_aa, use_memo, use_sketch, sketch_margin);
+        }
+        else {
             GateSynthesisMatrix::LempelX2(A_bool,n,m,t);
+        }
         //cout << "BACK IN TODD" << endl;
 
         clock_t toc = clock();

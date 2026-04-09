@@ -1,0 +1,10 @@
+Circuit,Algorithm,Init_T,Fin_T,Reduced_T,Total_Time_ms,Chi_Time_ms,AA_Time_ms,NS_Time_ms,Status
+adder_8.tfc,Baseline (Hamming+M4RI),38,38,0,0,77.0,0.0,894.0,Success
+adder_8.tfc,Exp 000 (No Opts),38,38,0,952,92.251,0.0,833.569,Success
+adder_8.tfc,Exp 100 (Packed Chi),38,38,0,359,55.629,0.0,276.02,Success
+adder_8.tfc,Exp 010 (AA Table),38,38,0,952,92.296,0.002,833.616,Success
+adder_8.tfc,Exp 001 (Memoization),38,38,0,982,93.9,0.0,861.182,Success
+adder_8.tfc,Exp 110 (Packed + AA),38,38,0,371,59.515,0.002,284.205,Success
+adder_8.tfc,Exp 101 (Packed + Memo),38,38,0,347,52.918,0.0,268.116,Success
+adder_8.tfc,Exp 011 (AA + Memo),38,38,0,951,90.344,0.002,834.695,Success
+adder_8.tfc,Exp 111 (All Opts),38,38,0,355,56.059,0.002,272.844,Success

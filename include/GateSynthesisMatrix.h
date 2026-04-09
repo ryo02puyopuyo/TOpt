@@ -32,15 +32,21 @@ namespace GateSynthesisMatrix {
     void LempelX3(bool** A, int n, int m, int& mp);
     
     bool** M4RI_wrapper_for_nullspace(bool const** A, int n, int m, int& out_d);
-    static void LempelX2_M4RI(bool** A, int n, int m, int& omp);
-    static void LempelX2_M4RI_DetailedStats(bool** A, int n, int m, int& omp);
-    //static void Chi_M4RI(bool** A, bool** x, int n, int m, mzd_t* Aext); // これが必要
-    static void Chi_M4RI(mzd_t* A, bool** x, int n, int m, mzd_t* Aext);
-    static void LempelX2_M4RI_Hamming(bool** A, int n, int m, int& omp);
+    void LempelX2_M4RI(bool** A, int n, int m, int& omp);
+    void LempelX2_M4RI_DetailedStats(bool** A, int n, int m, int& omp);
+    //void Chi_M4RI(bool** A, bool** x, int n, int m, mzd_t* Aext); // これが必要
+    void Chi_M4RI(mzd_t* A, bool** x, int n, int m, mzd_t* Aext);
+    void LempelX2_M4RI_Hamming(bool** A, int n, int m, int& omp);
 
-    static void LempelX2_M4RI_BeamSearch(bool** A, int n, int m, int& omp);
-    static void LempelX2_M4RI_RandomBeamSearch(bool** A_init, int n, int m_init, int& omp);
-    static void LempelX2_M4RI_SequentialBeamSearch(bool** A_init, int n, int m_init, int& omp);
+    void LempelX2_M4RI_BeamSearch(bool** A, int n, int m, int& omp);
+    void LempelX2_M4RI_RandomBeamSearch(bool** A_init, int n, int m_init, int& omp);
+    void LempelX2_M4RI_SequentialBeamSearch(bool** A_init, int n, int m_init, int& omp);
+    void LempelX2_M4RI_Hamming_Preprocess(bool** A, int n, int m, int& omp);
+    void SparsifyAndTrack_Bool(bool** A, int n, int m, std::vector<std::pair<int, int>>& cnot_history);
+    void LempelX2_M4RI_GreedyPreprocess(bool** A, int n, int m, int& omp);
+    void LempelX2_M4RI_GreedyPreprocess_Fast(bool** A, int n, int m, int& omp);
+    void LempelX2_M4RI_Experimental(bool** A, int n, int m, int& omp, bool use_packed_chi, bool use_aa_table, bool use_memoization, bool use_random_sketch, int sketch_margin);
+    void GreedyWeightReduction_Bool(bool** A, int n, int m, std::vector<std::pair<int, int>>& cnot_history);
 }
 
 #endif // HEADER_GATESYNTHESISMATRIX

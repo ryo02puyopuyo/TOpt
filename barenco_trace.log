@@ -1,0 +1,4 @@
+Optimize a Clifford + T circuit.
+Input filename = t-par/Benchmarks/barenco_3.tfc
+Number of LCL errors: 0
+Number of LCL warnings: 0
