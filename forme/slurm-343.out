@@ -1,0 +1,51 @@
+mkdir: cannot create directory ‘/var/spool/slurm/d/job00343/results_exp_flags’: Permission denied
+mkdir: cannot create directory ‘/var/spool/slurm/d/job00343/results_exp_flags’: Permission denied
+mkdir: cannot create directory ‘/var/spool/slurm/d/job00343/results_exp_flags’: Permission denied
+mkdir: cannot create directory ‘/var/spool/slurm/d/job00343/results_exp_flags’: Permission denied
+mkdir: cannot create directory ‘/var/spool/slurm/d/job00343/results_exp_flags’: Permission denied
+mkdir: cannot create directory ‘/var/spool/slurm/d/job00343/results_exp_flags’: Permission denied
+/var/spool/slurm/d/job00343/slurm_script: line 93: /var/spool/slurm/d/job00343/results_exp_flags/summary.csv: No such file or directory
+========================================
+ TODD Flag Comparison
+ Circuits: 33
+ Configs:  0000 1000 0100 0010 1110
+ Total:    165 runs
+========================================
+[SKIP] adder_8.tfc not found
+[SKIP] barenco_tof_3.tfc not found
+[SKIP] barenco_tof_4.tfc not found
+[SKIP] barenco_tof_5.tfc not found
+[SKIP] barenco_tof_10.tfc not found
+[SKIP] csla_mux_3.tfc not found
+[SKIP] csum_mux_9.tfc not found
+[SKIP] gf2^4_mult.tfc not found
+[SKIP] gf2^5_mult.tfc not found
+[SKIP] gf2^6_mult.tfc not found
+[SKIP] gf2^7_mult.tfc not found
+[SKIP] gf2^8_mult.tfc not found
+[SKIP] gf2^9_mult.tfc not found
+[SKIP] grover_5.tfc not found
+[SKIP] ham15-high.tfc not found
+[SKIP] ham15-med.tfc not found
+[SKIP] ham15-low.tfc not found
+[SKIP] hwb6.tfc not found
+[SKIP] hwb8.tfc not found
+[SKIP] mod5_4.tfc not found
+[SKIP] mod_adder_1024.tfc not found
+[SKIP] mod_mult_55.tfc not found
+[SKIP] mod_red_21.tfc not found
+[SKIP] qcla_adder_10.tfc not found
+[SKIP] qcla_com_7.tfc not found
+[SKIP] qcla_mod_7.tfc not found
+[SKIP] qft_4.tfc not found
+[SKIP] rc_adder_6.tfc not found
+[SKIP] tof_3.tfc not found
+[SKIP] tof_4.tfc not found
+[SKIP] tof_5.tfc not found
+[SKIP] tof_10.tfc not found
+[SKIP] vbe_adder_3.tfc not found
+
+========================================
+Done! Results: /var/spool/slurm/d/job00343/results_exp_flags
+CSV: /var/spool/slurm/d/job00343/results_exp_flags/summary.csv
+========================================

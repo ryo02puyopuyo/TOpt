@@ -10,8 +10,8 @@
 #   ./batch_exp_flags.sh todd 1110    # 元の TODD と全ON を実行
 
 # --- 設定 ---
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_DIR="/home/ryo-mtmt/TOpt"
+SCRIPT_DIR="$PROJECT_DIR/forme"
 
 TOPT_BIN="$PROJECT_DIR/bin/TOpt"
 INPUT_DIR="$SCRIPT_DIR/tpar_benchmark"
