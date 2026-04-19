@@ -1,8 +1,8 @@
 Optimize a Clifford + T circuit.
-Input filename = t-par/Benchmarks/adder_8.tfc
+Input filename = /home/rest/forpyzx/TOpt/t-par/Benchmarks/adder_8.tfc
 Number of unknown gates = 0
 Number of unknown qubit labels = 0
-Circuit filename: t-par/Benchmarks/adder_8.tfc
+Circuit filename: /home/rest/forpyzx/TOpt/t-par/Benchmarks/adder_8.tfc
 
 n 24
 n_x 24
@@ -214,7 +214,7 @@ m 301
 [202] = CNOT 8 9
 [203] = CNOT 14 15
 
-Algorithm used: todd_greedy_preprocess
+Algorithm used: todd_exp_1100
 
 UniversalOptimize begin.
 	Gate synthesis begin.
@@ -222,161 +222,179 @@ A_BMS
 BMSparse object. Dims: 95x287
 23533 12338 23530 23527 12334 24674 4297 24672 20366 20365 13477 13763 12328 12326 15769 24378 15768 10602 23800 10598 23799 22938 22937 22936 10595 24369 18054 10592 10591 12311 12022 10300 3436 12308 12021 10585 11157 11730 10295 11729 11154 18056 10293 11727 18055 10292 18327 18326 3401 12297 10859 9711 10858 10570 9709 9708 10568 6262 6260 6259 19747 19746 12858 5969 14004 5968 16058 21603 16057 21602 1585 107 13632 12025 4262 5371 392 1538 9653 2414 24664 21337 6996 14759 21336 18090 10430 1774 2393 21869 1922 15879 15757 5776 4153 7940 12147 10424 16736 5375 3246 87 9712 14148 85 14151 22110 657 656 12131 3259 13282 3544 2089 7499 26217 2954 10596 23904 641 20655 1802 2375 1834 12132 5298 1797 20651 23978 1539 1796 4836 1509 23241 21023 1546 15881 16422 21021 13988 70 23902 3885 3302 643 6995 14758 8104 11732 642 9251 3300 13734 25933 10407 10408 25934 16737 1519 11155 65 10277 2514 11153 63 26031 4201 1782 24504 1781 3833 10571 23879 17928 919 10569 23877 21868 917 1458 18229 10100 20379 3608 23343 5794 13462 3481 18088 12299 5645 26218 1820 9935 5066 24436 12958 21894 7287 10533 7502 22109 15122 1814 15880 14150 22117 10431 1559 2093 12074 14149 19018 22116 18687 22550 7943 372 14411 23553 3591 24150 19809 3579 23836 32 23240 21022 3278 351 2245 13335 2515 4287 3178 393 10374 15516 13352 7942 21826 13509 23247 3196 16721 23754 12192 14410 21971 23834 30 3276 21825 14409 16425 21970 1772 15515 7941 8062 5357 22481 13461 24551 17806 3521 23824 3266 21893 10532 19016 20125 1745 72 17805 5362 887 17522 1833 3194 23752 12960 23551 15517 12190 6239 357 22147 23256 17804 15640 21262 17069 11524 10442 655 3901 5795 3482 18089 20377 10098 22393 24143 23249 3065 7501 10422 1550 23544 886 17521 350 1459 918 18230 21261 11523 22394 6164 13438 2348 23254 12154 1525 20378 373 17523 888 6993 14756 9211 358 3185 3472 16423 12095 21553 9651 21554 1496 17022 317 3563 18685 3537 10299 318 23581 3564 6810 23826 11383 14412 12194 24233 18688 8950 1917 1469 19322 4203 1470 8503 22569 3600 24205 12844 12961 10429 6994 8103 14757 12323 23413 22480 15826 12337 5683 3465 22318 11322 13540 5793 22940 12959 15123 9209 1756 17445 4069 21815 1769 17520 21816 1770 1771 23411 3935 23583 3186 10382 6261 1825 8778 12105 23802 3840 2406 15931 7288 7289 1837 24223 1838 10448 19058 3533 22386 19059 22305 17436 1553 23242 21024 3280 23529 24638 3567 19352 4745 1846 20240 19807 15371 223 13326 23740 1560 20528 11319 12467 11320 12023 5369 12181 20296 6637 12182 3597 12469 12470 1566 23747 2427 24239 8951 6733 1568 1569 23749 17927 19806 24242 4727 22146 3293 16680 5590 23984 6738 12310 5656 3295 19367 19368 17073 1548 17074 1577 5364 3179 24250 1511 15928 5649 23341 5597 5489 9925 10607 6171 15368 24565 10593 13920 13634 20522 3303 23432 24541 5065 3304 13312 2222 3898 17423 3305 2223 13637 3899 3306 2224 11236 24544 23245 12155 9937 7286 26139 5068 12180 3308 26030 11238 24546 5318 5892 13928 3884 12208 20297 13643 12471 3599 7500 4173 20298 13644 3906 12210 16424 21969 15369 221 20654 1801 23981 19808 15372 21974 3609 22551 3610 8777 3367 3900 13254 9927 12224 2180 2949 8494 22560 2988 9642 13429 24361 2181 8495 20343 9253 22561 2182 11379 9644 18324 3907 23423 19721 4195 5872 3654 8787 12331 23421 22312 24158 4196 13636 3655 2134 8788 4197 12853 9130 4694 25765 2476 25766 2477 8504 22570 23430 10856 4202 11666 11380 26138 5067 3905 11668 5644 5359 13294 2204 15120 5382 105 5650 15121 5383 1924 10302 3648 12845 1494 13693 5658 22306 13761 23742 23980 6236 22387 24605 2051 18686 5378 509 10861 19733 3464 22317 10279 8061 2516 23797 508 9129 23546 3584 25764 2478 25767 22313 5678 17446 1662 15725 12335 5681 
 
-[Greedy TODD] Starting with Greedy Weight Reduction + M4RI Hamming Search
-[Initial] Matrix size: 95x287
-[Initial] Density: 662 ones (2.42%).
-[Post-Greedy] Density: 662 ones (2.42%).
+[Experimental TODD] Flags - Packed: 1, AA Table: 1, Memo: 0, Sketch: 0 (margin=20)
 --- Round 0 | Current Columns: 287 ---
-  [HIT!] Pair(49,268) Dist=1 | 287 -> 285 columns
-Round 0 Finished in 4402 ms.
+  [HIT!] Pair(2,286) Dist=1 | 287 -> 285 columns
+Round 0 Finished in 53 ms.
 --- Round 1 | Current Columns: 285 ---
-  [HIT!] Pair(60,202) Dist=1 | 285 -> 282 columns
-Round 1 Finished in 4789 ms.
---- Round 2 | Current Columns: 282 ---
-  [HIT!] Pair(60,101) Dist=1 | 282 -> 280 columns
-Round 2 Finished in 1065 ms.
---- Round 3 | Current Columns: 280 ---
-  [HIT!] Pair(182,241) Dist=1 | 280 -> 274 columns
-Round 3 Finished in 2109 ms.
---- Round 4 | Current Columns: 274 ---
-  [HIT!] Pair(38,211) Dist=1 | 274 -> 272 columns
-Round 4 Finished in 6201 ms.
---- Round 5 | Current Columns: 272 ---
-  [HIT!] Pair(187,190) Dist=1 | 272 -> 270 columns
-Round 5 Finished in 998 ms.
---- Round 6 | Current Columns: 270 ---
-  [HIT!] Pair(22,189) Dist=1 | 270 -> 268 columns
-Round 6 Finished in 5801 ms.
---- Round 7 | Current Columns: 268 ---
-  [HIT!] Pair(9,49) Dist=1 | 268 -> 265 columns
-Round 7 Finished in 11429 ms.
---- Round 8 | Current Columns: 265 ---
-  [HIT!] Pair(8,184) Dist=1 | 265 -> 261 columns
-Round 8 Finished in 26955 ms.
---- Round 9 | Current Columns: 261 ---
-  [HIT!] Pair(96,185) Dist=1 | 261 -> 258 columns
-Round 9 Finished in 13695 ms.
---- Round 10 | Current Columns: 258 ---
-  [HIT!] Pair(12,220) Dist=1 | 258 -> 256 columns
-Round 10 Finished in 42040 ms.
---- Round 11 | Current Columns: 256 ---
-  [HIT!] Pair(5,163) Dist=1 | 256 -> 250 columns
-Round 11 Finished in 15136 ms.
---- Round 12 | Current Columns: 250 ---
-  [HIT!] Pair(11,207) Dist=1 | 250 -> 245 columns
-Round 12 Finished in 12932 ms.
---- Round 13 | Current Columns: 245 ---
-  [HIT!] Pair(124,133) Dist=2 | 245 -> 237 columns
-Round 13 Finished in 59827 ms.
---- Round 14 | Current Columns: 237 ---
-  [HIT!] Pair(33,194) Dist=2 | 237 -> 235 columns
-Round 14 Finished in 51935 ms.
---- Round 15 | Current Columns: 235 ---
-  [HIT!] Pair(88,199) Dist=2 | 235 -> 233 columns
-Round 15 Finished in 53116 ms.
---- Round 16 | Current Columns: 233 ---
-  [HIT!] Pair(139,226) Dist=2 | 233 -> 231 columns
-Round 16 Finished in 52616 ms.
---- Round 17 | Current Columns: 231 ---
-  [HIT!] Pair(16,226) Dist=2 | 231 -> 229 columns
-Round 17 Finished in 53403 ms.
---- Round 18 | Current Columns: 229 ---
-  [HIT!] Pair(40,185) Dist=2 | 229 -> 227 columns
-Round 18 Finished in 52442 ms.
---- Round 19 | Current Columns: 227 ---
-  [HIT!] Pair(92,226) Dist=2 | 227 -> 225 columns
-Round 19 Finished in 51431 ms.
---- Round 20 | Current Columns: 225 ---
-  [HIT!] Pair(99,134) Dist=2 | 225 -> 223 columns
-Round 20 Finished in 49558 ms.
---- Round 21 | Current Columns: 223 ---
-  [HIT!] Pair(51,115) Dist=2 | 223 -> 217 columns
-Round 21 Finished in 45893 ms.
---- Round 22 | Current Columns: 217 ---
-  [HIT!] Pair(9,108) Dist=2 | 217 -> 215 columns
-Round 22 Finished in 48937 ms.
---- Round 23 | Current Columns: 215 ---
-  [HIT!] Pair(87,134) Dist=2 | 215 -> 209 columns
-Round 23 Finished in 48437 ms.
---- Round 24 | Current Columns: 209 ---
-  [HIT!] Pair(23,34) Dist=2 | 209 -> 205 columns
-Round 24 Finished in 44883 ms.
---- Round 25 | Current Columns: 205 ---
-  [HIT!] Pair(91,124) Dist=1 | 205 -> 203 columns
-Round 25 Finished in 7961 ms.
---- Round 26 | Current Columns: 203 ---
-  [HIT!] Pair(145,147) Dist=2 | 203 -> 201 columns
-Round 26 Finished in 41755 ms.
---- Round 27 | Current Columns: 201 ---
-  [HIT!] Pair(133,183) Dist=2 | 201 -> 199 columns
-Round 27 Finished in 53331 ms.
---- Round 28 | Current Columns: 199 ---
-  [HIT!] Pair(32,72) Dist=2 | 199 -> 193 columns
-Round 28 Finished in 46102 ms.
---- Round 29 | Current Columns: 193 ---
-  [HIT!] Pair(15,83) Dist=2 | 193 -> 187 columns
-Round 29 Finished in 42924 ms.
---- Round 30 | Current Columns: 187 ---
-  [HIT!] Pair(73,122) Dist=2 | 187 -> 185 columns
-Round 30 Finished in 40731 ms.
---- Round 31 | Current Columns: 185 ---
-  [HIT!] Pair(39,46) Dist=2 | 185 -> 183 columns
-Round 31 Finished in 35502 ms.
---- Round 32 | Current Columns: 183 ---
-  [HIT!] Pair(23,108) Dist=2 | 183 -> 181 columns
-Round 32 Finished in 41017 ms.
---- Round 33 | Current Columns: 181 ---
-  [HIT!] Pair(87,149) Dist=2 | 181 -> 175 columns
-Round 33 Finished in 56969 ms.
---- Round 34 | Current Columns: 175 ---
-  [HIT!] Pair(94,164) Dist=2 | 175 -> 171 columns
-Round 34 Finished in 33147 ms.
---- Round 35 | Current Columns: 171 ---
-  [HIT!] Pair(96,110) Dist=2 | 171 -> 165 columns
-Round 35 Finished in 32230 ms.
---- Round 36 | Current Columns: 165 ---
-  [HIT!] Pair(37,123) Dist=2 | 165 -> 163 columns
-Round 36 Finished in 85317 ms.
---- Round 37 | Current Columns: 163 ---
-  [HIT!] Pair(51,93) Dist=1 | 163 -> 161 columns
-Round 37 Finished in 25780 ms.
---- Round 38 | Current Columns: 161 ---
-  [HIT!] Pair(44,159) Dist=1 | 161 -> 159 columns
-Round 38 Finished in 677 ms.
---- Round 39 | Current Columns: 159 ---
-  [HIT!] Pair(3,45) Dist=3 | 159 -> 157 columns
-Round 39 Finished in 91594 ms.
---- Round 40 | Current Columns: 157 ---
-  [HIT!] Pair(24,118) Dist=3 | 157 -> 155 columns
-Round 40 Finished in 104533 ms.
---- Round 41 | Current Columns: 155 ---
-  [HIT!] Pair(70,95) Dist=2 | 155 -> 153 columns
-Round 41 Finished in 34029 ms.
---- Round 42 | Current Columns: 153 ---
-  [HIT!] Pair(48,86) Dist=4 | 153 -> 151 columns
-Round 42 Finished in 105866 ms.
---- Round 43 | Current Columns: 151 ---
-  [HIT!] Pair(70,86) Dist=1 | 151 -> 149 columns
-Round 43 Finished in 15577 ms.
---- Round 44 | Current Columns: 149 ---
-  [HIT!] Pair(118,138) Dist=3 | 149 -> 147 columns
-Round 44 Finished in 71474 ms.
---- Round 45 | Current Columns: 147 ---
-  [HIT!] Pair(89,118) Dist=3 | 147 -> 145 columns
-Round 45 Finished in 66824 ms.
---- Round 46 | Current Columns: 145 ---
-  [HIT!] Pair(87,132) Dist=5 | 145 -> 143 columns
-Round 46 Finished in 152560 ms.
---- Round 47 | Current Columns: 143 ---
-  [HIT!] Pair(72,124) Dist=5 | 143 -> 141 columns
-Round 47 Finished in 155010 ms.
---- Round 48 | Current Columns: 141 ---
-  [HIT!] Pair(46,134) Dist=6 | 141 -> 139 columns
-Round 48 Finished in 235201 ms.
---- Round 49 | Current Columns: 139 ---
-  [HIT!] Pair(100,119) Dist=6 | 139 -> 137 columns
-Round 49 Finished in 343646 ms.
---- Round 50 | Current Columns: 137 ---
-  [HIT!] Pair(33,116) Dist=7 | 137 -> 135 columns
-Round 50 Finished in 365787 ms.
---- Round 51 | Current Columns: 135 ---
+  [HIT!] Pair(0,94) Dist=1 | 285 -> 280 columns
+Round 1 Finished in 22 ms.
+--- Round 2 | Current Columns: 280 ---
+  [HIT!] Pair(0,1) Dist=1 | 280 -> 277 columns
+Round 2 Finished in 14 ms.
+--- Round 3 | Current Columns: 277 ---
+  [HIT!] Pair(1,6) Dist=1 | 277 -> 269 columns
+Round 3 Finished in 12 ms.
+--- Round 4 | Current Columns: 269 ---
+  [HIT!] Pair(12,268) Dist=1 | 269 -> 267 columns
+Round 4 Finished in 128 ms.
+--- Round 5 | Current Columns: 267 ---
+  [HIT!] Pair(10,47) Dist=1 | 267 -> 262 columns
+Round 5 Finished in 110 ms.
+--- Round 6 | Current Columns: 262 ---
+  [HIT!] Pair(49,208) Dist=1 | 262 -> 259 columns
+Round 6 Finished in 363 ms.
+--- Round 7 | Current Columns: 259 ---
+  [HIT!] Pair(173,241) Dist=1 | 259 -> 253 columns
+Round 7 Finished in 788 ms.
+--- Round 8 | Current Columns: 253 ---
+  [HIT!] Pair(173,202) Dist=1 | 253 -> 251 columns
+Round 8 Finished in 676 ms.
+--- Round 9 | Current Columns: 251 ---
+  [HIT!] Pair(0,146) Dist=2 | 251 -> 245 columns
+Round 9 Finished in 991 ms.
+--- Round 10 | Current Columns: 245 ---
+  [HIT!] Pair(1,42) Dist=2 | 245 -> 239 columns
+Round 10 Finished in 1036 ms.
+--- Round 11 | Current Columns: 239 ---
+  [HIT!] Pair(3,110) Dist=2 | 239 -> 233 columns
+Round 11 Finished in 1122 ms.
+--- Round 12 | Current Columns: 233 ---
+  [HIT!] Pair(3,99) Dist=2 | 233 -> 231 columns
+Round 12 Finished in 1143 ms.
+--- Round 13 | Current Columns: 231 ---
+  [HIT!] Pair(4,154) Dist=2 | 231 -> 225 columns
+Round 13 Finished in 1137 ms.
+--- Round 14 | Current Columns: 225 ---
+  [HIT!] Pair(12,33) Dist=2 | 225 -> 223 columns
+Round 14 Finished in 1285 ms.
+--- Round 15 | Current Columns: 223 ---
+  [HIT!] Pair(12,40) Dist=2 | 223 -> 221 columns
+Round 15 Finished in 1312 ms.
+--- Round 16 | Current Columns: 221 ---
+  [HIT!] Pair(12,31) Dist=2 | 221 -> 215 columns
+Round 16 Finished in 1297 ms.
+--- Round 17 | Current Columns: 215 ---
+  [HIT!] Pair(12,40) Dist=2 | 215 -> 213 columns
+Round 17 Finished in 1288 ms.
+--- Round 18 | Current Columns: 213 ---
+  [HIT!] Pair(20,155) Dist=2 | 213 -> 211 columns
+Round 18 Finished in 1411 ms.
+--- Round 19 | Current Columns: 211 ---
+  [HIT!] Pair(20,110) Dist=2 | 211 -> 207 columns
+Round 19 Finished in 1387 ms.
+--- Round 20 | Current Columns: 207 ---
+  [HIT!] Pair(21,89) Dist=2 | 207 -> 203 columns
+Round 20 Finished in 1330 ms.
+--- Round 21 | Current Columns: 203 ---
+  [HIT!] Pair(34,59) Dist=2 | 203 -> 199 columns
+Round 21 Finished in 1738 ms.
+--- Round 22 | Current Columns: 199 ---
+  [HIT!] Pair(44,173) Dist=2 | 199 -> 197 columns
+Round 22 Finished in 1982 ms.
+--- Round 23 | Current Columns: 197 ---
+  [HIT!] Pair(34,46) Dist=1 | 197 -> 195 columns
+Round 23 Finished in 217 ms.
+--- Round 24 | Current Columns: 195 ---
+  [HIT!] Pair(34,89) Dist=2 | 195 -> 191 columns
+Round 24 Finished in 1647 ms.
+--- Round 25 | Current Columns: 191 ---
+  [HIT!] Pair(34,73) Dist=2 | 191 -> 189 columns
+Round 25 Finished in 1403 ms.
+--- Round 26 | Current Columns: 189 ---
+  [HIT!] Pair(56,157) Dist=2 | 189 -> 183 columns
+Round 26 Finished in 1844 ms.
+--- Round 27 | Current Columns: 183 ---
+  [HIT!] Pair(70,85) Dist=2 | 183 -> 177 columns
+Round 27 Finished in 1820 ms.
+--- Round 28 | Current Columns: 177 ---
+  [HIT!] Pair(70,88) Dist=2 | 177 -> 175 columns
+Round 28 Finished in 1995 ms.
+--- Round 29 | Current Columns: 175 ---
+  [HIT!] Pair(78,152) Dist=2 | 175 -> 173 columns
+Round 29 Finished in 2155 ms.
+--- Round 30 | Current Columns: 173 ---
+  [HIT!] Pair(114,141) Dist=2 | 173 -> 171 columns
+Round 30 Finished in 2632 ms.
+--- Round 31 | Current Columns: 171 ---
+  [HIT!] Pair(114,161) Dist=2 | 171 -> 169 columns
+Round 31 Finished in 2636 ms.
+--- Round 32 | Current Columns: 169 ---
+  [HIT!] Pair(133,151) Dist=2 | 169 -> 167 columns
+Round 32 Finished in 2783 ms.
+--- Round 33 | Current Columns: 167 ---
+  [HIT!] Pair(7,78) Dist=3 | 167 -> 161 columns
+Round 33 Finished in 3417 ms.
+--- Round 34 | Current Columns: 161 ---
+  [HIT!] Pair(10,78) Dist=3 | 161 -> 159 columns
+Round 34 Finished in 3287 ms.
+--- Round 35 | Current Columns: 159 ---
+  [HIT!] Pair(19,115) Dist=1 | 159 -> 157 columns
+Round 35 Finished in 162 ms.
+--- Round 36 | Current Columns: 157 ---
+  [HIT!] Pair(24,104) Dist=2 | 157 -> 155 columns
+Round 36 Finished in 1030 ms.
+--- Round 37 | Current Columns: 155 ---
+  [HIT!] Pair(20,104) Dist=3 | 155 -> 153 columns
+Round 37 Finished in 3184 ms.
+--- Round 38 | Current Columns: 153 ---
+  [HIT!] Pair(19,149) Dist=1 | 153 -> 151 columns
+Round 38 Finished in 130 ms.
+--- Round 39 | Current Columns: 151 ---
+  [HIT!] Pair(26,61) Dist=3 | 151 -> 149 columns
+Round 39 Finished in 3419 ms.
+--- Round 40 | Current Columns: 149 ---
+  [HIT!] Pair(36,91) Dist=3 | 149 -> 145 columns
+Round 40 Finished in 3667 ms.
+--- Round 41 | Current Columns: 145 ---
+  [HIT!] Pair(26,141) Dist=5 | 145 -> 143 columns
+Round 41 Finished in 13354 ms.
+--- Round 42 | Current Columns: 143 ---
+  [HIT!] Pair(60,79) Dist=4 | 143 -> 141 columns
+Round 42 Finished in 9198 ms.
+--- Round 43 | Current Columns: 141 ---
+  [HIT!] Pair(27,108) Dist=5 | 141 -> 139 columns
+Round 43 Finished in 12480 ms.
+--- Round 44 | Current Columns: 139 ---
+  [HIT!] Pair(1,91) Dist=7 | 139 -> 137 columns
+Round 44 Finished in 26791 ms.
+--- Round 45 | Current Columns: 137 ---
+  [HIT!] Pair(42,118) Dist=5 | 137 -> 135 columns
+Round 45 Finished in 12632 ms.
+--- Round 46 | Current Columns: 135 ---
+  [HIT!] Pair(36,42) Dist=8 | 135 -> 133 columns
+Round 46 Finished in 48484 ms.
+--- Round 47 | Current Columns: 133 ---
+  [HIT!] Pair(1,79) Dist=8 | 133 -> 131 columns
+Round 47 Finished in 37298 ms.
+--- Round 48 | Current Columns: 131 ---
+  [HIT!] Pair(37,123) Dist=10 | 131 -> 129 columns
+Round 48 Finished in 110010 ms.
+--- Round 49 | Current Columns: 129 ---
+  [HIT!] Pair(21,53) Dist=12 | 129 -> 127 columns
+Round 49 Finished in 172678 ms.
+--- Round 50 | Current Columns: 127 ---
+Round 50 Finished in 317660 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_Experimental
+Initial T-count : 287
+Final T-count   : 127
+Total Reduced   : 160 gates
+Execution Time  : 818685 ms
+Chi calculation : 49549.4 ms
+AA Table calc   : 2.314 ms
+Nullspace calc  : 739728 ms
+--- Sketch Statistics ---
+Sketch margin   : delta = 20
+Sketch time     : 0 ms
+Pairs tested    : 28847
+Sketch fired    : 0
+Sketch skipped  : 0 (chi_rows <= m+delta)
+Sketch rejected : 0 (nullspace empty)
+Sketch passed   : 0 (nullspace non-empty)
+Full NS empty   : 0 (of 28847 computed)
+============================
+		TODD executed in 818.533 seconds.
+		Total time: 818.601s
+	Gate synthesis end.

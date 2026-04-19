@@ -1,0 +1,112 @@
+% TODD Flag Comparison Results Table
+% 使い方: \input{results_table.tex} で読み込み
+% ベースライン列は手動で入力してください
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of T-count and execution time across TODD flag configurations.}
+\label{tab:flag_comparison}
+\footnotesize
+\begin{tabular}{l|r|rr|rr|rr|rr|rr}
+\hline
+ & & \multicolumn{2}{c|}{0000} & \multicolumn{2}{c|}{1000} & \multicolumn{2}{c|}{0100} & \multicolumn{2}{c|}{0010} & \multicolumn{2}{c}{1110} \\
+ & & \multicolumn{2}{c|}{(Baseline)} & \multicolumn{2}{c|}{(Packed)} & \multicolumn{2}{c|}{(AA Tab)} & \multicolumn{2}{c|}{(Memo)} & \multicolumn{2}{c}{(All)} \\
+Circuit & $T_\mathrm{in}$ & $T_\mathrm{out}$ & Time & $T_\mathrm{out}$ & Time & $T_\mathrm{out}$ & Time & $T_\mathrm{out}$ & Time & $T_\mathrm{out}$ & Time \\
+\hline
+adder\_8        & 399 & 125 & 5589.9 & 128 &  671.6 & 125 & 5566.9 & 129 & 3147.0 & 131 &  539.7 \\
+barenco\_tof\_3  &  28 &  14 &    0.0 &  14 &    0.0 &  14 &    0.0 &  14 &    0.0 &  14 &    0.0 \\
+barenco\_tof\_4  &  56 &  24 &    0.1 &  24 &    0.1 &  24 &    0.1 &  24 &    0.1 &  24 &    0.1 \\
+barenco\_tof\_5  &  84 &  34 &    0.3 &  34 &    0.3 &  34 &    0.5 &  34 &    0.4 &  34 &    0.3 \\
+barenco\_tof\_10 & 224 &  84 &   49.6 &  84 &   17.6 &  84 &   49.3 &  84 &   39.7 &  84 &   16.0 \\
+csla\_mux\_3     &  70 &  50 &    5.8 &  50 &    2.9 &  50 &    5.8 &  50 &    3.5 &  50 &    1.7 \\
+csum\_mux\_9     & 196 &  72 &   26.8 &  72 &   10.8 &  72 &   26.6 &  72 &   23.4 &  72 &    9.9 \\
+gf2$^4$\_mult    & 112 &  54 &    1.0 &  54 &    0.6 &  54 &    0.9 &  54 &    0.9 &  54 &    0.4 \\
+gf2$^5$\_mult    & 175 &  84 &    5.1 &  84 &    2.7 &  84 &    4.7 &  86 &    5.2 &  86 &    3.2 \\
+gf2$^6$\_mult    & 252 & 119 &   26.5 & 119 &   13.0 & 119 &   25.9 & 124 &   20.9 & 124 &   10.4 \\
+gf2$^7$\_mult    & 343 & 167 &   91.2 & 167 &   39.1 & 167 &   90.3 & 170 &   73.9 & 170 &   35.1 \\
+gf2$^8$\_mult    & 448 & 229 &  344.5 & 229 &  141.3 & 229 &  341.6 & 222 &  256.2 & 222 &  105.8 \\
+gf2$^9$\_mult    & 567 & 294 & 1702.8 & 294 &  630.1 & 294 & 1666.6 & 275 &  701.8 & 275 &  256.9 \\
+grover\_5        & 336 & 144 & 1940.6 & 144 &  181.4 & 144 & 1897.6 & 144 & 1417.7 & 144 &  195.7 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+% === 高速化率テーブル（0000 を基準） ===
+\begin{table}[htbp]
+\centering
+\caption{Speedup relative to the 0000 (no optimization) baseline.}
+\label{tab:flag_speedup}
+\footnotesize
+\begin{tabular}{l|r|r|r|r}
+\hline
+ & 1000 & 0100 & 0010 & 1110 \\
+Circuit & (Packed) & (AA Tab) & (Memo) & (All) \\
+\hline
+adder\_8        &  8.3$\times$ & 1.0$\times$ & 1.8$\times$ & 10.4$\times$ \\
+barenco\_tof\_3  &  1.0$\times$ & 0.8$\times$ & 1.7$\times$ &  1.3$\times$ \\
+barenco\_tof\_4  &  1.4$\times$ & 1.0$\times$ & 1.3$\times$ &  1.6$\times$ \\
+barenco\_tof\_5  &  0.9$\times$ & 0.6$\times$ & 0.8$\times$ &  1.1$\times$ \\
+barenco\_tof\_10 &  2.8$\times$ & 1.0$\times$ & 1.3$\times$ &  3.1$\times$ \\
+csla\_mux\_3     &  2.0$\times$ & 1.0$\times$ & 1.6$\times$ &  3.5$\times$ \\
+csum\_mux\_9     &  2.5$\times$ & 1.0$\times$ & 1.1$\times$ &  2.7$\times$ \\
+gf2$^4$\_mult    &  1.8$\times$ & 1.1$\times$ & 1.1$\times$ &  2.6$\times$ \\
+gf2$^5$\_mult    &  1.9$\times$ & 1.1$\times$ & 1.0$\times$ &  1.6$\times$ \\
+gf2$^6$\_mult    &  2.0$\times$ & 1.0$\times$ & 1.3$\times$ &  2.6$\times$ \\
+gf2$^7$\_mult    &  2.3$\times$ & 1.0$\times$ & 1.2$\times$ &  2.6$\times$ \\
+gf2$^8$\_mult    &  2.4$\times$ & 1.0$\times$ & 1.3$\times$ &  3.3$\times$ \\
+gf2$^9$\_mult    &  2.7$\times$ & 1.0$\times$ & 2.4$\times$ &  6.6$\times$ \\
+grover\_5        & 10.7$\times$ & 1.0$\times$ & 1.4$\times$ &  9.9$\times$ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+% === ベースライン（既存手法）との比較テンプレート ===
+% ★ ベースラインのデータをここに入力してください ★
+\begin{table}[htbp]
+\centering
+\caption{Comparison with the original TODD implementation.}
+\label{tab:baseline_comparison}
+\footnotesize
+\begin{tabular}{l|rr|rr|rr|r}
+\hline
+ & \multicolumn{2}{c|}{Original TODD} & \multicolumn{2}{c|}{0000 (Exp)} & \multicolumn{2}{c|}{1110 (All)} & \\
+Circuit & $T_\mathrm{out}$ & Time (s) & $T_\mathrm{out}$ & Time (s) & $T_\mathrm{out}$ & Time (s) & Speedup \\
+\hline
+adder\_8        &     &        & 125 & 5589.9 & 131 &  539.7 &        \\
+barenco\_tof\_3  &     &        &  14 &    0.0 &  14 &    0.0 &        \\
+barenco\_tof\_4  &     &        &  24 &    0.1 &  24 &    0.1 &        \\
+barenco\_tof\_5  &     &        &  34 &    0.3 &  34 &    0.3 &        \\
+barenco\_tof\_10 &     &        &  84 &   49.6 &  84 &   16.0 &        \\
+csla\_mux\_3     &     &        &  50 &    5.8 &  50 &    1.7 &        \\
+csum\_mux\_9     &     &        &  72 &   26.8 &  72 &    9.9 &        \\
+gf2$^4$\_mult    &     &        &  54 &    1.0 &  54 &    0.4 &        \\
+gf2$^5$\_mult    &     &        &  84 &    5.1 &  86 &    3.2 &        \\
+gf2$^6$\_mult    &     &        & 119 &   26.5 & 124 &   10.4 &        \\
+gf2$^7$\_mult    &     &        & 167 &   91.2 & 170 &   35.1 &        \\
+gf2$^8$\_mult    &     &        & 229 &  344.5 & 222 &  105.8 &        \\
+gf2$^9$\_mult    &     &        & 294 & 1702.8 & 275 &  256.9 &        \\
+grover\_5        &     &        & 144 & 1940.6 & 144 &  195.7 &        \\
+ham15-high      &     &        &     &        &     &        &        \\
+ham15-med       &     &        &     &        &     &        &        \\
+ham15-low       &     &        &     &        &     &        &        \\
+hwb6            &     &        &     &        &     &        &        \\
+hwb8            &     &        &     &        &     &        &        \\
+mod5\_4          &     &        &     &        &     &        &        \\
+mod\_adder\_1024  &     &        &     &        &     &        &        \\
+mod\_mult\_55     &     &        &     &        &     &        &        \\
+mod\_red\_21      &     &        &     &        &     &        &        \\
+qcla\_adder\_10   &     &        &     &        &     &        &        \\
+qcla\_com\_7      &     &        &     &        &     &        &        \\
+qcla\_mod\_7      &     &        &     &        &     &        &        \\
+qft\_4           &     &        &     &        &     &        &        \\
+rc\_adder\_6      &     &        &     &        &     &        &        \\
+tof\_3           &     &        &     &        &     &        &        \\
+tof\_4           &     &        &     &        &     &        &        \\
+tof\_5           &     &        &     &        &     &        &        \\
+tof\_10          &     &        &     &        &     &        &        \\
+vbe\_adder\_3     &     &        &     &        &     &        &        \\
+\hline
+\end{tabular}
+\end{table}

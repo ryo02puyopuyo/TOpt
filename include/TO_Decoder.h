@@ -99,6 +99,7 @@ namespace SYNTHESIS_ALGORITHM_TAG {
     const string TODD_M4RI_BEAM = "todd_m4ri_beam";
     const string TODD_M4RI_R_BEAM = "todd_m4ri_r_beam";
     const string TODD_M4RI_S_BEAM = "todd_m4ri_s_beam";
+    const string LEMPEL_X_2_DYNAMIC = "lx2_dynamic";
     const string TOOL = "tool";
     const string TOOL_F_G = "tool_f_g";
     const string TOOL_F_LG = "tool_f_lg";

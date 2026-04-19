@@ -335,6 +335,8 @@ GateStringSparse TODD(const Signature& inS) {
         GateSynthesisMatrix::LempelX2_M4RI_RandomBeamSearch(A_bool,n,m,t);
     else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_S_BEAM))
         GateSynthesisMatrix::LempelX2_M4RI_SequentialBeamSearch(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC))
+        GateSynthesisMatrix::LempelX2_DynamicBasis(A_bool,n,m,t);
     else if(g_algorithm.length() >= 13 && g_algorithm.substr(0, 9) == "todd_exp_") {
         bool use_packed = (g_algorithm[9] == '1');
         bool use_aa = (g_algorithm[10] == '1');
@@ -422,6 +424,8 @@ GateStringSparse TODD(const GateStringSparse& inGSM) {
             GateSynthesisMatrix::LempelX2_M4RI_RandomBeamSearch(A_bool,n,m,t);
         else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::TODD_M4RI_S_BEAM))
             GateSynthesisMatrix::LempelX2_M4RI_SequentialBeamSearch(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC))
+            GateSynthesisMatrix::LempelX2_DynamicBasis(A_bool,n,m,t);
         else if(g_algorithm.length() >= 13 && g_algorithm.substr(0, 9) == "todd_exp_") {
             bool use_packed = (g_algorithm[9] == '1');
             bool use_aa = (g_algorithm[10] == '1');

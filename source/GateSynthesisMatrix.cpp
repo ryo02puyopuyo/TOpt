@@ -42,6 +42,360 @@ extern "C" {
 // ステップ4: using namespace は全ての #include の「後」に置く
 using namespace std;
 using namespace LCL_ConsoleOut;
+
+namespace {
+struct CleanupTrace {
+    std::vector<int> zeroed_cols;
+    std::vector<std::pair<int, int>> swaps;
+};
+
+inline int aa_table_index(int n, int i, int j) {
+    int lo = (i < j) ? i : j;
+    int hi = (i < j) ? j : i;
+    return lo * n - lo * (lo + 1) / 2 + hi - lo - 1;
+}
+
+void build_aa_table(mzd_t* AA_tab, mzd_t* A_m4ri, int n, int active_cols) {
+    if (!AA_tab) return;
+    mzd_t* AA_win = mzd_init_window(AA_tab, 0, 0, AA_tab->nrows, active_cols);
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            int idx = aa_table_index(n, i, j);
+            mzd_row_clear_offset(AA_win, idx, 0);
+            for (int w = 0; w < AA_win->width; ++w) {
+                mzd_row(AA_win, idx)[w] = mzd_row(A_m4ri, i)[w] & mzd_row(A_m4ri, j)[w];
+            }
+        }
+    }
+    mzd_free_window(AA_win);
+}
+
+void cleanup_with_trace(bool** A, int n, int m, int& mp, CleanupTrace& trace) {
+    std::vector<char> was_zeroed(m, 0);
+
+    for (int j1 = 0; j1 < (m - 1); ++j1) {
+        for (int j2 = (j1 + 1); j2 < m; ++j2) {
+            bool same = 1;
+            for (int i = 0; same && (i < n); ++i) {
+                same *= (A[i][j1] == A[i][j2]);
+            }
+            if (same) {
+                if (!was_zeroed[j1]) {
+                    was_zeroed[j1] = 1;
+                    trace.zeroed_cols.push_back(j1);
+                }
+                if (!was_zeroed[j2]) {
+                    was_zeroed[j2] = 1;
+                    trace.zeroed_cols.push_back(j2);
+                }
+                for (int i = 0; i < n; ++i) {
+                    A[i][j1] = 0;
+                    A[i][j2] = 0;
+                }
+            }
+        }
+    }
+
+    int j_end = (m - 1);
+    int non_zero_count = 0;
+    for (int j = 0; j < m; ++j) {
+        int sum = 0;
+        for (int i = 0; i < n; ++i) {
+            sum += A[i][j];
+        }
+        if (!sum) {
+            bool found = false;
+            while ((!found) && (j_end > j)) {
+                for (int i = 0; (!found) && (i < n); ++i) {
+                    found = A[i][j_end];
+                }
+                if (!found) j_end--;
+            }
+            if (found) {
+                LCL_Mat_GF2::swapcol(A, n, m, j, j_end);
+                trace.swaps.push_back(std::make_pair(j, j_end));
+                non_zero_count++;
+            }
+        } else {
+            non_zero_count++;
+        }
+    }
+    mp = non_zero_count;
+}
+
+void apply_cleanup_trace_to_aa_table(mzd_t* AA_tab, int aa_rows, const CleanupTrace& trace) {
+    if (!AA_tab) return;
+
+    for (size_t idx = 0; idx < trace.zeroed_cols.size(); ++idx) {
+        int col = trace.zeroed_cols[idx];
+        for (int row = 0; row < aa_rows; ++row) {
+            mzd_write_bit(AA_tab, row, col, 0);
+        }
+    }
+
+    for (size_t idx = 0; idx < trace.swaps.size(); ++idx) {
+        mzd_col_swap(AA_tab, trace.swaps[idx].first, trace.swaps[idx].second);
+    }
+}
+
+void update_aa_table_after_hit(mzd_t* AA_tab, mzd_t* A_m4ri_full, int n, int active_cols,
+                               const CleanupTrace& trace, const std::vector<int>& changed_rows) {
+    if (!AA_tab) return;
+
+    int aa_rows = n * (n - 1) / 2;
+    apply_cleanup_trace_to_aa_table(AA_tab, aa_rows, trace);
+
+    if (changed_rows.empty()) return;
+
+    std::vector<char> touched(n, 0);
+    for (size_t idx = 0; idx < changed_rows.size(); ++idx) {
+        touched[changed_rows[idx]] = 1;
+    }
+
+    mzd_t* A_win = mzd_init_window(A_m4ri_full, 0, 0, n, active_cols);
+    mzd_t* AA_win = mzd_init_window(AA_tab, 0, 0, aa_rows, active_cols);
+
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            if (!(touched[i] || touched[j])) continue;
+            int idx = aa_table_index(n, i, j);
+            mzd_row_clear_offset(AA_win, idx, 0);
+            for (int w = 0; w < AA_win->width; ++w) {
+                mzd_row(AA_win, idx)[w] = mzd_row(A_win, i)[w] & mzd_row(A_win, j)[w];
+            }
+        }
+    }
+
+    mzd_free_window(AA_win);
+    mzd_free_window(A_win);
+}
+
+struct DynamicBasisRow {
+    std::vector<unsigned char> bits;
+    int pivot;
+    int source_row_id;
+};
+
+struct DynamicChiState {
+    std::vector<std::vector<unsigned char>> chi_rows;
+    std::vector<unsigned char> row_active;
+    std::vector<DynamicBasisRow> basis;
+    std::vector<int> row_to_basis_slot;
+    std::vector<int> pivot_to_basis_slot;
+    std::vector<unsigned char> x_prev;
+};
+
+struct DynamicCandidate {
+    int c1;
+    int c2;
+    int x_weight;
+    std::vector<unsigned char> x_bits;
+};
+
+inline int dynamic_row_id(int alpha, int beta, int gamma, int n) {
+    return alpha * n * n + beta * n + gamma;
+}
+
+int dynamic_find_leftmost_one(const std::vector<unsigned char>& row) {
+    for (int c = 0; c < (int)row.size(); ++c) {
+        if (row[c]) return c;
+    }
+    return -1;
+}
+
+bool dynamic_is_zero_row(const std::vector<unsigned char>& row) {
+    for (int c = 0; c < (int)row.size(); ++c) {
+        if (row[c]) return false;
+    }
+    return true;
+}
+
+void dynamic_xor_row(std::vector<unsigned char>& dst, const std::vector<unsigned char>& src) {
+    for (int c = 0; c < (int)dst.size(); ++c) dst[c] ^= src[c];
+}
+
+void build_chi_row_bool(bool** A, const std::vector<unsigned char>& x_bits, int m,
+                        int alpha, int beta, int gamma, std::vector<unsigned char>& out_row) {
+    unsigned char x_a = x_bits[alpha];
+    unsigned char x_b = x_bits[beta];
+    unsigned char x_c = x_bits[gamma];
+    unsigned char term_const = x_a & x_b & x_c;
+
+    for (int j = 0; j < m; ++j) {
+        int val = term_const
+            ^ ((x_a & x_b) & A[gamma][j])
+            ^ ((x_b & x_c) & A[alpha][j])
+            ^ ((x_c & x_a) & A[beta][j])
+            ^ (x_a & A[beta][j] & A[gamma][j])
+            ^ (x_b & A[gamma][j] & A[alpha][j])
+            ^ (x_c & A[alpha][j] & A[beta][j]);
+        out_row[j] = (unsigned char)(val & 1);
+    }
+}
+
+void dynamic_add_row_to_basis(const std::vector<unsigned char>& row_in, int source_row_id, int m,
+                              std::vector<DynamicBasisRow>& basis,
+                              std::vector<int>& row_to_basis_slot,
+                              std::vector<int>& pivot_to_basis_slot) {
+    std::vector<unsigned char> row = row_in;
+    for (int bi = 0; bi < (int)basis.size(); ++bi) {
+        int pivot = basis[bi].pivot;
+        if (pivot >= 0 && row[pivot]) dynamic_xor_row(row, basis[bi].bits);
+    }
+
+    int pivot = dynamic_find_leftmost_one(row);
+    if (pivot < 0) return;
+
+    for (int bi = 0; bi < (int)basis.size(); ++bi) {
+        if (basis[bi].bits[pivot]) dynamic_xor_row(basis[bi].bits, row);
+    }
+
+    DynamicBasisRow new_row;
+    new_row.bits = row;
+    new_row.pivot = pivot;
+    new_row.source_row_id = source_row_id;
+    basis.push_back(new_row);
+    std::sort(basis.begin(), basis.end(), [](const DynamicBasisRow& a, const DynamicBasisRow& b) {
+        return a.pivot < b.pivot;
+    });
+
+    std::fill(row_to_basis_slot.begin(), row_to_basis_slot.end(), -1);
+    std::fill(pivot_to_basis_slot.begin(), pivot_to_basis_slot.end(), -1);
+    for (int bi = 0; bi < (int)basis.size(); ++bi) {
+        if (basis[bi].source_row_id >= 0 && basis[bi].source_row_id < (int)row_to_basis_slot.size()) {
+            row_to_basis_slot[basis[bi].source_row_id] = bi;
+        }
+        if (basis[bi].pivot >= 0 && basis[bi].pivot < (int)pivot_to_basis_slot.size()) {
+            pivot_to_basis_slot[basis[bi].pivot] = bi;
+        }
+    }
+}
+
+void dynamic_rebuild_basis_from_state(DynamicChiState& state, int m) {
+    state.basis.clear();
+    std::fill(state.row_to_basis_slot.begin(), state.row_to_basis_slot.end(), -1);
+    std::fill(state.pivot_to_basis_slot.begin(), state.pivot_to_basis_slot.end(), -1);
+    for (int r = 0; r < (int)state.chi_rows.size(); ++r) {
+        if (!state.row_active[r]) continue;
+        if (dynamic_is_zero_row(state.chi_rows[r])) continue;
+        dynamic_add_row_to_basis(state.chi_rows[r], r, m, state.basis, state.row_to_basis_slot, state.pivot_to_basis_slot);
+    }
+}
+
+bool dynamic_membership_test(const std::vector<unsigned char>& target,
+                             const std::vector<DynamicBasisRow>& basis) {
+    std::vector<unsigned char> row = target;
+    for (int bi = 0; bi < (int)basis.size(); ++bi) {
+        int pivot = basis[bi].pivot;
+        if (pivot >= 0 && row[pivot]) dynamic_xor_row(row, basis[bi].bits);
+    }
+    return dynamic_is_zero_row(row);
+}
+
+std::vector<std::vector<unsigned char>> dynamic_nullspace_basis(
+    const std::vector<std::vector<unsigned char>>& chi_rows,
+    const std::vector<unsigned char>& row_active,
+    int m) {
+    std::vector<std::vector<unsigned char>> mat;
+    mat.reserve(chi_rows.size());
+    for (int r = 0; r < (int)chi_rows.size(); ++r) {
+        if (row_active[r]) mat.push_back(chi_rows[r]);
+    }
+
+    int rows = (int)mat.size();
+    int rank = 0;
+    std::vector<int> pivot_cols;
+    pivot_cols.reserve(std::min(rows, m));
+
+    for (int col = 0; col < m && rank < rows; ++col) {
+        int pivot_row = -1;
+        for (int r = rank; r < rows; ++r) {
+            if (mat[r][col]) {
+                pivot_row = r;
+                break;
+            }
+        }
+        if (pivot_row < 0) continue;
+        if (pivot_row != rank) std::swap(mat[pivot_row], mat[rank]);
+
+        for (int r = 0; r < rows; ++r) {
+            if (r != rank && mat[r][col]) dynamic_xor_row(mat[r], mat[rank]);
+        }
+        pivot_cols.push_back(col);
+        rank++;
+    }
+
+    std::vector<unsigned char> is_pivot_col(m, 0);
+    for (int i = 0; i < (int)pivot_cols.size(); ++i) is_pivot_col[pivot_cols[i]] = 1;
+
+    std::vector<std::vector<unsigned char>> basis;
+    for (int free_col = 0; free_col < m; ++free_col) {
+        if (is_pivot_col[free_col]) continue;
+        std::vector<unsigned char> vec(m, 0);
+        vec[free_col] = 1;
+        for (int i = 0; i < rank; ++i) {
+            int pivot = pivot_cols[i];
+            vec[pivot] = mat[i][free_col];
+        }
+        basis.push_back(vec);
+    }
+    return basis;
+}
+
+void dynamic_collect_affected_rows(const std::vector<unsigned char>& x_prev,
+                                   const std::vector<unsigned char>& x_cur,
+                                   int n,
+                                   std::vector<int>& affected_rows) {
+    std::vector<unsigned char> marked(n * n * n, 0);
+    for (int k = 0; k < n; ++k) {
+        if ((x_prev[k] ^ x_cur[k]) == 0) continue;
+        for (int beta = 0; beta < n; ++beta) {
+            for (int gamma = 0; gamma < n; ++gamma) {
+                marked[dynamic_row_id(k, beta, gamma, n)] = 1;
+                marked[dynamic_row_id(beta, k, gamma, n)] = 1;
+                marked[dynamic_row_id(beta, gamma, k, n)] = 1;
+            }
+        }
+    }
+    affected_rows.clear();
+    for (int r = 0; r < (int)marked.size(); ++r) {
+        if (marked[r]) affected_rows.push_back(r);
+    }
+}
+
+void dynamic_build_full_chi_state(DynamicChiState& state, bool** A, const std::vector<unsigned char>& x_bits, int n, int m) {
+    int row_count = n * n * n;
+    state.chi_rows.assign(row_count, std::vector<unsigned char>(m, 0));
+    state.row_active.assign(row_count, 1);
+    state.row_to_basis_slot.assign(row_count, -1);
+    state.pivot_to_basis_slot.assign(m, -1);
+    state.x_prev = x_bits;
+
+    for (int alpha = 0; alpha < n; ++alpha) {
+        for (int beta = 0; beta < n; ++beta) {
+            for (int gamma = 0; gamma < n; ++gamma) {
+                int rid = dynamic_row_id(alpha, beta, gamma, n);
+                build_chi_row_bool(A, x_bits, m, alpha, beta, gamma, state.chi_rows[rid]);
+            }
+        }
+    }
+    dynamic_rebuild_basis_from_state(state, m);
+}
+
+void dynamic_update_chi_state(DynamicChiState& state, bool** A, const std::vector<unsigned char>& x_bits, int n, int m,
+                              std::vector<int>& affected_rows) {
+    dynamic_collect_affected_rows(state.x_prev, x_bits, n, affected_rows);
+    for (int idx = 0; idx < (int)affected_rows.size(); ++idx) {
+        int rid = affected_rows[idx];
+        int alpha = rid / (n * n);
+        int beta = (rid / n) % n;
+        int gamma = rid % n;
+        build_chi_row_bool(A, x_bits, m, alpha, beta, gamma, state.chi_rows[rid]);
+    }
+    state.x_prev = x_bits;
+    dynamic_rebuild_basis_from_state(state, m);
+}
+} // namespace
 // --- M4RI 統合ラッパー関数 ---
 // (これらの関数は LempelX / LempelX2 から呼び出されます)
 
@@ -2641,12 +2995,18 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
     mzd_t* AA_tab = nullptr;
     if (use_aa_table) {
         AA_tab = mzd_init(n * (n - 1) / 2, m + 1);
+        auto s_aa = std::chrono::high_resolution_clock::now();
+        build_aa_table(AA_tab, A_m4ri_full, n, this_m);
+        total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - s_aa);
     }
 
     while (found && (round < m)) {
         found = false;
         std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
         auto round_start = std::chrono::high_resolution_clock::now();
+        CleanupTrace best_cleanup_trace;
+        std::vector<int> best_changed_rows;
 
         std::vector<std::vector<uint64_t>> cols(this_m, std::vector<uint64_t>(num_words, 0));
         for (int j = 0; j < this_m; ++j) {
@@ -2680,27 +3040,9 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
 
         mzd_t* A_m4ri_win = mzd_init_window(A_m4ri_full, 0, 0, n, this_m);
 
-        if (use_aa_table) {
-            auto s_aa = std::chrono::high_resolution_clock::now();
-            mzd_t* AA_win = mzd_init_window(AA_tab, 0, 0, AA_tab->nrows, this_m);
-            for (int i = 0; i < n; i++) {
-                for (int j = i + 1; j < n; j++) {
-                    int idx_aa = i * n - i * (i + 1) / 2 + j - i - 1;
-                    mzd_row_clear_offset(AA_win, idx_aa, 0);
-                    for (int w = 0; w < AA_win->width; w++) {
-                        mzd_row(AA_win, idx_aa)[w] = mzd_row(A_m4ri_win, i)[w] & mzd_row(A_m4ri_win, j)[w];
-                    }
-                }
-            }
-            mzd_free_window(AA_win);
-            total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - s_aa);
-        }
-
         auto get_AA = [&](int i, int j, int w, mzd_t* AA_win) -> word {
             if (i == j) return mzd_row(A_m4ri_win, i)[w];
-            int m_min = (i < j) ? i : j;
-            int m_max = (i > j) ? i : j;
-            int idx = m_min * n - m_min * (m_min + 1) / 2 + m_max - m_min - 1;
+            int idx = aa_table_index(n, i, j);
             return mzd_row(AA_win, idx)[w];
         };
 
@@ -2714,7 +3056,7 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
             
             bool same_x = (use_memoization && has_cached_ns && pair.x_val == last_x_val);
             
-            if (!same_x) {
+                if (!same_x) {
                 if (NS_cached) {
                     LCL_Mat_GF2::destruct(NS_cached, this_m, d_ns_cached);
                     NS_cached = nullptr;
@@ -2884,12 +3226,18 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
                         for (int j = 0; j < this_m; j++) Anew[i][j] = (A[i][j] + x_vec[i][0] * NS_cached[j][h]) % 2;
                     }
                     int mp;
-                    GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+                    CleanupTrace cleanup_trace;
+                    cleanup_with_trace(Anew, n, this_m, mp, cleanup_trace);
                     if (mp < this_m) {
                         std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") Dist=" << pair.dist 
                                   << " | " << this_m << " -> " << mp << " columns" << std::endl;
                         LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
                         m_best = mp;
+                        best_cleanup_trace = cleanup_trace;
+                        best_changed_rows.clear();
+                        for (int i = 0; i < n; ++i) {
+                            if (x_vec[i][0]) best_changed_rows.push_back(i);
+                        }
                         found = true;
                         break;
                     }
@@ -2909,6 +3257,12 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
             for (int r = 0; r < n; r++) {
                 for (int c = 0; c < m_best; c++) mzd_write_bit(A_m4ri_full, r, c, A[r][c]);
                 for (int c = m_best; c < m + 1; c++) mzd_write_bit(A_m4ri_full, r, c, 0);
+            }
+            if (use_aa_table) {
+                auto s_aa = std::chrono::high_resolution_clock::now();
+                update_aa_table_after_hit(AA_tab, A_m4ri_full, n, m_best, best_cleanup_trace, best_changed_rows);
+                total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                    std::chrono::high_resolution_clock::now() - s_aa);
             }
             this_m = m_best;
         }
@@ -2950,4 +3304,153 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
     LCL_Mat_GF2::destruct(Anew, n, m + 1);
     LCL_Mat_GF2::destruct(Abest, n, m + 1);
     mzd_free(A_m4ri_full);
+}
+
+void GateSynthesisMatrix::LempelX2_DynamicBasis(bool** A, int n, int m, int& omp) {
+    auto start_total = std::chrono::high_resolution_clock::now();
+    std::cout << "\n[Dynamic Basis TODD] Baseline target: original LempelX2" << std::endl;
+
+    int this_m = m;
+    int initial_m = m;
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    std::chrono::microseconds total_chi_update_duration(0);
+    std::chrono::microseconds total_basis_rebuild_duration(0);
+    std::chrono::microseconds total_ns_duration(0);
+
+    long long total_pairs_tested = 0;
+    long long total_filtered_miss = 0;
+    long long total_ns_runs = 0;
+    long long total_rebuilds = 0;
+    long long total_affected_rows = 0;
+
+    bool found = true;
+    int round = 0;
+    while (found && (round < m)) {
+        found = false;
+        std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
+
+        std::vector<DynamicCandidate> candidates;
+        candidates.reserve(this_m * (this_m - 1) / 2);
+        for (int j1 = 0; j1 < this_m; ++j1) {
+            for (int j2 = j1 + 1; j2 < this_m; ++j2) {
+                std::vector<unsigned char> x_bits(n, 0);
+                int x_weight = 0;
+                for (int i = 0; i < n; ++i) {
+                    x_bits[i] = (unsigned char)((A[i][j1] + A[i][j2]) % 2);
+                    x_weight += x_bits[i];
+                }
+                DynamicCandidate cand;
+                cand.c1 = j1;
+                cand.c2 = j2;
+                cand.x_weight = x_weight;
+                cand.x_bits = x_bits;
+                candidates.push_back(cand);
+            }
+        }
+
+        std::sort(candidates.begin(), candidates.end(), [](const DynamicCandidate& a, const DynamicCandidate& b) {
+            if (a.x_weight != b.x_weight) return a.x_weight < b.x_weight;
+            if (a.x_bits != b.x_bits) return a.x_bits < b.x_bits;
+            if (a.c1 != b.c1) return a.c1 < b.c1;
+            return a.c2 < b.c2;
+        });
+
+        DynamicChiState state;
+        std::vector<int> affected_rows;
+        bool state_ready = false;
+
+        for (int idx = 0; idx < (int)candidates.size() && !found; ++idx) {
+            const DynamicCandidate& pair = candidates[idx];
+            total_pairs_tested++;
+
+            auto s_chi = std::chrono::high_resolution_clock::now();
+            auto s_basis = std::chrono::high_resolution_clock::now();
+            if (!state_ready) {
+                dynamic_build_full_chi_state(state, A, pair.x_bits, n, this_m);
+                state_ready = true;
+                total_rebuilds++;
+            } else {
+                dynamic_update_chi_state(state, A, pair.x_bits, n, this_m, affected_rows);
+                total_rebuilds++;
+                total_affected_rows += (long long)affected_rows.size();
+            }
+            auto e_basis = std::chrono::high_resolution_clock::now();
+            total_chi_update_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_basis - s_chi);
+            total_basis_rebuild_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_basis - s_basis);
+
+            std::vector<unsigned char> e_vec(this_m, 0);
+            e_vec[pair.c1] = 1;
+            e_vec[pair.c2] = 1;
+
+            if (dynamic_membership_test(e_vec, state.basis)) {
+                total_filtered_miss++;
+                continue;
+            }
+
+            auto s_ns = std::chrono::high_resolution_clock::now();
+            std::vector<std::vector<unsigned char>> ns_basis = dynamic_nullspace_basis(state.chi_rows, state.row_active, this_m);
+            auto e_ns = std::chrono::high_resolution_clock::now();
+            total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_ns - s_ns);
+            total_ns_runs++;
+
+            int good_idx = -1;
+            for (int h = 0; h < (int)ns_basis.size(); ++h) {
+                if ((ns_basis[h][pair.c1] ^ ns_basis[h][pair.c2]) == 1) {
+                    good_idx = h;
+                    break;
+                }
+            }
+            if (good_idx < 0) continue;
+
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < this_m; ++j) {
+                    Anew[i][j] = (bool)((A[i][j] + pair.x_bits[i] * ns_basis[good_idx][j]) % 2);
+                }
+            }
+
+            int mp = 0;
+            GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+            if (mp < this_m) {
+                std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") x-weight=" << pair.x_weight
+                          << " | " << this_m << " -> " << mp << " columns" << std::endl;
+                LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                m_best = mp;
+                found = true;
+            }
+        }
+
+        if (found) {
+            LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+            this_m = m_best;
+        }
+        round++;
+    }
+
+    omp = this_m;
+    auto end_total = std::chrono::high_resolution_clock::now();
+    auto total_dur = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+
+    std::cout << "\n=== Dynamic Basis Summary ===" << std::endl;
+    std::cout << "Algorithm       : LempelX2_DynamicBasis" << std::endl;
+    std::cout << "Initial T-count : " << initial_m << std::endl;
+    std::cout << "Final T-count   : " << omp << std::endl;
+    std::cout << "Total Reduced   : " << (initial_m - omp) << " gates" << std::endl;
+    std::cout << "Execution Time  : " << total_dur.count() << " ms" << std::endl;
+    std::cout << "Pairs tested    : " << total_pairs_tested << std::endl;
+    std::cout << "Filtered miss   : " << total_filtered_miss << std::endl;
+    std::cout << "Nullspace runs  : " << total_ns_runs << std::endl;
+    std::cout << "Chi update time : " << total_chi_update_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Basis rebuild   : " << total_basis_rebuild_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Nullspace time  : " << total_ns_duration.count() / 1000.0 << " ms" << std::endl;
+    if (total_rebuilds > 1) {
+        std::cout << "Avg affected    : " << (double)total_affected_rows / (double)(total_rebuilds - 1) << " rows" << std::endl;
+    }
+    std::cout << "=============================" << std::endl;
+
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
 }
