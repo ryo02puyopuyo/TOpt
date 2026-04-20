@@ -395,6 +395,36 @@ void dynamic_update_chi_state(DynamicChiState& state, bool** A, const std::vecto
     state.x_prev = x_bits;
     dynamic_rebuild_basis_from_state(state, m);
 }
+
+bool dynamic_update_chi_state_local_repair(DynamicChiState& state, bool** A, const std::vector<unsigned char>& x_bits,
+                                           int n, int m, std::vector<int>& affected_rows, bool& rebuilt_basis) {
+    dynamic_collect_affected_rows(state.x_prev, x_bits, n, affected_rows);
+    bool basis_touched = false;
+    for (int idx = 0; idx < (int)affected_rows.size(); ++idx) {
+        int rid = affected_rows[idx];
+        if (state.row_to_basis_slot[rid] != -1) {
+            basis_touched = true;
+        }
+        int alpha = rid / (n * n);
+        int beta = (rid / n) % n;
+        int gamma = rid % n;
+        build_chi_row_bool(A, x_bits, m, alpha, beta, gamma, state.chi_rows[rid]);
+    }
+
+    state.x_prev = x_bits;
+    rebuilt_basis = basis_touched;
+    if (basis_touched) {
+        dynamic_rebuild_basis_from_state(state, m);
+        return true;
+    }
+
+    for (int idx = 0; idx < (int)affected_rows.size(); ++idx) {
+        int rid = affected_rows[idx];
+        if (dynamic_is_zero_row(state.chi_rows[rid])) continue;
+        dynamic_add_row_to_basis(state.chi_rows[rid], rid, m, state.basis, state.row_to_basis_slot, state.pivot_to_basis_slot);
+    }
+    return true;
+}
 } // namespace
 // --- M4RI 統合ラッパー関数 ---
 // (これらの関数は LempelX / LempelX2 から呼び出されます)
@@ -3450,6 +3480,159 @@ void GateSynthesisMatrix::LempelX2_DynamicBasis(bool** A, int n, int m, int& omp
         std::cout << "Avg affected    : " << (double)total_affected_rows / (double)(total_rebuilds - 1) << " rows" << std::endl;
     }
     std::cout << "=============================" << std::endl;
+
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
+}
+
+void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepair(bool** A, int n, int m, int& omp) {
+    auto start_total = std::chrono::high_resolution_clock::now();
+    std::cout << "\n[Dynamic Basis Local Repair TODD] Compare with lx2_dynamic" << std::endl;
+
+    int this_m = m;
+    int initial_m = m;
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    std::chrono::microseconds total_chi_update_duration(0);
+    std::chrono::microseconds total_basis_rebuild_duration(0);
+    std::chrono::microseconds total_ns_duration(0);
+
+    long long total_pairs_tested = 0;
+    long long total_filtered_miss = 0;
+    long long total_ns_runs = 0;
+    long long total_rebuilds = 0;
+    long long total_local_add_rounds = 0;
+    long long total_affected_rows = 0;
+
+    bool found = true;
+    int round = 0;
+    while (found && (round < m)) {
+        found = false;
+        std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
+
+        std::vector<DynamicCandidate> candidates;
+        candidates.reserve(this_m * (this_m - 1) / 2);
+        for (int j1 = 0; j1 < this_m; ++j1) {
+            for (int j2 = j1 + 1; j2 < this_m; ++j2) {
+                std::vector<unsigned char> x_bits(n, 0);
+                int x_weight = 0;
+                for (int i = 0; i < n; ++i) {
+                    x_bits[i] = (unsigned char)((A[i][j1] + A[i][j2]) % 2);
+                    x_weight += x_bits[i];
+                }
+                DynamicCandidate cand;
+                cand.c1 = j1;
+                cand.c2 = j2;
+                cand.x_weight = x_weight;
+                cand.x_bits = x_bits;
+                candidates.push_back(cand);
+            }
+        }
+
+        std::sort(candidates.begin(), candidates.end(), [](const DynamicCandidate& a, const DynamicCandidate& b) {
+            if (a.x_weight != b.x_weight) return a.x_weight < b.x_weight;
+            if (a.x_bits != b.x_bits) return a.x_bits < b.x_bits;
+            if (a.c1 != b.c1) return a.c1 < b.c1;
+            return a.c2 < b.c2;
+        });
+
+        DynamicChiState state;
+        std::vector<int> affected_rows;
+        bool state_ready = false;
+
+        for (int idx = 0; idx < (int)candidates.size() && !found; ++idx) {
+            const DynamicCandidate& pair = candidates[idx];
+            total_pairs_tested++;
+
+            auto s_all = std::chrono::high_resolution_clock::now();
+            if (!state_ready) {
+                dynamic_build_full_chi_state(state, A, pair.x_bits, n, this_m);
+                state_ready = true;
+                total_rebuilds++;
+            } else {
+                bool rebuilt_basis = false;
+                dynamic_update_chi_state_local_repair(state, A, pair.x_bits, n, this_m, affected_rows, rebuilt_basis);
+                total_affected_rows += (long long)affected_rows.size();
+                if (rebuilt_basis) total_rebuilds++;
+                else total_local_add_rounds++;
+            }
+            auto e_all = std::chrono::high_resolution_clock::now();
+            total_chi_update_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_all - s_all);
+            total_basis_rebuild_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_all - s_all);
+
+            std::vector<unsigned char> e_vec(this_m, 0);
+            e_vec[pair.c1] = 1;
+            e_vec[pair.c2] = 1;
+
+            if (dynamic_membership_test(e_vec, state.basis)) {
+                total_filtered_miss++;
+                continue;
+            }
+
+            auto s_ns = std::chrono::high_resolution_clock::now();
+            std::vector<std::vector<unsigned char>> ns_basis = dynamic_nullspace_basis(state.chi_rows, state.row_active, this_m);
+            auto e_ns = std::chrono::high_resolution_clock::now();
+            total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_ns - s_ns);
+            total_ns_runs++;
+
+            int good_idx = -1;
+            for (int h = 0; h < (int)ns_basis.size(); ++h) {
+                if ((ns_basis[h][pair.c1] ^ ns_basis[h][pair.c2]) == 1) {
+                    good_idx = h;
+                    break;
+                }
+            }
+            if (good_idx < 0) continue;
+
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < this_m; ++j) {
+                    Anew[i][j] = (bool)((A[i][j] + pair.x_bits[i] * ns_basis[good_idx][j]) % 2);
+                }
+            }
+
+            int mp = 0;
+            GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+            if (mp < this_m) {
+                std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") x-weight=" << pair.x_weight
+                          << " | " << this_m << " -> " << mp << " columns" << std::endl;
+                LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                m_best = mp;
+                found = true;
+            }
+        }
+
+        if (found) {
+            LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+            this_m = m_best;
+        }
+        round++;
+    }
+
+    omp = this_m;
+    auto end_total = std::chrono::high_resolution_clock::now();
+    auto total_dur = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+
+    std::cout << "\n=== Dynamic Basis Local Repair Summary ===" << std::endl;
+    std::cout << "Algorithm       : LempelX2_DynamicBasisLocalRepair" << std::endl;
+    std::cout << "Initial T-count : " << initial_m << std::endl;
+    std::cout << "Final T-count   : " << omp << std::endl;
+    std::cout << "Total Reduced   : " << (initial_m - omp) << " gates" << std::endl;
+    std::cout << "Execution Time  : " << total_dur.count() << " ms" << std::endl;
+    std::cout << "Pairs tested    : " << total_pairs_tested << std::endl;
+    std::cout << "Filtered miss   : " << total_filtered_miss << std::endl;
+    std::cout << "Nullspace runs  : " << total_ns_runs << std::endl;
+    std::cout << "Rebuild count   : " << total_rebuilds << std::endl;
+    std::cout << "Local add count : " << total_local_add_rounds << std::endl;
+    std::cout << "Chi update time : " << total_chi_update_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Basis work time : " << total_basis_rebuild_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Nullspace time  : " << total_ns_duration.count() / 1000.0 << " ms" << std::endl;
+    if ((total_rebuilds + total_local_add_rounds) > 1) {
+        std::cout << "Avg affected    : " << (double)total_affected_rows / (double)(total_rebuilds + total_local_add_rounds - 1) << " rows" << std::endl;
+    }
+    std::cout << "=========================================" << std::endl;
 
     LCL_Mat_GF2::destruct(Anew, n, m + 1);
     LCL_Mat_GF2::destruct(Abest, n, m + 1);
