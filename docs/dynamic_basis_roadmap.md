@@ -376,6 +376,222 @@ basis 行が失われたら、
 
 ---
 
+## 現在の実装済みアルゴリズムの流れ
+
+ここでは、**現在 `lx2_dynamic` として実装済みの安全版**が、1 ラウンド内で実際にどう動いているかを説明する。
+
+重要なのは、
+
+- `chi` は差分更新している
+- しかし basis は差分修復していない
+- basis は毎回フル再構築している
+
+という点である。
+
+### 1. ラウンド開始時
+
+- 現在の `A` から、すべての候補ペア `(c1, c2)` を列挙する
+- 各候補について `x = A[:,c1] xor A[:,c2]` を計算する
+- `x` の `popcount` が小さい順に候補を並べる
+
+### 2. ラウンド内最初のペア
+
+最初のペアだけは、
+
+- `x_prev = x_cur`
+- `chi(A, x_cur)` を全行フル構築
+- `chi_rows` に保存
+- `chi_rows` 全体から行空間基底 `basis` を構築
+
+する。
+
+### 3. 2 個目以降のペア
+
+次のペアでは、
+
+1. `x_cur = A[:,c1] xor A[:,c2]` を作る
+2. `delta_x = x_prev xor x_cur` を計算する
+3. `delta_x` に応じて `AffectedRows` を求める
+4. `AffectedRows` に属する `chi` の行だけ再計算して `chi_rows` を上書きする
+5. **更新後の `chi_rows` 全体から basis を毎回再構築する**
+6. `x_prev = x_cur` に更新する
+
+となる。
+
+### 4. `miss` 判定
+
+今回のペアに対して
+
+- `e_{c1,c2}` を作り
+- basis に対して reduce する
+
+その結果、
+
+- 0 になれば definite miss として棄却
+- 0 にならなければ次へ進む
+
+### 5. 零空間計算
+
+`miss` 判定を通過したペアに対してのみ、
+
+- 現在の `chi_rows` から自前の GF(2) 零空間基底を計算
+- `v[c1] xor v[c2] = 1` を満たすベクトルを探す
+
+### 6. HIT 判定
+
+そのような `v` があれば
+
+- `Anew = A xor x v^T`
+- `cleanup(Anew)`
+
+を行い、列数が減れば `HIT` として
+
+- `Abest` に保存
+- そのラウンドを終了
+- 次ラウンドへ進む
+
+となる。
+
+### 7. 現在のボトルネック
+
+現在の安全版では、
+
+- `AffectedRows` のみ差分更新しているにもかかわらず
+- basis は毎回全 rebuild
+
+なので、主な時間は
+
+- `Chi update`
+- `Basis rebuild`
+
+に使われる。
+
+したがって、次の改良点は
+
+- basis 行削除時の局所修復
+- 失敗時のみ full rebuild
+
+である。
+
+---
+
+## 現在の実装済みアルゴリズムの疑似コード
+
+### ラウンド全体
+
+```text
+function LempelX2_DynamicBasis(A):
+    this_m = m(A)
+    while improved:
+        candidates = all column pairs (c1, c2)
+        for each candidate:
+            x = A[:,c1] xor A[:,c2]
+            score = popcount(x)
+        sort candidates by score
+
+        state_ready = false
+        found = false
+
+        for each pair in candidates:
+            if not state_ready:
+                build_full_chi_state(pair.x)
+                state_ready = true
+            else:
+                update_chi_state(pair.x)
+
+            e = unit_pair_vector(pair.c1, pair.c2)
+            if e is in RowSpace(chi):
+                continue   # definite miss
+
+            NS = nullspace(chi)
+            find v in NS with v[c1] xor v[c2] = 1
+            if no such v:
+                continue
+
+            Anew = A xor x v^T
+            cleanup(Anew)
+            if column count reduced:
+                A = Anew
+                found = true
+                break
+
+        if not found:
+            stop
+```
+
+### 最初の `chi` と basis の構築
+
+```text
+function build_full_chi_state(x):
+    for each row id r = (alpha, beta, gamma):
+        chi_rows[r] = build_chi_row(A, x, alpha, beta, gamma)
+        row_active[r] = 1
+
+    basis = rebuild_basis_from_all_active_rows(chi_rows)
+    x_prev = x
+```
+
+### 2 個目以降の `chi` 更新
+
+```text
+function update_chi_state(x_cur):
+    delta_x = x_prev xor x_cur
+    affected_rows = collect_affected_rows(delta_x)
+
+    for each r in affected_rows:
+        (alpha, beta, gamma) = decode_row_id(r)
+        chi_rows[r] = build_chi_row(A, x_cur, alpha, beta, gamma)
+
+    basis = rebuild_basis_from_all_active_rows(chi_rows)
+    x_prev = x_cur
+```
+
+### `miss` 判定
+
+```text
+function membership_test_for_pair(c1, c2, basis):
+    e = zero vector of length m
+    e[c1] = 1
+    e[c2] = 1
+
+    e_reduced = reduce(e, basis)
+    if e_reduced == 0:
+        return definite_miss
+    else:
+        return possible_hit
+```
+
+### 自前零空間基底
+
+```text
+function dynamic_nullspace_basis(chi_rows):
+    mat = active chi rows only
+    perform GF(2) elimination
+    record pivot columns
+
+    for each free column f:
+        vec[f] = 1
+        for each pivot row i:
+            vec[pivot_i] = mat[i][f]
+        append vec to nullspace basis
+
+    return nullspace basis
+```
+
+### 現在の実装の要点
+
+現在の `lx2_dynamic` は次のように整理できる。
+
+- `chi` は差分更新している
+- basis は差分更新していない
+- basis は毎回フル再構築している
+- `miss` だけ基底で高速判定している
+- 通過ペアにだけ零空間計算をしている
+
+すなわち、**完全な動的基底更新の前段階としての安全版**である。
+
+---
+
 ## 最終方針
 
 初手は「安全なハイブリッド構成」にする。
