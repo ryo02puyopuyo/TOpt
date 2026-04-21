@@ -280,6 +280,27 @@ basis 行が壊れて消えると、
 
 ## 比較用局所修復版のアルゴリズム
 
+### 実行タグ
+
+- `lx2_dynamic_repair`
+  - 従来の保守的版
+  - basis 行が 1 本でも touched したら full rebuild
+- `lx2_dynamic_repair_k1`
+  - `affected_basis_count == 1` のときだけ局所修復を試す版
+  - 失敗したら full rebuild にフォールバック
+- `lx2_dynamic_repair_chi`
+  - 保守的 repair 版に `χ` 行圧縮を加えた版
+  - `x_alpha = x_beta = x_gamma = 0` の行を inactive として basis / nullspace から除外
+- `lx2_dynamic_repair_chi_packed`
+  - `lx2_dynamic_repair_chi` に bit-parallel を加えた版
+  - basis / membership / nullspace の行演算を `uint64_t` 単位で処理
+- `lx2_dynamic_repair_chi_packed_memo`
+  - `lx2_dynamic_repair_chi_packed` に同一 `x` のメモ化を加えた版
+  - 連続して同じ `x` が現れた場合に `chi/basis` 更新と nullspace を再利用
+- `lx2_dynamic_repair_chi_packed_m4ri`
+  - `lx2_dynamic_repair_chi_packed` の full rebuild と nullspace を M4RI に委譲した版
+  - local add は packed 実装のまま維持
+
 ### 判定規則
 
 `affected_rows` を走査し、

@@ -48,6 +48,11 @@ namespace GateSynthesisMatrix {
     void LempelX2_M4RI_Experimental(bool** A, int n, int m, int& omp, bool use_packed_chi, bool use_aa_table, bool use_memoization, bool use_random_sketch, int sketch_margin);
     void LempelX2_DynamicBasis(bool** A, int n, int m, int& omp);
     void LempelX2_DynamicBasisLocalRepair(bool** A, int n, int m, int& omp);
+    void LempelX2_DynamicBasisLocalRepairK1(bool** A, int n, int m, int& omp);
+    void LempelX2_DynamicBasisLocalRepairChi(bool** A, int n, int m, int& omp);
+    void LempelX2_DynamicBasisLocalRepairChiPacked(bool** A, int n, int m, int& omp);
+    void LempelX2_DynamicBasisLocalRepairChiPackedMemo(bool** A, int n, int m, int& omp);
+    void LempelX2_DynamicBasisLocalRepairChiPackedM4RI(bool** A, int n, int m, int& omp);
     void GreedyWeightReduction_Bool(bool** A, int n, int m, std::vector<std::pair<int, int>>& cnot_history);
 }
 
