@@ -99,13 +99,16 @@ namespace SYNTHESIS_ALGORITHM_TAG {
     const string TODD_M4RI_BEAM = "todd_m4ri_beam";
     const string TODD_M4RI_R_BEAM = "todd_m4ri_r_beam";
     const string TODD_M4RI_S_BEAM = "todd_m4ri_s_beam";
+    const string TODD_EXP_PACKEDLOCAL_PREFIX = "todd_exp_packedlocal_";
     const string LEMPEL_X_2_DYNAMIC = "lx2_dynamic";
     const string LEMPEL_X_2_DYNAMIC_REPAIR = "lx2_dynamic_repair";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_K1 = "lx2_dynamic_repair_k1";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI = "lx2_dynamic_repair_chi";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED = "lx2_dynamic_repair_chi_packed";
+    const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA = "lx2_dynamic_repair_chi_packed_aa";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_MEMO = "lx2_dynamic_repair_chi_packed_memo";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_M4RI = "lx2_dynamic_repair_chi_packed_m4ri";
+    const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_BASIS_M4RI = "lx2_dynamic_repair_chi_packed_basis_m4ri";
     const string TOOL = "tool";
     const string TOOL_F_G = "tool_f_g";
     const string TOOL_F_LG = "tool_f_lg";

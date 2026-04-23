@@ -193,6 +193,7 @@ struct DynamicCandidate {
     int c2;
     int x_weight;
     std::vector<unsigned char> x_bits;
+    std::vector<uint64_t> x_words;
 };
 
 struct PackedDynamicBasisRow {
@@ -309,6 +310,68 @@ void build_chi_row_packed(bool** A, const std::vector<unsigned char>& x_bits, in
             ^ (x_b & A[gamma][j] & A[alpha][j])
             ^ (x_c & A[alpha][j] & A[beta][j]);
         if (val & 1) packed_set_bit(out_row, j);
+    }
+}
+
+void build_packed_a_rows(bool** A, int n, int m, std::vector<std::vector<uint64_t>>& A_rows) {
+    int words = packed_word_count(m);
+    A_rows.assign(n, std::vector<uint64_t>(words, 0ULL));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (A[i][j]) packed_set_bit(A_rows[i], j);
+        }
+    }
+}
+
+void build_packed_aa_rows(const std::vector<std::vector<uint64_t>>& A_rows, int n,
+                          std::vector<std::vector<uint64_t>>& AA_rows) {
+    if (A_rows.empty()) {
+        AA_rows.clear();
+        return;
+    }
+    int words = (int)A_rows[0].size();
+    AA_rows.assign(n * (n - 1) / 2, std::vector<uint64_t>(words, 0ULL));
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            int idx = aa_table_index(n, i, j);
+            for (int w = 0; w < words; ++w) {
+                AA_rows[idx][w] = A_rows[i][w] & A_rows[j][w];
+            }
+        }
+    }
+}
+
+inline uint64_t packed_get_aa_word(const std::vector<std::vector<uint64_t>>& A_rows,
+                                   const std::vector<std::vector<uint64_t>>& AA_rows,
+                                   int n, int i, int j, int w) {
+    if (i == j) return A_rows[i][w];
+    return AA_rows[aa_table_index(n, i, j)][w];
+}
+
+void build_chi_row_packed_aa(const std::vector<std::vector<uint64_t>>& A_rows,
+                             const std::vector<std::vector<uint64_t>>& AA_rows,
+                             const std::vector<unsigned char>& x_bits, int m, int n,
+                             int alpha, int beta, int gamma,
+                             std::vector<uint64_t>& out_row) {
+    unsigned char x_a = x_bits[alpha];
+    unsigned char x_b = x_bits[beta];
+    unsigned char x_c = x_bits[gamma];
+    unsigned char term_const = x_a & x_b & x_c;
+
+    for (int w = 0; w < (int)out_row.size(); ++w) {
+        uint64_t res = term_const ? ~0ULL : 0ULL;
+        if (x_a & x_b) res ^= A_rows[gamma][w];
+        if (x_b & x_c) res ^= A_rows[alpha][w];
+        if (x_c & x_a) res ^= A_rows[beta][w];
+        if (x_a) res ^= packed_get_aa_word(A_rows, AA_rows, n, beta, gamma, w);
+        if (x_b) res ^= packed_get_aa_word(A_rows, AA_rows, n, gamma, alpha, w);
+        if (x_c) res ^= packed_get_aa_word(A_rows, AA_rows, n, alpha, beta, w);
+        out_row[w] = res;
+    }
+
+    int rem = m & 63;
+    if (rem != 0 && !out_row.empty()) {
+        out_row.back() &= ((1ULL << rem) - 1ULL);
     }
 }
 
@@ -711,6 +774,32 @@ void packed_build_compressed_chi_state_m4ri(PackedChiState& state, bool** A, con
     packed_rebuild_basis_from_state_m4ri(state, m);
 }
 
+void packed_build_compressed_chi_state_aa(PackedChiState& state,
+                                          const std::vector<std::vector<uint64_t>>& A_rows,
+                                          const std::vector<std::vector<uint64_t>>& AA_rows,
+                                          const std::vector<unsigned char>& x_bits, int n, int m) {
+    int row_count = n * n * n;
+    state.words = packed_word_count(m);
+    state.chi_rows.assign(row_count, std::vector<uint64_t>(state.words, 0ULL));
+    state.row_active.assign(row_count, 0);
+    state.row_to_basis_slot.assign(row_count, -1);
+    state.pivot_to_basis_slot.assign(m, -1);
+    state.x_prev = x_bits;
+
+    for (int alpha = 0; alpha < n; ++alpha) {
+        for (int beta = 0; beta < n; ++beta) {
+            for (int gamma = 0; gamma < n; ++gamma) {
+                int rid = dynamic_row_id(alpha, beta, gamma, n);
+                unsigned char active = dynamic_chi_row_active(x_bits, alpha, beta, gamma);
+                state.row_active[rid] = active;
+                if (!active) continue;
+                build_chi_row_packed_aa(A_rows, AA_rows, x_bits, m, n, alpha, beta, gamma, state.chi_rows[rid]);
+            }
+        }
+    }
+    packed_rebuild_basis_from_state(state, m);
+}
+
 void dynamic_update_chi_state(DynamicChiState& state, bool** A, const std::vector<unsigned char>& x_bits, int n, int m,
                               std::vector<int>& affected_rows) {
     dynamic_collect_affected_rows(state.x_prev, x_bits, n, affected_rows);
@@ -851,6 +940,41 @@ bool packed_update_chi_state_local_repair_compressed_m4ri(PackedChiState& state,
     return true;
 }
 
+bool packed_update_chi_state_local_repair_compressed_aa(PackedChiState& state,
+                                                        const std::vector<std::vector<uint64_t>>& A_rows,
+                                                        const std::vector<std::vector<uint64_t>>& AA_rows,
+                                                        const std::vector<unsigned char>& x_bits,
+                                                        int n, int m, std::vector<int>& affected_rows, bool& rebuilt_basis) {
+    dynamic_collect_affected_rows(state.x_prev, x_bits, n, affected_rows);
+    bool basis_touched = false;
+    for (int idx = 0; idx < (int)affected_rows.size(); ++idx) {
+        int rid = affected_rows[idx];
+        if (state.row_to_basis_slot[rid] != -1) basis_touched = true;
+
+        int alpha = rid / (n * n);
+        int beta = (rid / n) % n;
+        int gamma = rid % n;
+        unsigned char active = dynamic_chi_row_active(x_bits, alpha, beta, gamma);
+        state.row_active[rid] = active;
+        if (active) build_chi_row_packed_aa(A_rows, AA_rows, x_bits, m, n, alpha, beta, gamma, state.chi_rows[rid]);
+    }
+
+    state.x_prev = x_bits;
+    rebuilt_basis = basis_touched;
+    if (basis_touched) {
+        packed_rebuild_basis_from_state(state, m);
+        return true;
+    }
+
+    for (int idx = 0; idx < (int)affected_rows.size(); ++idx) {
+        int rid = affected_rows[idx];
+        if (!state.row_active[rid]) continue;
+        if (packed_is_zero_row(state.chi_rows[rid])) continue;
+        packed_add_row_to_basis(state.chi_rows[rid], rid, m, state.basis, state.row_to_basis_slot, state.pivot_to_basis_slot);
+    }
+    return true;
+}
+
 bool** packed_active_rows_to_m4ri_nullspace(const PackedChiState& state, int m, int& d_ns) {
     int rows = 0;
     for (int r = 0; r < (int)state.chi_rows.size(); ++r) if (state.row_active[r]) rows++;
@@ -862,6 +986,19 @@ bool** packed_active_rows_to_m4ri_nullspace(const PackedChiState& state, int m, 
             if (packed_get_bit(state.chi_rows[r], c)) mzd_write_bit(M, rr, c, 1);
         }
         rr++;
+    }
+    bool** NS = M4RI_direct_nullspace(M, d_ns);
+    mzd_free(M);
+    return NS;
+}
+
+bool** packed_basis_rows_to_m4ri_nullspace(const PackedChiState& state, int m, int& d_ns) {
+    int rows = (int)state.basis.size();
+    mzd_t* M = mzd_init(rows, m);
+    for (int r = 0; r < rows; ++r) {
+        for (int c = 0; c < m; ++c) {
+            if (packed_get_bit(state.basis[r].bits, c)) mzd_write_bit(M, r, c, 1);
+        }
     }
     bool** NS = M4RI_direct_nullspace(M, d_ns);
     mzd_free(M);
@@ -3549,10 +3686,6 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
     mzd_t* AA_tab = nullptr;
     if (use_aa_table) {
         AA_tab = mzd_init(n * (n - 1) / 2, m + 1);
-        auto s_aa = std::chrono::high_resolution_clock::now();
-        build_aa_table(AA_tab, A_m4ri_full, n, this_m);
-        total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(
-            std::chrono::high_resolution_clock::now() - s_aa);
     }
 
     while (found && (round < m)) {
@@ -3860,6 +3993,231 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
     mzd_free(A_m4ri_full);
 }
 
+void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal(bool** A, int n, int m, int& omp, bool use_packed_chi, bool use_aa_table, bool use_memoization, bool use_random_sketch, int sketch_margin) {
+    auto start_total = std::chrono::high_resolution_clock::now();
+    std::cout << "\n[Experimental TODD PackedLocal] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (margin=" << sketch_margin << ")" << std::endl;
+    int this_m = m; int initial_m = m;
+
+    mzd_t* A_m4ri_full = convert_to_mzd((bool const**)A, n, m + 1);
+    bool** x_vec = LCL_Mat_GF2::construct(n, 1);
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    std::chrono::microseconds total_ns_duration{0};
+    std::chrono::microseconds total_chi_duration{0};
+    std::chrono::microseconds total_aa_tb_duration{0};
+    bool found = true; int round = 0;
+    long long total_pairs_tested = 0;
+    long long total_full_ns_empty = 0;
+
+    int num_words = (n + 63) / 64;
+    mzd_t* AA_tab = nullptr;
+    if (use_aa_table) {
+        AA_tab = mzd_init(n * (n - 1) / 2, m + 1);
+        auto s_aa = std::chrono::high_resolution_clock::now();
+        build_aa_table(AA_tab, A_m4ri_full, n, this_m);
+        total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - s_aa);
+    }
+
+    while (found && (round < m)) {
+        found = false;
+        std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
+        auto round_start = std::chrono::high_resolution_clock::now();
+
+        if (use_aa_table) {
+            auto s_aa = std::chrono::high_resolution_clock::now();
+            build_aa_table(AA_tab, A_m4ri_full, n, this_m);
+            total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::high_resolution_clock::now() - s_aa);
+        }
+
+        std::vector<std::vector<uint64_t>> cols(this_m, std::vector<uint64_t>(num_words, 0));
+        for (int j = 0; j < this_m; ++j) {
+            for (int i = 0; i < n; ++i) {
+                if (A[i][j]) cols[j][i / 64] |= (1ULL << (i % 64));
+            }
+        }
+
+        std::vector<FastColPair> candidates;
+        for (int j1 = 0; j1 < this_m; ++j1) {
+            for (int j2 = j1 + 1; j2 < this_m; ++j2) {
+                int dist = 0;
+                std::vector<uint64_t> x_val(num_words, 0);
+                for (int w = 0; w < num_words; ++w) {
+                    x_val[w] = cols[j1][w] ^ cols[j2][w];
+                    dist += __builtin_popcountll(x_val[w]);
+                }
+                candidates.push_back({j1, j2, dist, x_val});
+            }
+        }
+
+        if (use_memoization) {
+            std::sort(candidates.begin(), candidates.end());
+        } else {
+            std::sort(candidates.begin(), candidates.end(), [](const FastColPair& a, const FastColPair& b) {
+                if (a.dist != b.dist) return a.dist < b.dist;
+                if (a.c1 != b.c1) return a.c1 < b.c1;
+                return a.c2 < b.c2;
+            });
+        }
+
+        mzd_t* A_m4ri_win = mzd_init_window(A_m4ri_full, 0, 0, n, this_m);
+        auto get_AA = [&](int i, int j, int w, mzd_t* AA_win) -> word {
+            if (i == j) return mzd_row(A_m4ri_win, i)[w];
+            int idx = aa_table_index(n, i, j);
+            return mzd_row(AA_win, idx)[w];
+        };
+
+        bool has_cached_ns = false;
+        std::vector<uint64_t> last_x_val;
+        std::vector<std::vector<unsigned char>> ns_cached;
+
+        for (const auto& pair : candidates) {
+            if (found) break;
+            bool same_x = (use_memoization && has_cached_ns && pair.x_val == last_x_val);
+            total_pairs_tested++;
+
+            if (!same_x) {
+                for (int i = 0; i < n; i++) x_vec[i][0] = (A[i][pair.c1] + A[i][pair.c2]) % 2;
+
+                int non_zero_rows = 0;
+                if (use_packed_chi) {
+                    for (int alpha = 0; alpha < n; alpha++) {
+                        bool x_a = x_vec[alpha][0];
+                        for (int beta = 0; beta < n; beta++) {
+                            bool x_b = x_vec[beta][0];
+                            for (int gamma = 0; gamma < n; gamma++) {
+                                bool x_c = x_vec[gamma][0];
+                                if (x_a || x_b || x_c) non_zero_rows++;
+                            }
+                        }
+                    }
+                    if (non_zero_rows == 0) non_zero_rows = 1;
+                } else {
+                    non_zero_rows = n * n * n;
+                }
+
+                PackedChiState state;
+                state.words = packed_word_count(this_m);
+                state.chi_rows.assign(non_zero_rows, std::vector<uint64_t>(state.words, 0ULL));
+                state.row_active.assign(non_zero_rows, 1);
+                state.row_to_basis_slot.assign(non_zero_rows, -1);
+                state.pivot_to_basis_slot.assign(this_m, -1);
+
+                auto s_chi = std::chrono::high_resolution_clock::now();
+                int row_idx = 0;
+                mzd_t* AA_win = nullptr;
+                if (use_aa_table) AA_win = mzd_init_window(AA_tab, 0, 0, AA_tab->nrows, this_m);
+
+                for (int alpha = 0; alpha < n; alpha++) {
+                    bool x_a = x_vec[alpha][0];
+                    for (int beta = 0; beta < n; beta++) {
+                        bool x_b = x_vec[beta][0];
+                        for (int gamma = 0; gamma < n; gamma++) {
+                            bool x_c = x_vec[gamma][0];
+                            if (use_packed_chi && !(x_a || x_b || x_c)) continue;
+
+                            std::vector<uint64_t>& out_row = state.chi_rows[row_idx];
+                            std::fill(out_row.begin(), out_row.end(), 0ULL);
+                            bool term_const = x_a && x_b && x_c;
+                            for (int w = 0; w < state.words; ++w) {
+                                uint64_t res = 0ULL;
+                                if (term_const) res = ~res;
+                                if (use_aa_table) {
+                                    if (x_a) res ^= get_AA(beta, gamma, w, AA_win);
+                                    if (x_b) res ^= get_AA(gamma, alpha, w, AA_win);
+                                    if (x_c) res ^= get_AA(alpha, beta, w, AA_win);
+                                    if (x_a && x_b) res ^= mzd_row(A_m4ri_win, gamma)[w];
+                                    if (x_b && x_c) res ^= mzd_row(A_m4ri_win, alpha)[w];
+                                    if (x_c && x_a) res ^= mzd_row(A_m4ri_win, beta)[w];
+                                } else {
+                                    if (x_a && x_b) res ^= mzd_row(A_m4ri_win, gamma)[w];
+                                    if (x_b && x_c) res ^= mzd_row(A_m4ri_win, alpha)[w];
+                                    if (x_c && x_a) res ^= mzd_row(A_m4ri_win, beta)[w];
+                                    if (x_a) res ^= (mzd_row(A_m4ri_win, beta)[w] & mzd_row(A_m4ri_win, gamma)[w]);
+                                    if (x_b) res ^= (mzd_row(A_m4ri_win, gamma)[w] & mzd_row(A_m4ri_win, alpha)[w]);
+                                    if (x_c) res ^= (mzd_row(A_m4ri_win, alpha)[w] & mzd_row(A_m4ri_win, beta)[w]);
+                                }
+                                out_row[w] = res;
+                            }
+                            row_idx++;
+                        }
+                    }
+                }
+
+                if (use_aa_table) mzd_free_window(AA_win);
+                total_chi_duration += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - s_chi);
+
+                auto s_ns = std::chrono::high_resolution_clock::now();
+                ns_cached = packed_nullspace_basis(state.chi_rows, state.row_active, this_m);
+                total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - s_ns);
+                if (ns_cached.empty()) total_full_ns_empty++;
+                last_x_val = pair.x_val;
+                has_cached_ns = true;
+            }
+
+            for (int h = 0; h < (int)ns_cached.size(); h++) {
+                if ((ns_cached[h][pair.c1] + ns_cached[h][pair.c2]) % 2 == 1) {
+                    for (int i = 0; i < n; i++) x_vec[i][0] = (A[i][pair.c1] + A[i][pair.c2]) % 2;
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < this_m; j++) Anew[i][j] = (A[i][j] + x_vec[i][0] * ns_cached[h][j]) % 2;
+                    }
+                    int mp;
+                    GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+                    if (mp < this_m) {
+                        std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") Dist=" << pair.dist
+                                  << " | " << this_m << " -> " << mp << " columns" << std::endl;
+                        LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                        m_best = mp;
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        mzd_free_window(A_m4ri_win);
+
+        if (found) {
+            LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+            for (int r = 0; r < n; r++) {
+                for (int c = 0; c < m_best; c++) mzd_write_bit(A_m4ri_full, r, c, A[r][c]);
+                for (int c = m_best; c < m + 1; c++) mzd_write_bit(A_m4ri_full, r, c, 0);
+            }
+            this_m = m_best;
+        }
+        auto round_end = std::chrono::high_resolution_clock::now();
+        std::cout << "Round " << round << " Finished in " << std::chrono::duration_cast<std::chrono::milliseconds>(round_end - round_start).count() << " ms." << std::endl;
+        round++;
+    }
+
+    omp = this_m;
+    auto end_total = std::chrono::high_resolution_clock::now();
+    auto total_dur = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+
+    std::cout << "\n=== Optimization Summary ===" << std::endl;
+    std::cout << "Algorithm       : LempelX2_M4RI_Experimental_PackedLocal" << std::endl;
+    std::cout << "Initial T-count : " << initial_m << std::endl;
+    std::cout << "Final T-count   : " << omp << std::endl;
+    std::cout << "Total Reduced   : " << (initial_m - omp) << " gates" << std::endl;
+    std::cout << "Execution Time  : " << total_dur.count() << " ms" << std::endl;
+    std::cout << "Chi calculation : " << total_chi_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "AA Table calc   : " << total_aa_tb_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Nullspace calc  : " << total_ns_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Pairs tested    : " << total_pairs_tested << std::endl;
+    std::cout << "Full NS empty   : " << total_full_ns_empty << std::endl;
+    std::cout << "============================" << std::endl;
+
+    if (AA_tab) mzd_free(AA_tab);
+    LCL_Mat_GF2::destruct(x_vec, n, 1);
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
+    mzd_free(A_m4ri_full);
+}
+
 void GateSynthesisMatrix::LempelX2_DynamicBasis(bool** A, int n, int m, int& omp) {
     auto start_total = std::chrono::high_resolution_clock::now();
     std::cout << "\n[Dynamic Basis TODD] Baseline target: original LempelX2" << std::endl;
@@ -3889,26 +4247,32 @@ void GateSynthesisMatrix::LempelX2_DynamicBasis(bool** A, int n, int m, int& omp
 
         std::vector<DynamicCandidate> candidates;
         candidates.reserve(this_m * (this_m - 1) / 2);
+        int x_word_count = (n + 63) / 64;
         for (int j1 = 0; j1 < this_m; ++j1) {
             for (int j2 = j1 + 1; j2 < this_m; ++j2) {
                 std::vector<unsigned char> x_bits(n, 0);
+                std::vector<uint64_t> x_words(x_word_count, 0ULL);
                 int x_weight = 0;
                 for (int i = 0; i < n; ++i) {
                     x_bits[i] = (unsigned char)((A[i][j1] + A[i][j2]) % 2);
                     x_weight += x_bits[i];
+                    if (x_bits[i]) x_words[i / 64] |= (1ULL << (i % 64));
                 }
                 DynamicCandidate cand;
                 cand.c1 = j1;
                 cand.c2 = j2;
                 cand.x_weight = x_weight;
                 cand.x_bits = x_bits;
+                cand.x_words = x_words;
                 candidates.push_back(cand);
             }
         }
 
         std::sort(candidates.begin(), candidates.end(), [](const DynamicCandidate& a, const DynamicCandidate& b) {
             if (a.x_weight != b.x_weight) return a.x_weight < b.x_weight;
-            if (a.x_bits != b.x_bits) return a.x_bits < b.x_bits;
+            for (size_t i = 0; i < a.x_words.size(); ++i) {
+                if (a.x_words[i] != b.x_words[i]) return a.x_words[i] < b.x_words[i];
+            }
             if (a.c1 != b.c1) return a.c1 < b.c1;
             return a.c2 < b.c2;
         });
@@ -4039,26 +4403,32 @@ void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepair(bool** A, int n, int 
 
         std::vector<DynamicCandidate> candidates;
         candidates.reserve(this_m * (this_m - 1) / 2);
+        int x_word_count = (n + 63) / 64;
         for (int j1 = 0; j1 < this_m; ++j1) {
             for (int j2 = j1 + 1; j2 < this_m; ++j2) {
                 std::vector<unsigned char> x_bits(n, 0);
+                std::vector<uint64_t> x_words(x_word_count, 0ULL);
                 int x_weight = 0;
                 for (int i = 0; i < n; ++i) {
                     x_bits[i] = (unsigned char)((A[i][j1] + A[i][j2]) % 2);
                     x_weight += x_bits[i];
+                    if (x_bits[i]) x_words[i / 64] |= (1ULL << (i % 64));
                 }
                 DynamicCandidate cand;
                 cand.c1 = j1;
                 cand.c2 = j2;
                 cand.x_weight = x_weight;
                 cand.x_bits = x_bits;
+                cand.x_words = x_words;
                 candidates.push_back(cand);
             }
         }
 
         std::sort(candidates.begin(), candidates.end(), [](const DynamicCandidate& a, const DynamicCandidate& b) {
             if (a.x_weight != b.x_weight) return a.x_weight < b.x_weight;
-            if (a.x_bits != b.x_bits) return a.x_bits < b.x_bits;
+            for (size_t i = 0; i < a.x_words.size(); ++i) {
+                if (a.x_words[i] != b.x_words[i]) return a.x_words[i] < b.x_words[i];
+            }
             if (a.c1 != b.c1) return a.c1 < b.c1;
             return a.c2 < b.c2;
         });
@@ -4657,6 +5027,181 @@ void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPacked(bool** A, in
     LCL_Mat_GF2::destruct(Abest, n, m + 1);
 }
 
+void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAA(bool** A, int n, int m, int& omp) {
+    auto start_total = std::chrono::high_resolution_clock::now();
+    std::cout << "\n[Dynamic Basis Local Repair TODD + Chi Compression + Packed + AA] Compare with lx2_dynamic_repair_chi_packed" << std::endl;
+
+    int this_m = m;
+    int initial_m = m;
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    std::chrono::microseconds total_chi_update_duration(0);
+    std::chrono::microseconds total_basis_work_duration(0);
+    std::chrono::microseconds total_ns_duration(0);
+    std::chrono::microseconds total_aa_duration(0);
+
+    long long total_pairs_tested = 0;
+    long long total_filtered_miss = 0;
+    long long total_ns_runs = 0;
+    long long total_rebuilds = 0;
+    long long total_local_add_rounds = 0;
+    long long total_affected_rows = 0;
+    long long total_active_rows = 0;
+    long long total_active_snapshots = 0;
+
+    bool found = true;
+    int round = 0;
+    while (found && (round < m)) {
+        found = false;
+        std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
+
+        std::vector<DynamicCandidate> candidates;
+        candidates.reserve(this_m * (this_m - 1) / 2);
+        int x_word_count = (n + 63) / 64;
+        for (int j1 = 0; j1 < this_m; ++j1) {
+            for (int j2 = j1 + 1; j2 < this_m; ++j2) {
+                std::vector<unsigned char> x_bits(n, 0);
+                std::vector<uint64_t> x_words(x_word_count, 0ULL);
+                int x_weight = 0;
+                for (int i = 0; i < n; ++i) {
+                    x_bits[i] = (unsigned char)((A[i][j1] + A[i][j2]) % 2);
+                    x_weight += x_bits[i];
+                    if (x_bits[i]) x_words[i / 64] |= (1ULL << (i % 64));
+                }
+                DynamicCandidate cand;
+                cand.c1 = j1;
+                cand.c2 = j2;
+                cand.x_weight = x_weight;
+                cand.x_bits = x_bits;
+                cand.x_words = x_words;
+                candidates.push_back(cand);
+            }
+        }
+
+        std::sort(candidates.begin(), candidates.end(), [](const DynamicCandidate& a, const DynamicCandidate& b) {
+            if (a.x_weight != b.x_weight) return a.x_weight < b.x_weight;
+            for (size_t i = 0; i < a.x_words.size(); ++i) {
+                if (a.x_words[i] != b.x_words[i]) return a.x_words[i] < b.x_words[i];
+            }
+            if (a.c1 != b.c1) return a.c1 < b.c1;
+            return a.c2 < b.c2;
+        });
+
+        std::vector<std::vector<uint64_t>> A_rows;
+        std::vector<std::vector<uint64_t>> AA_rows;
+        auto s_aa = std::chrono::high_resolution_clock::now();
+        build_packed_a_rows(A, n, this_m, A_rows);
+        build_packed_aa_rows(A_rows, n, AA_rows);
+        total_aa_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - s_aa);
+
+        PackedChiState state;
+        std::vector<int> affected_rows;
+        bool state_ready = false;
+
+        for (int idx = 0; idx < (int)candidates.size() && !found; ++idx) {
+            const DynamicCandidate& pair = candidates[idx];
+            total_pairs_tested++;
+
+            auto s_all = std::chrono::high_resolution_clock::now();
+            if (!state_ready) {
+                packed_build_compressed_chi_state_aa(state, A_rows, AA_rows, pair.x_bits, n, this_m);
+                state_ready = true;
+                total_rebuilds++;
+            } else {
+                bool rebuilt_basis = false;
+                packed_update_chi_state_local_repair_compressed_aa(state, A_rows, AA_rows, pair.x_bits, n, this_m, affected_rows, rebuilt_basis);
+                total_affected_rows += (long long)affected_rows.size();
+                if (rebuilt_basis) total_rebuilds++;
+                else total_local_add_rounds++;
+            }
+            auto e_all = std::chrono::high_resolution_clock::now();
+            total_chi_update_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_all - s_all);
+            total_basis_work_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_all - s_all);
+
+            long long active_now = 0;
+            for (int r = 0; r < (int)state.row_active.size(); ++r) active_now += state.row_active[r] ? 1 : 0;
+            total_active_rows += active_now;
+            total_active_snapshots++;
+
+            if (packed_membership_test_pair(pair.c1, pair.c2, this_m, state.basis)) {
+                total_filtered_miss++;
+                continue;
+            }
+
+            auto s_ns = std::chrono::high_resolution_clock::now();
+            std::vector<std::vector<unsigned char>> ns_basis = packed_nullspace_basis(state.chi_rows, state.row_active, this_m);
+            auto e_ns = std::chrono::high_resolution_clock::now();
+            total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_ns - s_ns);
+            total_ns_runs++;
+
+            int good_idx = -1;
+            for (int h = 0; h < (int)ns_basis.size(); ++h) {
+                if ((ns_basis[h][pair.c1] ^ ns_basis[h][pair.c2]) == 1) {
+                    good_idx = h;
+                    break;
+                }
+            }
+            if (good_idx < 0) continue;
+
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < this_m; ++j) {
+                    Anew[i][j] = (bool)((A[i][j] + pair.x_bits[i] * ns_basis[good_idx][j]) % 2);
+                }
+            }
+
+            int mp = 0;
+            GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+            if (mp < this_m) {
+                std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") x-weight=" << pair.x_weight
+                          << " | " << this_m << " -> " << mp << " columns" << std::endl;
+                LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                m_best = mp;
+                found = true;
+            }
+        }
+
+        if (found) {
+            LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+            this_m = m_best;
+        }
+        round++;
+    }
+
+    omp = this_m;
+    auto end_total = std::chrono::high_resolution_clock::now();
+    auto total_dur = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+
+    std::cout << "\n=== Dynamic Basis Local Repair Chi Packed AA Summary ===" << std::endl;
+    std::cout << "Algorithm       : LempelX2_DynamicBasisLocalRepairChiPackedAA" << std::endl;
+    std::cout << "Initial T-count : " << initial_m << std::endl;
+    std::cout << "Final T-count   : " << omp << std::endl;
+    std::cout << "Total Reduced   : " << (initial_m - omp) << " gates" << std::endl;
+    std::cout << "Execution Time  : " << total_dur.count() << " ms" << std::endl;
+    std::cout << "Pairs tested    : " << total_pairs_tested << std::endl;
+    std::cout << "Filtered miss   : " << total_filtered_miss << std::endl;
+    std::cout << "Nullspace runs  : " << total_ns_runs << std::endl;
+    std::cout << "Rebuild count   : " << total_rebuilds << std::endl;
+    std::cout << "Local add count : " << total_local_add_rounds << std::endl;
+    std::cout << "AA Table time   : " << total_aa_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Chi update time : " << total_chi_update_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Basis work time : " << total_basis_work_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Nullspace time  : " << total_ns_duration.count() / 1000.0 << " ms" << std::endl;
+    if ((total_rebuilds + total_local_add_rounds) > 1) {
+        std::cout << "Avg affected    : " << (double)total_affected_rows / (double)(total_rebuilds + total_local_add_rounds - 1) << " rows" << std::endl;
+    }
+    if (total_active_snapshots > 0) {
+        std::cout << "Avg active rows : " << (double)total_active_rows / (double)total_active_snapshots << std::endl;
+    }
+    std::cout << "=======================================================" << std::endl;
+
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
+}
+
 void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedMemo(bool** A, int n, int m, int& omp) {
     auto start_total = std::chrono::high_resolution_clock::now();
     std::cout << "\n[Dynamic Basis Local Repair TODD + Chi Compression + Packed + Memo] Compare with lx2_dynamic_repair_chi_packed" << std::endl;
@@ -4991,6 +5536,174 @@ void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedM4RI(bool** A
         std::cout << "Avg active rows : " << (double)total_active_rows / (double)total_active_snapshots << std::endl;
     }
     std::cout << "========================================================" << std::endl;
+
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
+}
+
+void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedBasisM4RI(bool** A, int n, int m, int& omp) {
+    auto start_total = std::chrono::high_resolution_clock::now();
+    std::cout << "\n[Dynamic Basis Local Repair TODD + Chi Compression + Packed + Basis->M4RI] Compare with lx2_dynamic_repair_chi_packed_m4ri" << std::endl;
+
+    int this_m = m;
+    int initial_m = m;
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    std::chrono::microseconds total_chi_update_duration(0);
+    std::chrono::microseconds total_basis_work_duration(0);
+    std::chrono::microseconds total_ns_duration(0);
+
+    long long total_pairs_tested = 0;
+    long long total_filtered_miss = 0;
+    long long total_ns_runs = 0;
+    long long total_rebuilds = 0;
+    long long total_local_add_rounds = 0;
+    long long total_affected_rows = 0;
+    long long total_active_rows = 0;
+    long long total_active_snapshots = 0;
+    long long total_basis_rows = 0;
+    long long total_basis_snapshots = 0;
+
+    bool found = true;
+    int round = 0;
+    while (found && (round < m)) {
+        found = false;
+        std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
+
+        std::vector<DynamicCandidate> candidates;
+        candidates.reserve(this_m * (this_m - 1) / 2);
+        for (int j1 = 0; j1 < this_m; ++j1) {
+            for (int j2 = j1 + 1; j2 < this_m; ++j2) {
+                std::vector<unsigned char> x_bits(n, 0);
+                int x_weight = 0;
+                for (int i = 0; i < n; ++i) {
+                    x_bits[i] = (unsigned char)((A[i][j1] + A[i][j2]) % 2);
+                    x_weight += x_bits[i];
+                }
+                DynamicCandidate cand;
+                cand.c1 = j1;
+                cand.c2 = j2;
+                cand.x_weight = x_weight;
+                cand.x_bits = x_bits;
+                candidates.push_back(cand);
+            }
+        }
+
+        std::sort(candidates.begin(), candidates.end(), [](const DynamicCandidate& a, const DynamicCandidate& b) {
+            if (a.x_weight != b.x_weight) return a.x_weight < b.x_weight;
+            if (a.x_bits != b.x_bits) return a.x_bits < b.x_bits;
+            if (a.c1 != b.c1) return a.c1 < b.c1;
+            return a.c2 < b.c2;
+        });
+
+        PackedChiState state;
+        std::vector<int> affected_rows;
+        bool state_ready = false;
+
+        for (int idx = 0; idx < (int)candidates.size() && !found; ++idx) {
+            const DynamicCandidate& pair = candidates[idx];
+            total_pairs_tested++;
+
+            auto s_all = std::chrono::high_resolution_clock::now();
+            if (!state_ready) {
+                packed_build_compressed_chi_state_m4ri(state, A, pair.x_bits, n, this_m);
+                state_ready = true;
+                total_rebuilds++;
+            } else {
+                bool rebuilt_basis = false;
+                packed_update_chi_state_local_repair_compressed_m4ri(state, A, pair.x_bits, n, this_m, affected_rows, rebuilt_basis);
+                total_affected_rows += (long long)affected_rows.size();
+                if (rebuilt_basis) total_rebuilds++;
+                else total_local_add_rounds++;
+            }
+            auto e_all = std::chrono::high_resolution_clock::now();
+            total_chi_update_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_all - s_all);
+            total_basis_work_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_all - s_all);
+
+            long long active_now = 0;
+            for (int r = 0; r < (int)state.row_active.size(); ++r) active_now += state.row_active[r] ? 1 : 0;
+            total_active_rows += active_now;
+            total_active_snapshots++;
+            total_basis_rows += (long long)state.basis.size();
+            total_basis_snapshots++;
+
+            if (packed_membership_test_pair(pair.c1, pair.c2, this_m, state.basis)) {
+                total_filtered_miss++;
+                continue;
+            }
+
+            int d_ns = 0;
+            auto s_ns = std::chrono::high_resolution_clock::now();
+            bool** NS = packed_basis_rows_to_m4ri_nullspace(state, this_m, d_ns);
+            auto e_ns = std::chrono::high_resolution_clock::now();
+            total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_ns - s_ns);
+            total_ns_runs++;
+
+            int good_idx = -1;
+            for (int h = 0; h < d_ns; ++h) {
+                if ((NS[pair.c1][h] ^ NS[pair.c2][h]) == 1) {
+                    good_idx = h;
+                    break;
+                }
+            }
+            if (good_idx >= 0) {
+                for (int i = 0; i < n; ++i) {
+                    for (int j = 0; j < this_m; ++j) {
+                        Anew[i][j] = (bool)((A[i][j] + pair.x_bits[i] * NS[j][good_idx]) % 2);
+                    }
+                }
+
+                int mp = 0;
+                GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+                if (mp < this_m) {
+                    std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") x-weight=" << pair.x_weight
+                              << " | " << this_m << " -> " << mp << " columns" << std::endl;
+                    LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                    m_best = mp;
+                    found = true;
+                }
+            }
+            if (NS) LCL_Mat_GF2::destruct(NS, this_m, d_ns);
+        }
+
+        if (found) {
+            LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+            this_m = m_best;
+        }
+        round++;
+    }
+
+    omp = this_m;
+    auto end_total = std::chrono::high_resolution_clock::now();
+    auto total_dur = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+
+    std::cout << "\n=== Dynamic Basis Local Repair Chi Packed Basis M4RI Summary ===" << std::endl;
+    std::cout << "Algorithm       : LempelX2_DynamicBasisLocalRepairChiPackedBasisM4RI" << std::endl;
+    std::cout << "Initial T-count : " << initial_m << std::endl;
+    std::cout << "Final T-count   : " << omp << std::endl;
+    std::cout << "Total Reduced   : " << (initial_m - omp) << " gates" << std::endl;
+    std::cout << "Execution Time  : " << total_dur.count() << " ms" << std::endl;
+    std::cout << "Pairs tested    : " << total_pairs_tested << std::endl;
+    std::cout << "Filtered miss   : " << total_filtered_miss << std::endl;
+    std::cout << "Nullspace runs  : " << total_ns_runs << std::endl;
+    std::cout << "Rebuild count   : " << total_rebuilds << std::endl;
+    std::cout << "Local add count : " << total_local_add_rounds << std::endl;
+    std::cout << "Chi update time : " << total_chi_update_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Basis work time : " << total_basis_work_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Nullspace time  : " << total_ns_duration.count() / 1000.0 << " ms" << std::endl;
+    if ((total_rebuilds + total_local_add_rounds) > 1) {
+        std::cout << "Avg affected    : " << (double)total_affected_rows / (double)(total_rebuilds + total_local_add_rounds - 1) << " rows" << std::endl;
+    }
+    if (total_active_snapshots > 0) {
+        std::cout << "Avg active rows : " << (double)total_active_rows / (double)total_active_snapshots << std::endl;
+    }
+    if (total_basis_snapshots > 0) {
+        std::cout << "Avg basis rows  : " << (double)total_basis_rows / (double)total_basis_snapshots << std::endl;
+    }
+    std::cout << "=============================================================" << std::endl;
 
     LCL_Mat_GF2::destruct(Anew, n, m + 1);
     LCL_Mat_GF2::destruct(Abest, n, m + 1);

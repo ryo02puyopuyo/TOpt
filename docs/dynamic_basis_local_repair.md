@@ -300,6 +300,19 @@ basis 行が壊れて消えると、
 - `lx2_dynamic_repair_chi_packed_m4ri`
   - `lx2_dynamic_repair_chi_packed` の full rebuild と nullspace を M4RI に委譲した版
   - local add は packed 実装のまま維持
+- `lx2_dynamic_repair_chi_packed_basis_m4ri`
+  - `lx2_dynamic_repair_chi_packed_m4ri` の nullspace 入力を active 行全体ではなく `state.basis` に縮めた版
+  - full rebuild は引き続き M4RI を使用
+
+## Experimental 比較用タグ
+
+- `todd_exp_1110`
+  - 現在の Experimental 実装
+  - packed chi + AA table + memoization + M4RI nullspace
+- `todd_exp_packedlocal_1110`
+  - 比較用
+  - packed chi + AA table + memoization までは同じ
+  - nullspace だけ自前 packed 実装
 
 ### 判定規則
 
