@@ -100,6 +100,7 @@ namespace SYNTHESIS_ALGORITHM_TAG {
     const string TODD_M4RI_R_BEAM = "todd_m4ri_r_beam";
     const string TODD_M4RI_S_BEAM = "todd_m4ri_s_beam";
     const string TODD_EXP_PACKEDLOCAL_PREFIX = "todd_exp_packedlocal_";
+    const string TODD_EXP_PACKEDLOCAL_DIFF_PREFIX = "todd_exp_packedlocal_diff_";
     const string LEMPEL_X_2_DYNAMIC = "lx2_dynamic";
     const string LEMPEL_X_2_DYNAMIC_REPAIR = "lx2_dynamic_repair";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_K1 = "lx2_dynamic_repair_k1";

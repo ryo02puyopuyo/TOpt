@@ -975,6 +975,51 @@ bool packed_update_chi_state_local_repair_compressed_aa(PackedChiState& state,
     return true;
 }
 
+void packed_build_compressed_chi_rows_aa(PackedChiState& state,
+                                         const std::vector<std::vector<uint64_t>>& A_rows,
+                                         const std::vector<std::vector<uint64_t>>& AA_rows,
+                                         const std::vector<unsigned char>& x_bits, int n, int m) {
+    int row_count = n * n * n;
+    state.words = packed_word_count(m);
+    state.chi_rows.assign(row_count, std::vector<uint64_t>(state.words, 0ULL));
+    state.row_active.assign(row_count, 0);
+    state.row_to_basis_slot.clear();
+    state.pivot_to_basis_slot.clear();
+    state.basis.clear();
+    state.x_prev = x_bits;
+
+    for (int alpha = 0; alpha < n; ++alpha) {
+        for (int beta = 0; beta < n; ++beta) {
+            for (int gamma = 0; gamma < n; ++gamma) {
+                int rid = dynamic_row_id(alpha, beta, gamma, n);
+                unsigned char active = dynamic_chi_row_active(x_bits, alpha, beta, gamma);
+                state.row_active[rid] = active;
+                if (!active) continue;
+                build_chi_row_packed_aa(A_rows, AA_rows, x_bits, m, n, alpha, beta, gamma, state.chi_rows[rid]);
+            }
+        }
+    }
+}
+
+void packed_update_chi_rows_compressed_aa(PackedChiState& state,
+                                          const std::vector<std::vector<uint64_t>>& A_rows,
+                                          const std::vector<std::vector<uint64_t>>& AA_rows,
+                                          const std::vector<unsigned char>& x_bits,
+                                          int n, int m, std::vector<int>& affected_rows) {
+    dynamic_collect_affected_rows(state.x_prev, x_bits, n, affected_rows);
+    for (int idx = 0; idx < (int)affected_rows.size(); ++idx) {
+        int rid = affected_rows[idx];
+        int alpha = rid / (n * n);
+        int beta = (rid / n) % n;
+        int gamma = rid % n;
+        unsigned char active = dynamic_chi_row_active(x_bits, alpha, beta, gamma);
+        state.row_active[rid] = active;
+        if (!active) continue;
+        build_chi_row_packed_aa(A_rows, AA_rows, x_bits, m, n, alpha, beta, gamma, state.chi_rows[rid]);
+    }
+    state.x_prev = x_bits;
+}
+
 bool** packed_active_rows_to_m4ri_nullspace(const PackedChiState& state, int m, int& d_ns) {
     int rows = 0;
     for (int r = 0; r < (int)state.chi_rows.size(); ++r) if (state.row_active[r]) rows++;
@@ -3658,42 +3703,30 @@ void GateSynthesisMatrix::LempelX2_M4RI_GreedyPreprocess_Fast(bool** A, int n, i
 
 void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int& omp, bool use_packed_chi, bool use_aa_table, bool use_memoization, bool use_random_sketch, int sketch_margin) {
     auto start_total = std::chrono::high_resolution_clock::now();
-    std::cout << "\n[Experimental TODD] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (margin=" << sketch_margin << ")" << std::endl;
+    std::cout << "\n[Experimental TODD + ChiDiff + M4RI] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (margin=" << sketch_margin << ")" << std::endl;
     int this_m = m; int initial_m = m;
-    
-    mzd_t* A_m4ri_full = convert_to_mzd((bool const**)A, n, m + 1);
 
     bool** x_vec = LCL_Mat_GF2::construct(n, 1);
     bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
     bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
     LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
     int m_best = m;
-    
+
     std::chrono::microseconds total_ns_duration{0};
     std::chrono::microseconds total_chi_duration{0};
     std::chrono::microseconds total_aa_tb_duration{0};
     bool found = true; int round = 0;
-    long long total_sketch_rejections = 0;
-    long long total_sketch_pass = 0;
-    long long total_sketch_skipped = 0;  // chi too small for sketch
     long long total_pairs_tested = 0;
-    long long total_full_ns_empty = 0;   // track how often full nullspace is empty (for observability)
-    std::chrono::microseconds total_sketch_duration{0};
-    std::mt19937 rng(42); // Fixed seed for reproducibility
+    long long total_full_ns_empty = 0;
+    long long total_affected_rows = 0;
+    long long total_memo_x_hits = 0;
 
     int num_words = (n + 63) / 64;
-
-    mzd_t* AA_tab = nullptr;
-    if (use_aa_table) {
-        AA_tab = mzd_init(n * (n - 1) / 2, m + 1);
-    }
 
     while (found && (round < m)) {
         found = false;
         std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
         auto round_start = std::chrono::high_resolution_clock::now();
-        CleanupTrace best_cleanup_trace;
-        std::vector<int> best_changed_rows;
 
         std::vector<std::vector<uint64_t>> cols(this_m, std::vector<uint64_t>(num_words, 0));
         for (int j = 0; j < this_m; ++j) {
@@ -3714,7 +3747,7 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
                 candidates.push_back({j1, j2, dist, x_val});
             }
         }
-        
+
         if (use_memoization) {
             std::sort(candidates.begin(), candidates.end());
         } else {
@@ -3725,232 +3758,99 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
             });
         }
 
-        mzd_t* A_m4ri_win = mzd_init_window(A_m4ri_full, 0, 0, n, this_m);
+        std::vector<std::vector<uint64_t>> A_rows;
+        std::vector<std::vector<uint64_t>> AA_rows;
+        if (use_aa_table) {
+            auto s_aa = std::chrono::high_resolution_clock::now();
+            build_packed_a_rows(A, n, this_m, A_rows);
+            build_packed_aa_rows(A_rows, n, AA_rows);
+            total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::high_resolution_clock::now() - s_aa);
+        }
 
-        auto get_AA = [&](int i, int j, int w, mzd_t* AA_win) -> word {
-            if (i == j) return mzd_row(A_m4ri_win, i)[w];
-            int idx = aa_table_index(n, i, j);
-            return mzd_row(AA_win, idx)[w];
-        };
-
+        PackedChiState state;
+        std::vector<int> affected_rows;
+        bool state_ready = false;
         bool has_cached_ns = false;
-        std::vector<uint64_t> last_x_val;
         bool** NS_cached = nullptr;
         int d_ns_cached = 0;
 
         for (const auto& pair : candidates) {
             if (found) break;
-            
-            bool same_x = (use_memoization && has_cached_ns && pair.x_val == last_x_val);
-            
-                if (!same_x) {
+            total_pairs_tested++;
+
+            std::vector<unsigned char> x_bits(n, 0);
+            for (int i = 0; i < n; ++i) x_bits[i] = (unsigned char)((A[i][pair.c1] + A[i][pair.c2]) % 2);
+
+            bool same_x = (use_memoization && state_ready && x_bits == state.x_prev);
+            if (!same_x) {
+                auto s_chi = std::chrono::high_resolution_clock::now();
+                if (!state_ready) {
+                    if (use_aa_table) {
+                        packed_build_compressed_chi_rows_aa(state, A_rows, AA_rows, x_bits, n, this_m);
+                    } else {
+                        packed_build_compressed_chi_state(state, A, x_bits, n, this_m);
+                    }
+                    state_ready = true;
+                } else {
+                    if (use_aa_table) {
+                        packed_update_chi_rows_compressed_aa(state, A_rows, AA_rows, x_bits, n, this_m, affected_rows);
+                    } else {
+                        bool rebuilt_basis = false;
+                        packed_update_chi_state_local_repair_compressed(state, A, x_bits, n, this_m, affected_rows, rebuilt_basis);
+                    }
+                    total_affected_rows += (long long)affected_rows.size();
+                }
+                total_chi_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                    std::chrono::high_resolution_clock::now() - s_chi);
+
                 if (NS_cached) {
                     LCL_Mat_GF2::destruct(NS_cached, this_m, d_ns_cached);
                     NS_cached = nullptr;
                 }
-                
-                for (int i = 0; i < n; i++) x_vec[i][0] = (A[i][pair.c1] + A[i][pair.c2]) % 2;
-                
-                int non_zero_rows = 0;
-                if (use_packed_chi) {
-                    for(int alpha = 0; alpha < n; alpha++) {
-                        bool x_a = x_vec[alpha][0];
-                        for(int beta = 0; beta < n; beta++) {
-                            bool x_b = x_vec[beta][0];
-                            for(int gamma = 0; gamma < n; gamma++) {
-                                bool x_c = x_vec[gamma][0];
-                                if (x_a || x_b || x_c) non_zero_rows++;
-                            }
-                        }
-                    }
-                    if (non_zero_rows == 0) non_zero_rows = 1;
-                } else {
-                    non_zero_rows = n * n * n;
-                }
-                
-                mzd_t* chi_A_experimental = mzd_init(non_zero_rows, this_m);
-                
-                auto s_chi = std::chrono::high_resolution_clock::now();
-                int row_idx = 0;
-                
-                mzd_t* AA_win = nullptr;
-                if (use_aa_table) {
-                    AA_win = mzd_init_window(AA_tab, 0, 0, AA_tab->nrows, this_m);
-                }
-
-                for(int alpha = 0; alpha < n; alpha++) {
-                    bool x_a = x_vec[alpha][0];
-                    for(int beta = 0; beta < n; beta++) {
-                        bool x_b = x_vec[beta][0];
-                        for(int gamma = 0; gamma < n; gamma++) {
-                            bool x_c = x_vec[gamma][0];
-                            if (use_packed_chi && !(x_a || x_b || x_c)) continue;
-                            
-                            bool term_const = x_a && x_b && x_c;
-                            for(int w = 0; w < chi_A_experimental->width; w++) {
-                                word res = 0;
-                                if(term_const) res = ~res;
-                                
-                                if (use_aa_table) {
-                                    if(x_a) res ^= get_AA(beta, gamma, w, AA_win);
-                                    if(x_b) res ^= get_AA(gamma, alpha, w, AA_win);
-                                    if(x_c) res ^= get_AA(alpha, beta, w, AA_win);
-                                    
-                                    if(x_a && x_b) res ^= mzd_row(A_m4ri_win, gamma)[w];
-                                    if(x_b && x_c) res ^= mzd_row(A_m4ri_win, alpha)[w];
-                                    if(x_c && x_a) res ^= mzd_row(A_m4ri_win, beta)[w];
-                                } else {
-                                    if(x_a && x_b) res ^= mzd_row(A_m4ri_win, gamma)[w];
-                                    if(x_b && x_c) res ^= mzd_row(A_m4ri_win, alpha)[w];
-                                    if(x_c && x_a) res ^= mzd_row(A_m4ri_win, beta)[w];
-                                    if(x_a) res ^= (mzd_row(A_m4ri_win, beta)[w] & mzd_row(A_m4ri_win, gamma)[w]);
-                                    if(x_b) res ^= (mzd_row(A_m4ri_win, gamma)[w] & mzd_row(A_m4ri_win, alpha)[w]);
-                                    if(x_c) res ^= (mzd_row(A_m4ri_win, alpha)[w] & mzd_row(A_m4ri_win, beta)[w]);
-                                }
-                                mzd_row(chi_A_experimental, row_idx)[w] = res;
-                            }
-                            row_idx++;
-                        }
-                    }
-                }
-                
-                if (use_aa_table) {
-                    mzd_free_window(AA_win);
-                }
-                
-                total_chi_duration += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - s_chi);
-
-                // === Random Sketch Early Rejection (pair-condition aware) ===
-                // Since chi nullspace is always non-empty, empty-check is useless.
-                // Instead, check if sketch nullspace contains v with v[c1]⊕v[c2]=1.
-                // Null(M) ⊆ Null(M'): if no such v in Null(M'), none in Null(M) either.
-                int chi_rows = non_zero_rows;
-                int sketch_r = this_m + sketch_margin;
-                bool sketch_rejected = false;
-                total_pairs_tested++;
-                
-                if (use_random_sketch && chi_rows > sketch_r && sketch_r > 0) {
-                    auto s_sketch = std::chrono::high_resolution_clock::now();
-                    
-                    // Fisher-Yates partial shuffle to pick r rows without replacement
-                    std::vector<int> row_indices(chi_rows);
-                    for (int i = 0; i < chi_rows; i++) row_indices[i] = i;
-                    for (int i = 0; i < sketch_r; i++) {
-                        std::uniform_int_distribution<int> dist(i, chi_rows - 1);
-                        std::swap(row_indices[i], row_indices[dist(rng)]);
-                    }
-                    
-                    // Create small sketch matrix by copying selected rows
-                    mzd_t* sketch_mat = mzd_init(sketch_r, this_m);
-                    for (int i = 0; i < sketch_r; i++) {
-                        mzd_copy_row(sketch_mat, i, chi_A_experimental, row_indices[i]);
-                    }
-                    
-                    // Compute nullspace of the sketch matrix
-                    int sketch_d = 0;
-                    bool** sketch_NS = M4RI_direct_nullspace(sketch_mat, sketch_d);
-                    
-                    if (sketch_NS) {
-                        // Check: does ANY nullspace vector satisfy v[c1] XOR v[c2] = 1?
-                        bool has_valid_vector = false;
-                        for (int h = 0; h < sketch_d; h++) {
-                            if ((sketch_NS[pair.c1][h] + sketch_NS[pair.c2][h]) % 2 == 1) {
-                                has_valid_vector = true;
-                                break;
-                            }
-                        }
-                        LCL_Mat_GF2::destruct(sketch_NS, this_m, sketch_d);
-                        
-                        if (!has_valid_vector) {
-                            // No vector satisfies pair condition => REJECT
-                            sketch_rejected = true;
-                            total_sketch_rejections++;
-                        } else {
-                            total_sketch_pass++;
-                        }
-                    } else {
-                        // Nullspace empty (shouldn't happen for chi, but handle it)
-                        sketch_rejected = true;
-                        total_sketch_rejections++;
-                    }
-                    
-                    mzd_free(sketch_mat);
-                    total_sketch_duration += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - s_sketch);
-                } else if (use_random_sketch) {
-                    total_sketch_skipped++;
-                }
-                
-                if (sketch_rejected) {
-                    mzd_free(chi_A_experimental);
-                    d_ns_cached = 0;
-                    NS_cached = nullptr;
-                    has_cached_ns = false;
-                    continue;
-                }
-                // === End Random Sketch ===
-
-                d_ns_cached = 0;
-                auto s_ns = std::chrono::high_resolution_clock::now();
-                NS_cached = M4RI_direct_nullspace(chi_A_experimental, d_ns_cached);
-                total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - s_ns);
-                
-                // Track whether full nullspace was empty (observability)
-                if (d_ns_cached == 0) total_full_ns_empty++;
-                
-                mzd_free(chi_A_experimental);
-                
-                if (use_memoization) {
-                    last_x_val = pair.x_val;
-                    has_cached_ns = true;
-                }
+                has_cached_ns = false;
+            } else {
+                total_memo_x_hits++;
             }
+
+            if (!has_cached_ns) {
+                auto s_ns = std::chrono::high_resolution_clock::now();
+                NS_cached = packed_active_rows_to_m4ri_nullspace(state, this_m, d_ns_cached);
+                total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                    std::chrono::high_resolution_clock::now() - s_ns);
+                if (d_ns_cached == 0) total_full_ns_empty++;
+                has_cached_ns = true;
+            }
+
+            if (!NS_cached) continue;
 
             for (int h = 0; h < d_ns_cached; h++) {
                 if ((NS_cached[pair.c1][h] + NS_cached[pair.c2][h]) % 2 == 1) {
-                    for (int i = 0; i < n; i++) x_vec[i][0] = (A[i][pair.c1] + A[i][pair.c2]) % 2;
-
+                    for (int i = 0; i < n; i++) x_vec[i][0] = x_bits[i];
                     for (int i = 0; i < n; i++) {
                         for (int j = 0; j < this_m; j++) Anew[i][j] = (A[i][j] + x_vec[i][0] * NS_cached[j][h]) % 2;
                     }
                     int mp;
-                    CleanupTrace cleanup_trace;
-                    cleanup_with_trace(Anew, n, this_m, mp, cleanup_trace);
+                    GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
                     if (mp < this_m) {
-                        std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") Dist=" << pair.dist 
+                        std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") Dist=" << pair.dist
                                   << " | " << this_m << " -> " << mp << " columns" << std::endl;
                         LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
                         m_best = mp;
-                        best_cleanup_trace = cleanup_trace;
-                        best_changed_rows.clear();
-                        for (int i = 0; i < n; ++i) {
-                            if (x_vec[i][0]) best_changed_rows.push_back(i);
-                        }
                         found = true;
                         break;
                     }
                 }
             }
         }
-        
+
         if (NS_cached) {
             LCL_Mat_GF2::destruct(NS_cached, this_m, d_ns_cached);
             NS_cached = nullptr;
         }
 
-        mzd_free_window(A_m4ri_win);
-
         if (found) {
             LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
-            for (int r = 0; r < n; r++) {
-                for (int c = 0; c < m_best; c++) mzd_write_bit(A_m4ri_full, r, c, A[r][c]);
-                for (int c = m_best; c < m + 1; c++) mzd_write_bit(A_m4ri_full, r, c, 0);
-            }
-            if (use_aa_table) {
-                auto s_aa = std::chrono::high_resolution_clock::now();
-                update_aa_table_after_hit(AA_tab, A_m4ri_full, n, m_best, best_cleanup_trace, best_changed_rows);
-                total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(
-                    std::chrono::high_resolution_clock::now() - s_aa);
-            }
             this_m = m_best;
         }
         auto round_end = std::chrono::high_resolution_clock::now();
@@ -3971,26 +3871,19 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
     std::cout << "Chi calculation : " << total_chi_duration.count() / 1000.0 << " ms" << std::endl;
     std::cout << "AA Table calc   : " << total_aa_tb_duration.count() / 1000.0 << " ms" << std::endl;
     std::cout << "Nullspace calc  : " << total_ns_duration.count() / 1000.0 << " ms" << std::endl;
-    std::cout << "--- Sketch Statistics ---" << std::endl;
-    std::cout << "Sketch margin   : delta = " << sketch_margin << std::endl;
-    std::cout << "Sketch time     : " << total_sketch_duration.count() / 1000.0 << " ms" << std::endl;
     std::cout << "Pairs tested    : " << total_pairs_tested << std::endl;
-    std::cout << "Sketch fired    : " << (total_sketch_rejections + total_sketch_pass) << std::endl;
-    std::cout << "Sketch skipped  : " << total_sketch_skipped << " (chi_rows <= m+delta)" << std::endl;
-    std::cout << "Sketch rejected : " << total_sketch_rejections << " (nullspace empty)" << std::endl;
-    std::cout << "Sketch passed   : " << total_sketch_pass << " (nullspace non-empty)" << std::endl;
-    if (total_sketch_rejections + total_sketch_pass > 0) {
-        double reject_rate = 100.0 * total_sketch_rejections / (total_sketch_rejections + total_sketch_pass);
-        std::cout << "Reject rate     : " << std::fixed << std::setprecision(2) << reject_rate << "%" << std::endl;
+    std::cout << "Memo x hits     : " << total_memo_x_hits << std::endl;
+    double avg_affected = 0.0;
+    if ((total_pairs_tested - 1 - total_memo_x_hits) > 0) {
+        avg_affected = (double)total_affected_rows / (double)(total_pairs_tested - 1 - total_memo_x_hits);
     }
-    std::cout << "Full NS empty   : " << total_full_ns_empty << " (of " << (total_pairs_tested - total_sketch_rejections) << " computed)" << std::endl;
+    std::cout << "Avg affected    : " << avg_affected << std::endl;
+    std::cout << "Full NS empty   : " << total_full_ns_empty << std::endl;
     std::cout << "============================" << std::endl;
 
-    if (AA_tab) mzd_free(AA_tab);
     LCL_Mat_GF2::destruct(x_vec, n, 1);
     LCL_Mat_GF2::destruct(Anew, n, m + 1);
     LCL_Mat_GF2::destruct(Abest, n, m + 1);
-    mzd_free(A_m4ri_full);
 }
 
 void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal(bool** A, int n, int m, int& omp, bool use_packed_chi, bool use_aa_table, bool use_memoization, bool use_random_sketch, int sketch_margin) {
@@ -4216,6 +4109,172 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal(bool** A, int n
     LCL_Mat_GF2::destruct(Anew, n, m + 1);
     LCL_Mat_GF2::destruct(Abest, n, m + 1);
     mzd_free(A_m4ri_full);
+}
+
+void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(bool** A, int n, int m, int& omp, bool use_packed_chi, bool use_aa_table, bool use_memoization, bool use_random_sketch, int sketch_margin) {
+    if (!use_aa_table) {
+        LempelX2_M4RI_Experimental_PackedLocal(A, n, m, omp, use_packed_chi, use_aa_table, use_memoization, use_random_sketch, sketch_margin);
+        return;
+    }
+
+    auto start_total = std::chrono::high_resolution_clock::now();
+    std::cout << "\n[Experimental TODD PackedLocal + ChiDiff] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (margin=" << sketch_margin << ")" << std::endl;
+    int this_m = m; int initial_m = m;
+
+    bool** x_vec = LCL_Mat_GF2::construct(n, 1);
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    std::chrono::microseconds total_ns_duration{0};
+    std::chrono::microseconds total_chi_duration{0};
+    std::chrono::microseconds total_aa_tb_duration{0};
+    bool found = true; int round = 0;
+    long long total_pairs_tested = 0;
+    long long total_full_ns_empty = 0;
+    long long total_affected_rows = 0;
+    long long total_memo_x_hits = 0;
+
+    int num_words = (n + 63) / 64;
+
+    while (found && (round < m)) {
+        found = false;
+        std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
+        auto round_start = std::chrono::high_resolution_clock::now();
+
+        std::vector<std::vector<uint64_t>> cols(this_m, std::vector<uint64_t>(num_words, 0));
+        for (int j = 0; j < this_m; ++j) {
+            for (int i = 0; i < n; ++i) {
+                if (A[i][j]) cols[j][i / 64] |= (1ULL << (i % 64));
+            }
+        }
+
+        std::vector<FastColPair> candidates;
+        for (int j1 = 0; j1 < this_m; ++j1) {
+            for (int j2 = j1 + 1; j2 < this_m; ++j2) {
+                int dist = 0;
+                std::vector<uint64_t> x_val(num_words, 0);
+                for (int w = 0; w < num_words; ++w) {
+                    x_val[w] = cols[j1][w] ^ cols[j2][w];
+                    dist += __builtin_popcountll(x_val[w]);
+                }
+                candidates.push_back({j1, j2, dist, x_val});
+            }
+        }
+
+        if (use_memoization) {
+            std::sort(candidates.begin(), candidates.end());
+        } else {
+            std::sort(candidates.begin(), candidates.end(), [](const FastColPair& a, const FastColPair& b) {
+                if (a.dist != b.dist) return a.dist < b.dist;
+                if (a.c1 != b.c1) return a.c1 < b.c1;
+                return a.c2 < b.c2;
+            });
+        }
+
+        std::vector<std::vector<uint64_t>> A_rows;
+        std::vector<std::vector<uint64_t>> AA_rows;
+        auto s_aa = std::chrono::high_resolution_clock::now();
+        build_packed_a_rows(A, n, this_m, A_rows);
+        build_packed_aa_rows(A_rows, n, AA_rows);
+        total_aa_tb_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - s_aa);
+
+        PackedChiState state;
+        std::vector<int> affected_rows;
+        bool state_ready = false;
+        bool has_cached_ns = false;
+        std::vector<std::vector<unsigned char>> ns_cached;
+
+        for (const auto& pair : candidates) {
+            if (found) break;
+            total_pairs_tested++;
+
+            std::vector<unsigned char> x_bits(n, 0);
+            for (int i = 0; i < n; ++i) x_bits[i] = (unsigned char)((A[i][pair.c1] + A[i][pair.c2]) % 2);
+
+            bool same_x = (use_memoization && state_ready && x_bits == state.x_prev);
+            if (!same_x) {
+                auto s_chi = std::chrono::high_resolution_clock::now();
+                if (!state_ready) {
+                    packed_build_compressed_chi_rows_aa(state, A_rows, AA_rows, x_bits, n, this_m);
+                    state_ready = true;
+                } else {
+                    packed_update_chi_rows_compressed_aa(state, A_rows, AA_rows, x_bits, n, this_m, affected_rows);
+                    total_affected_rows += (long long)affected_rows.size();
+                }
+                total_chi_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                    std::chrono::high_resolution_clock::now() - s_chi);
+                has_cached_ns = false;
+            } else {
+                total_memo_x_hits++;
+            }
+
+            if (!has_cached_ns) {
+                auto s_ns = std::chrono::high_resolution_clock::now();
+                ns_cached = packed_nullspace_basis(state.chi_rows, state.row_active, this_m);
+                total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                    std::chrono::high_resolution_clock::now() - s_ns);
+                if (ns_cached.empty()) total_full_ns_empty++;
+                has_cached_ns = true;
+            }
+
+            for (int h = 0; h < (int)ns_cached.size(); h++) {
+                if ((ns_cached[h][pair.c1] + ns_cached[h][pair.c2]) % 2 == 1) {
+                    for (int i = 0; i < n; i++) x_vec[i][0] = x_bits[i];
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < this_m; j++) Anew[i][j] = (A[i][j] + x_vec[i][0] * ns_cached[h][j]) % 2;
+                    }
+                    int mp;
+                    GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+                    if (mp < this_m) {
+                        std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") Dist=" << pair.dist
+                                  << " | " << this_m << " -> " << mp << " columns" << std::endl;
+                        LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                        m_best = mp;
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (found) {
+            LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+            this_m = m_best;
+        }
+        auto round_end = std::chrono::high_resolution_clock::now();
+        std::cout << "Round " << round << " Finished in " << std::chrono::duration_cast<std::chrono::milliseconds>(round_end - round_start).count() << " ms." << std::endl;
+        round++;
+    }
+
+    omp = this_m;
+    auto end_total = std::chrono::high_resolution_clock::now();
+    auto total_dur = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+
+    std::cout << "\n=== Optimization Summary ===" << std::endl;
+    std::cout << "Algorithm       : LempelX2_M4RI_Experimental_PackedLocal_ChiDiff" << std::endl;
+    std::cout << "Initial T-count : " << initial_m << std::endl;
+    std::cout << "Final T-count   : " << omp << std::endl;
+    std::cout << "Total Reduced   : " << (initial_m - omp) << " gates" << std::endl;
+    std::cout << "Execution Time  : " << total_dur.count() << " ms" << std::endl;
+    std::cout << "Chi calculation : " << total_chi_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "AA Table calc   : " << total_aa_tb_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Nullspace calc  : " << total_ns_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Pairs tested    : " << total_pairs_tested << std::endl;
+    std::cout << "Memo x hits     : " << total_memo_x_hits << std::endl;
+    double avg_affected = 0.0;
+    if ((total_pairs_tested - 1 - total_memo_x_hits) > 0) {
+        avg_affected = (double)total_affected_rows / (double)(total_pairs_tested - 1 - total_memo_x_hits);
+    }
+    std::cout << "Avg affected    : " << avg_affected << std::endl;
+    std::cout << "Full NS empty   : " << total_full_ns_empty << std::endl;
+    std::cout << "============================" << std::endl;
+
+    LCL_Mat_GF2::destruct(x_vec, n, 1);
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
 }
 
 void GateSynthesisMatrix::LempelX2_DynamicBasis(bool** A, int n, int m, int& omp) {

@@ -505,3 +505,413 @@ function dynamic_repair_basis(state, affected_rows):
 - ダメなら full rebuild
 
 という保守的な局所修復から始めるのが現実的である。
+
+---
+
+## 現在の実装: `lx2_dynamic_repair_chi_packed_aa`
+
+現在の比較実装の中で、性能が最も良い系の一つが
+
+- `lx2_dynamic_repair_chi_packed_aa`
+
+である。
+
+この実装は、以下を同時に使っている。
+
+- `chi` のゼロ行圧縮
+- packed bit-parallel 表現
+- `AA table` による `A_i AND A_j` の前計算
+- 行空間基底による membership filter
+
+### 全体の流れ
+
+各ラウンドでは、まず現在の `A` から全候補列ペア `(c1, c2)` を作り、
+
+- `x = A[:,c1] XOR A[:,c2]`
+
+を求める。
+
+候補順は現在
+
+- `x_weight`
+- packed `x_words`
+- `c1`
+- `c2`
+
+の順でソートしている。
+
+### `AA table` の構築
+
+ラウンド先頭で現在の `A` に対して
+
+- packed された各行 `A_rows`
+- その全行ペア AND を持つ `AA_rows`
+
+を一度だけ構築する。
+
+ここで `AA_rows[idx(i,j)]` は
+
+- `A_rows[i] AND A_rows[j]`
+
+を表す。
+
+このテーブルは `x` ではなく `A` にだけ依存するため、
+同一ラウンド内では全候補で使い回せる。
+
+### `chi` 行列の差分更新
+
+最初の候補に対しては、圧縮済み packed `chi_rows` を full build する。
+
+2 個目以降は
+
+- `x_prev XOR x_cur`
+
+から `AffectedRows` を求め、その行だけを更新する。
+
+すなわち、
+
+- `chi` を毎回全再構築するのではなく
+- 影響行だけ `build_chi_row_packed_aa(...)` で上書きする
+
+という構成である。
+
+### basis 更新
+
+現在の basis 更新はまだ保守的である。
+
+- `AffectedRows` の中に basis 行があれば rebuild
+- そうでなければ changed rows を `add_to_basis`
+
+とする。
+
+したがって、現状の主ボトルネックは
+
+- `chi` 差分更新そのもの
+
+ではなく、
+
+- touched basis 行があったときの rebuild
+
+である。
+
+### この実装の意味
+
+この版はすでに
+
+- `AA table`
+- `chi` 差分更新
+- packed
+- membership filter
+
+を同時に持っている。
+
+そのため、次の主戦場は
+
+- `basis` の局所修復によって rebuild をどれだけ減らせるか
+
+に移っている。
+
+---
+
+## 次の局所修復ロードマップ
+
+`lx2_dynamic_repair_chi_packed_aa` をさらに速くするための、
+現実的な次段階を以下に示す。
+
+### フェーズ 1: 計測の細分化
+
+まず、現在の rebuild の性質を細かく測る。
+
+少なくとも以下を記録したい。
+
+- `affected_basis_count == 0` の回数
+- `affected_basis_count == 1` の回数
+- `affected_basis_count >= 2` の回数
+- rebuild 回数
+- local add 回数
+
+これにより、`k=1` 局所修復の期待値が見える。
+
+### フェーズ 2: `affected_basis_count == 1` の局所修復
+
+最初の本命はこれである。
+
+方針は、
+
+1. touched した basis 行が 1 本だけなら、その basis 行だけを temporary basis から除く
+2. `AffectedRows` の更新後行を temporary basis に再投入する
+3. rank が元に戻れば採用する
+4. 戻らなければ full rebuild に落とす
+
+というものである。
+
+この段階では、完全な動的 RREF は狙わず、
+
+- 小さい成功ケースだけ拾う
+- 失敗したら即 rebuild
+
+でよい。
+
+### フェーズ 3: 探索順の `x_prev` 近傍化
+
+現在の候補順は
+
+- `x_weight`
+- `x_words`
+
+を重視しているが、局所修復を効かせるには
+
+- `popcount(x_cur XOR x_prev)`
+
+も小さくする順番が有効である。
+
+これにより
+
+- `AffectedRows`
+- touched basis 行数
+
+が減り、local add と局所修復の成功率が上がる可能性が高い。
+
+### フェーズ 4: `affected_basis_count <= 2` への拡張
+
+`k=1` 修復が効くなら、次に
+
+- touched basis 行が 2 本以下
+
+まで局所修復対象を広げる。
+
+ただしこの段階では
+
+- temporary basis の構築コスト
+- 修復成功率
+
+を慎重に見なければならない。
+
+### フェーズ 5: fallback 条件の最適化
+
+最終的には、
+
+- どの条件で即 rebuild
+- どの条件で局所修復を試す
+
+を最適化する。
+
+たとえば
+
+- touched basis 行数
+- `AffectedRows` の大きさ
+- 現在の rank
+
+などで閾値を決めることが考えられる。
+
+---
+
+## 現時点でのまとめ
+
+現在の `lx2_dynamic_repair_chi_packed_aa` は、
+
+- `chi` 側の高速化はかなり進んでいる
+- `AA table` も有効
+- packed nullspace も十分軽い
+
+という状態である。
+
+したがって、次の本命は
+
+- basis rebuild を減らす局所修復
+
+である。
+
+実装順としては、
+
+1. `affected_basis_count` の分布を取る
+2. `affected_basis_count == 1` だけ局所修復する
+3. 効果が出たら `<= 2` に広げる
+
+のが最も自然である。
+
+---
+
+## 現在の主要関数一覧
+
+ここでは、現在このリポジトリで比較対象として使っている主要関数と、
+その役割をまとめる。
+
+### 関数の見方
+
+- `include/GateSynthesisMatrix.h`
+  - 実験用の主要エントリ関数の宣言
+- `source/GateSynthesisMatrix.cpp`
+  - 実際のアルゴリズム本体
+- `include/TO_Decoder.h`
+  - CLI から使うアルゴリズム文字列
+- `source/TO_Decoder.cpp`
+  - アルゴリズム文字列から各関数への dispatch
+
+したがって、ある関数を追うときは
+
+1. `TO_Decoder.h` で文字列タグを確認する
+2. `TO_Decoder.cpp` でどの関数が呼ばれるかを見る
+3. `GateSynthesisMatrix.h` と `GateSynthesisMatrix.cpp` で本体を確認する
+
+という順で読むと分かりやすい。
+
+### TODD / LempelX2 系の主要エントリ
+
+- `GateSynthesisMatrix::LempelX2(...)`
+  - 元の LempelX2 実装
+
+- `GateSynthesisMatrix::LempelX2_M4RI(...)`
+  - M4RI を使う TODD 系の基本実装
+
+- `GateSynthesisMatrix::LempelX2_M4RI_Hamming(...)`
+  - ハミング距離ベースの候補順を使う版
+
+- `GateSynthesisMatrix::LempelX2_M4RI_Experimental(...)`
+  - `todd_exp_****` 系の本体
+  - `packed chi`
+  - `AA table`
+  - `memoization`
+  - `random sketch`
+  を切り替えられる
+
+- `GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal(...)`
+  - `todd_exp_packedlocal_****` の本体
+  - `Experimental` と同じ枠組みだが、nullspace を自前 packed 実装で計算する
+
+- `GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(...)`
+  - `todd_exp_packedlocal_diff_****` の本体
+  - `PackedLocal` のうち `chi` を差分更新する比較版
+
+### 位置づけのまとめ
+
+- `LempelX2(...)`
+  - 元の比較基準
+- `todd_exp_****`
+  - TODD 側の既存高速化枠組み
+- `todd_exp_packedlocal_****`
+  - TODD 側の packed local nullspace 比較群
+- `lx2_dynamic_****`
+  - 行空間基底による membership filter を導入した比較群
+
+### 動的基底系
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasis(...)`
+  - 動的基底追跡の最初の安全版
+  - `chi` は差分更新するが、basis は毎回 full rebuild
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepair(...)`
+  - basis touched がないときだけ local add を使う保守版
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairK1(...)`
+  - `affected_basis_count == 1` の局所修復を試す比較版
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChi(...)`
+  - `chi` の圧縮を入れた bool 版
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPacked(...)`
+  - `chi` 圧縮 + packed 版
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAA(...)`
+  - `chi` 圧縮 + packed + `AA table` 版
+  - 現在の主力比較対象
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedMemo(...)`
+  - `same x` の再利用を試す比較版
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedM4RI(...)`
+  - full rebuild と nullspace の一部を M4RI に寄せた版
+
+- `GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedBasisM4RI(...)`
+  - nullspace 入力として active rows 全体ではなく basis だけを M4RI に渡す版
+
+---
+
+## 主要 helper 関数
+
+### `chi` 行生成
+
+- `build_chi_row_bool(...)`
+  - bool 版の `chi` 行生成
+
+- `build_chi_row_packed(...)`
+  - packed 版の `chi` 行生成
+
+- `build_chi_row_packed_aa(...)`
+  - packed + `AA table` 版の `chi` 行生成
+
+### AA table
+
+- `build_packed_a_rows(...)`
+  - 現在の `A` を packed row 群へ変換
+
+- `build_packed_aa_rows(...)`
+  - `A_i AND A_j` を全行ペアについて前計算
+
+- `packed_get_aa_word(...)`
+  - `AA table` 参照 helper
+  - `i == j` のときは `A_i` を返す
+
+### `chi` 全体構築 / 差分更新
+
+- `packed_build_compressed_chi_state(...)`
+  - packed 圧縮版 `chi` の full build
+
+- `packed_build_compressed_chi_state_aa(...)`
+  - packed + `AA table` 版 `chi` の full build
+
+- `packed_update_chi_state_local_repair_compressed(...)`
+  - packed 圧縮版の `chi` 差分更新 + basis 更新
+
+- `packed_update_chi_state_local_repair_compressed_aa(...)`
+  - packed + `AA table` 版の `chi` 差分更新 + basis 更新
+
+- `packed_build_compressed_chi_rows_aa(...)`
+  - `PackedLocal_ChiDiff` 用の、basis を持たない `chi` full build
+
+- `packed_update_chi_rows_compressed_aa(...)`
+  - `PackedLocal_ChiDiff` 用の、basis を持たない `chi` 差分更新
+
+### basis / membership / nullspace
+
+- `packed_add_row_to_basis(...)`
+  - packed basis への 1 行追加
+
+- `packed_rebuild_basis_from_state(...)`
+  - packed basis の full rebuild
+
+- `packed_membership_test_pair(...)`
+  - `e_{c1,c2}` が行空間に入るかの判定
+
+- `packed_nullspace_basis(...)`
+  - packed `chi` から自前で nullspace 基底を作る
+
+---
+
+## 実行タグとの対応
+
+主な CLI タグとの対応は次のとおり。
+
+- `todd_exp_1110`
+  - `LempelX2_M4RI_Experimental(...)`
+
+- `todd_exp_packedlocal_1110`
+  - `LempelX2_M4RI_Experimental_PackedLocal(...)`
+
+- `todd_exp_packedlocal_diff_1110`
+  - `LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(...)`
+
+- `lx2_dynamic_repair_chi_packed`
+  - `LempelX2_DynamicBasisLocalRepairChiPacked(...)`
+
+- `lx2_dynamic_repair_chi_packed_aa`
+  - `LempelX2_DynamicBasisLocalRepairChiPackedAA(...)`
+
+- `lx2_dynamic_repair_chi_packed_memo`
+  - `LempelX2_DynamicBasisLocalRepairChiPackedMemo(...)`
+
+- `lx2_dynamic_repair_chi_packed_m4ri`
+  - `LempelX2_DynamicBasisLocalRepairChiPackedM4RI(...)`
+
+- `lx2_dynamic_repair_chi_packed_basis_m4ri`
+  - `LempelX2_DynamicBasisLocalRepairChiPackedBasisM4RI(...)`

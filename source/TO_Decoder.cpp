@@ -353,6 +353,19 @@ GateStringSparse TODD(const Signature& inS) {
         GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedM4RI(A_bool,n,m,t);
     else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_BASIS_M4RI))
         GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedBasisM4RI(A_bool,n,m,t);
+    else if(g_algorithm.length() >= 30 && g_algorithm.substr(0, 26) == "todd_exp_packedlocal_diff_") {
+        bool use_packed = (g_algorithm[26] == '1');
+        bool use_aa = (g_algorithm[27] == '1');
+        bool use_memo = (g_algorithm[28] == '1');
+        bool use_sketch = (g_algorithm[29] == '1');
+        int sketch_margin = 20;
+
+        if (g_algorithm.length() > 31 && g_algorithm[30] == '_') {
+            sketch_margin = std::stoi(g_algorithm.substr(31));
+        }
+
+        GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(A_bool,n,m,t, use_packed, use_aa, use_memo, use_sketch, sketch_margin);
+    }
     else if(g_algorithm.length() >= 25 && g_algorithm.substr(0, 21) == "todd_exp_packedlocal_") {
         bool use_packed = (g_algorithm[21] == '1');
         bool use_aa = (g_algorithm[22] == '1');
@@ -471,6 +484,19 @@ GateStringSparse TODD(const GateStringSparse& inGSM) {
             GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedM4RI(A_bool,n,m,t);
         else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_BASIS_M4RI))
             GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedBasisM4RI(A_bool,n,m,t);
+        else if(g_algorithm.length() >= 30 && g_algorithm.substr(0, 26) == "todd_exp_packedlocal_diff_") {
+            bool use_packed = (g_algorithm[26] == '1');
+            bool use_aa = (g_algorithm[27] == '1');
+            bool use_memo = (g_algorithm[28] == '1');
+            bool use_sketch = (g_algorithm[29] == '1');
+            int sketch_margin = 20;
+
+            if (g_algorithm.length() > 31 && g_algorithm[30] == '_') {
+                sketch_margin = std::stoi(g_algorithm.substr(31));
+            }
+
+            GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(A_bool,n,m,t, use_packed, use_aa, use_memo, use_sketch, sketch_margin);
+        }
         else if(g_algorithm.length() >= 25 && g_algorithm.substr(0, 21) == "todd_exp_packedlocal_") {
             bool use_packed = (g_algorithm[21] == '1');
             bool use_aa = (g_algorithm[22] == '1');
