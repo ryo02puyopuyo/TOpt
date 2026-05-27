@@ -1,0 +1,61 @@
+========================================
+ Three-Algorithm Comparison
+ Circuits: 10
+ Algos:    todd_exp_packedlocal_diff_1110 todd_exp_1110 lx2_dynamic_repair_chi_packed_aa
+ Total:    30 runs
+========================================
+
+=== adder_8.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 399 -> 129  (1103.130s)
+  todd_exp_1110 ... T: 399 -> 131  (856.979s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 399 -> 129  (505.952s)
+
+=== csla_mux_3.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 70 -> 49  (1.383s)
+  todd_exp_1110 ... T: 70 -> 50  (2.769s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 70 -> 49  (1.433s)
+
+=== csum_mux_9.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 196 -> 72  (10.442s)
+  todd_exp_1110 ... T: 196 -> 72  (14.540s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 196 -> 72  (6.784s)
+
+=== gf2^6_mult.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 252 -> 122  (9.810s)
+  todd_exp_1110 ... T: 252 -> 124  (18.482s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 252 -> 122  (7.573s)
+
+=== gf2^7_mult.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 343 -> 164  (39.709s)
+  todd_exp_1110 ... T: 343 -> 170  (64.200s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 343 -> 164  (30.130s)
+
+=== gf2^8_mult.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 448 -> 220  (132.935s)
+  todd_exp_1110 ... T: 448 -> 222  (195.863s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 448 -> 220  (79.775s)
+
+=== gf2^9_mult.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 567 -> 281  (517.438s)
+  todd_exp_1110 ... T: 567 -> 275  (474.670s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 567 -> 281  (224.280s)
+
+=== grover_5.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 336 -> 144  (375.637s)
+  todd_exp_1110 ... T: 336 -> 144  (340.924s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 336 -> 144  (130.841s)
+
+=== ham15-low.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 161 -> 78  (21.461s)
+  todd_exp_1110 ... T: 161 -> 75  (27.597s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 161 -> 78  (8.677s)
+
+=== tof_10.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 119 -> 55  (3.107s)
+  todd_exp_1110 ... T: 119 -> 55  (3.936s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 119 -> 55  (1.735s)
+
+========================================
+Done! Results: /home/ryo-mtmt/TOpt/forme/results_compare_three_20260428_033850
+CSV: /home/ryo-mtmt/TOpt/forme/results_compare_three_20260428_033850/summary.csv
+========================================

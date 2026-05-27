@@ -1,0 +1,106 @@
+========================================
+ Three-Algorithm Comparison
+ Circuits: 19
+ Algos:    todd_exp_packedlocal_diff_1110 todd_exp_1110 lx2_dynamic_repair_chi_packed_aa
+ Total:    57 runs
+========================================
+
+=== barenco_tof_3.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 28 -> 14  (.003s)
+  todd_exp_1110 ... T: 28 -> 14  (.005s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 28 -> 14  (.003s)
+
+=== barenco_tof_4.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 56 -> 24  (.054s)
+  todd_exp_1110 ... T: 56 -> 24  (.077s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 56 -> 24  (.043s)
+
+=== barenco_tof_5.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 84 -> 34  (.295s)
+  todd_exp_1110 ... T: 84 -> 34  (.438s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 84 -> 34  (.213s)
+
+=== barenco_tof_10.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 224 -> 84  (26.507s)
+  todd_exp_1110 ... T: 224 -> 84  (27.370s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 224 -> 84  (11.452s)
+
+=== gf2^4_mult.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 112 -> 54  (.394s)
+  todd_exp_1110 ... T: 112 -> 54  (.618s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 112 -> 54  (.391s)
+
+=== gf2^5_mult.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 175 -> 88  (4.220s)
+  todd_exp_1110 ... T: 175 -> 86  (5.326s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 175 -> 88  (3.151s)
+
+=== ham15-med.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 574 -> 163  (3329.619s)
+  todd_exp_1110 ... T: 574 -> 167  (2871.215s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 574 -> 163  (1577.926s)
+
+=== hwb6.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 105 -> 52  (2.235s)
+  todd_exp_1110 ... T: 105 -> 53  (3.761s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 105 -> 52  (1.775s)
+
+=== mod5_4.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 28 -> 16  (.006s)
+  todd_exp_1110 ... T: 28 -> 16  (.008s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 28 -> 16  (.004s)
+
+=== mod_mult_55.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 49 -> 17  (.040s)
+  todd_exp_1110 ... T: 49 -> 18  (.051s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 49 -> 17  (.023s)
+
+=== mod_red_21.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 119 -> 52  (2.134s)
+  todd_exp_1110 ... T: 119 -> 54  (2.939s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 119 -> 52  (2.424s)
+
+=== qcla_com_7.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 203 -> 62  (9.302s)
+  todd_exp_1110 ... T: 203 -> 62  (13.120s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 203 -> 62  (5.889s)
+
+=== qft_4.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 14 -> 12  (.002s)
+  todd_exp_1110 ... T: 14 -> 12  (.003s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 14 -> 12  (.001s)
+
+=== rc_adder_6.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 77 -> 38  (1.924s)
+  todd_exp_1110 ... T: 77 -> 38  (1.612s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 77 -> 38  (.640s)
+
+=== tof_3.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 21 -> 13  (.002s)
+  todd_exp_1110 ... T: 21 -> 13  (.003s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 21 -> 13  (.001s)
+
+=== tof_4.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 35 -> 19  (.017s)
+  todd_exp_1110 ... T: 35 -> 19  (.025s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 35 -> 19  (.011s)
+
+=== tof_5.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 49 -> 25  (.074s)
+  todd_exp_1110 ... T: 49 -> 25  (.103s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 49 -> 25  (.041s)
+
+=== tof_10.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 119 -> 55  (2.486s)
+  todd_exp_1110 ... T: 119 -> 55  (3.902s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 119 -> 55  (1.947s)
+
+=== vbe_adder_3.tfc ===
+  todd_exp_packedlocal_diff_1110 ... T: 70 -> 19  (.026s)
+  todd_exp_1110 ... T: 70 -> 19  (.037s)
+  lx2_dynamic_repair_chi_packed_aa ... T: 70 -> 19  (.019s)
+
+========================================
+Done! Results: /home/ryo-mtmt/TOpt/forme/results_compare_three_20260430_150320
+CSV: /home/ryo-mtmt/TOpt/forme/results_compare_three_20260430_150320/summary.csv
+========================================

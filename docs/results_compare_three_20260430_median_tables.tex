@@ -1,0 +1,160 @@
+% 元表の10行に、results_compare_three_20260430_* の追加結果を反映した表。
+% 20260430 は6回の結果から最初（041727）を除外し、残り5回の中央値を採用。
+% 対象: 075120, 112532, 150320, 183808, 221207
+% algorithm 対応:
+%   m4ri実装（ベースライン）: todd_exp_1110
+%   自前ビット並列: todd_exp_packedlocal_diff_1110
+%   基底再利用: lx2_dynamic_repair_chi_packed_aa
+% 注: 20260430追加行の「既存」列は summary.csv に対応データがないため空欄とした。
+
+\begin{table}[htbp]
+\centering
+\caption{量子回路最適化手法の比較（アンシラあり，20260430中央値を追加）}
+\label{tab:quantum_opt_results_3methods_20260430_added}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l c r | r r | r r | r r}
+\toprule
+\multirow{3}{*}{Benchmark} & \multirow{3}{*}{$n$} & \multicolumn{1}{c|}{Original} & \multicolumn{2}{c|}{m4ri実装（ベースライン）} & \multicolumn{2}{c|}{自前ビット並列} & \multicolumn{2}{c}{基底再利用} \\
+\cmidrule(lr){3-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9}
+ & & {T-gate} & {T-gate} & {Time} & {T} & {Speedup} & {T} & {Speedup} \\
+ & & {(cnt.)} & {(cnt.)} & {(s)} & {(cnt.)} & {(ratio)} & {(cnt.)} & {(ratio)} \\
+\midrule
+adder\_8 & 24 & 399 & 131 & 856.979 & \cellcolor{bestT}129 & 0.80 & \cellcolor{bestT}129 & \cellcolor{bestSpeed}1.72 \\
+csla\_mux\_3 & 16 & 70 & 50 & 3.243 & \cellcolor{bestT}49 & 2.10 & \cellcolor{bestT}49 & \cellcolor{bestSpeed}3.39 \\
+csum\_mux\_9 & 30 & 196 & \cellcolor{bestT}72 & 14.540 & \cellcolor{bestT}72 & 1.41 & \cellcolor{bestT}72 & \cellcolor{bestSpeed}2.14 \\
+gf2\textasciicircum6\_mult & 18 & 252 & 124 & 18.307 & \cellcolor{bestT}122 & 1.83 & \cellcolor{bestT}122 & \cellcolor{bestSpeed}2.42 \\
+gf2\textasciicircum7\_mult & 21 & 343 & 170 & 64.235 & \cellcolor{bestT}164 & 1.62 & \cellcolor{bestT}164 & \cellcolor{bestSpeed}2.14 \\
+gf2\textasciicircum8\_mult & 24 & 448 & 222 & 195.175 & \cellcolor{bestT}220 & 1.47 & \cellcolor{bestT}220 & \cellcolor{bestSpeed}2.46 \\
+gf2\textasciicircum9\_mult & 27 & 567 & \cellcolor{bestT}275 & 474.670 & 281 & 0.91 & 281 & \cellcolor{bestSpeed}2.11 \\
+grover\_5 & 9 & 336 & \cellcolor{bestT}144 & 340.809 & \cellcolor{bestT}144 & 0.91 & \cellcolor{bestT}144 & \cellcolor{bestSpeed}2.60 \\
+ham15-low & 15 & 161 & \cellcolor{bestT}75 & 27.447 & 78 & 1.28 & 78 & \cellcolor{bestSpeed}3.14 \\
+tof\_10 & 19 & 119 & \cellcolor{bestT}55 & 3.949 & \cellcolor{bestT}55 & 1.55 & \cellcolor{bestT}55 & \cellcolor{bestSpeed}2.12 \\
+barenco\_tof\_10 & 19 & 224 & \cellcolor{bestT}84 & 27.393 & \cellcolor{bestT}84 & 1.04 & \cellcolor{bestT}84 & \cellcolor{bestSpeed}2.38 \\
+barenco\_tof\_3 & 5 & 28 & \cellcolor{bestT}14 & 0.005 & \cellcolor{bestT}14 & 1.67 & \cellcolor{bestT}14 & \cellcolor{bestSpeed}2.50 \\
+barenco\_tof\_4 & 7 & 56 & \cellcolor{bestT}24 & 0.075 & \cellcolor{bestT}24 & 1.42 & \cellcolor{bestT}24 & \cellcolor{bestSpeed}1.74 \\
+barenco\_tof\_5 & 9 & 84 & \cellcolor{bestT}34 & 0.438 & \cellcolor{bestT}34 & 1.51 & \cellcolor{bestT}34 & \cellcolor{bestSpeed}2.06 \\
+gf2\textasciicircum4\_mult & 12 & 112 & \cellcolor{bestT}54 & 0.633 & \cellcolor{bestT}54 & 1.45 & \cellcolor{bestT}54 & \cellcolor{bestSpeed}2.52 \\
+gf2\textasciicircum5\_mult & 15 & 175 & \cellcolor{bestT}86 & 5.553 & 88 & 1.37 & 88 & \cellcolor{bestSpeed}1.82 \\
+ham15-med & 17 & 574 & 167 & 2871.215 & \cellcolor{bestT}163 & 0.88 & \cellcolor{bestT}163 & \cellcolor{bestSpeed}1.82 \\
+hwb6 & 7 & 105 & 53 & 3.305 & \cellcolor{bestT}52 & 1.43 & \cellcolor{bestT}52 & \cellcolor{bestSpeed}1.78 \\
+mod5\_4 & 5 & 28 & \cellcolor{bestT}16 & 0.008 & \cellcolor{bestT}16 & 1.33 & \cellcolor{bestT}16 & \cellcolor{bestSpeed}2.00 \\
+mod\_mult\_55 & 9 & 49 & 18 & 0.053 & \cellcolor{bestT}17 & 1.32 & \cellcolor{bestT}17 & \cellcolor{bestSpeed}2.30 \\
+mod\_red\_21 & 11 & 119 & 54 & 2.939 & \cellcolor{bestT}52 & 1.38 & \cellcolor{bestT}52 & \cellcolor{bestSpeed}1.78 \\
+qcla\_com\_7 & 24 & 203 & \cellcolor{bestT}62 & 13.172 & \cellcolor{bestT}62 & 1.42 & \cellcolor{bestT}62 & \cellcolor{bestSpeed}2.24 \\
+qft\_4 & 5 & 14 & \cellcolor{bestT}12 & 0.003 & \cellcolor{bestT}12 & 1.50 & \cellcolor{bestT}12 & \cellcolor{bestSpeed}3.00 \\
+rc\_adder\_6 & 14 & 77 & \cellcolor{bestT}38 & 1.524 & \cellcolor{bestT}38 & 1.15 & \cellcolor{bestT}38 & \cellcolor{bestSpeed}1.39 \\
+tof\_3 & 5 & 21 & \cellcolor{bestT}13 & 0.003 & \cellcolor{bestT}13 & \cellcolor{bestSpeed}1.50 & \cellcolor{bestT}13 & \cellcolor{bestSpeed}1.50 \\
+tof\_4 & 7 & 35 & \cellcolor{bestT}19 & 0.024 & \cellcolor{bestT}19 & 1.41 & \cellcolor{bestT}19 & \cellcolor{bestSpeed}1.71 \\
+tof\_5 & 9 & 49 & \cellcolor{bestT}25 & 0.101 & \cellcolor{bestT}25 & 1.42 & \cellcolor{bestT}25 & \cellcolor{bestSpeed}1.80 \\
+vbe\_adder\_3 & 10 & 70 & \cellcolor{bestT}19 & 0.051 & \cellcolor{bestT}19 & 1.96 & \cellcolor{bestT}19 & \cellcolor{bestSpeed}2.43 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[htbp]
+\centering
+\caption{既存手法と提案最適化設定の比較}
+\label{tab:optimization_comparison_new}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l c r | r r | r r r | r r r | r r r}
+\toprule
+\multirow{2}{*}{Benchmark} & \multirow{2}{*}{$n$} & \multicolumn{1}{c|}{Orig.} & \multicolumn{2}{c|}{既存} & \multicolumn{3}{c|}{m4ri 実装} & \multicolumn{3}{c|}{自前ビット並列 } & \multicolumn{3}{c}{基底再利用} \\
+\cmidrule(lr){3-3} \cmidrule(lr){4-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-14}
+ & & T & T & Time (s) & T & t (s) & Sp. & T & t (s) & Sp. & T & t (s) & Sp. \\
+\midrule
+adder\_8 & 24 & 399 & \cellcolor{bestT}129 & 18913.000 & 131 & 856.980 & 22.07 & \cellcolor{bestT}129 & 1065.080 & 17.76 & \cellcolor{bestT}129 & \cellcolor{bestTime}497.000 & \cellcolor{bestTime}38.05 \\
+barenco\_tof\_3 & 5 & 28 & \cellcolor{bestT}14 & 0.011 & \cellcolor{bestT}14 & 0.005 & 2.20 & \cellcolor{bestT}14 & 0.003 & 3.67 & \cellcolor{bestT}14 & \cellcolor{bestTime}0.002 & \cellcolor{bestTime}5.50 \\
+barenco\_tof\_4 & 7 & 56 & \cellcolor{bestT}24 & 0.218 & \cellcolor{bestT}24 & 0.075 & 2.91 & \cellcolor{bestT}24 & 0.053 & 4.11 & \cellcolor{bestT}24 & \cellcolor{bestTime}0.043 & \cellcolor{bestTime}5.07 \\
+barenco\_tof\_5 & 9 & 84 & \cellcolor{bestT}34 & 1.014 & \cellcolor{bestT}34 & 0.438 & 2.32 & \cellcolor{bestT}34 & 0.291 & 3.48 & \cellcolor{bestT}34 & \cellcolor{bestTime}0.213 & \cellcolor{bestTime}4.76 \\
+barenco\_tof\_10 & 19 & 224 & \cellcolor{bestT}84 & 310.395 & \cellcolor{bestT}84 & 27.393 & 11.33 & \cellcolor{bestT}84 & 26.419 & 11.75 & \cellcolor{bestT}84 & \cellcolor{bestTime}11.530 & \cellcolor{bestTime}26.92 \\
+csla\_mux\_3 & 16 & 70 & 50 & 13.712 & 50 & 3.243 & 4.22 & \cellcolor{bestT}49 & 1.550 & 8.87 & \cellcolor{bestT}49 & \cellcolor{bestTime}0.957 & \cellcolor{bestTime}14.32 \\
+csum\_mux\_9 & 30 & 196 & \cellcolor{bestT}72 & 115.277 & \cellcolor{bestT}72 & 14.540 & 7.93 & \cellcolor{bestT}72 & 10.300 & 11.19 & \cellcolor{bestT}72 & \cellcolor{bestTime}6.781 & \cellcolor{bestTime}17.00 \\
+gf2\textasciicircum4\_mult & 12 & 112 & \cellcolor{bestT}54 & 3.814 & \cellcolor{bestT}54 & 0.633 & 6.03 & \cellcolor{bestT}54 & 0.436 & 8.75 & \cellcolor{bestT}54 & \cellcolor{bestTime}0.251 & \cellcolor{bestTime}15.20 \\
+gf2\textasciicircum5\_mult & 15 & 175 & 90 & 87.733 & \cellcolor{bestT}86 & 5.553 & 15.80 & 88 & 4.062 & 21.60 & 88 & \cellcolor{bestTime}3.044 & \cellcolor{bestTime}28.82 \\
+gf2\textasciicircum6\_mult & 18 & 252 & \cellcolor{bestT}120 & 300.054 & 124 & 18.307 & 16.39 & 122 & 9.992 & 30.03 & 122 & \cellcolor{bestTime}7.577 & \cellcolor{bestTime}39.60 \\
+gf2\textasciicircum7\_mult & 21 & 343 & 173 & 2455.840 & 170 & 64.235 & 38.23 & \cellcolor{bestT}164 & 39.759 & 61.77 & \cellcolor{bestT}164 & \cellcolor{bestTime}30.077 & \cellcolor{bestTime}81.65 \\
+gf2\textasciicircum8\_mult & 24 & 448 & \cellcolor{bestT}220 & 8531.840 & 222 & 195.175 & 43.71 & \cellcolor{bestT}220 & 132.940 & 64.18 & \cellcolor{bestT}220 & \cellcolor{bestTime}79.492 & \cellcolor{bestTime}107.33 \\
+gf2\textasciicircum9\_mult & 27 & 567 & 294 & 34449.340 & \cellcolor{bestT}275 & 474.670 & 72.58 & 281 & 524.450 & 65.69 & 281 & \cellcolor{bestTime}224.770 & \cellcolor{bestTime}153.27 \\
+grover\_5 & 9 & 336 & \cellcolor{bestT}144 & 13576.100 & \cellcolor{bestT}144 & 340.809 & 39.83 & \cellcolor{bestT}144 & 375.640 & 36.14 & \cellcolor{bestT}144 & \cellcolor{bestTime}130.840 & \cellcolor{bestTime}103.76 \\
+ham15-high & 20 & 2457 & & & & & & & & & & & \\
+ham15-med & 17 & 574 & 164 & 70589.700 & 167 & 2871.215 & 24.59 & \cellcolor{bestT}163 & 3280.924 & 21.52 & \cellcolor{bestT}163 & \cellcolor{bestTime}1581.522 & \cellcolor{bestTime}44.63 \\
+ham15-low & 15 & 161 & 77 & 434.361 & \cellcolor{bestT}75 & 27.447 & 15.83 & 78 & 21.460 & 20.24 & 78 & \cellcolor{bestTime}8.742 & \cellcolor{bestTime}49.69 \\
+hwb6 & 7 & 105 & \cellcolor{bestT}51 & 18.194 & 53 & 3.305 & 5.50 & 52 & 2.304 & 7.90 & 52 & \cellcolor{bestTime}1.859 & \cellcolor{bestTime}9.79 \\
+hwb8 & 12 & 5887 & & & & & & & & & & & \\
+mod5\_4 & 5 & 28 & \cellcolor{bestT}16 & 0.016 & \cellcolor{bestT}16 & 0.008 & 2.00 & \cellcolor{bestT}16 & 0.006 & 2.67 & \cellcolor{bestT}16 & \cellcolor{bestTime}0.004 & \cellcolor{bestTime}4.00 \\
+mod\_adder\_1024 & 28 & 1995 & & & & & & & & & & & \\
+mod\_mult\_55 & 9 & 49 & 18 & 0.279 & 18 & 0.053 & 5.26 & \cellcolor{bestT}17 & 0.040 & 6.98 & \cellcolor{bestT}17 & \cellcolor{bestTime}0.023 & \cellcolor{bestTime}12.13 \\
+mod\_red\_21 & 11 & 119 & \cellcolor{bestT}51 & 21.958 & 54 & 2.939 & 7.47 & 52 & 2.134 & 10.29 & 52 & \cellcolor{bestTime}1.654 & \cellcolor{bestTime}13.28 \\
+qcla\_adder\_10 & 36 & 238 & & & & & & & & & & & \\
+qcla\_com\_7 & 24 & 203 & \cellcolor{bestT}59 & 132.748 & 62 & 13.172 & 10.08 & 62 & 9.302 & 14.27 & 62 & \cellcolor{bestTime}5.892 & \cellcolor{bestTime}22.53 \\
+qcla\_mod\_7 & 26 & 413 & & & & & & & & & & & \\
+qft\_4 & 5 & 14 & \cellcolor{bestT}12 & 0.012 & \cellcolor{bestT}12 & 0.003 & 4.00 & \cellcolor{bestT}12 & 0.002 & 6.00 & \cellcolor{bestT}12 & \cellcolor{bestTime}0.001 & \cellcolor{bestTime}12.00 \\
+rc\_adder\_6 & 14 & 77 & \cellcolor{bestT}37 & 9.073 & 38 & 1.524 & 5.95 & 38 & 1.327 & 6.84 & 38 & \cellcolor{bestTime}1.094 & \cellcolor{bestTime}8.29 \\
+tof\_3 & 5 & 21 & \cellcolor{bestT}13 & 0.004 & \cellcolor{bestT}13 & 0.003 & 1.33 & \cellcolor{bestT}13 & \cellcolor{bestTime}0.002 & \cellcolor{bestTime}2.00 & \cellcolor{bestT}13 & \cellcolor{bestTime}0.002 & \cellcolor{bestTime}2.00 \\
+tof\_4 & 7 & 35 & \cellcolor{bestT}19 & 0.037 & \cellcolor{bestT}19 & 0.024 & 1.54 & \cellcolor{bestT}19 & 0.017 & 2.18 & \cellcolor{bestT}19 & \cellcolor{bestTime}0.014 & \cellcolor{bestTime}2.64 \\
+tof\_5 & 9 & 49 & \cellcolor{bestT}25 & 0.324 & \cellcolor{bestT}25 & 0.101 & 3.21 & \cellcolor{bestT}25 & 0.071 & 4.56 & \cellcolor{bestT}25 & \cellcolor{bestTime}0.056 & \cellcolor{bestTime}5.79 \\
+tof\_10 & 19 & 119 & \cellcolor{bestT}55 & 25.900 & \cellcolor{bestT}55 & 3.949 & 6.56 & \cellcolor{bestT}55 & 2.552 & 10.15 & \cellcolor{bestT}55 & \cellcolor{bestTime}1.864 & \cellcolor{bestTime}13.89 \\
+vbe\_adder\_3 & 10 & 70 & 20 & 0.103 & \cellcolor{bestT}19 & 0.051 & 2.02 & \cellcolor{bestT}19 & 0.026 & 3.96 & \cellcolor{bestT}19 & \cellcolor{bestTime}0.021 & \cellcolor{bestTime}4.90 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[H]
+\centering
+\caption{TODDの比較（Hゲートガジェット化手法）}
+\label{tab:optimization_results}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.9}
+\begin{tabular}{l|c rr|rr S[table-format=5.3]|rr S[table-format=5.3]|rr S[table-format=2.2]}
+\toprule
+\multirow{2}{*}{Benchmark} & \multicolumn{3}{c|}{最適化前} & \multicolumn{3}{c|}{手法1 (既存)} & \multicolumn{3}{c|}{手法2 (ハミング距離+ビット並列)} & \multicolumn{3}{c}{比較 } \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-13}
+ & $n$ & {Gates} & {T} & {Gates} & {T} & {Time} & {Gates} & {T} & {Time} & {$\Delta G$} & {$\Delta T$} & {Speedup} \\
+ & & {(tot.)} & {(cnt.)} & {(tot.)} & {(cnt.)} & {(s)} & {(tot.)} & {(cnt.)} & {(s)} & {(cnt.)} & {(cnt.)} & {(ratio)} \\
+\midrule
+adder\_8             & 24 & 888  & 399  &       53051&     129&           18913&       10378&     131&           5152.86& -42673 & +2 & 3.67 \\
+barenco\_tof\_3      & 5  & 60   & 28   & 155   & 14  & 0.011    & 155   & 14  & 0.007    & 0      & 0    & 1.57  \\
+barenco\_tof\_4      & 7  & 114  & 56   & 477   & 24  & 0.218    & 303   & 24  & 0.059    & -174   & 0    & 3.69  \\
+barenco\_tof\_5      & 9  & 170  & 84   & 1011  & 34  & 1.014    & 670   & 34  & 0.553    & -341   & 0    & 1.83  \\
+barenco\_tof\_10     & 19 & 450  & 224  & 3306  & 84  & 310.395  & 3884  & 84  & 45.200   & +578   & 0    & 6.87  \\
+csla\_mux\_3         & 16 & 170  & 70   & 2764  & 50  & 13.712   & 2298  & 50  & 3.083    & -466   & 0    & 4.45  \\
+csum\_mux\_9         & 30 & 392  & 196  & 5075  & 72  & 115.277  & 2447  & 72  & 26.745   & -2628  & 0    & 4.31  \\
+gf2$^{4}$\_mult      & 12 & 225  & 112  & 1361  & 54  & 3.814    & 746   & 60  & 0.239    & -615   & +6   & 15.96 \\
+gf2$^{5}$\_mult      & 15 & 347  & 175  & 2802  & 90  & 87.733   & 1363  & 87  & 5.092    & -1439  & -3   & 17.23 \\
+gf2$^{6}$\_mult      & 18 & 495  & 252  & 3131  & 120 & 300.054  & 2717  & 122 & 30.879   & -414   & +2   & 9.72  \\
+gf2$^{7}$\_mult      & 21 & 669  & 343  & 6799  & 173 & 2455.84  & 2568  & 172 & 105.373  & -4231  & -1   & 23.31 \\
+gf2$^{8}$\_mult      & 24 & 883  & 448  &       13138 &     220&         8531.84 &     5572  &   215&         399.627  & -7566 & -5 & 21.35 \\
+gf2$^{9}$\_mult      & 27 & 1095 & 567  &       13056&    294 &          34449.3 &     4308 &    286 &          868.428 & -8748 & -8 & 39.67 \\
+grover\_5            & 9  & 766  & 336  & 15697 & 144 & 13576.1  & 4808  & 144 & 1183.32  & -10889 & 0    & 11.47 \\
+ham15-high           & 20 & 5308 & 2457 &       &     &          &       &     &          &        &      &       \\
+ham15-med            & 17 & 1272 & 574  &     105228  &     164&          70589.7&     18928  &    167 &         15755.6  & -86300 & +3 & 4.48 \\
+ham15-low            & 17 & 443  & 161  & 3764  & 77  & 434.361  & 4084  & 78  & 68.727   & +320   & +1   & 6.32  \\
+hwb6                 & 7  & 251  & 105  & 5908  & 51  & 18.194   & 2723  & 53  & 5.657    & -3185  & +2   & 3.22  \\
+hwb8                 & 12 & 14698 & 5887 &       &     &          &       &     &          &        &      &       \\
+mod5\_4              & 5  & 62   & 28   & 133   & 16  & 0.016    & 133   & 16  & 0.010    & 0      & 0    & 1.60  \\
+mod\_adder\_1024     & 28 & 4285 & 1995 &       &     &          &       &     &          &        &      &       \\
+mod\_mult\_55        & 9  & 111  & 49   & 899   & 18  & 0.279    & 409   & 18  & 0.115    & -490   & 0    & 2.43  \\
+mod\_red\_21         & 11 & 254  & 119  & 5387  & 51  & 21.958   & 1061  & 55  & 3.370    & -4326  & +4   & 6.52  \\
+qcla\_adder\_10      & 36 & 521  & 238  &       &     &          &       &     &          &        &      &       \\
+qcla\_com\_7         & 24 & 428  & 203  & 13738 & 59  & 132.748  & 4298  & 64  & 13.565   & -9440  & +5   & 9.79  \\
+qcla\_mod\_7         & 26 & 877  & 413  &       &     &          &       &     &          &        &      &       \\
+qft\_4               & 5  & 102  & 14   & 152   & 12  & 0.012    & 152   & 12  & 0.007    & 0      & 0    & 1.71  \\
+rc\_adder\_6         & 14 & 192  & 77   & 3844  & 37  & 9.073    & 1642  & 37  & 5.265    & -2202  & 0    & 1.72  \\
+tof\_3               & 5  & 45   & 21   & 280   & 13  & 0.004    & 135   & 13  & 0.004    & -145   & 0    & 1.00  \\
+tof\_4               & 7  & 75   & 35   & 380   & 19  & 0.037    & 377   & 19  & 0.034    & -3     & 0    & 1.09  \\
+tof\_5               & 9  & 105  & 49   & 743   & 25  & 0.324    & 373   & 25  & 0.136    & -370   & 0    & 2.38  \\
+tof\_10              & 19 & 255  & 119  & 2165  & 55  & 27.367   & 2018  & 55  & 8.671    & -147   & 0    & 3.16  \\
+vbe\_adder\_3        & 10 & 150  & 70   & 1237  & 20  & 0.103    & 590   & 20  & 0.083    & -647   & 0    & 1.24  \\
+\bottomrule
+\end{tabular}
+\end{table}
+
