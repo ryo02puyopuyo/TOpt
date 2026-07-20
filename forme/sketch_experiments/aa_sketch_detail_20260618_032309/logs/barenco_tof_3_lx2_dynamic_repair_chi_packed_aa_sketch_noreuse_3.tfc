@@ -1,0 +1,253 @@
+Circuit filename: /home/ryo-mtmt/TOpt/forme/tpar_benchmark/barenco_tof_3.tfc
+
+Input circuit:
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+H 5
+CCZ 3 4 5
+H 5
+H 4
+CCZ 1 2 4
+H 4
+H 5
+CCZ 3 4 5
+H 5
+H 4
+CCZ 1 2 4
+H 4
+
+
+Output circuit:
+n 8
+n_x 5
+n_y 0
+n_z 3
+m 201
+H 5
+H 6
+H 7
+H 8
+CNOT 3 4
+CNOT 3 5
+CNOT 3 6
+CNOT 3 7
+T 3
+CNOT 3 5
+CNOT 3 4
+CNOT 4 5
+CNOT 4 6
+CNOT 4 7
+T 4
+CNOT 4 7
+CNOT 4 6
+CNOT 4 5
+CNOT 3 4
+T 3
+CNOT 3 7
+CNOT 3 4
+CNOT 4 6
+CNOT 4 7
+T 4
+Z 4
+CNOT 4 7
+CNOT 4 6
+CNOT 1 2
+CNOT 1 8
+T 1
+CNOT 1 2
+CNOT 2 8
+T 2
+S 2
+CNOT 2 8
+T 1
+S 1
+CNOT 1 8
+T 8
+S 8
+Z 8
+CNOT 3 5
+T 3
+S 3
+Z 3
+CNOT 3 5
+T 3
+S 3
+CNOT 3 6
+CNOT 5 6
+T 5
+S 5
+CNOT 5 6
+CNOT 1 6
+T 1
+S 1
+CNOT 1 2
+T 1
+CNOT 1 6
+CNOT 1 2
+CNOT 2 6
+T 2
+S 2
+CNOT 2 6
+S 1
+Z 1
+S 2
+Z 2
+S 3
+S 4
+S 5
+CNOT 1 2
+S 1
+CNOT 1 2
+CNOT 3 4
+S 3
+Z 3
+CNOT 3 4
+CNOT 3 5
+Z 3
+CNOT 3 5
+CNOT 3 7
+S 3
+Z 3
+CNOT 3 7
+CNOT 4 5
+S 4
+Z 4
+CNOT 4 5
+CNOT 4 6
+S 4
+Z 4
+CNOT 4 6
+CNOT 4 7
+Z 4
+CNOT 4 7
+CNOT 5 7
+S 5
+Z 5
+CNOT 5 7
+CNOT 6 7
+S 6
+Z 6
+CNOT 6 7
+CNOT 7 8
+S 7
+CNOT 7 8
+CNOT 3 4
+CNOT 3 6
+S 3
+Z 3
+CNOT 3 6
+CNOT 3 7
+S 3
+Z 3
+CNOT 3 4
+CNOT 3 6
+S 3
+Z 3
+CNOT 3 7
+CNOT 3 6
+CNOT 4 5
+CNOT 4 6
+S 4
+Z 4
+CNOT 4 6
+CNOT 4 7
+S 4
+Z 4
+CNOT 4 7
+CNOT 4 5
+CNOT 5 6
+CNOT 5 7
+S 5
+Z 5
+CNOT 5 7
+CNOT 5 6
+CNOT 7 8
+CNOT 6 8
+CNOT 4 8
+CNOT 8 7
+CNOT 7 8
+CNOT 7 6
+CNOT 6 7
+CNOT 6 4
+CNOT 4 6
+H 6
+M 6
+H 7
+M 7
+H 8
+M 8
+H 4
+H 5
+
+Input operator distribution:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 28
+Cost estimation = 14008
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	8
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	4
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+
+Algorithm used: lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_3
+Output operator distribution:
+Operator distribution:
+Total number of qubits = 8
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 3
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 14
+Cost estimation = 7142.5
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	9
+	4	83
+	5	14
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	27
+	12	0
+	13	19
+	14	0
+	15	0
+	16	0
+	17	0
+	18	3
+
+Output T Count (SQC_Circuit) = 14
+Output T Count (PhasePolynomial) = 14
+Fail count = 0
+Execution time: 0.00574s

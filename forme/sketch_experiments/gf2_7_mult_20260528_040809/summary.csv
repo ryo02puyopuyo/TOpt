@@ -1,0 +1,2 @@
+circuit,algorithm,input_tcount,output_tcount,exec_ms,exec_s,chi_ms,aa_ms,nullspace_ms,sketch_mode,sketch_attempts,sketch_skipped,sketch_rejected,sketch_passed,sketch_rows_avg,sketch_y_vectors,sketch_y_full_ok,sketch_y_full_ng,sketch_y_reduced,full_ns_skipped,full_ns_computed,sketch_ms,fail_count,outfile
+gf2^7_mult,todd_exp_packedlocal_diff_1110,343,164,40359,41.3978,2728.6,0.748,37488.2,,,,,,,,,,,,,,,/home/ryo-mtmt/TOpt/forme/sketch_experiments/gf2_7_mult_20260528_040809/todd_exp_packedlocal_diff_1110.out

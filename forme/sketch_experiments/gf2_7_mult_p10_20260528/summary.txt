@@ -1,0 +1,42 @@
+Experiment: gf2^7_mult sketch p10
+Algorithm: todd_exp_packedlocal_diff_1111_p10
+Input: t-par/Benchmarks/gf2^7_mult.tfc
+Date: 2026-05-28
+
+Initial T-count : 217
+Final T-count   : 164
+Total Reduced   : 53 gates
+Execution Time  : 50420 ms
+Execution time  : 51.4568s
+
+Chi calculation : 2627.75 ms
+AA Table calc   : 0.449 ms
+Nullspace calc  : 36859.9 ms
+Pairs tested    : 19514
+Memo x hits     : 3216
+Avg affected    : 10058.9
+Full NS empty   : 0
+
+Sketch mode     : percent(10)
+Sketch attempts : 16298
+Sketch skipped  : 0
+Sketch rejected : 0
+Sketch passed   : 16298
+Sketch rows avg : 1465.59
+Sketch y vectors: 130847
+Sketch y full ok: 1
+Sketch y full ng: 16724
+Sketch y reduced: 1
+Sketch y no red : 0
+Full NS skipped : 0
+Full NS computed: 16297
+Sketch time     : 10835 ms
+
+Output T Count (SQC_Circuit)      : 164
+Output T Count (PhasePolynomial)  : 164
+Fail count                        : 0
+
+Notes:
+- The run is correct: both output T-count checks match and Fail count is 0.
+- Early rejection did not fire: Sketch rejected is 0 and Full NS skipped is 0.
+- The sketch found one valid reducing vector, but overall p10 added overhead.

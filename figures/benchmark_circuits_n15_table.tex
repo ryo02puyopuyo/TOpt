@@ -1,0 +1,55 @@
+% Requires \usepackage{booktabs} in the document preamble.
+\begin{table}[t]
+  \centering
+  \caption{15量子ビット以上のベンチマーク回路}
+  \label{tab:benchmark-circuits-n15}
+  \small
+  \setlength{\tabcolsep}{5pt}
+  \renewcommand{\arraystretch}{1.12}
+  \begin{tabular}{lrr}
+    \toprule
+    Benchmark & $n$ & T gates \\
+    \midrule
+    \texttt{tof\_10}                       & 19 & 119 \\
+    \texttt{ham15-low}                     & 15 & 161 \\
+    \texttt{gf2\textasciicircum5\_mult}   & 15 & 175 \\
+    \texttt{qcla\_com\_7}                 & 24 & 203 \\
+    \texttt{barenco\_tof\_10}             & 19 & 224 \\
+    \texttt{gf2\textasciicircum6\_mult}   & 18 & 252 \\
+    \texttt{gf2\textasciicircum7\_mult}   & 21 & 343 \\
+    \texttt{adder\_8}                      & 24 & 399 \\
+    \texttt{gf2\textasciicircum8\_mult}   & 24 & 448 \\
+    \texttt{gf2\textasciicircum9\_mult}   & 27 & 567 \\
+    \texttt{ham15-med}                     & 17 & 574 \\
+    \texttt{gf2\textasciicircum10\_mult}  & 30 & 700 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% Alternative ordering: ascending number of qubits, then ascending T count.
+\begin{table}[t]
+  \centering
+  \caption{15量子ビット以上のベンチマーク回路（量子ビット数順）}
+  \label{tab:benchmark-circuits-n15-by-qubits}
+  \small
+  \setlength{\tabcolsep}{5pt}
+  \renewcommand{\arraystretch}{1.12}
+  \begin{tabular}{lrr}
+    \toprule
+    Benchmark & $n$ & T gates \\
+    \midrule
+    \texttt{ham15-low}                     & 15 & 161 \\
+    \texttt{gf2\textasciicircum5\_mult}   & 15 & 175 \\
+    \texttt{ham15-med}                     & 17 & 574 \\
+    \texttt{gf2\textasciicircum6\_mult}   & 18 & 252 \\
+    \texttt{tof\_10}                       & 19 & 119 \\
+    \texttt{barenco\_tof\_10}             & 19 & 224 \\
+    \texttt{gf2\textasciicircum7\_mult}   & 21 & 343 \\
+    \texttt{qcla\_com\_7}                 & 24 & 203 \\
+    \texttt{adder\_8}                      & 24 & 399 \\
+    \texttt{gf2\textasciicircum8\_mult}   & 24 & 448 \\
+    \texttt{gf2\textasciicircum9\_mult}   & 27 & 567 \\
+    \texttt{gf2\textasciicircum10\_mult}  & 30 & 700 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

@@ -1,0 +1,601 @@
+Circuit filename: /home/ryo-mtmt/TOpt/forme/tpar_benchmark/tof_5.tfc
+
+Input circuit:
+n 9
+n_x 9
+n_y 0
+n_z 0
+m 101
+H 6
+CCZ 1 2 6
+H 6
+H 7
+CCZ 3 6 7
+H 7
+H 8
+CCZ 4 7 8
+H 8
+H 9
+CCZ 5 8 9
+H 9
+H 8
+CCZ 4 7 8
+H 8
+H 7
+CCZ 3 6 7
+H 7
+H 6
+CCZ 1 2 6
+H 6
+
+
+Output circuit:
+n 15
+n_x 9
+n_y 0
+n_z 6
+m 501
+H 6
+H 7
+H 8
+H 9
+H 10
+H 11
+H 12
+H 13
+H 14
+H 15
+CNOT 5 9
+CNOT 5 12
+T 5
+CNOT 5 12
+T 5
+S 5
+CNOT 5 9
+CNOT 9 12
+T 9
+S 9
+CNOT 9 12
+CNOT 5 12
+T 5
+S 5
+CNOT 5 12
+CNOT 1 5
+T 1
+S 1
+CNOT 1 5
+CNOT 5 6
+CNOT 5 15
+T 5
+Z 5
+CNOT 5 15
+CNOT 5 6
+T 12
+Z 12
+CNOT 4 7
+CNOT 4 8
+CNOT 4 9
+CNOT 4 11
+CNOT 4 13
+CNOT 4 14
+T 4
+CNOT 4 11
+CNOT 4 7
+CNOT 7 8
+CNOT 7 9
+CNOT 7 11
+CNOT 7 13
+CNOT 7 14
+T 7
+CNOT 7 14
+CNOT 7 13
+CNOT 7 11
+CNOT 7 9
+CNOT 7 8
+CNOT 4 7
+T 4
+CNOT 4 13
+CNOT 4 8
+CNOT 4 7
+CNOT 7 8
+CNOT 7 9
+CNOT 7 13
+CNOT 7 14
+T 7
+CNOT 7 14
+CNOT 7 13
+CNOT 7 9
+CNOT 7 8
+CNOT 4 7
+CNOT 4 11
+T 4
+CNOT 4 11
+T 4
+CNOT 4 14
+CNOT 4 9
+CNOT 4 7
+CNOT 7 9
+CNOT 7 11
+CNOT 7 14
+T 7
+CNOT 7 14
+CNOT 7 11
+CNOT 7 9
+CNOT 2 5
+T 2
+S 2
+CNOT 2 5
+CNOT 3 9
+CNOT 3 10
+T 3
+S 3
+Z 3
+CNOT 3 10
+CNOT 3 9
+CNOT 9 10
+T 9
+S 9
+CNOT 9 10
+CNOT 3 9
+T 3
+S 3
+CNOT 1 5
+CNOT 1 6
+CNOT 1 15
+T 1
+CNOT 1 15
+CNOT 1 6
+CNOT 3 7
+CNOT 3 10
+CNOT 3 14
+T 3
+CNOT 3 10
+T 3
+CNOT 3 14
+CNOT 3 9
+CNOT 3 7
+CNOT 7 9
+CNOT 7 10
+CNOT 7 14
+T 7
+CNOT 7 14
+CNOT 7 10
+CNOT 7 9
+CNOT 1 2
+T 1
+S 1
+Z 1
+CNOT 1 6
+CNOT 1 15
+T 1
+CNOT 1 15
+CNOT 1 6
+CNOT 1 5
+CNOT 1 2
+CNOT 2 5
+CNOT 2 6
+CNOT 2 15
+T 2
+CNOT 2 15
+CNOT 2 6
+CNOT 2 5
+S 1
+S 2
+S 3
+S 4
+Z 5
+S 6
+Z 7
+S 8
+Z 8
+S 9
+Z 9
+S 10
+Z 10
+S 11
+Z 11
+S 13
+Z 13
+Z 14
+S 15
+CNOT 1 2
+Z 1
+CNOT 1 2
+CNOT 1 6
+S 1
+Z 1
+CNOT 1 6
+CNOT 1 15
+S 1
+Z 1
+CNOT 1 15
+CNOT 2 6
+S 2
+Z 2
+CNOT 2 6
+CNOT 2 15
+S 2
+Z 2
+CNOT 2 15
+CNOT 3 7
+S 3
+Z 3
+CNOT 3 7
+CNOT 3 10
+Z 3
+CNOT 3 10
+CNOT 3 14
+S 3
+Z 3
+CNOT 3 14
+CNOT 4 7
+S 4
+CNOT 4 7
+CNOT 4 8
+S 4
+CNOT 4 8
+CNOT 4 9
+S 4
+CNOT 4 9
+CNOT 4 13
+S 4
+CNOT 4 13
+CNOT 4 14
+S 4
+CNOT 4 14
+CNOT 5 6
+Z 5
+CNOT 5 6
+CNOT 5 15
+Z 5
+CNOT 5 15
+CNOT 6 10
+S 6
+CNOT 6 10
+CNOT 6 15
+Z 6
+CNOT 6 15
+CNOT 7 8
+Z 7
+CNOT 7 8
+CNOT 7 10
+S 7
+Z 7
+CNOT 7 10
+CNOT 7 11
+Z 7
+CNOT 7 11
+CNOT 7 13
+Z 7
+CNOT 7 13
+CNOT 8 9
+Z 8
+CNOT 8 9
+CNOT 8 11
+S 8
+CNOT 8 11
+CNOT 8 12
+S 8
+CNOT 8 12
+CNOT 8 13
+Z 8
+CNOT 8 13
+CNOT 8 14
+Z 8
+CNOT 8 14
+CNOT 9 11
+S 9
+CNOT 9 11
+CNOT 9 13
+Z 9
+CNOT 9 13
+CNOT 10 14
+S 10
+Z 10
+CNOT 10 14
+CNOT 10 15
+S 10
+CNOT 10 15
+CNOT 11 13
+S 11
+CNOT 11 13
+CNOT 11 14
+Z 11
+CNOT 11 14
+CNOT 12 13
+S 12
+CNOT 12 13
+CNOT 13 14
+Z 13
+CNOT 13 14
+CNOT 1 5
+CNOT 1 6
+S 1
+Z 1
+CNOT 1 6
+CNOT 1 15
+S 1
+Z 1
+CNOT 1 5
+CNOT 1 6
+S 1
+Z 1
+CNOT 1 15
+CNOT 1 6
+CNOT 2 5
+CNOT 2 6
+S 2
+Z 2
+CNOT 2 6
+CNOT 2 15
+S 2
+Z 2
+CNOT 2 5
+CNOT 2 6
+S 2
+Z 2
+CNOT 2 15
+CNOT 2 6
+CNOT 3 7
+CNOT 3 9
+S 3
+Z 3
+CNOT 3 9
+CNOT 3 14
+S 3
+Z 3
+CNOT 3 7
+CNOT 3 9
+S 3
+Z 3
+CNOT 3 14
+CNOT 3 9
+CNOT 4 7
+CNOT 4 8
+S 4
+Z 4
+CNOT 4 8
+CNOT 4 9
+Z 4
+CNOT 4 9
+CNOT 4 11
+S 4
+Z 4
+CNOT 4 11
+CNOT 4 13
+S 4
+Z 4
+CNOT 4 13
+CNOT 4 14
+Z 4
+CNOT 4 14
+CNOT 4 7
+CNOT 4 8
+CNOT 4 9
+S 4
+Z 4
+CNOT 4 9
+CNOT 4 13
+S 4
+Z 4
+CNOT 4 13
+CNOT 4 14
+S 4
+Z 4
+CNOT 4 14
+CNOT 4 8
+CNOT 4 9
+CNOT 4 11
+S 4
+Z 4
+CNOT 4 11
+CNOT 4 13
+S 4
+Z 4
+CNOT 4 13
+CNOT 4 14
+Z 4
+CNOT 4 9
+CNOT 4 11
+S 4
+Z 4
+CNOT 4 11
+CNOT 4 13
+S 4
+Z 4
+CNOT 4 14
+CNOT 4 13
+CNOT 7 8
+CNOT 7 9
+Z 7
+CNOT 7 9
+CNOT 7 11
+S 7
+Z 7
+CNOT 7 11
+CNOT 7 13
+Z 7
+CNOT 7 13
+CNOT 7 14
+Z 7
+CNOT 7 14
+CNOT 7 8
+CNOT 7 9
+CNOT 7 10
+S 7
+Z 7
+CNOT 7 10
+CNOT 7 11
+Z 7
+CNOT 7 11
+CNOT 7 13
+Z 7
+CNOT 7 13
+CNOT 7 14
+S 7
+Z 7
+CNOT 7 9
+CNOT 7 10
+S 7
+Z 7
+CNOT 7 14
+CNOT 7 10
+CNOT 7 11
+CNOT 7 13
+S 7
+Z 7
+CNOT 7 13
+CNOT 7 14
+Z 7
+CNOT 7 11
+CNOT 7 13
+Z 7
+CNOT 7 13
+CNOT 8 9
+CNOT 8 11
+S 8
+Z 8
+CNOT 8 11
+CNOT 8 13
+Z 8
+CNOT 8 13
+CNOT 8 14
+Z 8
+CNOT 8 14
+CNOT 8 9
+CNOT 8 11
+CNOT 8 13
+S 8
+Z 8
+CNOT 8 13
+CNOT 8 14
+S 8
+Z 8
+CNOT 8 11
+CNOT 8 13
+Z 8
+CNOT 8 14
+CNOT 9 10
+CNOT 9 14
+S 9
+Z 9
+CNOT 9 14
+CNOT 9 10
+CNOT 9 11
+CNOT 9 13
+S 9
+Z 9
+CNOT 9 13
+CNOT 9 14
+Z 9
+CNOT 9 11
+CNOT 9 13
+Z 9
+CNOT 9 14
+CNOT 9 13
+CNOT 11 13
+CNOT 11 14
+S 11
+Z 11
+CNOT 11 13
+CNOT 10 15
+CNOT 6 15
+CNOT 12 13
+CNOT 13 12
+CNOT 12 13
+CNOT 14 11
+CNOT 11 14
+CNOT 15 10
+CNOT 10 15
+CNOT 12 8
+CNOT 8 12
+CNOT 11 7
+CNOT 7 11
+CNOT 10 6
+CNOT 6 10
+H 10
+M 10
+H 11
+M 11
+H 12
+M 12
+H 13
+M 13
+H 14
+M 14
+H 15
+M 15
+H 6
+H 7
+H 8
+H 9
+
+Input operator distribution:
+Operator distribution:
+Total number of qubits = 9
+Number of `data' qubits = 9
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 49
+Cost estimation = 24514
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	14
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	7
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+
+Algorithm used: lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_30
+Output operator distribution:
+Operator distribution:
+Total number of qubits = 15
+Number of `data' qubits = 9
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 6
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 25
+Cost estimation = 12972
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	20
+	4	294
+	5	25
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	70
+	12	0
+	13	79
+	14	0
+	15	0
+	16	0
+	17	0
+	18	6
+
+Output T Count (SQC_Circuit) = 25
+Output T Count (PhasePolynomial) = 25
+Fail count = 0
+Execution time: 0.080067s

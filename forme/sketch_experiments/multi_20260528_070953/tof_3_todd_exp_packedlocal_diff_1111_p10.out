@@ -1,0 +1,281 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/ryo-mtmt/TOpt/forme/tpar_benchmark/tof_3.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/ryo-mtmt/TOpt/forme/tpar_benchmark/tof_3.tfc
+
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+[0] = H 5
+[1] = CCZ 1 2 5
+[2] = H 5
+[3] = H 4
+[4] = CCZ 3 5 4
+[5] = H 4
+[6] = H 5
+[7] = CCZ 1 2 5
+[8] = H 5
+
+Algorithm used: todd_exp_packedlocal_diff_1111_p10
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 7x15
+73 72 27 26 13 71 100 99 9 11 98 97 22 30 74 45 31 75 46 33 7 47 34 77 78 50 23 81 
+
+[Experimental TODD PackedLocal + ChiDiff] Flags - Packed: 1, AA Table: 1, Memo: 1, Sketch: 1 (percent=10)
+--- Round 0 | Current Columns: 15 ---
+  [HIT!] Pair(4,14) Dist=2 | 15 -> 13 columns
+Round 0 Finished in 0 ms.
+--- Round 1 | Current Columns: 13 ---
+Round 1 Finished in 1 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_Experimental_PackedLocal_ChiDiff
+Initial T-count : 15
+Final T-count   : 13
+Total Reduced   : 2 gates
+Execution Time  : 2 ms
+Chi calculation : 0.479 ms
+AA Table calc   : 0.006 ms
+Nullspace calc  : 0.747 ms
+Pairs tested    : 103
+Memo x hits     : 39
+Avg affected    : 239.635
+Full NS empty   : 0
+Sketch mode     : percent(10)
+Sketch attempts : 76
+Sketch skipped  : 0
+Sketch rejected : 39
+Sketch rank rej : 0
+Sketch pair rej : 39
+Sketch passed   : 37
+Sketch rows avg : 25.7237
+Sketch y vectors: 351
+Sketch pair y   : 70
+Sketch y full ok: 0
+Sketch y full ng: 70
+Sketch y reduced: 0
+Sketch y no red : 0
+Full NS skipped : 39
+Full NS computed: 37
+Sketch time     : 0.862 ms
+============================
+		TODD executed in 0.002316 seconds.
+		Total time: 0.002382s
+	Gate synthesis end.
+	Total time: 0.003161s
+UniversalOptimize end.
+Output circuit:
+n 7
+n_x 5
+n_y 0
+n_z 2
+m 201
+[0] = H 5
+[1] = H 4
+[2] = H 6
+[3] = H 7
+[4] = CNOT 3 4
+[5] = CNOT 3 6
+[6] = T 3
+[7] = CNOT 3 6
+[8] = T 3
+[9] = S 3
+[10] = CNOT 3 4
+[11] = CNOT 4 6
+[12] = T 4
+[13] = S 4
+[14] = CNOT 4 6
+[15] = CNOT 3 6
+[16] = T 3
+[17] = S 3
+[18] = CNOT 3 6
+[19] = CNOT 1 3
+[20] = T 1
+[21] = S 1
+[22] = T 4
+[23] = T 6
+[24] = Z 6
+[25] = CNOT 1 2
+[26] = CNOT 1 5
+[27] = CNOT 1 7
+[28] = T 1
+[29] = CNOT 1 2
+[30] = CNOT 2 3
+[31] = CNOT 2 5
+[32] = CNOT 2 7
+[33] = T 2
+[34] = CNOT 2 7
+[35] = CNOT 2 5
+[36] = CNOT 2 3
+[37] = T 1
+[38] = CNOT 1 7
+[39] = CNOT 1 5
+[40] = CNOT 1 3
+[41] = CNOT 3 5
+[42] = CNOT 3 7
+[43] = T 3
+[44] = Z 3
+[45] = CNOT 3 7
+[46] = CNOT 3 5
+[47] = CNOT 1 2
+[48] = CNOT 1 3
+[49] = T 1
+[50] = S 1
+[51] = Z 1
+[52] = CNOT 1 3
+[53] = CNOT 1 2
+[54] = CNOT 2 3
+[55] = T 2
+[56] = S 2
+[57] = CNOT 2 3
+[58] = S 1
+[59] = S 2
+[60] = Z 3
+[61] = S 5
+[62] = S 7
+[63] = CNOT 1 2
+[64] = Z 1
+[65] = CNOT 1 2
+[66] = CNOT 1 5
+[67] = S 1
+[68] = Z 1
+[69] = CNOT 1 5
+[70] = CNOT 1 7
+[71] = S 1
+[72] = Z 1
+[73] = CNOT 1 7
+[74] = CNOT 2 5
+[75] = S 2
+[76] = Z 2
+[77] = CNOT 2 5
+[78] = CNOT 2 7
+[79] = S 2
+[80] = Z 2
+[81] = CNOT 2 7
+[82] = CNOT 3 5
+[83] = Z 3
+[84] = CNOT 3 5
+[85] = CNOT 3 7
+[86] = Z 3
+[87] = CNOT 3 7
+[88] = CNOT 5 6
+[89] = S 5
+[90] = CNOT 5 6
+[91] = CNOT 5 7
+[92] = Z 5
+[93] = CNOT 5 7
+[94] = CNOT 6 7
+[95] = S 6
+[96] = CNOT 1 3
+[97] = CNOT 1 5
+[98] = S 1
+[99] = Z 1
+[100] = CNOT 1 5
+[101] = CNOT 1 7
+[102] = S 1
+[103] = Z 1
+[104] = CNOT 1 3
+[105] = CNOT 1 5
+[106] = S 1
+[107] = Z 1
+[108] = CNOT 1 7
+[109] = CNOT 1 5
+[110] = CNOT 2 3
+[111] = CNOT 2 5
+[112] = S 2
+[113] = Z 2
+[114] = CNOT 2 5
+[115] = CNOT 2 7
+[116] = S 2
+[117] = Z 2
+[118] = CNOT 2 3
+[119] = CNOT 2 5
+[120] = S 2
+[121] = Z 2
+[122] = CNOT 2 7
+[123] = CNOT 2 5
+[124] = CNOT 5 7
+[125] = CNOT 7 6
+[126] = CNOT 6 7
+[127] = CNOT 6 5
+[128] = CNOT 5 6
+[129] = H 6
+[130] = M 6
+[131] = H 7
+[132] = M 7
+[133] = H 5
+[134] = H 4
+Gate distributions:
+Input:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 21
+Cost estimation = 10506
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	6
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	3
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Output:
+Operator distribution:
+Total number of qubits = 7
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 2
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 13
+Cost estimation = 6623
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	8
+	4	72
+	5	13
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	22
+	12	0
+	13	18
+	14	0
+	15	0
+	16	0
+	17	0
+	18	2
+Output T Count (SQC_Circuit) = 13
+Output T Count (PhasePolynomial) = 13
+Fail count = 0
+
+Execution time: 0.003178s
+Number of LCL errors: 0
+Number of LCL warnings: 0

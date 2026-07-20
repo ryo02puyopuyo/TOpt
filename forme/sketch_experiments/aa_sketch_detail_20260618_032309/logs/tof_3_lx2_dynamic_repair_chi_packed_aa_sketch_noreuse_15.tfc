@@ -1,0 +1,230 @@
+Circuit filename: /home/ryo-mtmt/TOpt/forme/tpar_benchmark/tof_3.tfc
+
+Input circuit:
+n 5
+n_x 5
+n_y 0
+n_z 0
+m 101
+H 5
+CCZ 1 2 5
+H 5
+H 4
+CCZ 3 5 4
+H 4
+H 5
+CCZ 1 2 5
+H 5
+
+
+Output circuit:
+n 7
+n_x 5
+n_y 0
+n_z 2
+m 201
+H 5
+H 4
+H 6
+H 7
+CNOT 3 4
+CNOT 3 6
+T 3
+CNOT 3 6
+T 3
+S 3
+CNOT 3 4
+CNOT 4 6
+T 4
+S 4
+CNOT 4 6
+CNOT 3 6
+T 3
+S 3
+CNOT 3 6
+CNOT 1 3
+T 1
+S 1
+T 4
+T 6
+Z 6
+CNOT 1 2
+CNOT 1 5
+CNOT 1 7
+T 1
+CNOT 1 2
+CNOT 2 3
+CNOT 2 5
+CNOT 2 7
+T 2
+CNOT 2 7
+CNOT 2 5
+CNOT 2 3
+T 1
+CNOT 1 7
+CNOT 1 5
+CNOT 1 3
+CNOT 3 5
+CNOT 3 7
+T 3
+Z 3
+CNOT 3 7
+CNOT 3 5
+CNOT 1 2
+CNOT 1 3
+T 1
+S 1
+Z 1
+CNOT 1 3
+CNOT 1 2
+CNOT 2 3
+T 2
+S 2
+CNOT 2 3
+S 1
+S 2
+Z 3
+S 5
+S 7
+CNOT 1 2
+Z 1
+CNOT 1 2
+CNOT 1 5
+S 1
+Z 1
+CNOT 1 5
+CNOT 1 7
+S 1
+Z 1
+CNOT 1 7
+CNOT 2 5
+S 2
+Z 2
+CNOT 2 5
+CNOT 2 7
+S 2
+Z 2
+CNOT 2 7
+CNOT 3 5
+Z 3
+CNOT 3 5
+CNOT 3 7
+Z 3
+CNOT 3 7
+CNOT 5 6
+S 5
+CNOT 5 6
+CNOT 5 7
+Z 5
+CNOT 5 7
+CNOT 6 7
+S 6
+CNOT 1 3
+CNOT 1 5
+S 1
+Z 1
+CNOT 1 5
+CNOT 1 7
+S 1
+Z 1
+CNOT 1 3
+CNOT 1 5
+S 1
+Z 1
+CNOT 1 7
+CNOT 1 5
+CNOT 2 3
+CNOT 2 5
+S 2
+Z 2
+CNOT 2 5
+CNOT 2 7
+S 2
+Z 2
+CNOT 2 3
+CNOT 2 5
+S 2
+Z 2
+CNOT 2 7
+CNOT 2 5
+CNOT 5 7
+CNOT 7 6
+CNOT 6 7
+CNOT 6 5
+CNOT 5 6
+H 6
+M 6
+H 7
+M 7
+H 5
+H 4
+
+Input operator distribution:
+Operator distribution:
+Total number of qubits = 5
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 0
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 21
+Cost estimation = 10506
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	6
+	4	0
+	5	0
+	6	0
+	7	0
+	8	0
+	9	0
+	10	3
+	11	0
+	12	0
+	13	0
+	14	0
+	15	0
+	16	0
+	17	0
+	18	0
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+
+Algorithm used: lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_15
+Output operator distribution:
+Operator distribution:
+Total number of qubits = 7
+Number of `data' qubits = 5
+Number of `Toff_n' ancillas = 0
+Number of Hadamard ancillas = 2
+Hadamard ancilla cap = infinite
+Number of {CNOT,T} partitions = 1
+T count = 13
+Cost estimation = 6623
+	id	Count
+	0	0
+	1	0
+	2	0
+	3	8
+	4	72
+	5	13
+	6	0
+	7	0
+	8	0
+	9	0
+	10	0
+	11	22
+	12	0
+	13	18
+	14	0
+	15	0
+	16	0
+	17	0
+	18	2
+
+Output T Count (SQC_Circuit) = 13
+Output T Count (PhasePolynomial) = 13
+Fail count = 0
+Execution time: 0.00332s

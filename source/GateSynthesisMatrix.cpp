@@ -616,6 +616,166 @@ std::vector<std::vector<unsigned char>> packed_nullspace_basis(
     return basis;
 }
 
+enum SketchRowMode {
+    SKETCH_ROWS_MARGIN = 0,
+    SKETCH_ROWS_FIXED = 1,
+    SKETCH_ROWS_PERCENT = 2
+};
+
+struct SketchRowConfig {
+    SketchRowMode mode;
+    int value;
+};
+
+struct SketchStats {
+    long long attempts = 0;
+    long long skipped = 0;
+    long long rejected = 0;
+    long long rank_rejected = 0;
+    long long pair_rejected = 0;
+    long long passed = 0;
+    long long candidate_vectors = 0;
+    long long pair_candidate_vectors = 0;
+    long long y_full_passed = 0;
+    long long y_full_failed = 0;
+    long long y_cleanup_reduced = 0;
+    long long y_cleanup_not_reduced = 0;
+    long long full_ns_skipped = 0;
+    long long full_ns_computed = 0;
+    long long sample_rows_total = 0;
+    std::chrono::microseconds duration{0};
+};
+
+SketchRowConfig decode_sketch_row_config(int sketch_param) {
+    if (sketch_param >= 1000000) return {SKETCH_ROWS_FIXED, std::max(1, sketch_param - 1000000)};
+    if (sketch_param < 0) return {SKETCH_ROWS_PERCENT, std::max(1, -sketch_param)};
+    return {SKETCH_ROWS_MARGIN, std::max(0, sketch_param)};
+}
+
+const char* sketch_row_mode_name(SketchRowMode mode) {
+    switch (mode) {
+        case SKETCH_ROWS_FIXED: return "fixed";
+        case SKETCH_ROWS_PERCENT: return "percent";
+        case SKETCH_ROWS_MARGIN:
+        default: return "margin";
+    }
+}
+
+int count_active_rows(const std::vector<unsigned char>& row_active) {
+    int active_rows = 0;
+    for (int r = 0; r < (int)row_active.size(); ++r) if (row_active[r]) active_rows++;
+    return active_rows;
+}
+
+int sketch_sample_row_count(const SketchRowConfig& cfg, int active_rows, int m) {
+    if (active_rows <= 0) return 0;
+
+    int sample_rows = 0;
+    if (cfg.mode == SKETCH_ROWS_FIXED) {
+        sample_rows = cfg.value;
+    } else if (cfg.mode == SKETCH_ROWS_PERCENT) {
+        sample_rows = (active_rows * cfg.value + 99) / 100;
+    } else {
+        sample_rows = m + cfg.value;
+    }
+
+    sample_rows = std::max(sample_rows, m);
+    sample_rows = std::min(sample_rows, active_rows);
+    return sample_rows;
+}
+
+std::vector<int> sample_active_row_indices(const std::vector<unsigned char>& row_active, int sample_rows, uint64_t seed) {
+    std::vector<int> indices;
+    indices.reserve(count_active_rows(row_active));
+    for (int r = 0; r < (int)row_active.size(); ++r) {
+        if (row_active[r]) indices.push_back(r);
+    }
+
+    std::mt19937 rng((unsigned int)(0x5EED1234u ^ (unsigned int)seed ^ (unsigned int)(seed >> 32)));
+    std::shuffle(indices.begin(), indices.end(), rng);
+    if ((int)indices.size() > sample_rows) indices.resize(sample_rows);
+    return indices;
+}
+
+std::vector<std::vector<uint64_t>> gather_packed_rows(
+    const std::vector<std::vector<uint64_t>>& chi_rows,
+    const std::vector<int>& row_indices) {
+    std::vector<std::vector<uint64_t>> rows;
+    rows.reserve(row_indices.size());
+    for (int i = 0; i < (int)row_indices.size(); ++i) rows.push_back(chi_rows[row_indices[i]]);
+    return rows;
+}
+
+int packed_rank_of_rows(std::vector<std::vector<uint64_t>> mat, int m) {
+    int rows = (int)mat.size();
+    int rank = 0;
+    for (int col = 0; col < m && rank < rows; ++col) {
+        int pivot_row = -1;
+        for (int r = rank; r < rows; ++r) {
+            if (packed_get_bit(mat[r], col)) {
+                pivot_row = r;
+                break;
+            }
+        }
+        if (pivot_row < 0) continue;
+        if (pivot_row != rank) std::swap(mat[pivot_row], mat[rank]);
+        for (int r = 0; r < rows; ++r) {
+            if (r != rank && packed_get_bit(mat[r], col)) packed_xor_row(mat[r], mat[rank]);
+        }
+        rank++;
+    }
+    return rank;
+}
+
+bool packed_row_dot_vector_is_one(const std::vector<uint64_t>& row, const std::vector<uint64_t>& vec_words, int m) {
+    uint64_t parity = 0ULL;
+    int words = packed_word_count(m);
+    for (int w = 0; w < words; ++w) {
+        uint64_t bits = row[w] & vec_words[w];
+        if (w == words - 1 && (m % 64) != 0) bits &= ((1ULL << (m % 64)) - 1ULL);
+        parity ^= (uint64_t)(__builtin_popcountll(bits) & 1ULL);
+    }
+    return (parity & 1ULL) != 0ULL;
+}
+
+bool packed_vector_in_full_nullspace(
+    const std::vector<std::vector<uint64_t>>& chi_rows,
+    const std::vector<unsigned char>& row_active,
+    const std::vector<unsigned char>& y,
+    int m) {
+    std::vector<uint64_t> y_words(packed_word_count(m), 0ULL);
+    for (int c = 0; c < m; ++c) {
+        if (y[c]) y_words[c / 64] |= (1ULL << (c % 64));
+    }
+    for (int r = 0; r < (int)chi_rows.size(); ++r) {
+        if (row_active[r] && packed_row_dot_vector_is_one(chi_rows[r], y_words, m)) return false;
+    }
+    return true;
+}
+
+void print_sketch_summary(const SketchStats& stats, const SketchRowConfig& cfg) {
+    std::cout << "Sketch mode     : " << sketch_row_mode_name(cfg.mode) << "(" << cfg.value << ")" << std::endl;
+    std::cout << "Sketch attempts : " << stats.attempts << std::endl;
+    std::cout << "Sketch skipped  : " << stats.skipped << std::endl;
+    std::cout << "Sketch rejected : " << stats.rejected << std::endl;
+    std::cout << "Sketch rank rej : " << stats.rank_rejected << std::endl;
+    std::cout << "Sketch pair rej : " << stats.pair_rejected << std::endl;
+    std::cout << "Sketch passed   : " << stats.passed << std::endl;
+    double avg_rows = stats.attempts > stats.skipped
+        ? (double)stats.sample_rows_total / (double)(stats.attempts - stats.skipped)
+        : 0.0;
+    std::cout << "Sketch rows avg : " << avg_rows << std::endl;
+    std::cout << "Sketch y vectors: " << stats.candidate_vectors << std::endl;
+    std::cout << "Sketch pair y   : " << stats.pair_candidate_vectors << std::endl;
+    std::cout << "Sketch y full ok: " << stats.y_full_passed << std::endl;
+    std::cout << "Sketch y full ng: " << stats.y_full_failed << std::endl;
+    std::cout << "Sketch y reduced: " << stats.y_cleanup_reduced << std::endl;
+    std::cout << "Sketch y no red : " << stats.y_cleanup_not_reduced << std::endl;
+    std::cout << "Full NS skipped : " << stats.full_ns_skipped << std::endl;
+    std::cout << "Full NS computed: " << stats.full_ns_computed << std::endl;
+    std::cout << "Sketch time     : " << stats.duration.count() / 1000.0 << " ms" << std::endl;
+}
+
 std::vector<std::vector<unsigned char>> dynamic_nullspace_basis(
     const std::vector<std::vector<unsigned char>>& chi_rows,
     const std::vector<unsigned char>& row_active,
@@ -3703,7 +3863,8 @@ void GateSynthesisMatrix::LempelX2_M4RI_GreedyPreprocess_Fast(bool** A, int n, i
 
 void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int& omp, bool use_packed_chi, bool use_aa_table, bool use_memoization, bool use_random_sketch, int sketch_margin) {
     auto start_total = std::chrono::high_resolution_clock::now();
-    std::cout << "\n[Experimental TODD + ChiDiff + M4RI] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (margin=" << sketch_margin << ")" << std::endl;
+    SketchRowConfig sketch_cfg = decode_sketch_row_config(sketch_margin);
+    std::cout << "\n[Experimental TODD + ChiDiff + M4RI] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (" << sketch_row_mode_name(sketch_cfg.mode) << "=" << sketch_cfg.value << ")" << std::endl;
     int this_m = m; int initial_m = m;
 
     bool** x_vec = LCL_Mat_GF2::construct(n, 1);
@@ -3888,7 +4049,8 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental(bool** A, int n, int m, int
 
 void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal(bool** A, int n, int m, int& omp, bool use_packed_chi, bool use_aa_table, bool use_memoization, bool use_random_sketch, int sketch_margin) {
     auto start_total = std::chrono::high_resolution_clock::now();
-    std::cout << "\n[Experimental TODD PackedLocal] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (margin=" << sketch_margin << ")" << std::endl;
+    SketchRowConfig sketch_cfg = decode_sketch_row_config(sketch_margin);
+    std::cout << "\n[Experimental TODD PackedLocal] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (" << sketch_row_mode_name(sketch_cfg.mode) << "=" << sketch_cfg.value << ")" << std::endl;
     int this_m = m; int initial_m = m;
 
     mzd_t* A_m4ri_full = convert_to_mzd((bool const**)A, n, m + 1);
@@ -4118,7 +4280,8 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(bool** 
     }
 
     auto start_total = std::chrono::high_resolution_clock::now();
-    std::cout << "\n[Experimental TODD PackedLocal + ChiDiff] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (margin=" << sketch_margin << ")" << std::endl;
+    SketchRowConfig sketch_cfg = decode_sketch_row_config(sketch_margin);
+    std::cout << "\n[Experimental TODD PackedLocal + ChiDiff] Flags - Packed: " << use_packed_chi << ", AA Table: " << use_aa_table << ", Memo: " << use_memoization << ", Sketch: " << use_random_sketch << " (" << sketch_row_mode_name(sketch_cfg.mode) << "=" << sketch_cfg.value << ")" << std::endl;
     int this_m = m; int initial_m = m;
 
     bool** x_vec = LCL_Mat_GF2::construct(n, 1);
@@ -4135,6 +4298,7 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(bool** 
     long long total_full_ns_empty = 0;
     long long total_affected_rows = 0;
     long long total_memo_x_hits = 0;
+    SketchStats sketch_stats;
 
     int num_words = (n + 63) / 64;
 
@@ -4212,12 +4376,104 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(bool** 
             }
 
             if (!has_cached_ns) {
-                auto s_ns = std::chrono::high_resolution_clock::now();
-                ns_cached = packed_nullspace_basis(state.chi_rows, state.row_active, this_m);
-                total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(
-                    std::chrono::high_resolution_clock::now() - s_ns);
-                if (ns_cached.empty()) total_full_ns_empty++;
-                has_cached_ns = true;
+                bool full_ns_needed = true;
+                bool pair_rejected_current = false;
+
+                if (use_random_sketch) {
+                    sketch_stats.attempts++;
+                    auto s_sketch = std::chrono::high_resolution_clock::now();
+                    int active_rows = count_active_rows(state.row_active);
+                    int sample_rows = sketch_sample_row_count(sketch_cfg, active_rows, this_m);
+
+                    if (active_rows <= sample_rows || sample_rows < this_m) {
+                        sketch_stats.skipped++;
+                    } else {
+                        sketch_stats.sample_rows_total += sample_rows;
+                        std::vector<int> sample_indices = sample_active_row_indices(
+                            state.row_active, sample_rows, (uint64_t)total_pairs_tested);
+                        std::vector<std::vector<uint64_t>> sketch_rows = gather_packed_rows(state.chi_rows, sample_indices);
+                        int sketch_rank = packed_rank_of_rows(sketch_rows, this_m);
+
+                        if (sketch_rank == this_m) {
+                            ns_cached.clear();
+                            has_cached_ns = true;
+                            full_ns_needed = false;
+                            sketch_stats.rejected++;
+                            sketch_stats.rank_rejected++;
+                            sketch_stats.full_ns_skipped++;
+                        } else {
+                            std::vector<unsigned char> sketch_active(sketch_rows.size(), 1);
+                            std::vector<std::vector<unsigned char>> sketch_basis =
+                                packed_nullspace_basis(sketch_rows, sketch_active, this_m);
+                            sketch_stats.candidate_vectors += (long long)sketch_basis.size();
+
+                            bool has_pair_separating_y = false;
+                            for (int h = 0; h < (int)sketch_basis.size(); ++h) {
+                                const std::vector<unsigned char>& y = sketch_basis[h];
+                                if ((y[pair.c1] + y[pair.c2]) % 2 == 0) continue;
+                                has_pair_separating_y = true;
+                                sketch_stats.pair_candidate_vectors++;
+
+                                if (!packed_vector_in_full_nullspace(state.chi_rows, state.row_active, y, this_m)) {
+                                    sketch_stats.y_full_failed++;
+                                    continue;
+                                }
+                                sketch_stats.y_full_passed++;
+
+                                for (int i = 0; i < n; i++) x_vec[i][0] = x_bits[i];
+                                for (int i = 0; i < n; i++) {
+                                    for (int j = 0; j < this_m; j++) Anew[i][j] = (A[i][j] + x_vec[i][0] * y[j]) % 2;
+                                }
+                                int mp;
+                                GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+                                if (mp < this_m) {
+                                    std::cout << "  [SKETCH HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") Dist=" << pair.dist
+                                              << " | " << this_m << " -> " << mp << " columns" << std::endl;
+                                    LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                                    m_best = mp;
+                                    found = true;
+                                    sketch_stats.y_cleanup_reduced++;
+                                    full_ns_needed = false;
+                                    sketch_stats.full_ns_skipped++;
+                                    break;
+                                }
+                                sketch_stats.y_cleanup_not_reduced++;
+                            }
+
+                            if (!found && !has_pair_separating_y) {
+                                pair_rejected_current = true;
+                                full_ns_needed = false;
+                                sketch_stats.rejected++;
+                                sketch_stats.pair_rejected++;
+                                sketch_stats.full_ns_skipped++;
+                            } else {
+                                sketch_stats.passed++;
+                            }
+                        }
+                    }
+
+                    sketch_stats.duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                        std::chrono::high_resolution_clock::now() - s_sketch);
+                }
+
+                if (found) {
+                    has_cached_ns = true;
+                    continue;
+                }
+
+                if (pair_rejected_current) {
+                    continue;
+                }
+
+                if (full_ns_needed) {
+                    auto s_ns = std::chrono::high_resolution_clock::now();
+                    ns_cached = packed_nullspace_basis(state.chi_rows, state.row_active, this_m);
+                    total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                        std::chrono::high_resolution_clock::now() - s_ns);
+                    if (ns_cached.empty()) total_full_ns_empty++;
+                    sketch_stats.full_ns_computed++;
+                    has_cached_ns = true;
+                }
             }
 
             for (int h = 0; h < (int)ns_cached.size(); h++) {
@@ -4270,6 +4526,7 @@ void GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(bool** 
     }
     std::cout << "Avg affected    : " << avg_affected << std::endl;
     std::cout << "Full NS empty   : " << total_full_ns_empty << std::endl;
+    if (use_random_sketch) print_sketch_summary(sketch_stats, sketch_cfg);
     std::cout << "============================" << std::endl;
 
     LCL_Mat_GF2::destruct(x_vec, n, 1);
@@ -5259,6 +5516,398 @@ void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAA(bool** A, 
 
     LCL_Mat_GF2::destruct(Anew, n, m + 1);
     LCL_Mat_GF2::destruct(Abest, n, m + 1);
+}
+
+void packed_add_row_to_temp_basis(const std::vector<uint64_t>& row_in, int m,
+                                  std::vector<PackedDynamicBasisRow>& basis) {
+    std::vector<uint64_t> row = row_in;
+    for (int bi = 0; bi < (int)basis.size(); ++bi) {
+        int pivot = basis[bi].pivot;
+        if (pivot >= 0 && packed_get_bit(row, pivot)) packed_xor_row(row, basis[bi].bits);
+    }
+
+    int pivot = packed_find_leftmost_one(row, m);
+    if (pivot < 0) return;
+
+    for (int bi = 0; bi < (int)basis.size(); ++bi) {
+        if (packed_get_bit(basis[bi].bits, pivot)) packed_xor_row(basis[bi].bits, row);
+    }
+
+    PackedDynamicBasisRow new_row;
+    new_row.bits = row;
+    new_row.pivot = pivot;
+    new_row.source_row_id = -1;
+    basis.push_back(new_row);
+    std::sort(basis.begin(), basis.end(), [](const PackedDynamicBasisRow& a, const PackedDynamicBasisRow& b) {
+        return a.pivot < b.pivot;
+    });
+}
+
+bool sketch_membership_reject_aa(const std::vector<std::vector<uint64_t>>& A_rows,
+                                 const std::vector<std::vector<uint64_t>>& AA_rows,
+                                 const std::vector<unsigned char>& x_bits,
+                                 int n, int m, int c1, int c2,
+                                 const SketchRowConfig& sketch_cfg,
+                                 uint64_t seed,
+                                 long long& sampled_rows_out,
+                                 long long& sketch_basis_rows_out,
+                                 std::chrono::microseconds& sketch_build_duration,
+                                 std::chrono::microseconds& sketch_basis_duration,
+                                 std::chrono::microseconds& sketch_membership_duration) {
+    auto s_build = std::chrono::high_resolution_clock::now();
+    std::vector<int> active_ids;
+    active_ids.reserve(n * n * n);
+    for (int alpha = 0; alpha < n; ++alpha) {
+        for (int beta = 0; beta < n; ++beta) {
+            for (int gamma = 0; gamma < n; ++gamma) {
+                if (dynamic_chi_row_active(x_bits, alpha, beta, gamma)) {
+                    active_ids.push_back(dynamic_row_id(alpha, beta, gamma, n));
+                }
+            }
+        }
+    }
+
+    int active_rows = (int)active_ids.size();
+    int sample_rows = sketch_sample_row_count(sketch_cfg, active_rows, m);
+    if (active_rows <= 0 || sample_rows <= 0 || active_rows <= sample_rows) {
+        sketch_build_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - s_build);
+        return false;
+    }
+
+    std::mt19937 rng((unsigned int)(0xB4515u ^ (unsigned int)seed ^ (unsigned int)(seed >> 32)));
+    std::shuffle(active_ids.begin(), active_ids.end(), rng);
+    active_ids.resize(sample_rows);
+    sampled_rows_out += sample_rows;
+    sketch_build_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+        std::chrono::high_resolution_clock::now() - s_build);
+
+    std::vector<PackedDynamicBasisRow> sketch_basis;
+    sketch_basis.reserve(std::min(sample_rows, m));
+    std::vector<uint64_t> row(packed_word_count(m), 0ULL);
+    for (int idx = 0; idx < sample_rows; ++idx) {
+        int rid = active_ids[idx];
+        int alpha = rid / (n * n);
+        int beta = (rid / n) % n;
+        int gamma = rid % n;
+        s_build = std::chrono::high_resolution_clock::now();
+        build_chi_row_packed_aa(A_rows, AA_rows, x_bits, m, n, alpha, beta, gamma, row);
+        sketch_build_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - s_build);
+        auto s_basis = std::chrono::high_resolution_clock::now();
+        packed_add_row_to_temp_basis(row, m, sketch_basis);
+        sketch_basis_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - s_basis);
+    }
+    sketch_basis_rows_out += (long long)sketch_basis.size();
+
+    auto s_membership = std::chrono::high_resolution_clock::now();
+    bool reject = packed_membership_test_pair(c1, c2, m, sketch_basis);
+    sketch_membership_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+        std::chrono::high_resolution_clock::now() - s_membership);
+    return reject;
+}
+
+static void lempelx2_dynamic_basis_local_repair_chi_packed_aa_sketch_impl(
+    bool** A, int n, int m, int& omp, int sketch_percent, bool basis_first, bool use_basis_reuse) {
+    auto start_total = std::chrono::high_resolution_clock::now();
+    sketch_percent = std::max(1, std::min(100, sketch_percent));
+    SketchRowConfig sketch_cfg = {SKETCH_ROWS_PERCENT, sketch_percent};
+    if (basis_first) {
+        std::cout << "\n[Dynamic Basis Local Repair TODD + Chi Compression + Packed + AA + Basis-before-Sketch] Base: lx2_dynamic_repair_chi_packed_aa"
+                  << " | sketch percent=" << sketch_percent << std::endl;
+    } else if (!use_basis_reuse) {
+        std::cout << "\n[Dynamic Basis Local Repair TODD + Chi Compression + Packed + AA + Sketch-before-Basis + No Basis Reuse] Base: lx2_dynamic_repair_chi_packed_aa"
+                  << " | sketch percent=" << sketch_percent << std::endl;
+    } else {
+        std::cout << "\n[Dynamic Basis Local Repair TODD + Chi Compression + Packed + AA + Sketch-before-Basis] Base: lx2_dynamic_repair_chi_packed_aa"
+                  << " | sketch percent=" << sketch_percent << std::endl;
+    }
+
+    int this_m = m;
+    int initial_m = m;
+    bool** Anew = LCL_Mat_GF2::construct(n, m + 1);
+    bool** Abest = LCL_Mat_GF2::construct(n, m + 1);
+    LCL_Mat_GF2::copy((const bool**)A, n, m, Abest);
+    int m_best = m;
+
+    std::chrono::microseconds total_chi_update_duration(0);
+    std::chrono::microseconds total_basis_work_duration(0);
+    std::chrono::microseconds total_ns_duration(0);
+    std::chrono::microseconds total_aa_duration(0);
+    std::chrono::microseconds total_sketch_duration(0);
+    std::chrono::microseconds total_sketch_build_duration(0);
+    std::chrono::microseconds total_sketch_basis_duration(0);
+    std::chrono::microseconds total_sketch_membership_duration(0);
+
+    long long total_pairs_tested = 0;
+    long long total_sketch_rejected = 0;
+    long long total_filtered_miss = 0;
+    long long total_ns_runs = 0;
+    long long total_rebuilds = 0;
+    long long total_local_add_rounds = 0;
+    long long total_affected_rows = 0;
+    long long total_active_rows = 0;
+    long long total_active_snapshots = 0;
+    long long total_sketch_rows = 0;
+    long long total_sketch_samples = 0;
+    long long total_sketch_basis_rows = 0;
+    long long total_sketch_skipped_by_reuse = 0;
+    long long total_reuse_membership_rejected = 0;
+    long long total_reuse_ns_runs = 0;
+    long long total_reuse_no_pair_y = 0;
+    long long total_reuse_cleanup_not_reduced = 0;
+    long long total_reuse_reduced = 0;
+
+    bool found = true;
+    int round = 0;
+    while (found && (round < m)) {
+        found = false;
+        std::cout << "--- Round " << round << " | Current Columns: " << this_m << " ---" << std::endl;
+
+        std::vector<DynamicCandidate> candidates;
+        candidates.reserve(this_m * (this_m - 1) / 2);
+        int x_word_count = (n + 63) / 64;
+        for (int j1 = 0; j1 < this_m; ++j1) {
+            for (int j2 = j1 + 1; j2 < this_m; ++j2) {
+                std::vector<unsigned char> x_bits(n, 0);
+                std::vector<uint64_t> x_words(x_word_count, 0ULL);
+                int x_weight = 0;
+                for (int i = 0; i < n; ++i) {
+                    x_bits[i] = (unsigned char)((A[i][j1] + A[i][j2]) % 2);
+                    x_weight += x_bits[i];
+                    if (x_bits[i]) x_words[i / 64] |= (1ULL << (i % 64));
+                }
+                DynamicCandidate cand;
+                cand.c1 = j1;
+                cand.c2 = j2;
+                cand.x_weight = x_weight;
+                cand.x_bits = x_bits;
+                cand.x_words = x_words;
+                candidates.push_back(cand);
+            }
+        }
+
+        std::sort(candidates.begin(), candidates.end(), [](const DynamicCandidate& a, const DynamicCandidate& b) {
+            if (a.x_weight != b.x_weight) return a.x_weight < b.x_weight;
+            for (size_t i = 0; i < a.x_words.size(); ++i) {
+                if (a.x_words[i] != b.x_words[i]) return a.x_words[i] < b.x_words[i];
+            }
+            if (a.c1 != b.c1) return a.c1 < b.c1;
+            return a.c2 < b.c2;
+        });
+
+        std::vector<std::vector<uint64_t>> A_rows;
+        std::vector<std::vector<uint64_t>> AA_rows;
+        auto s_aa = std::chrono::high_resolution_clock::now();
+        build_packed_a_rows(A, n, this_m, A_rows);
+        build_packed_aa_rows(A_rows, n, AA_rows);
+        total_aa_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - s_aa);
+
+        PackedChiState state;
+        std::vector<int> affected_rows;
+        bool state_ready = false;
+
+        for (int idx = 0; idx < (int)candidates.size() && !found; ++idx) {
+            const DynamicCandidate& pair = candidates[idx];
+            total_pairs_tested++;
+
+            bool skip_sketch_for_reuse = false;
+            if (basis_first) {
+                if (state_ready) {
+                    dynamic_collect_affected_rows(state.x_prev, pair.x_bits, n, affected_rows);
+                    bool basis_touched = false;
+                    for (int ar = 0; ar < (int)affected_rows.size(); ++ar) {
+                        if (state.row_to_basis_slot[affected_rows[ar]] != -1) {
+                            basis_touched = true;
+                            break;
+                        }
+                    }
+                    skip_sketch_for_reuse = !basis_touched;
+                }
+            }
+
+            if (skip_sketch_for_reuse) {
+                total_sketch_skipped_by_reuse++;
+            } else {
+                auto s_sketch = std::chrono::high_resolution_clock::now();
+                long long sketch_rows_before = total_sketch_rows;
+                bool sketch_reject = sketch_membership_reject_aa(
+                    A_rows, AA_rows, pair.x_bits, n, this_m, pair.c1, pair.c2,
+                    sketch_cfg, (uint64_t)round * 1000003ULL + (uint64_t)idx,
+                    total_sketch_rows, total_sketch_basis_rows,
+                    total_sketch_build_duration, total_sketch_basis_duration,
+                    total_sketch_membership_duration);
+                if (total_sketch_rows > sketch_rows_before) total_sketch_samples++;
+                total_sketch_duration += std::chrono::duration_cast<std::chrono::microseconds>(
+                    std::chrono::high_resolution_clock::now() - s_sketch);
+                if (sketch_reject) {
+                    total_sketch_rejected++;
+                    continue;
+                }
+            }
+
+            auto s_all = std::chrono::high_resolution_clock::now();
+            if (!state_ready || !use_basis_reuse) {
+                packed_build_compressed_chi_state_aa(state, A_rows, AA_rows, pair.x_bits, n, this_m);
+                state_ready = true;
+                total_rebuilds++;
+            } else {
+                bool rebuilt_basis = false;
+                packed_update_chi_state_local_repair_compressed_aa(state, A_rows, AA_rows, pair.x_bits, n, this_m, affected_rows, rebuilt_basis);
+                total_affected_rows += (long long)affected_rows.size();
+                if (rebuilt_basis) total_rebuilds++;
+                else total_local_add_rounds++;
+            }
+            auto e_all = std::chrono::high_resolution_clock::now();
+            total_chi_update_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_all - s_all);
+            total_basis_work_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_all - s_all);
+
+            long long active_now = 0;
+            for (int r = 0; r < (int)state.row_active.size(); ++r) active_now += state.row_active[r] ? 1 : 0;
+            total_active_rows += active_now;
+            total_active_snapshots++;
+
+            if (packed_membership_test_pair(pair.c1, pair.c2, this_m, state.basis)) {
+                total_filtered_miss++;
+                if (skip_sketch_for_reuse) total_reuse_membership_rejected++;
+                continue;
+            }
+
+            auto s_ns = std::chrono::high_resolution_clock::now();
+            std::vector<std::vector<unsigned char>> ns_basis = packed_nullspace_basis(state.chi_rows, state.row_active, this_m);
+            auto e_ns = std::chrono::high_resolution_clock::now();
+            total_ns_duration += std::chrono::duration_cast<std::chrono::microseconds>(e_ns - s_ns);
+            total_ns_runs++;
+            if (skip_sketch_for_reuse) total_reuse_ns_runs++;
+
+            int good_idx = -1;
+            for (int h = 0; h < (int)ns_basis.size(); ++h) {
+                if ((ns_basis[h][pair.c1] ^ ns_basis[h][pair.c2]) == 1) {
+                    good_idx = h;
+                    break;
+                }
+            }
+            if (good_idx < 0) {
+                if (skip_sketch_for_reuse) total_reuse_no_pair_y++;
+                continue;
+            }
+
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < this_m; ++j) {
+                    Anew[i][j] = (bool)((A[i][j] + pair.x_bits[i] * ns_basis[good_idx][j]) % 2);
+                }
+            }
+
+            int mp = 0;
+            GateSynthesisMatrix::cleanup(Anew, n, this_m, mp);
+            if (mp < this_m) {
+                std::cout << "  [HIT!] Pair(" << pair.c1 << "," << pair.c2 << ") x-weight=" << pair.x_weight
+                          << " | " << this_m << " -> " << mp << " columns" << std::endl;
+                LCL_Mat_GF2::copy((const bool**)Anew, n, mp, Abest);
+                m_best = mp;
+                found = true;
+                if (skip_sketch_for_reuse) total_reuse_reduced++;
+            } else if (skip_sketch_for_reuse) {
+                total_reuse_cleanup_not_reduced++;
+            }
+        }
+
+        if (found) {
+            LCL_Mat_GF2::copy((const bool**)Abest, n, m_best, A);
+            this_m = m_best;
+        }
+        round++;
+    }
+
+    omp = this_m;
+    auto end_total = std::chrono::high_resolution_clock::now();
+    auto total_dur = std::chrono::duration_cast<std::chrono::milliseconds>(end_total - start_total);
+
+    std::cout << "\n=== Dynamic Basis Local Repair Chi Packed AA Sketch Summary ===" << std::endl;
+    std::cout << "Algorithm       : "
+              << (basis_first
+                  ? "LempelX2_DynamicBasisLocalRepairChiPackedAABasisFirstSketch"
+                  : (use_basis_reuse
+                      ? "LempelX2_DynamicBasisLocalRepairChiPackedAASketch"
+                      : "LempelX2_DynamicBasisLocalRepairChiPackedAASketchNoReuse"))
+              << std::endl;
+    std::cout << "Initial T-count : " << initial_m << std::endl;
+    std::cout << "Final T-count   : " << omp << std::endl;
+    std::cout << "Total Reduced   : " << (initial_m - omp) << " gates" << std::endl;
+    std::cout << "Execution Time  : " << total_dur.count() << " ms" << std::endl;
+    std::cout << "Pairs tested    : " << total_pairs_tested << std::endl;
+    std::cout << "Sketch filtered : " << total_sketch_rejected << std::endl;
+    std::cout << "Sketch skip reuse: " << total_sketch_skipped_by_reuse << std::endl;
+    std::cout << "Reuse mem reject: " << total_reuse_membership_rejected << std::endl;
+    std::cout << "Reuse NS runs   : " << total_reuse_ns_runs << std::endl;
+    std::cout << "Reuse no pair y : " << total_reuse_no_pair_y << std::endl;
+    std::cout << "Reuse no reduce : " << total_reuse_cleanup_not_reduced << std::endl;
+    std::cout << "Reuse reduced   : " << total_reuse_reduced << std::endl;
+    if (total_sketch_skipped_by_reuse > 0) {
+        std::cout << "Reuse mem rej rate: "
+                  << (100.0 * (double)total_reuse_membership_rejected / (double)total_sketch_skipped_by_reuse)
+                  << "%" << std::endl;
+        std::cout << "Reuse no-red rate : "
+                  << (100.0 * (double)(total_reuse_membership_rejected + total_reuse_no_pair_y + total_reuse_cleanup_not_reduced)
+                              / (double)total_sketch_skipped_by_reuse)
+                  << "%" << std::endl;
+    }
+    std::cout << "Filtered miss   : " << total_filtered_miss << std::endl;
+    std::cout << "Nullspace runs  : " << total_ns_runs << std::endl;
+    std::cout << "Rebuild count   : " << total_rebuilds << std::endl;
+    std::cout << "Local add count : " << total_local_add_rounds << std::endl;
+    std::cout << "AA Table time   : " << total_aa_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Sketch time     : " << total_sketch_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Sketch build time: " << total_sketch_build_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Sketch basis time: " << total_sketch_basis_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Sketch mem time : " << total_sketch_membership_duration.count() / 1000.0 << " ms" << std::endl;
+    std::chrono::microseconds total_sketch_known_duration =
+        total_sketch_build_duration + total_sketch_basis_duration + total_sketch_membership_duration;
+    std::chrono::microseconds total_sketch_other_duration =
+        total_sketch_duration > total_sketch_known_duration
+            ? total_sketch_duration - total_sketch_known_duration
+            : std::chrono::microseconds(0);
+    std::cout << "Sketch other time: " << total_sketch_other_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Chi update time : " << total_chi_update_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Basis work time : " << total_basis_work_duration.count() / 1000.0 << " ms" << std::endl;
+    std::cout << "Nullspace time  : " << total_ns_duration.count() / 1000.0 << " ms" << std::endl;
+    if (total_pairs_tested > 0) {
+        std::cout << "Sketch rej rate : " << (100.0 * (double)total_sketch_rejected / (double)total_pairs_tested) << "%" << std::endl;
+    }
+    if (total_sketch_samples > 0) {
+        std::cout << "Avg sketch rows : " << (double)total_sketch_rows / (double)total_sketch_samples << std::endl;
+        std::cout << "Avg sketch basis: " << (double)total_sketch_basis_rows / (double)total_sketch_samples << std::endl;
+    }
+    if ((total_rebuilds + total_local_add_rounds) > 1) {
+        std::cout << "Avg affected    : " << (double)total_affected_rows / (double)(total_rebuilds + total_local_add_rounds - 1) << " rows" << std::endl;
+    }
+    if (total_active_snapshots > 0) {
+        std::cout << "Avg active rows : " << (double)total_active_rows / (double)total_active_snapshots << std::endl;
+    }
+    std::cout << "=============================================================" << std::endl;
+
+    LCL_Mat_GF2::destruct(Anew, n, m + 1);
+    LCL_Mat_GF2::destruct(Abest, n, m + 1);
+}
+
+void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketch(
+    bool** A, int n, int m, int& omp, int sketch_percent) {
+    lempelx2_dynamic_basis_local_repair_chi_packed_aa_sketch_impl(
+        A, n, m, omp, sketch_percent, false, true);
+}
+
+void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketchNoReuse(
+    bool** A, int n, int m, int& omp, int sketch_percent) {
+    lempelx2_dynamic_basis_local_repair_chi_packed_aa_sketch_impl(
+        A, n, m, omp, sketch_percent, false, false);
+}
+
+void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAABasisFirstSketch(
+    bool** A, int n, int m, int& omp, int sketch_percent) {
+    lempelx2_dynamic_basis_local_repair_chi_packed_aa_sketch_impl(
+        A, n, m, omp, sketch_percent, true, true);
 }
 
 void GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedMemo(bool** A, int n, int m, int& omp) {

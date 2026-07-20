@@ -1,0 +1,19 @@
+========================================
+ gf2^7_mult sketch experiments
+ Input:   /home/ryo-mtmt/TOpt/forme/tpar_benchmark/gf2^7_mult.tfc
+ Output:  /home/ryo-mtmt/TOpt/forme/sketch_experiments/gf2_7_mult_20260528_051454
+ Runs:    7
+========================================
+todd_exp_packedlocal_diff_1110 ... T: 343 -> 164, time: 41.8801s, nullspace: 37917.2ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 343 -> 164, time: 41.9072s, nullspace: 31700.9ms, sketch: 6294.21ms, reject: 12.08%
+todd_exp_packedlocal_diff_1111_p10 ... T: 343 -> 164, time: 24.31s, nullspace: 8227.58ms, sketch: 12173.1ms, reject: 71.45%
+todd_exp_packedlocal_diff_1111_p15 ... T: 343 -> 164, time: 24.2738s, nullspace: 2620.55ms, sketch: 17760.1ms, reject: 89.69%
+todd_exp_packedlocal_diff_1111_p20 ... T: 343 -> 164, time: 27.6959s, nullspace: 930.436ms, sketch: 22986.3ms, reject: 95.61%
+todd_exp_packedlocal_diff_1111_p25 ... T: 343 -> 164, time: 32.4894s, nullspace: 404.558ms, sketch: 28304ms, reject: 97.84%
+todd_exp_packedlocal_diff_1111_p30 ... T: 343 -> 164, time: 37.6256s, nullspace: 209.415ms, sketch: 33590.2ms, reject: 98.80%
+
+========================================
+Done
+Results: /home/ryo-mtmt/TOpt/forme/sketch_experiments/gf2_7_mult_20260528_051454
+CSV:     /home/ryo-mtmt/TOpt/forme/sketch_experiments/gf2_7_mult_20260528_051454/summary.csv
+========================================

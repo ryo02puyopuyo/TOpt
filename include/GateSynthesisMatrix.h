@@ -54,6 +54,9 @@ namespace GateSynthesisMatrix {
     void LempelX2_DynamicBasisLocalRepairChi(bool** A, int n, int m, int& omp);
     void LempelX2_DynamicBasisLocalRepairChiPacked(bool** A, int n, int m, int& omp);
     void LempelX2_DynamicBasisLocalRepairChiPackedAA(bool** A, int n, int m, int& omp);
+    void LempelX2_DynamicBasisLocalRepairChiPackedAASketch(bool** A, int n, int m, int& omp, int sketch_percent = 10);
+    void LempelX2_DynamicBasisLocalRepairChiPackedAASketchNoReuse(bool** A, int n, int m, int& omp, int sketch_percent = 10);
+    void LempelX2_DynamicBasisLocalRepairChiPackedAABasisFirstSketch(bool** A, int n, int m, int& omp, int sketch_percent = 10);
     void LempelX2_DynamicBasisLocalRepairChiPackedMemo(bool** A, int n, int m, int& omp);
     void LempelX2_DynamicBasisLocalRepairChiPackedM4RI(bool** A, int n, int m, int& omp);
     void LempelX2_DynamicBasisLocalRepairChiPackedBasisM4RI(bool** A, int n, int m, int& omp);

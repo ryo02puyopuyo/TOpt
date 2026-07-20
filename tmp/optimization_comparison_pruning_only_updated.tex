@@ -1,0 +1,49 @@
+\begin{table}[H]
+\centering
+\caption{既存手法と提案最適化設定の比較（m4ri実装を除外し，枝刈りのみを追加）}
+\label{tab:optimization_comparison_pruning_only}
+\scriptsize
+\setlength{\tabcolsep}{1.8pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l c r | r r | r r r | r r r | c r r r | c r r r}
+\toprule
+\multirow{2}{*}{Benchmark} & \multirow{2}{*}{$n$} & \multicolumn{1}{c|}{Orig.} & \multicolumn{2}{c|}{既存} & \multicolumn{3}{c|}{自前ビット並列} & \multicolumn{3}{c|}{基底再利用} & \multicolumn{4}{c|}{枝刈りのみ} & \multicolumn{4}{c}{早期棄却+基底再利用} \\
+\cmidrule(lr){3-3} \cmidrule(lr){4-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-15} \cmidrule(lr){16-19}
+ & & T & T & Time (s) & T & t (s) & Sp. & T & t (s) & Sp. & $p$ & T & t (s) & Sp. & $p$ & T & t (s) & Sp. \\
+\midrule
+adder\_8 & 24 & 399 & \cellcolor{bestT}129 & 18913.000 & \cellcolor{bestT}129 & 1065.080 & 17.76 & \cellcolor{bestT}129 & 497.000 & 38.05 &  &  &  &  &  &  &  &  \\
+barenco\_tof\_3 & 5 & 28 & \cellcolor{bestT}14 & 0.011 & \cellcolor{bestT}14 & 0.003 & 3.67 & \cellcolor{bestT}14 & 0.002 & 5.50 & $13\%$ & 14 & 0.002 & 5.50 & $8\%$ & \cellcolor{bestT}14 & 0.002 & 5.50 \\
+barenco\_tof\_4 & 7 & 56 & \cellcolor{bestT}24 & 0.218 & \cellcolor{bestT}24 & 0.053 & 4.11 & \cellcolor{bestT}24 & 0.043 & 5.07 & $10\%$ & 24 & 0.031 & 7.03 & $15\%$ & \cellcolor{bestT}24 & \cellcolor{bestTime}0.022 & 9.91 \\
+barenco\_tof\_5 & 9 & 84 & \cellcolor{bestT}34 & 1.014 & \cellcolor{bestT}34 & 0.291 & 3.48 & \cellcolor{bestT}34 & 0.213 & 4.76 & $10\%$ & 34 & 0.144 & 7.04 & $15\%$ & \cellcolor{bestT}34 & \cellcolor{bestTime}0.099 & 10.24 \\
+barenco\_tof\_10 & 19 & 224 & \cellcolor{bestT}84 & 310.395 & \cellcolor{bestT}84 & 26.419 & 11.75 & \cellcolor{bestT}84 & 11.530 & 26.92 & $10\%$ & 84 & 6.065 & 51.18 & $15\%$ & \cellcolor{bestT}84 & \cellcolor{bestTime}4.813 & 64.49 \\
+csla\_mux\_3 & 16 & 70 & 50 & 13.712 & \cellcolor{bestT}49 & 1.550 & 8.87 & \cellcolor{bestT}49 & 0.957 & 14.32 &  &  &  &  &  &  &  &  \\
+csum\_mux\_9 & 30 & 196 & \cellcolor{bestT}72 & 115.277 & \cellcolor{bestT}72 & 10.300 & 11.19 & \cellcolor{bestT}72 & 6.781 & 17.00 &  &  &  &  &  &  &  &  \\
+gf2\textasciicircum4\_mult & 12 & 112 & \cellcolor{bestT}54 & 3.814 & \cellcolor{bestT}54 & 0.436 & 8.75 & \cellcolor{bestT}54 & 0.251 & 15.20 & $10\%$ & 54 & 0.201 & 18.98 & $15\%$ & \cellcolor{bestT}54 & \cellcolor{bestTime}0.137 & 27.84 \\
+gf2\textasciicircum5\_mult & 15 & 175 & 90 & 87.733 & 88 & 4.062 & 21.60 & 88 & 3.044 & 28.82 & $13\%$ & 88 & 1.663 & 52.76 & $13\%$ & 88 & \cellcolor{bestTime}1.290 & 68.01 \\
+gf2\textasciicircum6\_mult & 18 & 252 & \cellcolor{bestT}120 & 300.054 & 122 & 9.992 & 30.03 & 122 & 7.577 & 39.60 & $15\%$ & 122 & 4.060 & 73.90 & $13\%$ & 122 & \cellcolor{bestTime}2.810 & 106.78 \\
+gf2\textasciicircum7\_mult & 21 & 343 & 173 & 2455.840 & \cellcolor{bestT}164 & 39.759 & 61.77 & \cellcolor{bestT}164 & 30.077 & 81.65 & $13\%$ & 164 & 16.847 & 145.77 & $15\%$ & \cellcolor{bestT}164 & \cellcolor{bestTime}12.965 & 189.42 \\
+gf2\textasciicircum8\_mult & 24 & 448 & \cellcolor{bestT}220 & 8531.840 & \cellcolor{bestT}220 & 132.940 & 64.18 & \cellcolor{bestT}220 & 79.492 & 107.33 & $13\%$ & 220 & 32.033 & 266.35 & $13\%$ & \cellcolor{bestT}220 & \cellcolor{bestTime}26.218 & 325.42 \\
+gf2\textasciicircum9\_mult & 27 & 567 & 294 & 34449.340 & 281 & 524.450 & 65.69 & 281 & 224.770 & 153.27 &  &  &  &  & $13\%$ & 281 & \cellcolor{bestTime}73.819 & 466.67 \\
+grover\_5 & 9 & 336 & \cellcolor{bestT}144 & 13576.100 & \cellcolor{bestT}144 & 375.640 & 36.14 & \cellcolor{bestT}144 & 130.840 & 103.76 & $15\%$ & 144 & 61.762 & 219.81 & $15\%$ & \cellcolor{bestT}144 & \cellcolor{bestTime}45.848 & 296.11 \\
+ham15-high & 20 & 2457 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+ham15-med & 17 & 574 & 164 & 70589.700 & \cellcolor{bestT}163 & 3280.924 & 21.52 & \cellcolor{bestT}163 & 1581.522 & 44.63 &  &  &  &  &  &  &  &  \\
+ham15-low & 15 & 161 & 77 & 434.361 & 78 & 21.460 & 20.24 & 78 & 8.742 & 49.69 &  &  &  &  &  &  &  &  \\
+hwb6 & 7 & 105 & \cellcolor{bestT}51 & 18.194 & 52 & 2.304 & 7.90 & 52 & 1.859 & 9.79 & $10\%$ & 52 & 0.978 & 18.60 & $10\%$ & 52 & \cellcolor{bestTime}0.699 & 26.03 \\
+hwb8 & 12 & 5887 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+mod5\_4 & 5 & 28 & \cellcolor{bestT}16 & 0.016 & \cellcolor{bestT}16 & 0.006 & 2.67 & \cellcolor{bestT}16 & 0.004 & 4.00 & $13\%$ & 16 & 0.004 & 4.00 & $10\%$ & \cellcolor{bestT}16 & \cellcolor{bestTime}0.003 & 5.33 \\
+mod\_adder\_1024 & 28 & 1995 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+mod\_mult\_55 & 9 & 49 & 18 & 0.279 & \cellcolor{bestT}17 & 0.040 & 6.98 & \cellcolor{bestT}17 & 0.023 & 12.13 & $3\%$ & 17 & 0.029 & 9.62 & $13\%$ & \cellcolor{bestT}17 & \cellcolor{bestTime}0.014 & 19.93 \\
+mod\_red\_21 & 11 & 119 & \cellcolor{bestT}51 & 21.958 & 52 & 2.134 & 10.29 & 52 & 1.654 & 13.28 & $15\%$ & 52 & 1.033 & 21.26 & $10\%$ & 52 & \cellcolor{bestTime}0.778 & 28.22 \\
+qcla\_adder\_10 & 36 & 238 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+qcla\_com\_7 & 24 & 203 & \cellcolor{bestT}59 & 132.748 & 62 & 9.302 & 14.27 & 62 & 5.892 & 22.53 & $8\%$ & 62 & 2.789 & 47.60 & $13\%$ & 62 & \cellcolor{bestTime}2.054 & 64.63 \\
+qcla\_mod\_7 & 26 & 413 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  \\
+qft\_4 & 5 & 14 & \cellcolor{bestT}12 & 0.012 & \cellcolor{bestT}12 & 0.002 & 6.00 & \cellcolor{bestT}12 & \cellcolor{bestTime}0.001 & 12.00 & $3\%$ & 12 & 0.003 & 4.00 & $5\%$ & \cellcolor{bestT}12 & 0.002 & 6.00 \\
+rc\_adder\_6 & 14 & 77 & \cellcolor{bestT}37 & 9.073 & 38 & 1.327 & 6.84 & 38 & 1.094 & 8.29 & $10\%$ & 38 & 0.453 & 20.03 & $15\%$ & 38 & \cellcolor{bestTime}0.322 & 28.18 \\
+tof\_3 & 5 & 21 & \cellcolor{bestT}13 & 0.004 & \cellcolor{bestT}13 & 0.002 & 2.00 & \cellcolor{bestT}13 & 0.002 & 2.00 & $13\%$ & 13 & 0.001 & 4.00 & $5\%$ & \cellcolor{bestT}13 & \cellcolor{bestTime}0.001 & 4.00 \\
+tof\_4 & 7 & 35 & \cellcolor{bestT}19 & 0.037 & \cellcolor{bestT}19 & 0.017 & 2.18 & \cellcolor{bestT}19 & 0.014 & 2.64 & $8\%$ & 19 & 0.009 & 4.11 & $10\%$ & \cellcolor{bestT}19 & \cellcolor{bestTime}0.007 & 5.29 \\
+tof\_5 & 9 & 49 & \cellcolor{bestT}25 & 0.324 & \cellcolor{bestT}25 & 0.071 & 4.56 & \cellcolor{bestT}25 & 0.056 & 5.79 & $15\%$ & 25 & 0.033 & 9.82 & $15\%$ & \cellcolor{bestT}25 & \cellcolor{bestTime}0.024 & 13.50 \\
+tof\_10 & 19 & 119 & \cellcolor{bestT}55 & 25.900 & \cellcolor{bestT}55 & 2.552 & 10.15 & \cellcolor{bestT}55 & 1.864 & 13.89 & $15\%$ & 55 & 1.411 & 18.36 & $13\%$ & \cellcolor{bestT}55 & \cellcolor{bestTime}0.725 & 35.72 \\
+vbe\_adder\_3 & 10 & 70 & 20 & 0.103 & \cellcolor{bestT}19 & 0.026 & 3.96 & \cellcolor{bestT}19 & 0.021 & 4.90 & $8\%$ & 19 & 0.015 & 6.87 & $5\%$ & \cellcolor{bestT}19 & \cellcolor{bestTime}0.009 & 11.44 \\
+\bottomrule
+\end{tabular}
+\end{table}

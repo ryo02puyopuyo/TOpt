@@ -347,6 +347,30 @@ GateStringSparse TODD(const Signature& inS) {
         GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPacked(A_bool,n,m,t);
     else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA))
         GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAA(A_bool,n,m,t);
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH))
+        GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAABasisFirstSketch(A_bool,n,m,t);
+    else if(g_algorithm.length() > SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH.length() + 1 &&
+            g_algorithm.substr(0, SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH.length() + 1) ==
+            SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH + "_") {
+        int sketch_percent = std::stoi(g_algorithm.substr(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH.length() + 1));
+        GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAABasisFirstSketch(A_bool,n,m,t, sketch_percent);
+    }
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE))
+        GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketchNoReuse(A_bool,n,m,t);
+    else if(g_algorithm.length() > SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE.length() + 1 &&
+            g_algorithm.substr(0, SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE.length() + 1) ==
+            SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE + "_") {
+        int sketch_percent = std::stoi(g_algorithm.substr(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE.length() + 1));
+        GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketchNoReuse(A_bool,n,m,t, sketch_percent);
+    }
+    else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH))
+        GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketch(A_bool,n,m,t);
+    else if(g_algorithm.length() > SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH.length() + 1 &&
+            g_algorithm.substr(0, SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH.length() + 1) ==
+            SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH + "_") {
+        int sketch_percent = std::stoi(g_algorithm.substr(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH.length() + 1));
+        GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketch(A_bool,n,m,t, sketch_percent);
+    }
     else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_MEMO))
         GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedMemo(A_bool,n,m,t);
     else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_M4RI))
@@ -361,7 +385,16 @@ GateStringSparse TODD(const Signature& inS) {
         int sketch_margin = 20;
 
         if (g_algorithm.length() > 31 && g_algorithm[30] == '_') {
-            sketch_margin = std::stoi(g_algorithm.substr(31));
+            std::string sketch_arg = g_algorithm.substr(31);
+            if (!sketch_arg.empty() && sketch_arg[0] == 'r') {
+                sketch_margin = 1000000 + std::stoi(sketch_arg.substr(1));
+            } else if (!sketch_arg.empty() && sketch_arg[0] == 'p') {
+                sketch_margin = -std::stoi(sketch_arg.substr(1));
+            } else if (!sketch_arg.empty() && sketch_arg[0] == 'm') {
+                sketch_margin = std::stoi(sketch_arg.substr(1));
+            } else {
+                sketch_margin = std::stoi(sketch_arg);
+            }
         }
 
         GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(A_bool,n,m,t, use_packed, use_aa, use_memo, use_sketch, sketch_margin);
@@ -478,6 +511,30 @@ GateStringSparse TODD(const GateStringSparse& inGSM) {
             GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPacked(A_bool,n,m,t);
         else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA))
             GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAA(A_bool,n,m,t);
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH))
+            GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAABasisFirstSketch(A_bool,n,m,t);
+        else if(g_algorithm.length() > SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH.length() + 1 &&
+                g_algorithm.substr(0, SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH.length() + 1) ==
+                SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH + "_") {
+            int sketch_percent = std::stoi(g_algorithm.substr(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH.length() + 1));
+            GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAABasisFirstSketch(A_bool,n,m,t, sketch_percent);
+        }
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE))
+            GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketchNoReuse(A_bool,n,m,t);
+        else if(g_algorithm.length() > SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE.length() + 1 &&
+                g_algorithm.substr(0, SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE.length() + 1) ==
+                SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE + "_") {
+            int sketch_percent = std::stoi(g_algorithm.substr(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE.length() + 1));
+            GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketchNoReuse(A_bool,n,m,t, sketch_percent);
+        }
+        else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH))
+            GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketch(A_bool,n,m,t);
+        else if(g_algorithm.length() > SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH.length() + 1 &&
+                g_algorithm.substr(0, SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH.length() + 1) ==
+                SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH + "_") {
+            int sketch_percent = std::stoi(g_algorithm.substr(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH.length() + 1));
+            GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedAASketch(A_bool,n,m,t, sketch_percent);
+        }
         else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_MEMO))
             GateSynthesisMatrix::LempelX2_DynamicBasisLocalRepairChiPackedMemo(A_bool,n,m,t);
         else if(!g_algorithm.compare(SYNTHESIS_ALGORITHM_TAG::LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_M4RI))
@@ -492,7 +549,16 @@ GateStringSparse TODD(const GateStringSparse& inGSM) {
             int sketch_margin = 20;
 
             if (g_algorithm.length() > 31 && g_algorithm[30] == '_') {
-                sketch_margin = std::stoi(g_algorithm.substr(31));
+                std::string sketch_arg = g_algorithm.substr(31);
+                if (!sketch_arg.empty() && sketch_arg[0] == 'r') {
+                    sketch_margin = 1000000 + std::stoi(sketch_arg.substr(1));
+                } else if (!sketch_arg.empty() && sketch_arg[0] == 'p') {
+                    sketch_margin = -std::stoi(sketch_arg.substr(1));
+                } else if (!sketch_arg.empty() && sketch_arg[0] == 'm') {
+                    sketch_margin = std::stoi(sketch_arg.substr(1));
+                } else {
+                    sketch_margin = std::stoi(sketch_arg);
+                }
             }
 
             GateSynthesisMatrix::LempelX2_M4RI_Experimental_PackedLocal_ChiDiff(A_bool,n,m,t, use_packed, use_aa, use_memo, use_sketch, sketch_margin);

@@ -1,0 +1,29 @@
+% Requires \usepackage{booktabs} in the document preamble.
+% n_total = n_data + n_aux, where n_aux is the number of Hadamard ancillas
+% reported in the slurm-64/slurm-65 TODD output logs.
+\begin{table}[t]
+  \centering
+  \caption{TODDで使用する量子ビット数に基づくベンチマーク回路}
+  \label{tab:benchmark-circuits-todd-qubits}
+  \small
+  \setlength{\tabcolsep}{5pt}
+  \renewcommand{\arraystretch}{1.12}
+  \begin{tabular}{lrrrr}
+    \toprule
+    Benchmark & $n_{\mathrm{data}}$ & $n_{\mathrm{aux}}$ & $n_{\mathrm{total}}$ & T gates \\
+    \midrule
+    \texttt{gf2\textasciicircum5\_mult}   & 15 &  9 &  24 & 175 \\
+    \texttt{gf2\textasciicircum6\_mult}   & 18 & 11 &  29 & 252 \\
+    \texttt{gf2\textasciicircum7\_mult}   & 21 & 13 &  34 & 343 \\
+    \texttt{tof\_10}                       & 19 & 16 &  35 & 119 \\
+    \texttt{gf2\textasciicircum8\_mult}   & 24 & 15 &  39 & 448 \\
+    \texttt{qcla\_com\_7}                 & 24 & 18 &  42 & 203 \\
+    \texttt{gf2\textasciicircum9\_mult}   & 27 & 17 &  44 & 567 \\
+    \texttt{gf2\textasciicircum10\_mult}  & 30 & 19 &  49 & 700 \\
+    \texttt{barenco\_tof\_10}             & 19 & 31 &  50 & 224 \\
+    \texttt{ham15-low}                     & 17 & 34 &  51 & 161 \\
+    \texttt{adder\_8}                      & 24 & 71 &  95 & 399 \\
+    \texttt{ham15-med}                     & 17 & 85 & 102 & 574 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

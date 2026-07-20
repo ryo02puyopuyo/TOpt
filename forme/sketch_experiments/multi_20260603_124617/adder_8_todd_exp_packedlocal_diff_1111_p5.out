@@ -1,0 +1,418 @@
+Optimize a Clifford + T circuit.
+Input filename = /home/ryo-mtmt/TOpt/forme/tpar_benchmark/adder_8.tfc
+Number of unknown gates = 0
+Number of unknown qubit labels = 0
+Circuit filename: /home/ryo-mtmt/TOpt/forme/tpar_benchmark/adder_8.tfc
+
+n 24
+n_x 24
+n_y 0
+n_z 0
+m 301
+[0] = CNOT 3 4
+[1] = CNOT 8 9
+[2] = CNOT 14 15
+[3] = CNOT 21 22
+[4] = CNOT 5 4
+[5] = CNOT 10 9
+[6] = CNOT 16 15
+[7] = CNOT 23 22
+[8] = H 4
+[9] = H 9
+[10] = H 15
+[11] = H 22
+[12] = CCZ 1 2 4
+[13] = CCZ 6 7 9
+[14] = CCZ 12 13 15
+[15] = CCZ 19 20 22
+[16] = H 4
+[17] = H 9
+[18] = H 15
+[19] = H 22
+[20] = H 5
+[21] = H 10
+[22] = H 16
+[23] = H 23
+[24] = H 11
+[25] = H 17
+[26] = H 24
+[27] = CCZ 3 4 5
+[28] = CCZ 8 9 10
+[29] = CCZ 8 9 11
+[30] = CCZ 14 15 16
+[31] = CCZ 14 15 17
+[32] = CCZ 21 22 23
+[33] = CCZ 21 22 24
+[34] = CNOT 6 7
+[35] = CNOT 12 13
+[36] = CNOT 19 20
+[37] = CNOT 9 6
+[38] = CNOT 15 12
+[39] = CNOT 22 19
+[40] = CCZ 8 9 11
+[41] = CCZ 14 15 17
+[42] = CCZ 21 22 24
+[43] = H 5
+[44] = H 11
+[45] = H 16
+[46] = H 17
+[47] = H 24
+[48] = H 18
+[49] = CCZ 17 24 18
+[50] = CCZ 16 24 23
+[51] = CCZ 5 11 10
+[52] = H 18
+[53] = H 10
+[54] = H 16
+[55] = CCZ 10 18 23
+[56] = CCZ 10 17 16
+[57] = H 16
+[58] = H 23
+[59] = H 18
+[60] = CCZ 17 24 18
+[61] = H 18
+[62] = H 11
+[63] = H 17
+[64] = H 24
+[65] = CCZ 8 9 11
+[66] = CCZ 14 15 17
+[67] = CCZ 21 22 24
+[68] = CNOT 9 6
+[69] = CNOT 15 12
+[70] = CNOT 22 19
+[71] = CNOT 6 7
+[72] = CNOT 12 13
+[73] = CNOT 19 20
+[74] = CCZ 8 9 11
+[75] = CCZ 14 15 17
+[76] = CCZ 21 22 24
+[77] = H 24
+[78] = H 4
+[79] = H 9
+[80] = H 15
+[81] = H 22
+[82] = CCZ 1 2 4
+[83] = CCZ 6 7 9
+[84] = CCZ 12 13 15
+[85] = CCZ 19 20 22
+[86] = H 4
+[87] = H 9
+[88] = H 15
+[89] = H 22
+[90] = CNOT 3 4
+[91] = CNOT 8 9
+[92] = CNOT 14 15
+[93] = CNOT 21 22
+[94] = CNOT 6 7
+[95] = CNOT 12 13
+[96] = CNOT 19 20
+[97] = CNOT 9 7
+[98] = CNOT 15 13
+[99] = CNOT 22 20
+[100] = CNOT 7 5
+[101] = CNOT 13 10
+[102] = CNOT 20 16
+[103] = H 4
+[104] = H 9
+[105] = H 15
+[106] = H 22
+[107] = CCZ 1 2 4
+[108] = CCZ 6 7 9
+[109] = CCZ 12 13 15
+[110] = CCZ 19 20 22
+[111] = H 4
+[112] = H 9
+[113] = H 15
+[114] = H 22
+[115] = CNOT 3 4
+[116] = CNOT 8 9
+[117] = CNOT 14 15
+[118] = CNOT 21 22
+[119] = H 4
+[120] = H 9
+[121] = H 15
+[122] = H 22
+[123] = CCZ 1 2 4
+[124] = CCZ 6 7 9
+[125] = CCZ 12 13 15
+[126] = CCZ 19 20 22
+[127] = H 4
+[128] = H 9
+[129] = H 15
+[130] = H 22
+[131] = CNOT 6 7
+[132] = CNOT 12 13
+[133] = CNOT 19 20
+[134] = CNOT 7 5
+[135] = CNOT 13 10
+[136] = CNOT 20 16
+[137] = CNOT 9 7
+[138] = CNOT 15 13
+[139] = CNOT 22 20
+[140] = CNOT 1 2
+[141] = CNOT 6 7
+[142] = CNOT 12 13
+[143] = CNOT 19 20
+[144] = CNOT 3 4
+[145] = CNOT 8 9
+[146] = CNOT 14 15
+[147] = H 4
+[148] = H 9
+[149] = H 15
+[150] = CCZ 1 2 4
+[151] = CCZ 6 7 9
+[152] = CCZ 12 13 15
+[153] = H 4
+[154] = H 9
+[155] = H 15
+[156] = CNOT 6 7
+[157] = CNOT 12 13
+[158] = CCZ 8 9 11
+[159] = CCZ 14 15 17
+[160] = CNOT 9 6
+[161] = CNOT 15 12
+[162] = CCZ 8 9 11
+[163] = CCZ 14 15 17
+[164] = H 11
+[165] = H 17
+[166] = H 16
+[167] = CCZ 10 17 16
+[168] = H 10
+[169] = CCZ 5 11 10
+[170] = H 5
+[171] = H 11
+[172] = H 17
+[173] = CCZ 8 9 11
+[174] = CCZ 14 15 17
+[175] = CNOT 9 6
+[176] = CNOT 15 12
+[177] = CCZ 8 9 11
+[178] = CCZ 14 15 17
+[179] = CNOT 6 7
+[180] = CNOT 12 13
+[181] = CCZ 8 9 10
+[182] = CCZ 14 15 16
+[183] = CCZ 3 4 5
+[184] = H 5
+[185] = H 10
+[186] = H 11
+[187] = H 16
+[188] = H 17
+[189] = H 4
+[190] = H 9
+[191] = H 15
+[192] = CCZ 1 2 4
+[193] = CCZ 6 7 9
+[194] = CCZ 12 13 15
+[195] = H 4
+[196] = H 9
+[197] = H 15
+[198] = CNOT 5 4
+[199] = CNOT 10 9
+[200] = CNOT 16 15
+[201] = CNOT 3 4
+[202] = CNOT 8 9
+[203] = CNOT 14 15
+
+Algorithm used: todd_exp_packedlocal_diff_1111_p5
+
+UniversalOptimize begin.
+	Gate synthesis begin.
+A_BMS
+BMSparse object. Dims: 95x287
+23533 12338 23530 23527 12334 24674 4297 24672 20366 20365 13477 13763 12328 12326 15769 24378 15768 10602 23800 10598 23799 22938 22937 22936 10595 24369 18054 10592 10591 12311 12022 10300 3436 12308 12021 10585 11157 11730 10295 11729 11154 18056 10293 11727 18055 10292 18327 18326 3401 12297 10859 9711 10858 10570 9709 9708 10568 6262 6260 6259 19747 19746 12858 5969 14004 5968 16058 21603 16057 21602 1585 107 13632 12025 4262 5371 392 1538 9653 2414 24664 21337 6996 14759 21336 18090 10430 1774 2393 21869 1922 15879 15757 5776 4153 7940 12147 10424 16736 5375 3246 87 9712 14148 85 14151 22110 657 656 12131 3259 13282 3544 2089 7499 26217 2954 10596 23904 641 20655 1802 2375 1834 12132 5298 1797 20651 23978 1539 1796 4836 1509 23241 21023 1546 15881 16422 21021 13988 70 23902 3885 3302 643 6995 14758 8104 11732 642 9251 3300 13734 25933 10407 10408 25934 16737 1519 11155 65 10277 2514 11153 63 26031 4201 1782 24504 1781 3833 10571 23879 17928 919 10569 23877 21868 917 1458 18229 10100 20379 3608 23343 5794 13462 3481 18088 12299 5645 26218 1820 9935 5066 24436 12958 21894 7287 10533 7502 22109 15122 1814 15880 14150 22117 10431 1559 2093 12074 14149 19018 22116 18687 22550 7943 372 14411 23553 3591 24150 19809 3579 23836 32 23240 21022 3278 351 2245 13335 2515 4287 3178 393 10374 15516 13352 7942 21826 13509 23247 3196 16721 23754 12192 14410 21971 23834 30 3276 21825 14409 16425 21970 1772 15515 7941 8062 5357 22481 13461 24551 17806 3521 23824 3266 21893 10532 19016 20125 1745 72 17805 5362 887 17522 1833 3194 23752 12960 23551 15517 12190 6239 357 22147 23256 17804 15640 21262 17069 11524 10442 655 3901 5795 3482 18089 20377 10098 22393 24143 23249 3065 7501 10422 1550 23544 886 17521 350 1459 918 18230 21261 11523 22394 6164 13438 2348 23254 12154 1525 20378 373 17523 888 6993 14756 9211 358 3185 3472 16423 12095 21553 9651 21554 1496 17022 317 3563 18685 3537 10299 318 23581 3564 6810 23826 11383 14412 12194 24233 18688 8950 1917 1469 19322 4203 1470 8503 22569 3600 24205 12844 12961 10429 6994 8103 14757 12323 23413 22480 15826 12337 5683 3465 22318 11322 13540 5793 22940 12959 15123 9209 1756 17445 4069 21815 1769 17520 21816 1770 1771 23411 3935 23583 3186 10382 6261 1825 8778 12105 23802 3840 2406 15931 7288 7289 1837 24223 1838 10448 19058 3533 22386 19059 22305 17436 1553 23242 21024 3280 23529 24638 3567 19352 4745 1846 20240 19807 15371 223 13326 23740 1560 20528 11319 12467 11320 12023 5369 12181 20296 6637 12182 3597 12469 12470 1566 23747 2427 24239 8951 6733 1568 1569 23749 17927 19806 24242 4727 22146 3293 16680 5590 23984 6738 12310 5656 3295 19367 19368 17073 1548 17074 1577 5364 3179 24250 1511 15928 5649 23341 5597 5489 9925 10607 6171 15368 24565 10593 13920 13634 20522 3303 23432 24541 5065 3304 13312 2222 3898 17423 3305 2223 13637 3899 3306 2224 11236 24544 23245 12155 9937 7286 26139 5068 12180 3308 26030 11238 24546 5318 5892 13928 3884 12208 20297 13643 12471 3599 7500 4173 20298 13644 3906 12210 16424 21969 15369 221 20654 1801 23981 19808 15372 21974 3609 22551 3610 8777 3367 3900 13254 9927 12224 2180 2949 8494 22560 2988 9642 13429 24361 2181 8495 20343 9253 22561 2182 11379 9644 18324 3907 23423 19721 4195 5872 3654 8787 12331 23421 22312 24158 4196 13636 3655 2134 8788 4197 12853 9130 4694 25765 2476 25766 2477 8504 22570 23430 10856 4202 11666 11380 26138 5067 3905 11668 5644 5359 13294 2204 15120 5382 105 5650 15121 5383 1924 10302 3648 12845 1494 13693 5658 22306 13761 23742 23980 6236 22387 24605 2051 18686 5378 509 10861 19733 3464 22317 10279 8061 2516 23797 508 9129 23546 3584 25764 2478 25767 22313 5678 17446 1662 15725 12335 5681 
+
+[Experimental TODD PackedLocal + ChiDiff] Flags - Packed: 1, AA Table: 1, Memo: 1, Sketch: 1 (percent=5)
+--- Round 0 | Current Columns: 287 ---
+  [HIT!] Pair(3,159) Dist=1 | 287 -> 280 columns
+Round 0 Finished in 48 ms.
+--- Round 1 | Current Columns: 280 ---
+  [HIT!] Pair(208,268) Dist=1 | 280 -> 278 columns
+Round 1 Finished in 38 ms.
+--- Round 2 | Current Columns: 278 ---
+  [HIT!] Pair(202,276) Dist=1 | 278 -> 276 columns
+Round 2 Finished in 164 ms.
+--- Round 3 | Current Columns: 276 ---
+  [HIT!] Pair(173,241) Dist=1 | 276 -> 270 columns
+Round 3 Finished in 173 ms.
+--- Round 4 | Current Columns: 270 ---
+  [HIT!] Pair(187,190) Dist=1 | 270 -> 265 columns
+Round 4 Finished in 191 ms.
+--- Round 5 | Current Columns: 265 ---
+  [HIT!] Pair(38,211) Dist=1 | 265 -> 262 columns
+Round 5 Finished in 227 ms.
+--- Round 6 | Current Columns: 262 ---
+  [HIT!] Pair(37,123) Dist=1 | 262 -> 259 columns
+Round 6 Finished in 28 ms.
+--- Round 7 | Current Columns: 259 ---
+  [HIT!] Pair(29,39) Dist=1 | 259 -> 255 columns
+Round 7 Finished in 29 ms.
+--- Round 8 | Current Columns: 255 ---
+  [HIT!] Pair(28,210) Dist=1 | 255 -> 253 columns
+Round 8 Finished in 126 ms.
+--- Round 9 | Current Columns: 253 ---
+  [HIT!] Pair(78,202) Dist=1 | 253 -> 251 columns
+Round 9 Finished in 28 ms.
+--- Round 10 | Current Columns: 251 ---
+  [HIT!] Pair(19,215) Dist=1 | 251 -> 248 columns
+Round 10 Finished in 381 ms.
+--- Round 11 | Current Columns: 248 ---
+  [HIT!] Pair(10,17) Dist=1 | 248 -> 243 columns
+Round 11 Finished in 391 ms.
+--- Round 12 | Current Columns: 243 ---
+  [HIT!] Pair(33,117) Dist=2 | 243 -> 241 columns
+Round 12 Finished in 386 ms.
+--- Round 13 | Current Columns: 241 ---
+  [HIT!] Pair(30,70) Dist=2 | 241 -> 235 columns
+Round 13 Finished in 359 ms.
+--- Round 14 | Current Columns: 235 ---
+  [HIT!] Pair(73,231) Dist=2 | 235 -> 233 columns
+Round 14 Finished in 372 ms.
+--- Round 15 | Current Columns: 233 ---
+  [HIT!] Pair(23,74) Dist=2 | 233 -> 229 columns
+Round 15 Finished in 373 ms.
+--- Round 16 | Current Columns: 229 ---
+  [HIT!] Pair(1,188) Dist=2 | 229 -> 227 columns
+Round 16 Finished in 382 ms.
+--- Round 17 | Current Columns: 227 ---
+  [HIT!] Pair(38,99) Dist=2 | 227 -> 225 columns
+Round 17 Finished in 369 ms.
+--- Round 18 | Current Columns: 225 ---
+  [HIT!] Pair(12,189) Dist=2 | 225 -> 223 columns
+Round 18 Finished in 452 ms.
+--- Round 19 | Current Columns: 223 ---
+  [HIT!] Pair(22,151) Dist=2 | 223 -> 221 columns
+Round 19 Finished in 562 ms.
+--- Round 20 | Current Columns: 221 ---
+  [HIT!] Pair(35,115) Dist=2 | 221 -> 213 columns
+Round 20 Finished in 751 ms.
+--- Round 21 | Current Columns: 213 ---
+  [HIT!] Pair(146,207) Dist=2 | 213 -> 211 columns
+Round 21 Finished in 801 ms.
+--- Round 22 | Current Columns: 211 ---
+  [HIT!] Pair(0,164) Dist=2 | 211 -> 207 columns
+Round 22 Finished in 882 ms.
+--- Round 23 | Current Columns: 207 ---
+  [HIT!] Pair(11,21) Dist=1 | 207 -> 203 columns
+Round 23 Finished in 317 ms.
+--- Round 24 | Current Columns: 203 ---
+  [HIT!] Pair(11,154) Dist=2 | 203 -> 201 columns
+Round 24 Finished in 783 ms.
+--- Round 25 | Current Columns: 201 ---
+  [HIT!] Pair(12,116) Dist=2 | 201 -> 199 columns
+Round 25 Finished in 951 ms.
+--- Round 26 | Current Columns: 199 ---
+  [HIT!] Pair(22,106) Dist=2 | 199 -> 193 columns
+Round 26 Finished in 979 ms.
+--- Round 27 | Current Columns: 193 ---
+  [HIT!] Pair(24,113) Dist=2 | 193 -> 191 columns
+Round 27 Finished in 938 ms.
+--- Round 28 | Current Columns: 191 ---
+  [HIT!] Pair(103,111) Dist=2 | 191 -> 189 columns
+Round 28 Finished in 412 ms.
+--- Round 29 | Current Columns: 189 ---
+  [HIT!] Pair(21,113) Dist=2 | 189 -> 187 columns
+Round 29 Finished in 694 ms.
+--- Round 30 | Current Columns: 187 ---
+  [HIT!] Pair(111,151) Dist=1 | 187 -> 185 columns
+Round 30 Finished in 129 ms.
+--- Round 31 | Current Columns: 185 ---
+  [HIT!] Pair(108,172) Dist=2 | 185 -> 183 columns
+Round 31 Finished in 762 ms.
+--- Round 32 | Current Columns: 183 ---
+  [HIT!] Pair(55,150) Dist=2 | 183 -> 181 columns
+Round 32 Finished in 1264 ms.
+--- Round 33 | Current Columns: 181 ---
+  [HIT!] Pair(11,29) Dist=2 | 181 -> 179 columns
+Round 33 Finished in 1246 ms.
+--- Round 34 | Current Columns: 179 ---
+  [HIT!] Pair(109,145) Dist=2 | 179 -> 177 columns
+Round 34 Finished in 1748 ms.
+--- Round 35 | Current Columns: 177 ---
+  [HIT!] Pair(33,88) Dist=2 | 177 -> 175 columns
+Round 35 Finished in 1766 ms.
+--- Round 36 | Current Columns: 175 ---
+  [HIT!] Pair(81,157) Dist=2 | 175 -> 169 columns
+Round 36 Finished in 1870 ms.
+--- Round 37 | Current Columns: 169 ---
+  [SKETCH HIT!] Pair(42,117) Dist=2 | 169 -> 163 columns
+Round 37 Finished in 1731 ms.
+--- Round 38 | Current Columns: 163 ---
+  [HIT!] Pair(97,103) Dist=3 | 163 -> 161 columns
+Round 38 Finished in 1985 ms.
+--- Round 39 | Current Columns: 161 ---
+  [HIT!] Pair(88,100) Dist=3 | 161 -> 157 columns
+Round 39 Finished in 1945 ms.
+--- Round 40 | Current Columns: 157 ---
+  [HIT!] Pair(7,151) Dist=3 | 157 -> 153 columns
+Round 40 Finished in 1992 ms.
+--- Round 41 | Current Columns: 153 ---
+  [HIT!] Pair(7,77) Dist=3 | 153 -> 151 columns
+Round 41 Finished in 1990 ms.
+--- Round 42 | Current Columns: 151 ---
+  [HIT!] Pair(37,49) Dist=3 | 151 -> 149 columns
+Round 42 Finished in 2299 ms.
+--- Round 43 | Current Columns: 149 ---
+  [HIT!] Pair(8,113) Dist=3 | 149 -> 147 columns
+Round 43 Finished in 2433 ms.
+--- Round 44 | Current Columns: 147 ---
+  [HIT!] Pair(78,103) Dist=3 | 147 -> 145 columns
+Round 44 Finished in 3201 ms.
+--- Round 45 | Current Columns: 145 ---
+  [HIT!] Pair(24,36) Dist=4 | 145 -> 143 columns
+Round 45 Finished in 3528 ms.
+--- Round 46 | Current Columns: 143 ---
+  [SKETCH HIT!] Pair(2,132) Dist=4 | 143 -> 141 columns
+Round 46 Finished in 3657 ms.
+--- Round 47 | Current Columns: 141 ---
+  [HIT!] Pair(35,92) Dist=4 | 141 -> 139 columns
+Round 47 Finished in 3813 ms.
+--- Round 48 | Current Columns: 139 ---
+  [SKETCH HIT!] Pair(112,125) Dist=6 | 139 -> 137 columns
+Round 48 Finished in 11984 ms.
+--- Round 49 | Current Columns: 137 ---
+  [SKETCH HIT!] Pair(5,28) Dist=6 | 137 -> 135 columns
+Round 49 Finished in 21126 ms.
+--- Round 50 | Current Columns: 135 ---
+  [SKETCH HIT!] Pair(9,21) Dist=7 | 135 -> 133 columns
+Round 50 Finished in 29527 ms.
+--- Round 51 | Current Columns: 133 ---
+  [SKETCH HIT!] Pair(97,101) Dist=9 | 133 -> 131 columns
+Round 51 Finished in 43676 ms.
+--- Round 52 | Current Columns: 131 ---
+Round 52 Finished in 131272 ms.
+
+=== Optimization Summary ===
+Algorithm       : LempelX2_M4RI_Experimental_PackedLocal_ChiDiff
+Initial T-count : 287
+Final T-count   : 131
+Total Reduced   : 156 gates
+Execution Time  : 288153 ms
+Chi calculation : 43343.6 ms
+AA Table calc   : 5.57 ms
+Nullspace calc  : 168200 ms
+Pairs tested    : 23622
+Memo x hits     : 6848
+Avg affected    : 118802
+Full NS empty   : 0
+Sketch mode     : percent(5)
+Sketch attempts : 18691
+Sketch skipped  : 0
+Sketch rejected : 12465
+Sketch rank rej : 0
+Sketch pair rej : 12465
+Sketch passed   : 6226
+Sketch rows avg : 8454.06
+Sketch y vectors: 393587
+Sketch pair y   : 12719
+Sketch y full ok: 6
+Sketch y full ng: 12713
+Sketch y reduced: 6
+Sketch y no red : 0
+Full NS skipped : 12471
+Full NS computed: 6220
+Sketch time     : 75810.1 ms
+============================
+		TODD executed in 287.595 seconds.
+		Total time: 287.681s
+	Gate synthesis end.

@@ -1,0 +1,168 @@
+========================================
+ multi-circuit sketch experiments
+ Input dir: /home/ryo-mtmt/TOpt/forme/tpar_benchmark
+ Output:    /home/ryo-mtmt/TOpt/forme/sketch_experiments/multi_20260528_070953
+ Circuits:  22
+ Algos:     5
+ Runs:      110
+========================================
+
+=== barenco_tof_3.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 28 -> 14, time: 0.005092s, nullspace: 2.507ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 28 -> 14, time: 0.005669s, nullspace: 1.833ms, sketch: 1.245ms, reject: 35.71%
+todd_exp_packedlocal_diff_1111_p10 ... T: 28 -> 14, time: 0.005059s, nullspace: 0.766ms, sketch: 1.692ms, reject: 72.34%
+todd_exp_packedlocal_diff_1111_p15 ... T: 28 -> 14, time: 0.005329s, nullspace: 0.363ms, sketch: 2.225ms, reject: 86.14%
+todd_exp_packedlocal_diff_1111_p20 ... T: 28 -> 14, time: 0.00565s, nullspace: 0.182ms, sketch: 2.806ms, reject: 92.66%
+
+=== barenco_tof_4.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 56 -> 24, time: 0.066184s, nullspace: 43.106ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 56 -> 24, time: 0.060345s, nullspace: 25.272ms, sketch: 11.819ms, reject: 39.21%
+todd_exp_packedlocal_diff_1111_p10 ... T: 56 -> 24, time: 0.050842s, nullspace: 8.443ms, sketch: 18.489ms, reject: 77.52%
+todd_exp_packedlocal_diff_1111_p15 ... T: 56 -> 24, time: 0.053178s, nullspace: 3.866ms, sketch: 25.404ms, reject: 88.68%
+todd_exp_packedlocal_diff_1111_p20 ... T: 56 -> 24, time: 0.058483s, nullspace: 1.554ms, sketch: 32.029ms, reject: 95.27%
+
+=== barenco_tof_5.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 84 -> 34, time: 0.364761s, nullspace: 242.39ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 84 -> 34, time: 0.318122s, nullspace: 133.246ms, sketch: 61.575ms, reject: 43.84%
+todd_exp_packedlocal_diff_1111_p10 ... T: 84 -> 34, time: 0.259006s, nullspace: 36.95ms, sketch: 96.069ms, reject: 80.47%
+todd_exp_packedlocal_diff_1111_p15 ... T: 84 -> 34, time: 0.276205s, nullspace: 13.423ms, sketch: 134.55ms, reject: 91.00%
+todd_exp_packedlocal_diff_1111_p20 ... T: 84 -> 34, time: 0.306054s, nullspace: 5.845ms, sketch: 172.027ms, reject: 95.79%
+
+=== barenco_tof_10.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 224 -> 84, time: 41.4912s, nullspace: 26641.7ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 224 -> 84, time: 25.7527s, nullspace: 7955.54ms, sketch: 3269ms, reject: 56.19%
+todd_exp_packedlocal_diff_1111_p10 ... T: 224 -> 84, time: 21.1923s, nullspace: 1406.96ms, sketch: 5271.88ms, reject: 85.58%
+todd_exp_packedlocal_diff_1111_p15 ... T: 224 -> 84, time: 23.0295s, nullspace: 520.83ms, sketch: 7743.95ms, reject: 93.59%
+todd_exp_packedlocal_diff_1111_p20 ... T: 224 -> 84, time: 24.4055s, nullspace: 217.899ms, sketch: 9641.71ms, reject: 96.67%
+
+=== gf2^4_mult.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 112 -> 54, time: 0.726431s, nullspace: 584.184ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 112 -> 54, time: 0.591853s, nullspace: 390.124ms, sketch: 95.869ms, reject: 17.55%
+todd_exp_packedlocal_diff_1111_p10 ... T: 112 -> 54, time: 0.478222s, nullspace: 110.349ms, sketch: 220.101ms, reject: 80.13%
+todd_exp_packedlocal_diff_1111_p15 ... T: 112 -> 54, time: 0.492251s, nullspace: 28.489ms, sketch: 311.24ms, reject: 94.08%
+todd_exp_packedlocal_diff_1111_p20 ... T: 112 -> 54, time: 0.357579s, nullspace: 9.396ms, sketch: 248.489ms, reject: 97.09%
+
+=== gf2^5_mult.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 175 -> 88, time: 4.16933s, nullspace: 3661.61ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 175 -> 88, time: 3.83621s, nullspace: 2656.78ms, sketch: 663.088ms, reject: 22.44%
+todd_exp_packedlocal_diff_1111_p10 ... T: 175 -> 88, time: 2.63137s, nullspace: 840.525ms, sketch: 1242.72ms, reject: 74.13%
+todd_exp_packedlocal_diff_1111_p15 ... T: 175 -> 88, time: 2.56051s, nullspace: 222.356ms, sketch: 1786.04ms, reject: 91.02%
+todd_exp_packedlocal_diff_1111_p20 ... T: 175 -> 88, time: 2.99307s, nullspace: 88.086ms, sketch: 2367.1ms, reject: 95.87%
+
+=== gf2^6_mult.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 252 -> 122, time: 10.6305s, nullspace: 9421.3ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 252 -> 122, time: 9.7774s, nullspace: 6967.14ms, sketch: 1652.88ms, reject: 21.79%
+todd_exp_packedlocal_diff_1111_p10 ... T: 252 -> 122, time: 5.39482s, nullspace: 994.259ms, sketch: 3200.29ms, reject: 86.00%
+todd_exp_packedlocal_diff_1111_p15 ... T: 252 -> 122, time: 6.3366s, nullspace: 343.123ms, sketch: 4767.07ms, reject: 95.32%
+todd_exp_packedlocal_diff_1111_p20 ... T: 252 -> 122, time: 7.73264s, nullspace: 143.138ms, sketch: 6310.17ms, reject: 97.81%
+
+=== gf2^7_mult.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 343 -> 164, time: 40.9408s, nullspace: 37184.2ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 343 -> 164, time: 41.8453s, nullspace: 31730.3ms, sketch: 6285.92ms, reject: 12.08%
+todd_exp_packedlocal_diff_1111_p10 ... T: 343 -> 164, time: 24.0772s, nullspace: 8084.64ms, sketch: 12115.9ms, reject: 71.45%
+todd_exp_packedlocal_diff_1111_p15 ... T: 343 -> 164, time: 24.5447s, nullspace: 2761.75ms, sketch: 17883.2ms, reject: 89.69%
+todd_exp_packedlocal_diff_1111_p20 ... T: 343 -> 164, time: 27.886s, nullspace: 970.259ms, sketch: 23044.2ms, reject: 95.61%
+
+=== gf2^8_mult.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 448 -> 220, time: 139.278s, nullspace: 130656ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 448 -> 220, time: 148.193s, nullspace: 122074ms, sketch: 17500.2ms, reject: 7.40%
+todd_exp_packedlocal_diff_1111_p10 ... T: 448 -> 220, time: 53.331s, nullspace: 11088.9ms, sketch: 33613.4ms, reject: 86.30%
+todd_exp_packedlocal_diff_1111_p15 ... T: 448 -> 220, time: 58.1531s, nullspace: 1715.94ms, sketch: 47815.7ms, reject: 97.08%
+todd_exp_packedlocal_diff_1111_p20 ... T: 448 -> 220, time: 70.9118s, nullspace: 583.457ms, sketch: 61692.3ms, reject: 98.69%
+
+=== grover_5.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 336 -> 144, time: 603.789s, nullspace: 356100ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 336 -> 144, time: 526.392s, nullspace: 245976ms, sketch: 32890.1ms, reject: 28.98%
+todd_exp_packedlocal_diff_1111_p10 ... T: 336 -> 144, time: 358.04s, nullspace: 59347.4ms, sketch: 50903.6ms, reject: 77.90%
+todd_exp_packedlocal_diff_1111_p15 ... T: 336 -> 144, time: 332.632s, nullspace: 12352.6ms, sketch: 71417.7ms, reject: 93.74%
+todd_exp_packedlocal_diff_1111_p20 ... T: 336 -> 144, time: 343.047s, nullspace: 4514.47ms, sketch: 90822ms, reject: 96.96%
+
+=== hwb6.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 105 -> 52, time: 2.84066s, nullspace: 1850.17ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 105 -> 52, time: 1.85579s, nullspace: 384.679ms, sketch: 437.892ms, reject: 71.11%
+todd_exp_packedlocal_diff_1111_p10 ... T: 105 -> 51, time: 1.92538s, nullspace: 129.093ms, sketch: 733.624ms, reject: 88.72%
+todd_exp_packedlocal_diff_1111_p15 ... T: 105 -> 52, time: 2.11886s, nullspace: 74.632ms, sketch: 1041.26ms, reject: 92.77%
+todd_exp_packedlocal_diff_1111_p20 ... T: 105 -> 52, time: 2.52456s, nullspace: 47.117ms, sketch: 1417.32ms, reject: 95.98%
+
+=== mod5_4.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 28 -> 16, time: 0.009051s, nullspace: 4.697ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 28 -> 16, time: 0.01039s, nullspace: 4.136ms, sketch: 1.885ms, reject: 10.75%
+todd_exp_packedlocal_diff_1111_p10 ... T: 28 -> 16, time: 0.009988s, nullspace: 2.903ms, sketch: 2.718ms, reject: 49.06%
+todd_exp_packedlocal_diff_1111_p15 ... T: 28 -> 16, time: 0.009747s, nullspace: 1.694ms, sketch: 3.742ms, reject: 70.80%
+todd_exp_packedlocal_diff_1111_p20 ... T: 28 -> 16, time: 0.008443s, nullspace: 0.795ms, sketch: 3.883ms, reject: 84.35%
+
+=== mod_mult_55.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 49 -> 17, time: 0.087572s, nullspace: 29.505ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 49 -> 17, time: 0.052493s, nullspace: 10.849ms, sketch: 5.467ms, reject: 43.07%
+todd_exp_packedlocal_diff_1111_p10 ... T: 49 -> 17, time: 0.055502s, nullspace: 5.455ms, sketch: 10.937ms, reject: 73.75%
+todd_exp_packedlocal_diff_1111_p15 ... T: 49 -> 17, time: 0.058515s, nullspace: 2.847ms, sketch: 15.551ms, reject: 86.19%
+todd_exp_packedlocal_diff_1111_p20 ... T: 49 -> 17, time: 0.090426s, nullspace: 1.711ms, sketch: 27.317ms, reject: 92.86%
+
+=== mod_red_21.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 119 -> 52, time: 2.60668s, nullspace: 1938.47ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 119 -> 52, time: 2.15165s, nullspace: 1083.52ms, sketch: 423.097ms, reject: 39.62%
+todd_exp_packedlocal_diff_1111_p10 ... T: 119 -> 52, time: 1.62162s, nullspace: 356.771ms, sketch: 644.961ms, reject: 74.70%
+todd_exp_packedlocal_diff_1111_p15 ... T: 119 -> 52, time: 1.74507s, nullspace: 135.088ms, sketch: 932.104ms, reject: 88.79%
+todd_exp_packedlocal_diff_1111_p20 ... T: 119 -> 52, time: 2.05263s, nullspace: 98.002ms, sketch: 1286.82ms, reject: 93.10%
+
+=== qcla_com_7.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 203 -> 62, time: 13.412s, nullspace: 8229.88ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 203 -> 62, time: 8.47167s, nullspace: 1495.48ms, sketch: 1744.57ms, reject: 75.89%
+todd_exp_packedlocal_diff_1111_p10 ... T: 203 -> 61, time: 8.10922s, nullspace: 490.076ms, sketch: 2550.72ms, reject: 89.49%
+todd_exp_packedlocal_diff_1111_p15 ... T: 203 -> 62, time: 9.24319s, nullspace: 143.93ms, sketch: 3870.56ms, reject: 96.26%
+todd_exp_packedlocal_diff_1111_p20 ... T: 203 -> 62, time: 10.9213s, nullspace: 101.035ms, sketch: 5458.05ms, reject: 97.78%
+
+=== qft_4.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 14 -> 12, time: 0.00515s, nullspace: 1.66ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 14 -> 12, time: 0.005912s, nullspace: 1.421ms, sketch: 0.998ms, reject: 36.54%
+todd_exp_packedlocal_diff_1111_p10 ... T: 14 -> 12, time: 0.006078s, nullspace: 0.957ms, sketch: 1.596ms, reject: 68.12%
+todd_exp_packedlocal_diff_1111_p15 ... T: 14 -> 12, time: 0.006179s, nullspace: 0.402ms, sketch: 2.231ms, reject: 85.90%
+todd_exp_packedlocal_diff_1111_p20 ... T: 14 -> 12, time: 0.006623s, nullspace: 0.295ms, sketch: 2.816ms, reject: 88.75%
+
+=== rc_adder_6.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 77 -> 38, time: 3.32153s, nullspace: 1519.6ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 77 -> 38, time: 1.89669s, nullspace: 185.851ms, sketch: 232.856ms, reject: 71.15%
+todd_exp_packedlocal_diff_1111_p10 ... T: 77 -> 38, time: 1.94147s, nullspace: 74.688ms, sketch: 407.319ms, reject: 89.73%
+todd_exp_packedlocal_diff_1111_p15 ... T: 77 -> 38, time: 2.12943s, nullspace: 33.535ms, sketch: 618.596ms, reject: 95.67%
+todd_exp_packedlocal_diff_1111_p20 ... T: 77 -> 38, time: 2.30244s, nullspace: 20.079ms, sketch: 805.513ms, reject: 97.35%
+
+=== tof_3.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 21 -> 13, time: 0.002894s, nullspace: 1.387ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 21 -> 13, time: 0.003463s, nullspace: 1.178ms, sketch: 0.725ms, reject: 22.22%
+todd_exp_packedlocal_diff_1111_p10 ... T: 21 -> 13, time: 0.003178s, nullspace: 0.747ms, sketch: 0.862ms, reject: 51.32%
+todd_exp_packedlocal_diff_1111_p15 ... T: 21 -> 13, time: 0.003084s, nullspace: 0.468ms, sketch: 1.09ms, reject: 67.95%
+todd_exp_packedlocal_diff_1111_p20 ... T: 21 -> 13, time: 0.003909s, nullspace: 0.414ms, sketch: 1.684ms, reject: 77.91%
+
+=== tof_4.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 35 -> 19, time: 0.013707s, nullspace: 7.673ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 35 -> 19, time: 0.02266s, nullspace: 9.335ms, sketch: 4.276ms, reject: 28.42%
+todd_exp_packedlocal_diff_1111_p10 ... T: 35 -> 19, time: 0.016136s, nullspace: 3.951ms, sketch: 5.079ms, reject: 59.16%
+todd_exp_packedlocal_diff_1111_p15 ... T: 35 -> 19, time: 0.016204s, nullspace: 2.163ms, sketch: 6.971ms, reject: 77.56%
+todd_exp_packedlocal_diff_1111_p20 ... T: 35 -> 19, time: 0.017087s, nullspace: 1.26ms, sketch: 8.88ms, reject: 87.21%
+
+=== tof_5.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 49 -> 25, time: 0.086096s, nullspace: 56.332ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 49 -> 25, time: 0.055796s, nullspace: 24.447ms, sketch: 10.973ms, reject: 38.25%
+todd_exp_packedlocal_diff_1111_p10 ... T: 49 -> 25, time: 0.049153s, nullspace: 11.095ms, sketch: 17.157ms, reject: 70.79%
+todd_exp_packedlocal_diff_1111_p15 ... T: 49 -> 25, time: 0.07247s, nullspace: 7.977ms, sketch: 33.048ms, reject: 81.67%
+todd_exp_packedlocal_diff_1111_p20 ... T: 49 -> 25, time: 0.077789s, nullspace: 3.893ms, sketch: 41.836ms, reject: 89.69%
+
+=== tof_10.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 119 -> 55, time: 3.67321s, nullspace: 2119.07ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 119 -> 55, time: 2.8998s, nullspace: 810.095ms, sketch: 511.185ms, reject: 53.03%
+todd_exp_packedlocal_diff_1111_p10 ... T: 119 -> 55, time: 2.58894s, nullspace: 227.263ms, sketch: 805.592ms, reject: 80.89%
+todd_exp_packedlocal_diff_1111_p15 ... T: 119 -> 55, time: 2.77393s, nullspace: 98.031ms, sketch: 1114.51ms, reject: 90.02%
+todd_exp_packedlocal_diff_1111_p20 ... T: 119 -> 55, time: 3.27139s, nullspace: 82.098ms, sketch: 1575.09ms, reject: 94.21%
+
+=== vbe_adder_3.tfc ===
+todd_exp_packedlocal_diff_1110 ... T: 70 -> 19, time: 0.045634s, nullspace: 26.047ms, sketch: ms, reject: %
+todd_exp_packedlocal_diff_1111_p5 ... T: 70 -> 19, time: 0.025913s, nullspace: 4.036ms, sketch: 6.544ms, reject: 80.30%
+todd_exp_packedlocal_diff_1111_p10 ... T: 70 -> 19, time: 0.026461s, nullspace: 0.718ms, sketch: 10.29ms, reject: 95.85%
+todd_exp_packedlocal_diff_1111_p15 ... T: 70 -> 19, time: 0.038372s, nullspace: 0.449ms, sketch: 17.348ms, reject: 97.74%
+todd_exp_packedlocal_diff_1111_p20 ... T: 70 -> 19, time: 0.032342s, nullspace: 0.222ms, sketch: 16.734ms, reject: 98.67%
+
+========================================
+Done
+Results: /home/ryo-mtmt/TOpt/forme/sketch_experiments/multi_20260528_070953
+CSV:     /home/ryo-mtmt/TOpt/forme/sketch_experiments/multi_20260528_070953/summary.csv
+========================================

@@ -107,6 +107,9 @@ namespace SYNTHESIS_ALGORITHM_TAG {
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI = "lx2_dynamic_repair_chi";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED = "lx2_dynamic_repair_chi_packed";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA = "lx2_dynamic_repair_chi_packed_aa";
+    const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH = "lx2_dynamic_repair_chi_packed_aa_sketch";
+    const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_SKETCH_NOREUSE = "lx2_dynamic_repair_chi_packed_aa_sketch_noreuse";
+    const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_AA_BASIS_FIRST_SKETCH = "lx2_dynamic_repair_chi_packed_aa_basis_first_sketch";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_MEMO = "lx2_dynamic_repair_chi_packed_memo";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_M4RI = "lx2_dynamic_repair_chi_packed_m4ri";
     const string LEMPEL_X_2_DYNAMIC_REPAIR_CHI_PACKED_BASIS_M4RI = "lx2_dynamic_repair_chi_packed_basis_m4ri";

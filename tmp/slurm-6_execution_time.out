@@ -1,0 +1,198 @@
+========================================
+ multi-circuit AA sketch-before-basis experiments
+ Input dir: /home/ryo-mtmt/TOpt/forme/tpar_benchmark
+ Output:    /home/ryo-mtmt/TOpt/forme/sketch_experiments/aa_sketch_multi_20260603_135857
+ Circuits:  23
+ Algos:     6
+ Runs:      138
+========================================
+
+=== barenco_tof_3.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 28 -> 14, time: 0.003s, sketch_filtered: , sketch_reject: %, basis: 2.678ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 28 -> 14, time: 0.003s, sketch_filtered: 45, sketch_reject: 38.7931%, basis: 1.738ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 28 -> 14, time: 0.002s, sketch_filtered: 65, sketch_reject: 56.0345%, basis: 1.212ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 28 -> 14, time: 0.002s, sketch_filtered: 76, sketch_reject: 65.5172%, basis: 0.878ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 28 -> 14, time: 0.002s, sketch_filtered: 91, sketch_reject: 78.4483%, basis: 0.634ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 28 -> 14, time: 0.002s, sketch_filtered: 92, sketch_reject: 79.3103%, basis: 0.599ms
+
+=== barenco_tof_4.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 56 -> 24, time: 0.041s, sketch_filtered: , sketch_reject: %, basis: 39.914ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 56 -> 24, time: 0.034s, sketch_filtered: 149, sketch_reject: 41.8539%, basis: 24.166ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 56 -> 24, time: 0.026s, sketch_filtered: 234, sketch_reject: 65.7303%, basis: 13.408ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 56 -> 24, time: 0.023s, sketch_filtered: 266, sketch_reject: 74.7191%, basis: 9.441ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 56 -> 24, time: 0.023s, sketch_filtered: 293, sketch_reject: 82.3034%, basis: 6.693ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 56 -> 24, time: 0.022s, sketch_filtered: 312, sketch_reject: 87.6404%, basis: 4.61ms
+
+=== barenco_tof_5.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 84 -> 34, time: 0.203s, sketch_filtered: , sketch_reject: %, basis: 198.339ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 84 -> 34, time: 0.152s, sketch_filtered: 331, sketch_reject: 46.2937%, basis: 102.248ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 84 -> 34, time: 0.107s, sketch_filtered: 505, sketch_reject: 70.6294%, basis: 46.852ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 84 -> 34, time: 0.103s, sketch_filtered: 549, sketch_reject: 76.7832%, basis: 35.492ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 84 -> 34, time: 0.100s, sketch_filtered: 610, sketch_reject: 85.3147%, basis: 21.646ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 84 -> 34, time: 0.099s, sketch_filtered: 642, sketch_reject: 89.7902%, basis: 14.223ms
+
+=== barenco_tof_10.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 224 -> 84, time: 10.961s, sketch_filtered: , sketch_reject: %, basis: 10775.5ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 224 -> 84, time: 6.431s, sketch_filtered: 2595, sketch_reject: 54.5627%, basis: 4219.77ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 224 -> 84, time: 7.858s, sketch_filtered: 3667, sketch_reject: 77.1026%, basis: 3197.02ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 224 -> 84, time: 5.879s, sketch_filtered: 4007, sketch_reject: 84.2515%, basis: 1999.12ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 224 -> 84, time: 5.881s, sketch_filtered: 4303, sketch_reject: 90.4752%, basis: 1187.52ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 224 -> 84, time: 4.813s, sketch_filtered: 4421, sketch_reject: 92.9563%, basis: 663.585ms
+
+=== gf2^4_mult.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 112 -> 54, time: 0.338s, sketch_filtered: , sketch_reject: %, basis: 327.225ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 112 -> 54, time: 0.449s, sketch_filtered: 258, sketch_reject: 17.6109%, basis: 337.523ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 112 -> 54, time: 0.182s, sketch_filtered: 898, sketch_reject: 61.2969%, basis: 96.1ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 112 -> 54, time: 0.249s, sketch_filtered: 1132, sketch_reject: 77.2696%, basis: 90.589ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 112 -> 54, time: 0.140s, sketch_filtered: 1285, sketch_reject: 87.7133%, basis: 29.005ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 112 -> 54, time: 0.137s, sketch_filtered: 1342, sketch_reject: 91.6041%, basis: 18.947ms
+
+=== gf2^5_mult.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 175 -> 88, time: 3.025s, sketch_filtered: , sketch_reject: %, basis: 2974.15ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 175 -> 88, time: 3.536s, sketch_filtered: 1184, sketch_reject: 20.5449%, basis: 2811.28ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 175 -> 88, time: 1.693s, sketch_filtered: 3312, sketch_reject: 57.4701%, basis: 954.95ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 175 -> 88, time: 2.461s, sketch_filtered: 4121, sketch_reject: 71.5079%, basis: 1039.65ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 175 -> 88, time: 1.290s, sketch_filtered: 4896, sketch_reject: 84.9558%, basis: 302.199ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 175 -> 88, time: 1.705s, sketch_filtered: 5172, sketch_reject: 89.7449%, basis: 325.901ms
+
+=== gf2^6_mult.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 252 -> 122, time: 7.065s, sketch_filtered: , sketch_reject: %, basis: 6984.99ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 252 -> 122, time: 6.811s, sketch_filtered: 1681, sketch_reject: 21.4742%, basis: 5409.2ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 252 -> 122, time: 3.570s, sketch_filtered: 5456, sketch_reject: 69.6985%, basis: 1763.1ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 252 -> 122, time: 3.087s, sketch_filtered: 6529, sketch_reject: 83.4057%, basis: 962.684ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 252 -> 122, time: 2.810s, sketch_filtered: 7172, sketch_reject: 91.6198%, basis: 383.35ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 252 -> 122, time: 3.192s, sketch_filtered: 7362, sketch_reject: 94.047%, basis: 358.6ms
+
+=== gf2^7_mult.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 343 -> 164, time: 28.995s, sketch_filtered: , sketch_reject: %, basis: 28680.3ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 343 -> 164, time: 30.477s, sketch_filtered: 2350, sketch_reject: 12.0426%, basis: 25072.4ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 343 -> 164, time: 20.104s, sketch_filtered: 9958, sketch_reject: 51.03%, basis: 12756.6ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 343 -> 164, time: 15.223s, sketch_filtered: 13227, sketch_reject: 67.7821%, basis: 7190.63ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 343 -> 164, time: 14.233s, sketch_filtered: 15987, sketch_reject: 81.9258%, basis: 4375.45ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 343 -> 164, time: 12.965s, sketch_filtered: 17041, sketch_reject: 87.327%, basis: 2536.18ms
+
+=== gf2^8_mult.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 448 -> 220, time: 75.885s, sketch_filtered: , sketch_reject: %, basis: 75318.8ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 448 -> 220, time: 82.671s, sketch_filtered: 1912, sketch_reject: 7.67625%, basis: 69808.6ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 448 -> 220, time: 38.877s, sketch_filtered: 16282, sketch_reject: 65.3686%, basis: 21836.5ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 448 -> 220, time: 28.657s, sketch_filtered: 20843, sketch_reject: 83.6799%, basis: 9018.27ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 448 -> 220, time: 26.218s, sketch_filtered: 23186, sketch_reject: 93.0866%, basis: 3020.37ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 448 -> 220, time: 27.408s, sketch_filtered: 23803, sketch_reject: 95.5637%, basis: 1722.48ms
+
+=== grover_5.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 336 -> 144, time: 126.827s, sketch_filtered: , sketch_reject: %, basis: 125261ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 336 -> 144, time: 111.751s, sketch_filtered: 4270, sketch_reject: 28.6289%, basis: 92665.3ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 336 -> 144, time: 69.180s, sketch_filtered: 9464, sketch_reject: 63.4529%, basis: 45060.4ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 336 -> 144, time: 54.764s, sketch_filtered: 11552, sketch_reject: 77.4522%, basis: 27074.2ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 336 -> 144, time: 46.851s, sketch_filtered: 13204, sketch_reject: 88.5283%, basis: 13899.8ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 336 -> 144, time: 45.848s, sketch_filtered: 13792, sketch_reject: 92.4707%, basis: 9179.42ms
+
+=== hwb6.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 105 -> 52, time: 2.172s, sketch_filtered: , sketch_reject: %, basis: 2003.02ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 105 -> 52, time: 0.798s, sketch_filtered: 1785, sketch_reject: 65.7701%, basis: 400.129ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 105 -> 52, time: 1.215s, sketch_filtered: 2138, sketch_reject: 78.7767%, basis: 407.145ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 105 -> 52, time: 0.699s, sketch_filtered: 2296, sketch_reject: 84.5984%, basis: 172.511ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 105 -> 52, time: 1.238s, sketch_filtered: 2426, sketch_reject: 89.3884%, basis: 207.618ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 105 -> 52, time: 1.289s, sketch_filtered: 2489, sketch_reject: 91.7097%, basis: 172.247ms
+
+=== mod5_4.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 28 -> 16, time: 0.003s, sketch_filtered: , sketch_reject: %, basis: 3.489ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 28 -> 16, time: 0.005s, sketch_filtered: 19, sketch_reject: 15.8333%, basis: 3.789ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 28 -> 16, time: 0.004s, sketch_filtered: 44, sketch_reject: 36.6667%, basis: 2.899ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 28 -> 16, time: 0.003s, sketch_filtered: 59, sketch_reject: 49.1667%, basis: 2.038ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 28 -> 16, time: 0.003s, sketch_filtered: 80, sketch_reject: 66.6667%, basis: 1.634ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 28 -> 16, time: 0.003s, sketch_filtered: 87, sketch_reject: 72.5%, basis: 1.346ms
+
+=== mod_mult_55.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 49 -> 17, time: 0.022s, sketch_filtered: , sketch_reject: %, basis: 20.069ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 49 -> 17, time: 0.023s, sketch_filtered: 91, sketch_reject: 40.8072%, basis: 12.727ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 49 -> 17, time: 0.015s, sketch_filtered: 135, sketch_reject: 60.5381%, basis: 6.401ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 49 -> 17, time: 0.019s, sketch_filtered: 150, sketch_reject: 67.2646%, basis: 6.567ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 49 -> 17, time: 0.014s, sketch_filtered: 173, sketch_reject: 77.5785%, basis: 3.513ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 49 -> 17, time: 0.015s, sketch_filtered: 182, sketch_reject: 81.6143%, basis: 2.89ms
+
+=== mod_red_21.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 119 -> 52, time: 1.878s, sketch_filtered: , sketch_reject: %, basis: 1835.17ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 119 -> 52, time: 1.192s, sketch_filtered: 1302, sketch_reject: 38.5549%, basis: 882.511ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 119 -> 52, time: 1.508s, sketch_filtered: 2119, sketch_reject: 62.748%, basis: 852.203ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 119 -> 52, time: 0.778s, sketch_filtered: 2473, sketch_reject: 73.2307%, basis: 346.357ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 119 -> 52, time: 1.052s, sketch_filtered: 2793, sketch_reject: 82.7065%, basis: 341.594ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 119 -> 52, time: 1.200s, sketch_filtered: 2927, sketch_reject: 86.6746%, basis: 267.676ms
+
+=== qcla_com_7.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 203 -> 62, time: 5.585s, sketch_filtered: , sketch_reject: %, basis: 5480.74ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 203 -> 62, time: 3.187s, sketch_filtered: 3234, sketch_reject: 72.8214%, basis: 1708.28ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 203 -> 62, time: 3.363s, sketch_filtered: 3834, sketch_reject: 86.3319%, basis: 916.167ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 203 -> 62, time: 2.630s, sketch_filtered: 4024, sketch_reject: 90.6102%, basis: 538.485ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 203 -> 62, time: 2.054s, sketch_filtered: 4196, sketch_reject: 94.4832%, basis: 189.975ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 203 -> 62, time: 3.243s, sketch_filtered: 4247, sketch_reject: 95.6316%, basis: 268.804ms
+
+=== qft_4.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 14 -> 12, time: 0.001s, sketch_filtered: , sketch_reject: %, basis: 1.606ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 14 -> 12, time: 0.002s, sketch_filtered: 27, sketch_reject: 29.6703%, basis: 1.446ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 14 -> 12, time: 0.002s, sketch_filtered: 48, sketch_reject: 52.7473%, basis: 1.06ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 14 -> 12, time: 0.002s, sketch_filtered: 57, sketch_reject: 62.6374%, basis: 0.823ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 14 -> 12, time: 0.002s, sketch_filtered: 72, sketch_reject: 79.1209%, basis: 0.519ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 14 -> 12, time: 0.002s, sketch_filtered: 74, sketch_reject: 81.3187%, basis: 0.477ms
+
+=== rc_adder_6.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 77 -> 38, time: 1.040s, sketch_filtered: , sketch_reject: %, basis: 1007.83ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 77 -> 38, time: 0.331s, sketch_filtered: 840, sketch_reject: 65.5738%, basis: 157.123ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 77 -> 38, time: 0.503s, sketch_filtered: 1051, sketch_reject: 82.0453%, basis: 146.749ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 77 -> 38, time: 0.502s, sketch_filtered: 1123, sketch_reject: 87.6659%, basis: 105.155ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 77 -> 38, time: 0.522s, sketch_filtered: 1193, sketch_reject: 93.1304%, basis: 65.573ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 77 -> 38, time: 0.322s, sketch_filtered: 1225, sketch_reject: 95.6284%, basis: 28.238ms
+
+=== tof_3.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 21 -> 13, time: 0.001s, sketch_filtered: , sketch_reject: %, basis: 1.553ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 21 -> 13, time: 0.001s, sketch_filtered: 33, sketch_reject: 32.0388%, basis: 1.046ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 21 -> 13, time: 0.002s, sketch_filtered: 49, sketch_reject: 47.5728%, basis: 1.156ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 21 -> 13, time: 0.002s, sketch_filtered: 55, sketch_reject: 53.3981%, basis: 1.071ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 21 -> 13, time: 0.001s, sketch_filtered: 69, sketch_reject: 66.9903%, basis: 0.539ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 21 -> 13, time: 0.001s, sketch_filtered: 75, sketch_reject: 72.8155%, basis: 0.498ms
+
+=== tof_4.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 35 -> 19, time: 0.013s, sketch_filtered: , sketch_reject: %, basis: 13.074ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 35 -> 19, time: 0.011s, sketch_filtered: 71, sketch_reject: 30.8696%, basis: 7.811ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 35 -> 19, time: 0.008s, sketch_filtered: 128, sketch_reject: 55.6522%, basis: 4.431ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 35 -> 19, time: 0.007s, sketch_filtered: 141, sketch_reject: 61.3043%, basis: 3.569ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 35 -> 19, time: 0.007s, sketch_filtered: 173, sketch_reject: 75.2174%, basis: 2.531ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 35 -> 19, time: 0.008s, sketch_filtered: 181, sketch_reject: 78.6957%, basis: 2.513ms
+
+=== tof_5.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 49 -> 25, time: 0.055s, sketch_filtered: , sketch_reject: %, basis: 52.968ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 49 -> 25, time: 0.036s, sketch_filtered: 134, sketch_reject: 31.4554%, basis: 26.014ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 49 -> 25, time: 0.029s, sketch_filtered: 232, sketch_reject: 54.4601%, basis: 15.888ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 49 -> 25, time: 0.026s, sketch_filtered: 285, sketch_reject: 66.9014%, basis: 11.186ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 49 -> 25, time: 0.031s, sketch_filtered: 330, sketch_reject: 77.4648%, basis: 8.877ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 49 -> 25, time: 0.024s, sketch_filtered: 355, sketch_reject: 83.3333%, basis: 5.979ms
+
+=== tof_10.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 119 -> 55, time: 2.798s, sketch_filtered: , sketch_reject: %, basis: 2739.89ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 119 -> 55, time: 1.021s, sketch_filtered: 1120, sketch_reject: 49.361%, basis: 658.843ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 119 -> 55, time: 0.771s, sketch_filtered: 1582, sketch_reject: 69.7223%, basis: 328.897ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 119 -> 55, time: 1.206s, sketch_filtered: 1762, sketch_reject: 77.6554%, basis: 358.69ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 119 -> 55, time: 0.725s, sketch_filtered: 1924, sketch_reject: 84.7951%, basis: 141.951ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 119 -> 55, time: 1.261s, sketch_filtered: 2005, sketch_reject: 88.3649%, basis: 179.914ms
+
+=== vbe_adder_3.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 70 -> 19, time: 0.020s, sketch_filtered: , sketch_reject: %, basis: 19.78ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 70 -> 19, time: 0.009s, sketch_filtered: 164, sketch_reject: 72.8889%, basis: 4.188ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 70 -> 19, time: 0.009s, sketch_filtered: 199, sketch_reject: 88.4444%, basis: 2.216ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 70 -> 19, time: 0.011s, sketch_filtered: 207, sketch_reject: 92%, basis: 1.993ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 70 -> 19, time: 0.012s, sketch_filtered: 215, sketch_reject: 95.5556%, basis: 1.332ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 70 -> 19, time: 0.012s, sketch_filtered: 222, sketch_reject: 98.6667%, basis: 0.534ms
+
+=== gf2^9_mult.tfc ===
+lx2_dynamic_repair_chi_packed_aa ... T: 567 -> 281, time: 219.647s, sketch_filtered: , sketch_reject: %, basis: 218289ms
+lx2_dynamic_repair_chi_packed_aa_sketch_5 ... T: 567 -> 281, time: 231.347s, sketch_filtered: 3928, sketch_reject: 9.33216%, basis: 196212ms
+lx2_dynamic_repair_chi_packed_aa_sketch_8 ... T: 567 -> 281, time: 101.847s, sketch_filtered: 29016, sketch_reject: 68.9364%, basis: 54657.9ms
+lx2_dynamic_repair_chi_packed_aa_sketch_10 ... T: 567 -> 281, time: 78.939s, sketch_filtered: 35711, sketch_reject: 84.8424%, basis: 24040.1ms
+lx2_dynamic_repair_chi_packed_aa_sketch_13 ... T: 567 -> 281, time: 73.819s, sketch_filtered: 38874, sketch_reject: 92.357%, basis: 9360.45ms
+lx2_dynamic_repair_chi_packed_aa_sketch_15 ... T: 567 -> 281, time: 76.272s, sketch_filtered: 39985, sketch_reject: 94.9966%, basis: 5476.95ms
+
+========================================
+Done
+Results: /home/ryo-mtmt/TOpt/forme/sketch_experiments/aa_sketch_multi_20260603_135857
+CSV:     /home/ryo-mtmt/TOpt/forme/sketch_experiments/aa_sketch_multi_20260603_135857/summary.csv
+========================================

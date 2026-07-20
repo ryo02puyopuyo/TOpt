@@ -1,0 +1,22 @@
+========================================
+ gf2^7_mult sketch experiments
+ Input:   /home/ryo-mtmt/TOpt/forme/tpar_benchmark/gf2^7_mult.tfc
+ Output:  /home/ryo-mtmt/TOpt/forme/sketch_experiments/gf2_7_mult_20260528_045251
+ Runs:    10
+========================================
+todd_exp_packedlocal_diff_1110 ... T: 343 -> 164, time: 41.6666s, sketch rejected: 0, full skipped: 0
+todd_exp_packedlocal_diff_1111_m16 ... T: 343 -> 164, time: 43.8688s, sketch rejected: 65, full skipped: 65
+todd_exp_packedlocal_diff_1111_m32 ... T: 343 -> 164, time: 44.3047s, sketch rejected: 73, full skipped: 73
+todd_exp_packedlocal_diff_1111_m64 ... T: 343 -> 164, time: 44.1843s, sketch rejected: 109, full skipped: 109
+todd_exp_packedlocal_diff_1111_r128 ... T: 343 -> 164, time: 43.714s, sketch rejected: 59, full skipped: 59
+todd_exp_packedlocal_diff_1111_r256 ... T: 343 -> 164, time: 46.4507s, sketch rejected: 134, full skipped: 134
+todd_exp_packedlocal_diff_1111_r512 ... T: 343 -> 164, time: 46.0648s, sketch rejected: 451, full skipped: 451
+todd_exp_packedlocal_diff_1111_p5 ... T: 343 -> 164, time: 42.4383s, sketch rejected: 1994, full skipped: 1994
+todd_exp_packedlocal_diff_1111_p10 ... T: 343 -> 164, time: 23.9205s, sketch rejected: 12459, full skipped: 12460
+todd_exp_packedlocal_diff_1111_p20 ... T: 343 -> 164, time: 27.9193s, sketch rejected: 17892, full skipped: 17896
+
+========================================
+Done
+Results: /home/ryo-mtmt/TOpt/forme/sketch_experiments/gf2_7_mult_20260528_045251
+CSV:     /home/ryo-mtmt/TOpt/forme/sketch_experiments/gf2_7_mult_20260528_045251/summary.csv
+========================================

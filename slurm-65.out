@@ -1,0 +1,27 @@
+Output directory: /home/ryo-mtmt/TOpt/forme/sketch_experiments/aa_sketch_detail_20260619_084626
+CSV: /home/ryo-mtmt/TOpt/forme/sketch_experiments/aa_sketch_detail_20260619_084626/summary.csv
+Circuits: gf2^10_mult.tfc gf2^16_mult.tfc qcla_mod_7.tfc
+p list: 3 5 8 10 13 15 20 25 30
+Variants: reuse noreuse
+[2026-06-19 08:46:26] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa
+[2026-06-19 08:55:08] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_3
+[2026-06-19 09:04:46] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_3
+[2026-06-19 09:15:58] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_5
+[2026-06-19 09:25:39] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_5
+[2026-06-19 09:36:52] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_8
+[2026-06-19 09:42:12] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_8
+[2026-06-19 09:48:14] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_10
+[2026-06-19 09:52:02] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_10
+[2026-06-19 09:56:13] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_13
+[2026-06-19 09:59:36] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_13
+[2026-06-19 10:03:11] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_15
+[2026-06-19 10:06:40] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_15
+[2026-06-19 10:10:18] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_20
+[2026-06-19 10:14:20] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_20
+[2026-06-19 10:18:25] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_25
+[2026-06-19 10:23:06] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_25
+[2026-06-19 10:27:49] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_30
+[2026-06-19 10:33:12] RUN circuit=gf2^10_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_noreuse_30
+[2026-06-19 10:38:36] RUN circuit=gf2^16_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa
+[2026-06-20 13:17:50] RUN circuit=gf2^16_mult.tfc algo=lx2_dynamic_repair_chi_packed_aa_sketch_3
+slurmstepd: error: *** JOB 65 ON flogger CANCELLED AT 2026-06-21T13:07:06 ***
